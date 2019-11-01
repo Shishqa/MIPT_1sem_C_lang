@@ -1,0 +1,10 @@
+var searchData=
+[
+  ['charreplace',['CharReplace',['../streamlib_8c.html#a0e23c464600b7030d096aefc50c97c7c',1,'CharReplace(char *buffer, const int len, char from_sample, char to_sample):&#160;streamlib.c'],['../streamlib_8h.html#a0e23c464600b7030d096aefc50c97c7c',1,'CharReplace(char *buffer, const int len, char from_sample, char to_sample):&#160;streamlib.c']]],
+  ['cmp_5fint',['cmp_int',['../streamlib_8c.html#a5b657d7fedc5007fd487f61037fc84f3',1,'cmp_int(const void *a, const void *b):&#160;streamlib.c'],['../streamlib_8h.html#a5b657d7fedc5007fd487f61037fc84f3',1,'cmp_int(const void *a, const void *b):&#160;streamlib.c']]],
+  ['cmpback',['CmpBack',['../streamlib_8c.html#a45b3640c2fb63dc19d51af65ce6c2887',1,'CmpBack(String str1, String str2):&#160;streamlib.c'],['../streamlib_8h.html#a45b3640c2fb63dc19d51af65ce6c2887',1,'CmpBack(String str1, String str2):&#160;streamlib.c']]],
+  ['cmpfront',['CmpFront',['../streamlib_8c.html#a08ccd4481a3d1ed3d80077c47cde4ac9',1,'CmpFront(String str1, String str2):&#160;streamlib.c'],['../streamlib_8h.html#a08ccd4481a3d1ed3d80077c47cde4ac9',1,'CmpFront(String str1, String str2):&#160;streamlib.c']]],
+  ['comp_5fback',['comp_back',['../streamlib_8c.html#a63593b655b99baa04e849febba9e7c86',1,'comp_back(const void *a, const void *b):&#160;streamlib.c'],['../streamlib_8h.html#a63593b655b99baa04e849febba9e7c86',1,'comp_back(const void *a, const void *b):&#160;streamlib.c']]],
+  ['comp_5ffront',['comp_front',['../streamlib_8c.html#a1ddf75dde136038c1324861de7d5935a',1,'comp_front(const void *a, const void *b):&#160;streamlib.c'],['../streamlib_8h.html#a1ddf75dde136038c1324861de7d5935a',1,'comp_front(const void *a, const void *b):&#160;streamlib.c']]],
+  ['copybytes',['CopyBytes',['../streamlib_8c.html#aeb3dde17dcb385cfe65bf6eed3d974db',1,'CopyBytes(void *from, void *to, const int num, size_t type_size):&#160;streamlib.c'],['../streamlib_8h.html#aeb3dde17dcb385cfe65bf6eed3d974db',1,'CopyBytes(void *from, void *to, const int num, size_t type_size):&#160;streamlib.c']]]
+];
