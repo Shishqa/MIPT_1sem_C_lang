@@ -8,11 +8,10 @@
 #ifndef MS_LINKED_LIST_METHODS_H_
 #define MS_LINKED_LIST_METHODS_H_
 
-
 template <typename elem_t>
-bool LinkedList<elem_t>::init (const size_t size)
+bool LinkedList<elem_t>::init(const size_t size)
 {
-	this->data = (Node <elem_t> *) calloc (size, sizeof(*this->data));
+	this->data = (Node<elem_t> *)calloc(size, sizeof(*this->data));
 
 	this->data[0].init(this->POISON, DEADLOCK, DEADLOCK);
 
@@ -24,8 +23,8 @@ bool LinkedList<elem_t>::init (const size_t size)
 	this->data[size - 1].init(this->POISON, DEADLOCK, EMPTY_MARKER);
 
 	this->empty = 1;
-	this->head  = DEADLOCK;
-	this->tail  = DEADLOCK;
+	this->head = DEADLOCK;
+	this->tail = DEADLOCK;
 
 	this->max_size = size;
 	this->size = 0;
@@ -36,9 +35,9 @@ bool LinkedList<elem_t>::init (const size_t size)
 }
 
 template <typename elem_t>
-bool LinkedList<elem_t>::clear ()
+bool LinkedList<elem_t>::clear()
 {
-	free (this->data);
+	free(this->data);
 
 	this->max_size = 0;
 
@@ -46,32 +45,35 @@ bool LinkedList<elem_t>::clear ()
 }
 
 template <typename elem_t>
-void LinkedList<elem_t>::dump (FILE* log)
+void LinkedList<elem_t>::dump(FILE *log)
 {
-	fprintf (log, "LinkedList [%p]\n", this);
-	fprintf (log, "-----------------------------------------\n");
-	fprintf (log, "i\t|\tval\tnext\tprev\n");
+	fprintf(log, "LinkedList [%p]\n", this);
+	fprintf(log, "size = %lu\n", this->size);
+	fprintf(log, "max_size = %lu\n", this->max_size);
+	fprintf(log, "%saligned\n", ((this->aligned) ? "" : "not "));
+	fprintf(log, "-------------------------------------------\n");
+	fprintf(log, "i\t|\tval\tnext\tprev\n");
 
 	for (size_t i = 0; i < this->max_size; i++)
 	{
-		fprintf (log, "%lu ",i);
-		fprintf (log, "%s", ((i == this->head) ? ("H") : ("")));
-		fprintf (log, "%s", ((i == this->tail) ? ("T") : ("")));
-		fprintf (log, "%s", ((i == this->empty) ? ("E") : ("")));
-		fprintf (log, "\t|\t");
-		fprintf (log, "%d%s\t%d\t%d\n", this->data[i].val,
-					((this->data[i].val == this->POISON) ? ("(P)") : ("")),
-					this->data[i].next, this->data[i].prev);
+		fprintf(log, "%lu ", i);
+		fprintf(log, "%s", ((i == this->head) ? ("H") : ("")));
+		fprintf(log, "%s", ((i == this->tail) ? ("T") : ("")));
+		fprintf(log, "%s", ((i == this->empty) ? ("E") : ("")));
+		fprintf(log, "\t|\t");
+		fprintf(log, "%d%s\t%d\t%d\n", this->data[i].val,
+				((this->data[i].val == this->POISON) ? ("(P)") : ("")),
+				this->data[i].next, this->data[i].prev);
 	}
 
-	fprintf (log, "-----------------------------------------\n");
+	fprintf(log, "-------------------------------------------\n");
 }
 
-
 template <typename elem_t>
-int LinkedList<elem_t>::insertAfter (const int index, const elem_t val)
+int LinkedList<elem_t>::insertAfter(const int index, const elem_t val)
 {
-	if (index <= 0 || index > this->size || this->empty == DEADLOCK || this->data[index].prev == EMPTY_MARKER)
+	if (this->size == 0 || index <= 0 || index > this->size ||
+		this->empty == DEADLOCK || this->data[index].prev == EMPTY_MARKER)
 	{
 		return (DEADLOCK);
 	}
@@ -98,9 +100,10 @@ int LinkedList<elem_t>::insertAfter (const int index, const elem_t val)
 }
 
 template <typename elem_t>
-int LinkedList<elem_t>::insertBefore (const int index, const elem_t val)
+int LinkedList<elem_t>::insertBefore(const int index, const elem_t val)
 {
-	if (index <= 0 || index > this->size || this->empty == DEADLOCK || this->data[index].prev == EMPTY_MARKER)
+	if (this->size == 0 || index <= 0 || index > this->size ||
+		this->empty == DEADLOCK || this->data[index].prev == EMPTY_MARKER)
 	{
 		return (DEADLOCK);
 	}
@@ -127,7 +130,7 @@ int LinkedList<elem_t>::insertBefore (const int index, const elem_t val)
 }
 
 template <typename elem_t>
-int LinkedList<elem_t>::insertBack (const elem_t val)
+int LinkedList<elem_t>::insertBack(const elem_t val)
 {
 	if (this->empty == DEADLOCK)
 	{
@@ -155,9 +158,8 @@ int LinkedList<elem_t>::insertBack (const elem_t val)
 	return (nest_index);
 }
 
-
 template <typename elem_t>
-int LinkedList<elem_t>::insertFront (const elem_t val)
+int LinkedList<elem_t>::insertFront(const elem_t val)
 {
 	if (this->empty == DEADLOCK)
 	{
@@ -185,11 +187,11 @@ int LinkedList<elem_t>::insertFront (const elem_t val)
 	return (nest_index);
 }
 
-
 template <typename elem_t>
-int LinkedList<elem_t>::remove (const int index)
+int LinkedList<elem_t>::remove(const int index)
 {
-	if (index <= 0 || index > this->size)
+	if (this->size == 0 || index <= 0 || index > this->size ||
+		this->data[index].prev == EMPTY_MARKER)
 	{
 		return (DEADLOCK);
 	}
@@ -222,7 +224,12 @@ int LinkedList<elem_t>::remove (const int index)
 }
 
 template <typename elem_t>
-int LinkedList<elem_t>::findPhysicalPositionByValue (const elem_t val)
+bool LinkedList<elem_t>::alignIndexes()
+{
+}
+
+template <typename elem_t>
+int LinkedList<elem_t>::findPhysicalPositionByValue(const elem_t val)
 {
 	for (int i = this->head; i != DEADLOCK; i = this->data[i].next)
 	{
@@ -236,7 +243,7 @@ int LinkedList<elem_t>::findPhysicalPositionByValue (const elem_t val)
 }
 
 template <typename elem_t>
-int LinkedList<elem_t>::findPhysicalPositionByLogical (int index)
+int LinkedList<elem_t>::findPhysicalPositionByLogical(int index)
 {
 	if (index > this->size)
 	{
@@ -268,25 +275,9 @@ int LinkedList<elem_t>::findPhysicalPositionByLogical (int index)
 }
 
 template <typename elem_t>
-elem_t LinkedList<elem_t>::operator[](const int index)
+bool LinkedList<elem_t>::valid()
 {
-	if (this->aligned)
-	{
-		return (this->data[index].val);
-	}
-	else
-	{
-		return (this->data[this->findPhysicalPositionByLogical(index)].val);
-	}
-}
-
-template <typename elem_t>
-bool LinkedList<elem_t>::valid ()
-{
-	//printf ("data is %s\n", ((this->headMetTail()) ? "OK" : "NOT OK"));
-	//printf ("empty is %s\n", ((this->emptyOK()) ? "OK" : "NOT OK"));
-
-	if (!this->headMetTail() || !this->emptyOK())
+	if (!this->dataOK() || !this->emptyOK())
 	{
 		return (false);
 	}
@@ -294,9 +285,8 @@ bool LinkedList<elem_t>::valid ()
 	return (true);
 }
 
-
 template <typename elem_t>
-bool LinkedList<elem_t>::headMetTail ()
+bool LinkedList<elem_t>::dataOK()
 {
 	size_t elem_cnt = 0;
 
@@ -345,7 +335,7 @@ bool LinkedList<elem_t>::headMetTail ()
 }
 
 template <typename elem_t>
-bool LinkedList<elem_t>::emptyOK ()
+bool LinkedList<elem_t>::emptyOK()
 {
 	size_t elem_cnt = 0;
 

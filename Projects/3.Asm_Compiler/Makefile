@@ -3,6 +3,12 @@ CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
 
 BIN		:= bin
 SRC		:= src
+
+SUBPROJ1	:= asm
+SUBPROJ2	:= cpu
+SUBPROJ3	:= disasm
+SUBPROJ4	:= make_asm
+
 INCLUDE	:= ../../Include
 LIB		:= ../../Include/Lib
 
@@ -36,3 +42,6 @@ $(EXECUTABLE): $(OBJECTS)
 
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
+
+asm: asm.o
+	

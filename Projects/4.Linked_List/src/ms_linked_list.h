@@ -13,56 +13,56 @@
 const int EMPTY_MARKER = -1;
 const int DEADLOCK = 0;
 
-template <typename elem_t> struct Node
+template <typename elem_t>
+struct Node
 {
-	public:
-		elem_t val;
-		int next;
-		int prev;
+public:
+	elem_t val;
+	int next;
+	int prev;
 
-		bool init  (const elem_t val, const int next, const int prev);
-		bool clear (const elem_t poison_val, const int empty);
+	bool init(const elem_t val, const int next, const int prev);
+	bool clear(const elem_t poison_val, const int empty);
 };
 
-
-template <typename elem_t> class LinkedList
+template <typename elem_t>
+class LinkedList
 {
-	private:
-		Node <elem_t> * data;
-		size_t max_size;
-		int head;
-		int tail;
-		int empty;
-		const elem_t POISON = -666;
+private:
+	Node<elem_t> *data;
+	size_t max_size;
+	int head;
+	int tail;
+	int empty;
+	const elem_t POISON = -666;
+	bool aligned;
+	size_t size;
 
-	public:
-		size_t size;
-		bool aligned;
+	int cmp(const void *a, const void *b);
+	int comp_logic_pos()
 
-		bool init  (const size_t size);
-		bool clear ();
+public:
+	bool init(const size_t size);
+	bool clear();
 
-		int getNest ();
+	size_t size();
 
-		int insertAfter  (const int index, const elem_t val);
-		int insertBefore (const int index, const elem_t val);
-		int insertFront  (const elem_t val);
-		int insertBack   (const elem_t val);
-		int remove       (const int index);
+	int insertAfter(const int index, const elem_t val);
+	int insertBefore(const int index, const elem_t val);
+	int insertFront(const elem_t val);
+	int insertBack(const elem_t val);
+	int remove(const int index);
 
-		int findPhysicalPositionByLogical (int index);
-		int findPhysicalPositionByValue   (const elem_t val);
+	int findPhysicalPositionByLogical(int index);
+	int findPhysicalPositionByValue(const elem_t val);
 
-		elem_t operator[] (const int index);
+	bool alignIndexes();
 
-		bool alignIndexes ();
+	bool valid();
+	bool dataOK();
+	bool emptyOK();
 
-		bool valid       ();
-		bool headMetTail ();
-		bool emptyOK     ();
-
-		void dump (FILE* log);
+	void dump(FILE *log);
 };
-
 
 #endif /* MS_LINKED_LIST_H_ */
