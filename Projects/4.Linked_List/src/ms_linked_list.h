@@ -37,6 +37,7 @@ private:
 	const elem_t POISON = -666;
 	bool aligned;
 	size_t size;
+	size_t dump_cnt;
 
 	int cmp(const void *a, const void *b);
 	int comp_logic_pos();

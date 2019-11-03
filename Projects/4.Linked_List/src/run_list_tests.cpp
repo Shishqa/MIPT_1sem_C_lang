@@ -34,6 +34,10 @@ int main()
 	//test_list.dump(stdout);
 
 	test_list.graphDump();
+	test_list.graphDump();
+	test_list.graphDump();
+	test_list.graphDump();
+	test_list.graphDump();
 
 	//printf("3rd element is %d\n", test_list[3]);
 
