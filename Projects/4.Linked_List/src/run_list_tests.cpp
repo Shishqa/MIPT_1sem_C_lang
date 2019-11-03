@@ -26,18 +26,20 @@ int main()
 	test_list.insertBack(160);
 	test_list.insertFront(100);
 
-	test_list.dump(stdout);
+	//test_list.dump(stdout);
 
 	test_list.remove(1);
 	test_list.remove(2);
 
-	test_list.dump(stdout);
+	//test_list.dump(stdout);
 
-	printf("3rd element is %d\n", test_list[3]);
+	test_list.graphDump();
 
-	printf("test_list is %s\n", ((test_list.valid()) ? "OK" : "NOT OK"));
+	//printf("3rd element is %d\n", test_list[3]);
 
-	printf("second element is on the %lu position\n", test_list.findPhysicalPositionByLogical(2));
+	//printf("test_list is %s\n", ((test_list.valid()) ? "OK" : "NOT OK"));
+
+	//printf("second element is on the %lu position\n", test_list.findPhysicalPositionByLogical(2));
 
 	return (0);
 }

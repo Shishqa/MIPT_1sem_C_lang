@@ -39,13 +39,13 @@ private:
 	size_t size;
 
 	int cmp(const void *a, const void *b);
-	int comp_logic_pos()
+	int comp_logic_pos();
 
 public:
 	bool init(const size_t size);
 	bool clear();
 
-	size_t size();
+	size_t getSize();
 
 	int insertAfter(const int index, const elem_t val);
 	int insertBefore(const int index, const elem_t val);
@@ -56,6 +56,7 @@ public:
 	int findPhysicalPositionByLogical(int index);
 	int findPhysicalPositionByValue(const elem_t val);
 
+	bool isAligned();
 	bool alignIndexes();
 
 	bool valid();
@@ -63,6 +64,7 @@ public:
 	bool emptyOK();
 
 	void dump(FILE *log);
+	void graphDump();
 };
 
 #endif /* MS_LINKED_LIST_H_ */
