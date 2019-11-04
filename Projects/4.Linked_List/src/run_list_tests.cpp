@@ -31,19 +31,15 @@ int main()
 	test_list.remove(1);
 	test_list.remove(2);
 
-	//test_list.dump(stdout);
+	test_list.dump(stdout);
 
-	test_list.graphDump();
-	test_list.graphDump();
-	test_list.graphDump();
-	test_list.graphDump();
-	test_list.graphDump();
+	test_list.alignIndexes();
 
-	//printf("3rd element is %d\n", test_list[3]);
+	test_list.dump(stdout);
 
-	//printf("test_list is %s\n", ((test_list.valid()) ? "OK" : "NOT OK"));
+	test_list.remove(3);
 
-	//printf("second element is on the %lu position\n", test_list.findPhysicalPositionByLogical(2));
+	test_list.dump(stdout);
 
 	return (0);
 }

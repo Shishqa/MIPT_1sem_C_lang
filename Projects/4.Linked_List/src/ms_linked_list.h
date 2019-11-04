@@ -12,7 +12,6 @@
 
 const int EMPTY_MARKER = -1;
 const int DEADLOCK = 0;
-
 template <typename elem_t>
 struct Node
 {
@@ -39,9 +38,6 @@ private:
 	size_t size;
 	size_t dump_cnt;
 
-	int cmp(const void *a, const void *b);
-	int comp_logic_pos();
-
 public:
 	bool init(const size_t size);
 	bool clear();
@@ -67,5 +63,11 @@ public:
 	void dump(FILE *log);
 	void graphDump();
 };
+
+template <typename elem_t>
+int cmp(const void *a, const void *b);
+
+template <typename elem_t>
+int comp_logic_pos(Node<elem_t> a, Node<elem_t> b);
 
 #endif /* MS_LINKED_LIST_H_ */

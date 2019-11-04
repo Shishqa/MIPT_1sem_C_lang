@@ -9,6 +9,18 @@
 #define MS_LINKED_LIST_METHODS_H_
 
 template <typename elem_t>
+int cmp(const void *a, const void *b)
+{
+	return comp_logic_pos<elem_t>(*((Node<elem_t> *)a), *((Node<elem_t> *)b));
+}
+
+template <typename elem_t>
+int comp_logic_pos(Node<elem_t> a, Node<elem_t> b)
+{
+	return (a.next - b.next);
+}
+
+template <typename elem_t>
 bool LinkedList<elem_t>::init(const size_t size)
 {
 	this->data = (Node<elem_t> *)calloc(size, sizeof(*this->data));
@@ -154,6 +166,8 @@ int LinkedList<elem_t>::insertAfter(const int index, const elem_t val)
 		return (DEADLOCK);
 	}
 
+	this->aligned = false;
+
 	int nest_index = this->empty;
 	this->empty = this->data[this->empty].next;
 
@@ -184,6 +198,8 @@ int LinkedList<elem_t>::insertBefore(const int index, const elem_t val)
 		return (DEADLOCK);
 	}
 
+	this->aligned = false;
+
 	int nest_index = this->empty;
 	this->empty = this->data[this->empty].next;
 
@@ -213,6 +229,8 @@ int LinkedList<elem_t>::insertBack(const elem_t val)
 		return (DEADLOCK);
 	}
 
+	this->aligned = false;
+
 	int nest_index = this->empty;
 	this->empty = this->data[this->empty].next;
 
@@ -241,6 +259,8 @@ int LinkedList<elem_t>::insertFront(const elem_t val)
 	{
 		return (DEADLOCK);
 	}
+
+	this->aligned = false;
 
 	int nest_index = this->empty;
 	this->empty = this->data[this->empty].next;
@@ -272,6 +292,8 @@ int LinkedList<elem_t>::remove(const int index)
 		return (DEADLOCK);
 	}
 
+	this->aligned = false;
+
 	if (index == this->head)
 	{
 		this->head = this->data[index].next;
@@ -302,7 +324,40 @@ int LinkedList<elem_t>::remove(const int index)
 template <typename elem_t>
 bool LinkedList<elem_t>::alignIndexes()
 {
-	int cur = this->head;
+	if (!this->valid())
+	{
+		return (false);
+	}
+
+	for (int i = this->tail, cnt = 0; i != DEADLOCK; i = this->data[i].prev, cnt++)
+	{
+		this->data[i].next = this->size - cnt + 1;
+	}
+
+	for (size_t i = 1, cnt = 1; i < this->max_size; i++)
+	{
+		if (this->data[i].prev == EMPTY_MARKER)
+		{
+			this->data[i].next = this->size + (cnt++) + 1;
+		}
+		else
+		{
+			this->data[i].prev = this->data[i].next - 2;
+		}
+	}
+
+	qsort(this->data, this->max_size, sizeof(Node<elem_t>), &cmp<elem_t>);
+
+	this->data[this->size].next = DEADLOCK;
+	this->data[this->max_size - 1].next = DEADLOCK;
+
+	this->head = 1;
+	this->tail = this->size;
+	this->empty = this->size + 1;
+
+	this->aligned = true;
+
+	return (true);
 }
 
 template <typename elem_t>
