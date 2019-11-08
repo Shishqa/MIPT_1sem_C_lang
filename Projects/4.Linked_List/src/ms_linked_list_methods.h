@@ -116,46 +116,65 @@ void LinkedList<elem_t>::graphDump()
 
 	fprintf(log, "digraph DUMP\n{\n");
 
-	fprintf(log, "rankdir = \"LR\";");
+	fprintf(log, "rankdir = \"LR\";\n");
 
-	fprintf(log, "\t\"%p\" [shape = \"record\", label = \"info|size = %lu|max = %lu|POISON = %d\"];\n", this, this->size, this->max_size, this->POISON);
+	fprintf(log, "\t\"%p\" [rank = 0, shape = \"record\", label = \"info|size = %lu|max = %lu|POISON = %d\"];\n", this, this->size, this->max_size, this->POISON);
 
 	for (size_t i = 0; i < this->max_size; i++)
 	{
-		if (i == this->head)
+		fprintf(log, "\t\"node%lu\" [shape = \"record\", style = filled, ", i);
+
+		if (i == 0)
 		{
-			fprintf(log, "\t\"%p\" [shape = \"record\", label = \"head|adress: %d|value: %d|next: %d|prev: %d\"];\n",
-					this->data + i, i, this->data[i].val, this->data[i].next, this->data[i].prev);
+			fprintf(log, "fillcolor = \"#daa520\", label = \"");	
+		}
+		else if (i == this->head)
+		{
+			fprintf(log, "fillcolor = \"#4169e1\", label = \"head|");	
 		}
 		else if (i == this->tail)
 		{
-			fprintf(log, "\t\"%p\" [shape = \"record\", label = \"tail|adress: %d|value: %d|next: %d|prev: %d\"];\n",
-					this->data + i, i, this->data[i].val, this->data[i].next, this->data[i].prev);
+			fprintf(log, "fillcolor = \"#f08080\", label = \"tail|");	
 		}
 		else if (i == this->empty)
 		{
-			fprintf(log, "\t\"%p\" [shape = \"record\", label = \"empty|adress: %d|value: %d|next: %d|prev: %d\"];\n",
-					this->data + i, i, this->data[i].val, this->data[i].next, this->data[i].prev);
+			fprintf(log, "fillcolor = \"#808080\", label = \"empty|");	
+		}
+		else if (this->data[i].prev == EMPTY_MARKER)
+		{
+			fprintf(log, "fillcolor = \"#778899\", label = \"");	
 		}
 		else
 		{
-			fprintf(log, "\t\"%p\" [shape = \"record\", label = \"adress: %d|value: %d|next: %d|prev: %d\"];\n",
-					this->data + i, i, this->data[i].val, this->data[i].next, this->data[i].prev);
+			fprintf(log, "fillcolor = \"#ffffff\", label = \"");	
 		}
+
+		fprintf(log, "value: %d|next: %d|prev: %d|adress: %p\"];\n",
+				this->data[i].val, this->data[i].next, this->data[i].prev, this->data + i);
 	}
 
 	fprintf(log, "\n");
 
-	for (int i = this->head; i != this->tail; i = this->data[i].next)
+	fprintf(log, "\tedge [style = invis];\n");
+
+	for (size_t i = 0; i < this->max_size - 1; i++)
 	{
-		fprintf(log, "\t\"%p\" -> \"%p\";\n", this->data + i, this->data + this->data[i].next);
+		fprintf(log, "\tnode%lu -> node%lu;\n", i, i + 1);
 	}
 
 	fprintf(log, "\n");
 
-	for (int i = this->empty; i != DEADLOCK; i = this->data[i].next)
+	for (size_t i = 0; i < this->max_size; i++)
 	{
-		fprintf(log, "\t\"%p\" -> \"%p\";\n", this->data + i, this->data + this->data[i].next);
+		if (this->data[i].prev != EMPTY_MARKER)
+		{
+			fprintf(log, "\tnode%lu -> node%lu [style = filled, color = \"#0000ff\"];\n", i, this->data[i].next);
+			fprintf(log, "\tnode%lu -> node%lu [style = filled, color = \"#ff4500\"];\n", i, this->data[i].prev);
+		}
+		else
+		{
+			fprintf(log, "\tnode%lu -> node%lu [style = dotted, color = \"#9400d3\"];\n", i, this->data[i].next);
+		}
 	}
 
 	fprintf(log, "}\n");
@@ -208,64 +227,14 @@ int LinkedList<elem_t>::insertAfter(const int index, const elem_t val)
 template <typename elem_t>
 int LinkedList<elem_t>::insertBefore(const int index, const elem_t val)
 {
-	if (this->size == 0 || index <= 0 || index > this->size ||
-		this->empty == DEADLOCK || this->data[index].prev == EMPTY_MARKER)
-	{
-		return (DEADLOCK);
-	}
-
-	this->aligned = false;
-
-	int nest_index = this->empty;
-	this->empty = this->data[this->empty].next;
-
-	this->data[nest_index].init(val, index, this->data[index].prev);
-
 	if (this->data[index].prev != DEADLOCK)
 	{
-		this->data[this->data[nest_index].prev].next = nest_index;
+		return (this->insertAfter(this->data[index].prev, val));
 	}
 	else
 	{
-		this->head = nest_index;
+		return (this->insertFront(val));
 	}
-
-	this->data[index].prev = nest_index;
-
-	this->size++;
-
-	return (nest_index);
-}
-
-template <typename elem_t>
-int LinkedList<elem_t>::insertBack(const elem_t val)
-{
-	if (this->empty == DEADLOCK)
-	{
-		return (DEADLOCK);
-	}
-
-	this->aligned = false;
-
-	int nest_index = this->empty;
-	this->empty = this->data[this->empty].next;
-
-	if (this->size == 0)
-	{
-		this->data[nest_index].init(val, DEADLOCK, DEADLOCK);
-		this->head = nest_index;
-		this->tail = nest_index;
-	}
-	else
-	{
-		this->data[nest_index].init(val, DEADLOCK, this->tail);
-		this->data[this->tail].next = nest_index;
-		this->tail = nest_index;
-	}
-
-	this->size++;
-
-	return (nest_index);
 }
 
 template <typename elem_t>
@@ -297,6 +266,12 @@ int LinkedList<elem_t>::insertFront(const elem_t val)
 	this->size++;
 
 	return (nest_index);
+}
+
+template <typename elem_t>
+int LinkedList<elem_t>::insertBack(const elem_t val)
+{
+	return (this->insertAfter(this->tail, val));
 }
 
 template <typename elem_t>
