@@ -53,7 +53,7 @@ public:
 	int remove(const int index);
 
 	int findPhysicalPositionByLogical(int index);
-	int findPhysicalPositionByValue (const elem_t val);
+	int findPhysicalPositionByValue(const elem_t val);
 
 	bool isAligned();
 	bool alignIndexes();
@@ -64,12 +64,15 @@ public:
 
 	void dump(FILE *log);
 	void graphDump();
+
+	static int cmp(const void *a, const void *b);
+	static int comp_logic_pos(Node<elem_t> a, Node<elem_t> b);
 };
 
-template <typename elem_t>
-int cmp(const void *a, const void *b);
+//template <typename elem_t>
+//int cmp(const void *a, const void *b);
 
-template <typename elem_t>
-int comp_logic_pos(Node<elem_t> a, Node<elem_t> b);
+//template <typename elem_t>
+
 
 #endif /* MS_LINKED_LIST_H_ */
