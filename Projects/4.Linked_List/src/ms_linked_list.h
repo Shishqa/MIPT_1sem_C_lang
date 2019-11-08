@@ -69,10 +69,4 @@ public:
 	static int comp_logic_pos(Node<elem_t> a, Node<elem_t> b);
 };
 
-//template <typename elem_t>
-//int cmp(const void *a, const void *b);
-
-//template <typename elem_t>
-
-
 #endif /* MS_LINKED_LIST_H_ */
