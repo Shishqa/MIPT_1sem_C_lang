@@ -27,7 +27,7 @@ public:
 template <typename elem_t>
 class LinkedList
 {
-private:
+public:
 	Node<elem_t> *data;
 	size_t max_size;
 	int head;
@@ -38,11 +38,13 @@ private:
 	size_t size;
 	size_t dump_cnt;
 
-public:
 	bool init(const size_t size);
 	bool clear();
 
 	size_t getSize();
+
+	elem_t getHead();
+	elem_t getTail();
 
 	int insertAfter(const int index, const elem_t val);
 	int insertBefore(const int index, const elem_t val);
@@ -51,7 +53,7 @@ public:
 	int remove(const int index);
 
 	int findPhysicalPositionByLogical(int index);
-	int findPhysicalPositionByValue(const elem_t val);
+	int findPhysicalPositionByValue (const elem_t val);
 
 	bool isAligned();
 	bool alignIndexes();

@@ -55,6 +55,18 @@ size_t LinkedList<elem_t>::getSize()
 }
 
 template <typename elem_t>
+elem_t LinkedList<elem_t>::getHead()
+{
+	return this->data[this->head].val;
+}
+
+template <typename elem_t>
+elem_t LinkedList<elem_t>::getTail()
+{
+	return this->data[this->tail].val;
+}
+
+template <typename elem_t>
 bool LinkedList<elem_t>::isAligned()
 {
 	return this->aligned;
@@ -104,27 +116,29 @@ void LinkedList<elem_t>::graphDump()
 
 	fprintf(log, "digraph DUMP \n{\n");
 
+	fprintf(log, "rankdir = \"LR\";");
+
 	for (size_t i = 0; i < this->max_size; i++)
 	{
 		if (i == this->head)
 		{
-			fprintf(log, "\t\"%p\" [shape = \"record\", label = \"{head|%d|%d}\"];\n",
-					this->data + i, i, this->data[i].val);
+			fprintf(log, "\t\"%p\" [shape = \"record\", label = \"head|adress: %d|value: %d|next: %d|prev: %d\"];\n",
+					this->data + i, i, this->data[i].val, this->data[i].next, this->data[i].prev);
 		}
 		else if (i == this->tail)
 		{
-			fprintf(log, "\t\"%p\" [shape = \"record\", label = \"{%d|%d|tail}\"];\n",
-					this->data + i, i, this->data[i].val);
+			fprintf(log, "\t\"%p\" [shape = \"record\", label = \"tail|adress: %d|value: %d|next: %d|prev: %d\"];\n",
+					this->data + i, i, this->data[i].val, this->data[i].next, this->data[i].prev);
 		}
 		else if (i == this->empty)
 		{
-			fprintf(log, "\t\"%p\" [shape = \"record\", label = \"{empty|%d|%d}\"];\n",
-					this->data + i, i, this->data[i].val);
+			fprintf(log, "\t\"%p\" [shape = \"record\", label = \"empty|adress: %d|value: %d|next: %d|prev: %d\"];\n",
+					this->data + i, i, this->data[i].val, this->data[i].next, this->data[i].prev);
 		}
 		else
 		{
-			fprintf(log, "\t\"%p\" [shape = \"record\", label = \"{%d|%d}\"];\n",
-					this->data + i, i, this->data[i].val);
+			fprintf(log, "\t\"%p\" [shape = \"record\", label = \"adress: %d|value: %d|next: %d|prev: %d\"];\n",
+					this->data + i, i, this->data[i].val, this->data[i].next, this->data[i].prev);
 		}
 	}
 
