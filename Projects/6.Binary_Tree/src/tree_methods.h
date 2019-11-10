@@ -190,7 +190,7 @@ Node<elem_t> * BinaryTree<elem_t>::rec_search (Node<elem_t> * node, const elem_t
 }
 
 template <typename elem_t>
-bool BinaryTree<elem_t>::dotDump ()
+bool BinaryTree<elem_t>::dotDump (const char * format)
 {
     system("mkdir -p tmp");
 
@@ -198,7 +198,7 @@ bool BinaryTree<elem_t>::dotDump ()
 
     fprintf (log, "digraph dump\n{\n");
 
-    this->root->printDot (log);
+    this->root->printDot (log, format);
 
     fprintf (log, "\n}\n");
 

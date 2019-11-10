@@ -14,7 +14,7 @@ struct Node
     bool clear ();
 
     bool print (FILE * log);
-    bool printDot (FILE * log, const char * data, size_t size_of_data);
+    bool printDot (FILE * log, const char * format);
 
     Node<elem_t> * addLeft  (const elem_t data);
     Node<elem_t> * addRight (const elem_t data);
@@ -50,7 +50,7 @@ public:
 
     bool print (FILE * log);
     bool dump  (FILE * log);
-    bool dotDump ();
+    bool dotDump (const char * format);
 };
 
 #endif // !TREE_CLASS_H_

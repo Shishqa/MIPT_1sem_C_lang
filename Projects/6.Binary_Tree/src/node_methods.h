@@ -82,26 +82,26 @@ Node<elem_t> * Node<elem_t>::addRight (const elem_t data)
 }
 
 template <typename elem_t>
-bool Node<elem_t>::printDot (FILE * log, const char * data, size_t size_of_data)
+bool Node<elem_t>::printDot (FILE * log, const char * format)
 {
     fprintf (log, "\tnode%p [shape = \"record\", label = \"{<f1>data: '", 
             this);
 
-    fwrite (data, size_of_data, 1, log);
+    fprintf (log, format, this->data);
 
     fprintf (log, "'|{<f2>left: %p|<f3>right: %p}}\"];\n", 
             this->left, this->right);
 
     if (this->left)
     {
-        this->left->printDot (log);
+        this->left->printDot (log, format);
 
         fprintf (log, "\tnode%p:f2 -> node%p\n", this, this->left);
     }
 
     if (this->right)
     {
-        this->right->printDot (log);
+        this->right->printDot (log, format);
 
         fprintf (log, "\tnode%p:f3 -> node%p\n", this, this->right);
     }

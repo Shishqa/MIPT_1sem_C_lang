@@ -12,6 +12,8 @@ int main ()
 
     node1->addLeft (228);
     node2->addRight (100);
+
+    test.dotDump ("%d");
     
     FILE* f = fopen ("test", "w");
     test.print (f);
