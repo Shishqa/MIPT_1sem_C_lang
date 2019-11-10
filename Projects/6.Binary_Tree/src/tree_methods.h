@@ -54,8 +54,6 @@ bool BinaryTree<elem_t>::init (const char * path)
     {
         cur += s_len;
 
-        printf ("%c\n", marker);
-
         if (marker == '{')
         {
             brac_cnt++;
@@ -76,8 +74,6 @@ bool BinaryTree<elem_t>::init (const char * path)
             sscanf (cur, "%d%n", &data, &s_len);
 
             cur += s_len;
-
-            printf ("%d\n", data);
 
             curr_node->init (data);
             curr_node->parent = curr_parent;
@@ -104,7 +100,8 @@ bool BinaryTree<elem_t>::init (const char * path)
             return (false);
         }
     }
-    
+
+    return (true);
 }
 
 template <typename elem_t>
