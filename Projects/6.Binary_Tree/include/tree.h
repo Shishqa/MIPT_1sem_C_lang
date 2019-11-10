@@ -5,6 +5,8 @@ struct Node
     Node<elem_t> * left;
     Node<elem_t> * right;
 
+    Node<elem_t> * parent;
+
     bool init (elem_t data);
     bool clear ();
 
