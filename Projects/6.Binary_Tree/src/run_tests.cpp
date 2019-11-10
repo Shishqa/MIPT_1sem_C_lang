@@ -15,7 +15,13 @@ int main ()
     
     test.print (stdout);
 
+    test.dotDump ();
+
+    printf ("\n");
+
     test.deleteSubtree (node1);
+
+    test.dotDump ();
 
     FILE * f = fopen ("test", "w"); 
     test.print (f);
@@ -24,8 +30,6 @@ int main ()
     BinaryTree<int> test1 = {};
 
     test1.init ("test");
-
-    test1.print (stdout);
 
     return (0);
 }

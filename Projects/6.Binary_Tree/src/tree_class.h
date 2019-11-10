@@ -14,9 +14,12 @@ struct Node
     bool clear ();
 
     bool print (FILE * log);
+    bool printDot (FILE* log);
 
     Node<elem_t> * addLeft  (const elem_t data);
     Node<elem_t> * addRight (const elem_t data);
+
+    bool search (const elem_t data);
 };
 
 
@@ -25,6 +28,7 @@ class BinaryTree
 {
 private:
     size_t size;
+    size_t dump_cnt;
 
 public:
     Node<elem_t> * root;
@@ -39,6 +43,7 @@ public:
     bool deleteSubtree (Node<elem_t> * node);
 
     Node<elem_t> * search (const elem_t data);
+    Node<elem_t> * rec_search (Node<elem_t> * node, const elem_t data);
 
     bool valid ();
 

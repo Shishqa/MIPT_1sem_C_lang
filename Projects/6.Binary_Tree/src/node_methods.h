@@ -79,6 +79,28 @@ Node<elem_t> * Node<elem_t>::addRight (const elem_t data)
     return (this->right);
 }
 
+template <typename elem_t>
+bool Node<elem_t>::printDot (FILE * log)
+{
+    fprintf (log, "\tnode%p [shape = \"record\", label = \"{<f1>data: %d|{<f2>left: %p|<f3>right: %p}}\"];\n", 
+            this, this->data, this->left, this->right);
+
+    if (this->left)
+    {
+        this->left->printDot (log);
+
+        fprintf (log, "\tnode%p:f2 -> node%p\n", this, this->left);
+    }
+
+    if (this->right)
+    {
+        this->right->printDot (log);
+
+        fprintf (log, "\tnode%p:f3 -> node%p\n", this, this->right);
+    }
+    
+    return (true);
+}
 
 #endif // !NODE_METHODS_H_
 
