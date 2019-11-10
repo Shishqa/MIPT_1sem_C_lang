@@ -19,7 +19,7 @@ template <typename elem_t>
 bool Node<elem_t>::clear ()
 {
     this->data = 0;
-    
+
     this->left = nullptr;
     this->right = nullptr;
     this->parent = nullptr;
@@ -49,4 +49,28 @@ Node<elem_t> * Node<elem_t>::addRight (elem_t data)
     this->right->parent = this;
 
     return (this->right);
+}
+
+template <typename elem_t>
+bool Node<elem_t>::deleteList ()
+{
+    if (this->left  != nullptr ||
+        this->right != nullptr)
+    {
+        return (false);
+    }
+
+    if (this->parent->right == this)
+    {
+        this->parent->right = nullptr;
+    }
+    else
+    {
+        this->parent->left  = nullptr;
+    }
+
+    this->clear();
+    free (this);
+
+    return (true);
 }
