@@ -1,3 +1,6 @@
+#ifndef TREE_H_
+#define TREE_H_
+
 template <typename elem_t>
 struct Node
 {
@@ -38,3 +41,5 @@ public:
     bool dump (FILE* log);
     bool dotDump ();
 };
+
+#endif // !TREE_H_
