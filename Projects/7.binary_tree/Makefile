@@ -3,11 +3,11 @@ CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
 
 BIN		:= bin
 SRC		:= src
-INCLUDE	:= include
+INCLUDE	:= ../../Include
 LIB		:= ../../Include/Lib
 
-LIBRARIES	:= -lMSLib
-EXECUTABLE	:= run_tests
+LIBRARIES	:= 
+EXECUTABLE	:= test_list
 
 
 all: $(BIN)/$(EXECUTABLE)

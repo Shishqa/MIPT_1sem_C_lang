@@ -1,5 +1,5 @@
-#ifndef TREE_H_
-#define TREE_H_
+#ifndef TREE_CLASS_H_
+#define TREE_CLASS_H_
 
 template <typename elem_t>
 struct Node
@@ -13,11 +13,12 @@ struct Node
     bool init (const elem_t data);
     bool clear ();
 
+    bool print (FILE * log);
+
     Node<elem_t> * addLeft  (const elem_t data);
     Node<elem_t> * addRight (const elem_t data);
 
     bool deleteList ();
-
 
     static bool deleteSubtree (const Node<elem_t> * node);
 };
@@ -32,16 +33,19 @@ private:
 public:
     Node<elem_t> * root;
 
+    static Node<elem_t> * setNode (Node<elem_t> ** ptr);
+
     bool init (const elem_t data);
+    bool init (const char * path);
     bool clear ();
 
     Node<elem_t> * search (const elem_t data);
 
     bool valid ();
 
-    bool print (const FILE* log);
-    bool dump  (const FILE* log);
+    bool print (FILE * log);
+    bool dump  (FILE * log);
     bool dotDump ();
 };
 
-#endif // !TREE_H_
+#endif // !TREE_CLASS_H_
