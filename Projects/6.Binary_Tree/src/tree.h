@@ -1,6 +1,7 @@
 #ifndef TREE_H_
 #define TREE_H_
 
+#include "../../../Include/ms_stream.h"
 #include "tree_methods.h"
 #include "node_methods.h"
 

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>
 
 #include "../../../Include/ms_stream.h"
 
@@ -33,77 +34,58 @@ bool BinaryTree<elem_t>::init (const char * path)
     fclose (f);
 
     char * cur = buffer;
-    size_t s_len = 0;
 
-    int brac_cnt = 0;
-
-    elem_t data = 0;
-    char marker = 0;
-    bool no_left = false;
-
-    sscanf (cur, "%d%n", &data, &s_len);
-
-    cur += s_len;
+    assert (cur != nullptr);
 
     setNode (&this->root);
-    this->root->init (data);
 
-    Node<elem_t> * curr_node   = nullptr;
-    Node<elem_t> * curr_parent = this->root;
+    initSubtree (this->root, cur);
+}
 
-    while (sscanf (cur, "%c%n", &marker, &s_len) &&
-            cur - buffer <= sof_code)
+template <typename elem_t>
+char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur)
+{
+    if (cur == nullptr)
     {
-        cur += s_len;
-
-        if (marker == '{')
-        {
-            brac_cnt++;
-
-            if (curr_parent->left || no_left)
-            {
-                curr_parent->addRight (0);
-                curr_node = curr_parent->right;
-
-                no_left = false;
-            }
-            else
-            {
-                curr_parent->addLeft (0);
-                curr_node = curr_parent->left;
-            }
-
-            sscanf (cur, "%d%n", &data, &s_len);
-
-            cur += s_len;
-
-            curr_node->init (data);
-            curr_node->parent = curr_parent;
-
-            curr_parent = curr_node;
-        }
-        else if (marker == 'n')
-        {
-            curr_node = curr_parent->right;
-
-            no_left = true;
-        }
-        else if (marker == '}')
-        {
-            brac_cnt--;
-
-            curr_parent = curr_parent->parent;
-
-            assert (curr_node != nullptr);
-        }
-        else
-        {
-            printf ("parsing error: %d | unknown marker: %c\n", cur - buffer, marker);
-            return (false);
-        }
+        return (nullptr);
     }
 
-    return (true);
+    cur += 1;
+
+    memcpy (&(node->data), cur, sizeof (node->data));
+
+    cur += sizeof (node->data);
+
+    if (*cur == '{')
+    {
+        node->addLeft (0);
+        cur = initSubtree (node->left, cur);
+
+        if (*cur == '{')
+        {
+            node->addRight (0);
+            cur = initSubtree (node->right, cur);
+        }
+    }
+    else if (*cur == '$')
+    {
+        if (*(cur + 1) != '{')
+        {
+            printf ("expected { after $\n");
+            return (nullptr);
+        }
+
+        node->addRight (0);
+        cur = initSubtree (node->right, ++cur);
+    }
+
+    if (*cur != '}')
+    {
+        printf ("unclosed braces\n");
+        return (nullptr);
+    }
+
+    return (cur + 1);
 }
 
 template <typename elem_t>
@@ -163,24 +145,7 @@ bool BinaryTree<elem_t>::deleteSubtree (Node<elem_t> * node)
 template <typename elem_t>
 bool BinaryTree<elem_t>::print (FILE * log)
 {
-    fprintf (log, "%d", this->root->data);
-
-    if (this->root->left)
-    {
-        this->root->left->print (log);
-    }
-    else
-    {
-        fprintf (log, "n");
-    }
-    
-
-    if (this->root->right)
-    {
-        this->root->right->print (log);
-    }
-
-    fprintf (log, "\0");
+    this->root->print (log);
 
     return (true);
 }

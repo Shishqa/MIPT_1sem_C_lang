@@ -13,23 +13,15 @@ int main ()
     node1->addLeft (228);
     node2->addRight (100);
     
-    test.print (stdout);
-
-    test.dotDump ();
-
-    printf ("\n");
-
-    test.deleteSubtree (node1);
-
-    test.dotDump ();
-
-    FILE * f = fopen ("test", "w"); 
+    FILE* f = fopen ("test", "w");
     test.print (f);
     fclose (f);
 
-    BinaryTree<int> test1 = {};
+    BinaryTree<int> test_r = {};
 
-    test1.init ("test");
+    test_r.init ("test");
+
+    test_r.print (stdout);
 
     return (0);
 }

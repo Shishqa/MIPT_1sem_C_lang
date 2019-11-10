@@ -14,7 +14,7 @@ struct Node
     bool clear ();
 
     bool print (FILE * log);
-    bool printDot (FILE* log);
+    bool printDot (FILE * log, const char * data, size_t size_of_data);
 
     Node<elem_t> * addLeft  (const elem_t data);
     Node<elem_t> * addRight (const elem_t data);
@@ -37,6 +37,7 @@ public:
 
     bool init (const elem_t data);
     bool init (const char * path);
+    static char * initSubtree (Node<elem_t> * node, char * cur);
     bool clear ();
 
     bool deleteList (Node<elem_t> * node);

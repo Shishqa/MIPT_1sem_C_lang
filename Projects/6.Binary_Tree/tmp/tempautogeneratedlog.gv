@@ -1,9 +1,9 @@
 digraph dump
 {
-	node0x5626dcd82260 [shape = "record", label = "{<f1>data: 111|{<f2>left: (nil)|<f3>right: 0x5626dcd822c0}}"];
-	node0x5626dcd822c0 [shape = "record", label = "{<f1>data: 125|{<f2>left: (nil)|<f3>right: 0x5626dcd82320}}"];
-	node0x5626dcd82320 [shape = "record", label = "{<f1>data: 100|{<f2>left: (nil)|<f3>right: (nil)}}"];
-	node0x5626dcd822c0:f3 -> node0x5626dcd82320
-	node0x5626dcd82260:f3 -> node0x5626dcd822c0
+	node0x558fc49d2260 [shape = "record", label = "{<f1>data: 111|{<f2>left: (nil)|<f3>right: 0x558fc49d22c0}}"];
+	node0x558fc49d22c0 [shape = "record", label = "{<f1>data: 125|{<f2>left: (nil)|<f3>right: 0x558fc49d2320}}"];
+	node0x558fc49d2320 [shape = "record", label = "{<f1>data: 100|{<f2>left: (nil)|<f3>right: (nil)}}"];
+	node0x558fc49d22c0:f3 -> node0x558fc49d2320
+	node0x558fc49d2260:f3 -> node0x558fc49d22c0
 
 }
