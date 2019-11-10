@@ -1,13 +1,13 @@
 digraph dump
 {
-	node0x55cfd121d260 [shape = "record", label = "{<f1>data: '111'|{<f2>left: 0x55cfd121d290|<f3>right: 0x55cfd121d2c0}}"];
-	node0x55cfd121d290 [shape = "record", label = "{<f1>data: '12'|{<f2>left: 0x55cfd121d2f0|<f3>right: (nil)}}"];
-	node0x55cfd121d2f0 [shape = "record", label = "{<f1>data: '228'|{<f2>left: (nil)|<f3>right: (nil)}}"];
-	node0x55cfd121d290:f2 -> node0x55cfd121d2f0
-	node0x55cfd121d260:f2 -> node0x55cfd121d290
-	node0x55cfd121d2c0 [shape = "record", label = "{<f1>data: '125'|{<f2>left: (nil)|<f3>right: 0x55cfd121d320}}"];
-	node0x55cfd121d320 [shape = "record", label = "{<f1>data: '100'|{<f2>left: (nil)|<f3>right: (nil)}}"];
-	node0x55cfd121d2c0:f3 -> node0x55cfd121d320
-	node0x55cfd121d260:f3 -> node0x55cfd121d2c0
+	node0x562a83517260 [shape = "record", label = "{<f1>data: '111'|{<f2>left: 0x562a83517290|<f3>right: 0x562a835172c0}}"];
+	node0x562a83517290 [shape = "record", label = "{<f1>data: '12'|{<f2>left: 0x562a835172f0|<f3>right: (nil)}}"];
+	node0x562a835172f0 [shape = "record", label = "{<f1>data: '228'|{<f2>left: (nil)|<f3>right: (nil)}}"];
+	node0x562a83517290:f2 -> node0x562a835172f0
+	node0x562a83517260:f2 -> node0x562a83517290
+	node0x562a835172c0 [shape = "record", label = "{<f1>data: '125'|{<f2>left: (nil)|<f3>right: 0x562a83517320}}"];
+	node0x562a83517320 [shape = "record", label = "{<f1>data: '100'|{<f2>left: (nil)|<f3>right: (nil)}}"];
+	node0x562a835172c0:f3 -> node0x562a83517320
+	node0x562a83517260:f3 -> node0x562a835172c0
 
 }

@@ -58,6 +58,32 @@ bool Node<elem_t>::print (FILE * log)
 }
 
 template <typename elem_t>
+bool Node<elem_t>::fprint (FILE * log, const char * format)
+{
+    fprintf (log, "{");
+
+    fprintf (log, format, this->data);
+
+    if (this->left)
+    {
+        this->left->fprint (log, format);
+    }
+    else if (this->right)
+    {
+        fprintf (log, "$");
+    }
+
+    if (this->right)
+    {
+        this->right->fprint (log, format);
+    }
+
+    fprintf (log, "}");
+    
+    return (true);
+}
+
+template <typename elem_t>
 Node<elem_t> * Node<elem_t>::addLeft (const elem_t data)
 {
     this->left = (Node<elem_t> *) calloc (1, sizeof (*this->left));

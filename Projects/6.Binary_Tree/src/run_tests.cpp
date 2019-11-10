@@ -23,7 +23,7 @@ int main ()
 
     test_r.init ("test");
 
-    test_r.print (stdout);
+    test_r.print (stdout, "%d");
 
     return (0);
 }

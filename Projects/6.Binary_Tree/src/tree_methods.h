@@ -151,6 +151,14 @@ bool BinaryTree<elem_t>::print (FILE * log)
 }
 
 template <typename elem_t>
+bool BinaryTree<elem_t>::print (FILE * log, const char * format)
+{
+    this->root->fprint (log, format);
+
+    return (true);
+}
+
+template <typename elem_t>
 Node<elem_t> * BinaryTree<elem_t>::search (const elem_t data)
 {
     return (this->rec_search (this->root, data));

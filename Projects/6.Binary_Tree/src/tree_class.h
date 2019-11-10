@@ -14,6 +14,8 @@ struct Node
     bool clear ();
 
     bool print (FILE * log);
+    bool fprint (FILE * log, const char * format);
+    
     bool printDot (FILE * log, const char * format);
 
     Node<elem_t> * addLeft  (const elem_t data);
@@ -49,6 +51,8 @@ public:
     bool valid ();
 
     bool print (FILE * log);
+    bool print (FILE * log, const char * format);
+
     bool dump  (FILE * log);
     bool dotDump (const char * format);
 };
