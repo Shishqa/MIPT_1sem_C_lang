@@ -79,28 +79,6 @@ Node<elem_t> * Node<elem_t>::addRight (const elem_t data)
     return (this->right);
 }
 
-template <typename elem_t>
-bool Node<elem_t>::deleteList ()
-{
-    if (this->left || this->right)
-    {
-        return (false);
-    }
-
-    if (this->parent->right == this)
-    {
-        this->parent->right = nullptr;
-    }
-    else
-    {
-        this->parent->left  = nullptr;
-    }
-
-    this->clear();
-    free (this);
-
-    return (true);
-}
 
 #endif // !NODE_METHODS_H_
 

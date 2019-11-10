@@ -119,14 +119,76 @@ bool BinaryTree<elem_t>::clear ()
 }
 
 template <typename elem_t>
+bool BinaryTree<elem_t>::deleteList (Node<elem_t> * node)
+{
+    if (node->left || node->right)
+    {
+        return (false);
+    }
+
+    if (node->parent->right == node)
+    {
+        node->parent->right = nullptr;
+    }
+    else
+    {
+        node->parent->left  = nullptr;
+    }
+
+    printf ("gonna delete list: node %d\n", node->data);
+
+    free (node);
+
+    return (true);
+}
+
+template <typename elem_t>
+bool BinaryTree<elem_t>::deleteSubtree (Node<elem_t> * node)
+{
+    printf ("gonna delete subtree of node %d\n", node->data);
+
+    if (node->left)
+    {
+        this->deleteSubtree (node->left);
+    }
+
+    if (node->right)
+    {
+        this->deleteSubtree (node->right);
+    }
+
+    this->deleteList (node);
+
+    return (true);
+}
+
+template <typename elem_t>
 bool BinaryTree<elem_t>::print (FILE * log)
 {
     fprintf (log, "%d", this->root->data);
 
-    this->root->left->print (log);
-    this->root->right->print (log);
+    if (this->root->left)
+    {
+        this->root->left->print (log);
+    }
+    else
+    {
+        fprintf (log, "n");
+    }
+    
+
+    if (this->root->right)
+    {
+        this->root->right->print (log);
+    }
 
     return (true);
+}
+
+template <typename elem_t>
+Node<elem_t> * BinaryTree<elem_t>::search (elem_t data)
+{
+
 }
 
 #endif // !TREE_METHODS_H_

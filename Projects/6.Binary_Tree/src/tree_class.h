@@ -17,10 +17,6 @@ struct Node
 
     Node<elem_t> * addLeft  (const elem_t data);
     Node<elem_t> * addRight (const elem_t data);
-
-    bool deleteList ();
-
-    static bool deleteSubtree (const Node<elem_t> * node);
 };
 
 
@@ -38,6 +34,9 @@ public:
     bool init (const elem_t data);
     bool init (const char * path);
     bool clear ();
+
+    bool deleteList (Node<elem_t> * node);
+    bool deleteSubtree (Node<elem_t> * node);
 
     Node<elem_t> * search (const elem_t data);
 
