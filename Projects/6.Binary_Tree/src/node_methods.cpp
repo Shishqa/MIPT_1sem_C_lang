@@ -3,7 +3,7 @@
 #include "../include/tree.h"
 
 template <typename elem_t>
-bool Node<elem_t>::init (elem_t data)
+bool Node<elem_t>::init (const elem_t data)
 {
     this->data = data;
 
@@ -28,7 +28,7 @@ bool Node<elem_t>::clear ()
 }
 
 template <typename elem_t>
-Node<elem_t> * Node<elem_t>::addLeft (elem_t data)
+Node<elem_t> * Node<elem_t>::addLeft (const elem_t data)
 {
     this->left = (Node<elem_t> *) calloc (1, sizeof (*this->left));
 
@@ -40,7 +40,7 @@ Node<elem_t> * Node<elem_t>::addLeft (elem_t data)
 }
 
 template <typename elem_t>
-Node<elem_t> * Node<elem_t>::addRight (elem_t data)
+Node<elem_t> * Node<elem_t>::addRight (const elem_t data)
 {
     this->right = (Node<elem_t> *) calloc (1, sizeof (*this->right));
 
