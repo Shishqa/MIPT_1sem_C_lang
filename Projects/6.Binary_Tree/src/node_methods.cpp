@@ -18,11 +18,11 @@ bool Node<elem_t>::init (elem_t data)
 template <typename elem_t>
 bool Node<elem_t>::clear ()
 {
-    if (this->left != nullptr || this->right != nullptr ||
-        this->parent != nullptr)
-    {
-        return (false);
-    }
+    this->data = 0;
+    
+    this->left = nullptr;
+    this->right = nullptr;
+    this->parent = nullptr;
 
     return (true);
 }

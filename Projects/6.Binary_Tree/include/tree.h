@@ -17,7 +17,8 @@ struct Node
     Node<elem_t> * addRight (elem_t data);
 
     bool deleteList ();
-    bool deleteSubtree ();
+    
+    static bool deleteSubtree (Node<elem_t> * node);
 };
 
 
