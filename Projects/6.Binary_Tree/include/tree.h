@@ -10,15 +10,16 @@ struct Node
 
     Node<elem_t> * parent;
 
-    bool init (elem_t data);
+    bool init (const elem_t data);
     bool clear ();
 
-    Node<elem_t> * addLeft (elem_t data);
-    Node<elem_t> * addRight (elem_t data);
+    Node<elem_t> * addLeft  (const elem_t data);
+    Node<elem_t> * addRight (const elem_t data);
 
     bool deleteList ();
-    
-    static bool deleteSubtree (Node<elem_t> * node);
+
+
+    static bool deleteSubtree (const Node<elem_t> * node);
 };
 
 
@@ -31,15 +32,15 @@ private:
 public:
     Node<elem_t> * root;
 
-    bool init (elem_t data);
+    bool init (const elem_t data);
     bool clear ();
 
-    Node<elem_t> * search (elem_t data);
+    Node<elem_t> * search (const elem_t data);
 
     bool valid ();
 
-    bool print (FILE* log);
-    bool dump (FILE* log);
+    bool print (const FILE* log);
+    bool dump  (const FILE* log);
     bool dotDump ();
 };
 
