@@ -27,6 +27,8 @@ bool BinaryTree<elem_t>::init (const char * path)
 {
     FILE* f = fopen (path, "r");
 
+    assert (f != nullptr);
+
     char * buffer = nullptr;
 
     size_t sof_code = Read (&buffer, f);
@@ -36,6 +38,11 @@ bool BinaryTree<elem_t>::init (const char * path)
     char * cur = buffer;
 
     assert (cur != nullptr);
+
+    if (*cur != '{' || sof_code < sizeof (elem_t) + 2)
+    {
+        return (false);
+    }
 
     setNode (&this->root);
 
@@ -58,13 +65,17 @@ char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur)
 
     if (*cur == '{')
     {
-        node->addLeft (0);
+        setNode (&node->left);
         cur = initSubtree (node->left, cur);
+
+        node->left->parent = node;
 
         if (*cur == '{')
         {
-            node->addRight (0);
+            setNode (&node->right);
             cur = initSubtree (node->right, cur);
+
+            node->right->parent = node;
         }
     }
     else if (*cur == '$')
@@ -75,13 +86,15 @@ char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur)
             return (nullptr);
         }
 
-        node->addRight (0);
+        setNode (&node->right);
         cur = initSubtree (node->right, ++cur);
+
+        node->right->parent = node;
     }
 
     if (*cur != '}')
     {
-        printf ("unclosed braces\n");
+        printf ("unclosed braces: %d\n", *cur);
         return (nullptr);
     }
 

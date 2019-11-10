@@ -13,7 +13,7 @@ int main ()
     node1->addLeft (228);
     node2->addRight (100);
 
-    test.dotDump ("%d");
+    //test.dotDump ("%d");
     
     FILE* f = fopen ("test", "w");
     test.print (f);
@@ -23,7 +23,7 @@ int main ()
 
     test_r.init ("test");
 
-    test_r.print (stdout, "%d");
+    test_r.dotDump ("%d");
 
     return (0);
 }
