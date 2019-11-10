@@ -23,13 +23,11 @@ int main ()
 
     printf ("Hi, I am Akinator!\n");
     
-    bool quit = false;
+    bool play = true;
 
-    while (!quit)
+    while (play)
     {
-        GuessSession (&questions);
-
-        quit = true;
+        play = GuessSession (&questions);
     }
 
     initBase ("base/data");
@@ -56,9 +54,17 @@ bool GuessSession (BinaryTree<String> * questions)
 {
     questions->init ("base/data");
 
-    printf ("phrase about guessing\n");
+    printf ("Make up a character and I'll try guess it\n");
+    printf ("Ready? ");
 
-    AskQuestion (questions->root);
+    if (GetAns ())
+    {
+        return (AskQuestion (questions->root));
+    }
+    else
+    {
+        return (false);
+    }
 }
 
 bool AskQuestion (Node<String> * question)
@@ -68,7 +74,7 @@ bool AskQuestion (Node<String> * question)
         return (TryAnswer (question));
     }
 
-    printf ("your personage %s?", question->data);
+    printf ("Your character %s?", question->data);
 
     if (GetAns ())
     {
@@ -80,7 +86,7 @@ bool AskQuestion (Node<String> * question)
 
 bool TryAnswer (Node<String> * question)
 {
-    printf ("is this %s?\n", question->data);
+    printf ("Is this %s?\n", question->data);
 
     if (GetAns ())
     {
@@ -88,7 +94,7 @@ bool TryAnswer (Node<String> * question)
         return (true);
     }
 
-    printf ("so sad :(\n");
+    printf ("So sad :(\n");
     return (false);
 }
 
@@ -98,7 +104,7 @@ bool GetAns ()
 
     char ans = 0;
 
-    scanf ("%c", &ans);
+    scanf ("%c%*c", &ans);
 
     return (ans == 'y');
 }
