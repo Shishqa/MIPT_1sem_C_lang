@@ -7,14 +7,22 @@
 #include "tree_class.h"
 
 template <typename elem_t>
-bool Node<elem_t>::init (const elem_t data)
+bool Node<elem_t>::init ()
 {
-    this->data = data;
-
     this->left  = nullptr;
     this->right = nullptr;
 
     this->parent = nullptr;
+
+    return (true);
+}
+
+template <typename elem_t>
+bool Node<elem_t>::init (const elem_t data)
+{
+    this->init ();
+
+    this->data = data;
 
     return (true);
 }
@@ -84,13 +92,31 @@ bool Node<elem_t>::fprint (FILE * log, const char * format)
 }
 
 template <typename elem_t>
+Node<elem_t> * Node<elem_t>::setChild ()
+{
+    Node<elem_t> * child = (Node<elem_t> *) calloc (1, sizeof (*this->left));
+
+    child->init ();
+
+    child->parent = this;
+
+    return (child);
+}
+
+template <typename elem_t>
 Node<elem_t> * Node<elem_t>::addLeft (const elem_t data)
 {
-    this->left = (Node<elem_t> *) calloc (1, sizeof (*this->left));
+    this->setLeft ();
 
-    this->left->init (data);
+    this->left->data = data;
 
-    this->left->parent = this;
+    return (this->left);
+}
+
+template <typename elem_t>
+Node<elem_t> * Node<elem_t>::setLeft ()
+{
+    this->left = this->setChild ();
 
     return (this->left);
 }
@@ -98,11 +124,17 @@ Node<elem_t> * Node<elem_t>::addLeft (const elem_t data)
 template <typename elem_t>
 Node<elem_t> * Node<elem_t>::addRight (const elem_t data)
 {
-    this->right = (Node<elem_t> *) calloc (1, sizeof (*this->right));
+    this->setRight ();
 
-    this->right->init (data);
+    this->right->data = data;
 
-    this->right->parent = this;
+    return (this->right);
+}
+
+template <typename elem_t>
+Node<elem_t> * Node<elem_t>::setRight ()
+{
+    this->right = this->setChild ();
 
     return (this->right);
 }

@@ -65,17 +65,19 @@ char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur)
 
     if (*cur == '{')
     {
-        setNode (&node->left);
-        cur = initSubtree (node->left, cur);
+        node->setLeft ();
 
-        node->left->parent = node;
+        assert (node->left->parent == node);
+
+        cur = initSubtree (node->left, cur);
 
         if (*cur == '{')
         {
-            setNode (&node->right);
-            cur = initSubtree (node->right, cur);
+            node->setRight ();
 
-            node->right->parent = node;
+            assert (node->right->parent == node);
+
+            cur = initSubtree (node->right, cur);
         }
     }
     else if (*cur == '$')
@@ -86,10 +88,11 @@ char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur)
             return (nullptr);
         }
 
-        setNode (&node->right);
-        cur = initSubtree (node->right, ++cur);
+        node->setRight ();
 
-        node->right->parent = node;
+        assert (node->right->parent == node);
+
+        cur = initSubtree (node->right, ++cur);
     }
 
     if (*cur != '}')
@@ -112,7 +115,7 @@ Node<elem_t> * BinaryTree<elem_t>::setNode (Node<elem_t> ** ptr)
 template <typename elem_t>
 bool BinaryTree<elem_t>::clear ()
 {
-    return (true);
+    this->deleteSubtree (this->root);
 }
 
 template <typename elem_t>

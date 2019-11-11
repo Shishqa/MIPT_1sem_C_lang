@@ -11,12 +11,18 @@ struct Node
     Node<elem_t> * parent;
 
     bool init (const elem_t data);
+    bool init ();
     bool clear ();
 
     bool print (FILE * log);
     bool fprint (FILE * log, const char * format);
     
     bool printDot (FILE * log, const char * format);
+
+    Node<elem_t> * setChild ();
+
+    Node<elem_t> * setLeft  ();
+    Node<elem_t> * setRight ();
 
     Node<elem_t> * addLeft  (const elem_t data);
     Node<elem_t> * addRight (const elem_t data);
