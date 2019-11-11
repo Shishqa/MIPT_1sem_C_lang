@@ -126,16 +126,20 @@ bool BinaryTree<elem_t>::deleteList (Node<elem_t> * node)
         return (false);
     }
 
-    if (node->parent->right == node)
+    //printf ("cleaning %s\n", node->data.data);
+
+    if (node->parent && node->parent->right == node)
     {
         node->parent->right = nullptr;
     }
-    else
+    else if (node->parent)
     {
         node->parent->left  = nullptr;
     }
 
     free (node);
+
+    //printf ("cleaned\n");
 
     return (true);
 }

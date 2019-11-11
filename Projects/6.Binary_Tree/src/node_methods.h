@@ -94,11 +94,17 @@ bool Node<elem_t>::fprint (FILE * log, const char * format)
 template <typename elem_t>
 Node<elem_t> * Node<elem_t>::setChild ()
 {
-    Node<elem_t> * child = (Node<elem_t> *) calloc (1, sizeof (*this->left));
+    //printf ("\nsetting child\n");
+
+    Node<elem_t> * child = (Node<elem_t> *) calloc (1, sizeof (Node<elem_t>));
+
+    //printf ("\nchild set\n");
 
     child->init ();
 
     child->parent = this;
+
+    //printf ("child inited\n");
 
     return (child);
 }
@@ -134,6 +140,8 @@ Node<elem_t> * Node<elem_t>::addRight (const elem_t data)
 template <typename elem_t>
 Node<elem_t> * Node<elem_t>::setRight ()
 {
+    //printf ("gonna set child\n");
+
     this->right = this->setChild ();
 
     return (this->right);
@@ -145,10 +153,10 @@ bool Node<elem_t>::printDot (FILE * log, const char * format)
     fprintf (log, "\tnode%p [shape = \"record\", label = \"{<f1>data: '", 
             this);
 
-    fprintf (log, format, this->data);
+    fprintf (log, format, this->data.data);
 
-    fprintf (log, "'|{<f2>left: %p|<f3>right: %p}}\"];\n", 
-            this->left, this->right);
+    fprintf (log, "'|{<f2>left: %p|<f3>right: %p}|<f4>parent: %p}\"];\n", 
+            this->left, this->right, this->parent);
 
     if (this->left)
     {
