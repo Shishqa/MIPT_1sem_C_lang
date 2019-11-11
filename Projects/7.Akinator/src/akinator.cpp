@@ -8,6 +8,13 @@ const size_t STRING_MAX_SIZE = 50;
 
 const size_t SL_TIME = 500000;
 
+const char * FUNNY_ANS[4] = {
+                                "loves pizza",
+                                "don't have a girlfriend",
+                                "is yellow",
+                                "has pink underpants"
+                            }; 
+
 struct String
 {
     char data[STRING_MAX_SIZE];
@@ -55,11 +62,16 @@ bool initData (const char * path)
     fclose (f);
 }
 
+bool GetDefinition (Node<String> * question)
+{
+    
+}
+
 bool GuessSession (BinaryTree<String> * questions)
 {
     questions->init ("data/tree_1");
 
-    printf ("Make up a character and I'll try guess it\n");
+    printf ("Make up a character and I'll try to guess it\n");
 
     usleep (SL_TIME);
 
@@ -148,25 +160,33 @@ bool AddBranch (Node<String> * question)
 
     fgets (character.data, STRING_MAX_SIZE, stdin);
 
+    size_t character_len = strlen (character.data);
+
+    character.data[--character_len] = 0;
+
     printf ("But what does %s differ from %s?\n", character.data, question->data.data);
-    printf ("[type answer in style '%s loves pizza']\n", character.data);
+    printf ("[type answer in style '%s %s']\n", character.data, FUNNY_ANS[rand () % 4]);
     printf ("%s ", character.data);
 
     String difference = {};
 
     fgets (difference.data, STRING_MAX_SIZE, stdin);
 
+    size_t difference_len = strlen (difference.data);
+
+    difference.data[--difference_len] = 0;
+
     question->setRight ();
     question->setLeft ();
 
-    strncpy (question->left->data.data,  character.data,      strlen (character.data) - 2);
+    strncpy (question->left->data.data,  character.data,      character_len);
     strncpy (question->right->data.data, question->data.data, strlen (question->data.data));
 
     memset (question->data.data, 0, STRING_MAX_SIZE);
 
-    strncpy (question->data.data,        difference.data,     strlen (difference.data) - 1);
+    strncpy (question->data.data,        difference.data,     difference_len);
 
-    printf ("I got it! Next time I'll guess him!\n");
+    printf ("Got it! Next time I'll guess him!\n");
 
     return (true);
 }
