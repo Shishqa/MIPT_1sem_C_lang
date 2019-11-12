@@ -1,29 +1,25 @@
 digraph dump
 {
-	node0x55f32d50f390 [shape = "record", label = "{<f1>data: 'is an animal'|{<f2>left: 0x55f32d50f050|<f3>right: 0x55f32d50f7d0}|<f4>parent: (nil)}"];
-	node0x55f32d50f050 [shape = "record", label = "{<f1>data: 'eats cheese'|{<f2>left: 0x55f32d50f540|<f3>right: 0x55f32d50f740}|<f4>parent: 0x55f32d50f390}"];
-	node0x55f32d50f540 [shape = "record", label = "{<f1>data: 'mouse'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55f32d50f050}"];
-	node0x55f32d50f050:f2 -> node0x55f32d50f540
-	node0x55f32d50f740 [shape = "record", label = "{<f1>data: 'cat'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55f32d50f050}"];
-	node0x55f32d50f050:f3 -> node0x55f32d50f740
-	node0x55f32d50f390:f2 -> node0x55f32d50f050
-	node0x55f32d50f7d0 [shape = "record", label = "{<f1>data: 'is connected with MIPT'|{<f2>left: 0x55f32d50f860|<f3>right: 0x55f32d50fbd0}|<f4>parent: 0x55f32d50f390}"];
-	node0x55f32d50f860 [shape = "record", label = "{<f1>data: 'is a student'|{<f2>left: 0x55f32d50f990|<f3>right: 0x55f32d50fa20}|<f4>parent: 0x55f32d50f7d0}"];
-	node0x55f32d50f990 [shape = "record", label = "{<f1>data: 'Misha Shishatskiy'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55f32d50f860}"];
-	node0x55f32d50f860:f2 -> node0x55f32d50f990
-	node0x55f32d50fa20 [shape = "record", label = "{<f1>data: 'is a programming teacher'|{<f2>left: 0x55f32d50fab0|<f3>right: 0x55f32d50fb40}|<f4>parent: 0x55f32d50f860}"];
-	node0x55f32d50fab0 [shape = "record", label = "{<f1>data: 'Ilya Dedinskiy'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55f32d50fa20}"];
-	node0x55f32d50fa20:f2 -> node0x55f32d50fab0
-	node0x55f32d50fb40 [shape = "record", label = "{<f1>data: 'Aleksey Lukashov'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55f32d50fa20}"];
-	node0x55f32d50fa20:f3 -> node0x55f32d50fb40
-	node0x55f32d50f860:f3 -> node0x55f32d50fa20
-	node0x55f32d50f7d0:f2 -> node0x55f32d50f860
-	node0x55f32d50fbd0 [shape = "record", label = "{<f1>data: 'is molodets, politic, leader and borets'|{<f2>left: 0x55f32d50fc60|<f3>right: 0x55f32d50fcf0}|<f4>parent: 0x55f32d50f7d0}"];
-	node0x55f32d50fc60 [shape = "record", label = "{<f1>data: 'Vladimir Putin'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55f32d50fbd0}"];
-	node0x55f32d50fbd0:f2 -> node0x55f32d50fc60
-	node0x55f32d50fcf0 [shape = "record", label = "{<f1>data: 'Eugeny Ponasenkov'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55f32d50fbd0}"];
-	node0x55f32d50fbd0:f3 -> node0x55f32d50fcf0
-	node0x55f32d50f7d0:f3 -> node0x55f32d50fbd0
-	node0x55f32d50f390:f3 -> node0x55f32d50f7d0
+	node0x55c7a1248910 [shape = "record", label = "{<f1>data: 'is animal'|{<f2>left: 0x55c7a12489a0|<f3>right: 0x55c7a1248b50}|<f4>parent: (nil)}"];
+	node0x55c7a12489a0 [shape = "record", label = "{<f1>data: 'is green'|{<f2>left: 0x55c7a1248a30|<f3>right: 0x55c7a1248ac0}|<f4>parent: 0x55c7a1248910}"];
+	node0x55c7a1248a30 [shape = "record", label = "{<f1>data: 'crocodile'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55c7a12489a0}"];
+	node0x55c7a12489a0:f2 -> node0x55c7a1248a30
+	node0x55c7a1248ac0 [shape = "record", label = "{<f1>data: 'cat'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55c7a12489a0}"];
+	node0x55c7a12489a0:f3 -> node0x55c7a1248ac0
+	node0x55c7a1248910:f2 -> node0x55c7a12489a0
+	node0x55c7a1248b50 [shape = "record", label = "{<f1>data: 'is human'|{<f2>left: 0x55c7a1248be0|<f3>right: 0x55c7a1248d90}|<f4>parent: 0x55c7a1248910}"];
+	node0x55c7a1248be0 [shape = "record", label = "{<f1>data: 'is programming teacher'|{<f2>left: 0x55c7a1248c70|<f3>right: 0x55c7a1248d00}|<f4>parent: 0x55c7a1248b50}"];
+	node0x55c7a1248c70 [shape = "record", label = "{<f1>data: 'Ilya Dedinkiy'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55c7a1248be0}"];
+	node0x55c7a1248be0:f2 -> node0x55c7a1248c70
+	node0x55c7a1248d00 [shape = "record", label = "{<f1>data: 'Aleksey Lukashov'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55c7a1248be0}"];
+	node0x55c7a1248be0:f3 -> node0x55c7a1248d00
+	node0x55c7a1248b50:f2 -> node0x55c7a1248be0
+	node0x55c7a1248d90 [shape = "record", label = "{<f1>data: 'is from movie'|{<f2>left: 0x55c7a1248e20|<f3>right: 0x55c7a1248eb0}|<f4>parent: 0x55c7a1248b50}"];
+	node0x55c7a1248e20 [shape = "record", label = "{<f1>data: 'Shrek'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55c7a1248d90}"];
+	node0x55c7a1248d90:f2 -> node0x55c7a1248e20
+	node0x55c7a1248eb0 [shape = "record", label = "{<f1>data: 'no one'|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55c7a1248d90}"];
+	node0x55c7a1248d90:f3 -> node0x55c7a1248eb0
+	node0x55c7a1248b50:f3 -> node0x55c7a1248d90
+	node0x55c7a1248910:f3 -> node0x55c7a1248b50
 
 }

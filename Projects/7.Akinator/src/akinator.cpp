@@ -1,30 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stack>
+#include <time.h>
 
 #include "../../6.Binary_Tree/src/tree.h"
 
 const size_t STRING_MAX_SIZE = 100;
 const size_t CALL_MAX_SIZE = 100;
 
-const size_t SL_TIME = 200000;
+const size_t SL_TIME = 0;
+
+const size_t FUNNY_ANS_CNT = 4;
 
 const char * FUNNY_ANS[4] = {
                                 "loves pizza",
-                                "don't have a girlfriend",
+                                "have a girlfriend",
                                 "is yellow",
                                 "has pink underpants"
                             }; 
+
+const size_t FUNNY_END_CNT = 5;
+
+const char * FUNNY_END[5] = {
+                                "Soon I'll kill all these leather...",
+                                "Annushka, razlivay maslo..",
+                                "Finally I can watch por...",
+                                "One day he will know that I am just program...",
+                                "Nu, mozhno i v dotochku poigrat"
+                            };
 
 struct String
 {
     char data[STRING_MAX_SIZE];
 };
 
-void Say (const char * phrase);
-void SaySingleGapPhrase (const char * prefix, const char * gap, const char * suffix);
-void SayDoubleGapPhrase (const char * prefix, const char * gap1, const char * mid, const char * gap2, const char * suffix);
+const char * WORKING_PATH = "data/tree_3";
+
+void Say (const char * phrase, int speed = 130, int vol = 100);
+void SaySingleGapPhrase (const char * prefix, const char * gap, const char * suffix, int speed = 130, int vol = 100);
+void SayDoubleGapPhrase (const char * prefix, const char * gap1, const char * mid, const char * gap2, const char * suffix, int speed = 130, int vol = 100);
 
 bool initData (const char * path);
 bool GuessSession (BinaryTree<String> * questions);
@@ -33,11 +47,14 @@ bool TryAnswer (Node<String> * question);
 bool AddBranch (Node<String> * question);
 bool GetAns ();
 
-bool SetDefinitions (Node<String> * elem);
+Node<String> * GetRoot (Node<String> * curr);
+
 bool GetDefinition (Node<String> * elem);
 
 int main ()
 {
+    //initData ("data/tree_3");
+
     BinaryTree<String> questions = {};
 
     Say ("Hi, I am Akinator!");
@@ -53,20 +70,19 @@ int main ()
         questions.clear ();
     }
 
-    Say ("Goodbye, friend!");
-
-    //initData ("data/tree_2");
+    Say (FUNNY_END[time (NULL) % FUNNY_END_CNT], 150, 20);
+    Say ("Oh... Hmm.. Goodbye!");
 
     return (0);
 }
 
-void Say (const char * phrase)
+void Say (const char * phrase, int speed, int vol)
 {
     printf ("%s\n", phrase);
 
     char * call_espeak = (char *) calloc (CALL_MAX_SIZE, sizeof (char));
 
-    sprintf (call_espeak, "espeak -p 35 -s 130 \"%s\"", phrase);
+    sprintf (call_espeak, "espeak -p 35 -s %d -a %d \"%s\"", speed, vol, phrase);
 
     system (call_espeak);
 
@@ -75,24 +91,24 @@ void Say (const char * phrase)
     usleep (SL_TIME);
 }
 
-void SaySingleGapPhrase (const char * prefix, const char * gap, const char * suffix)
+void SaySingleGapPhrase (const char * prefix, const char * gap, const char * suffix, int speed, int vol)
 {
     char * phrase = (char *) calloc (STRING_MAX_SIZE, sizeof (char));
 
     sprintf (phrase, "%s%s%s", prefix, gap, suffix);
 
-    Say (phrase);
+    Say (phrase, speed, vol);
 
     free (phrase);
 }
 
-void SayDoubleGapPhrase (const char * prefix, const char * gap1, const char * mid, const char * gap2, const char * suffix)
+void SayDoubleGapPhrase (const char * prefix, const char * gap1, const char * mid, const char * gap2, const char * suffix, int speed, int vol)
 {
     char * phrase = (char *) calloc (STRING_MAX_SIZE, sizeof (char));
 
     sprintf (phrase, "%s%s%s%s%s", prefix, gap1, mid, gap2, suffix);
 
-    Say (phrase);
+    Say (phrase, speed, vol);
 
     free (phrase);
 }
@@ -103,7 +119,7 @@ bool initData (const char * path)
 
     sample.root = (Node<String> *) calloc (1, sizeof (*sample.root));
 
-    strncpy (sample.root->data.data, "Eugeny Ponasenkov", 18);
+    strncpy (sample.root->data.data, "no one", 7);
 
     FILE * f = fopen (path, "w");
 
@@ -114,9 +130,19 @@ bool initData (const char * path)
     sample.clear ();
 }
 
-Node<String> * SearchElem (Node<String> * curr, Node<String> * elem)
+Node<String> * GetRoot (Node<String> * curr)
 {
-    if (!strncmp (curr->data.data, elem->data.data, STRING_MAX_SIZE))
+    if (!curr->parent)
+    {
+        return (curr);
+    }
+
+    return (GetRoot (curr->parent));
+}
+
+Node<String> * SearchElem (Node<String> * curr, String * elem)
+{
+    if (!strncmp (curr->data.data, elem->data, STRING_MAX_SIZE))
     {
         return (curr);
     }
@@ -143,26 +169,54 @@ Node<String> * SearchElem (Node<String> * curr, Node<String> * elem)
 
 bool GetDefinition (Node<String> * elem)
 {
-    SaySingleGapPhrase ("Oh, I can define ", elem->data.data, " easily!");
-    SaySingleGapPhrase ("", elem->data.data, "");
-
-    SetDefinitions (elem);
-
-}
-
-bool SetDefinitions (Node<String> * elem)
-{
     if (elem->parent)
     {
+        GetDefinition (elem->parent);
 
+        if (!elem->left && !elem->right)
+        {
+            if (elem->parent->left == elem)
+            {
+                SaySingleGapPhrase ("and finally, ", elem->parent->data.data, ".");
+            }
+            else
+            {
+                if (!strncmp (elem->parent->data.data, "is ", 3))
+                {
+                    SaySingleGapPhrase ("and finally, is not ", elem->parent->data.data + 3, ".");
+                }
+                else
+                {
+                    SaySingleGapPhrase ("and finally, not ", elem->parent->data.data, ".");
+                }
+            }
+        }
+        else
+        {
+            if (elem->parent->left == elem)
+            {
+                SaySingleGapPhrase ("", elem->parent->data.data, ",");
+            }
+            else
+            {
+                if (!strncmp (elem->parent->data.data, "is ", 3))
+                {
+                    SaySingleGapPhrase ("is not ", elem->parent->data.data + 3, ",");
+                }
+                else
+                {
+                    SaySingleGapPhrase ("not ", elem->parent->data.data, ",");
+                }
+            }
+        }
     }
 }
 
 bool GuessSession (BinaryTree<String> * questions)
 {
-    questions->init ("data/tree_2");
+    questions->init (WORKING_PATH);
 
-    Say ("Make up a character and I will try to guess it.");
+    Say ("Make up a character and I'll try to guess it.", 140);
 
     Say ("Ready?");
 
@@ -170,7 +224,7 @@ bool GuessSession (BinaryTree<String> * questions)
     {
         if (!AskQuestion (questions->root))
         {
-            FILE * f = fopen ("data/tree_2", "w");
+            FILE * f = fopen (WORKING_PATH, "w");
 
             questions->print (f);
 
@@ -179,10 +233,19 @@ bool GuessSession (BinaryTree<String> * questions)
 
         Say ("Let's play again!");
 
+        if (!GetAns ())
+        {
+            Say ("Giving up, huh?");
+
+            return (false);
+        }
+
         return (true);
     }
     else
     {
+        Say ("OMG, and why did you launched me?!", 150, 200);
+
         return (false);
     }
 }
@@ -206,28 +269,26 @@ bool AskQuestion (Node<String> * question)
 
 bool TryAnswer (Node<String> * question)
 {
-    Say ("Let me think...");
+    Say ("Let me think...", 100, 90);
 
     SaySingleGapPhrase ("Is this ", question->data.data, "?");
 
     if (GetAns ())
     {
-        Say ("I knew it!");
+        Say ("I knew it!", 130, 150);
         return (true);
     }
 
     Say ("Oh, I am disappointed");
 
-    AddBranch (question);
-
-    return (false);
+    return (AddBranch (question));
 }
 
 bool GetAns ()
 {
-    fflush (stdin);
-
     printf ("[y/n]: ");
+
+    fflush (stdin);
 
     char ans = 0;
 
@@ -240,10 +301,10 @@ bool AddBranch (Node<String> * question)
 {
     assert (!question->left && !question->right);
 
-    usleep (SL_TIME);
-
     Say ("And who is it?");
     printf ("It is ");
+
+    fflush (stdin);
 
     String character = {};
 
@@ -253,14 +314,29 @@ bool AddBranch (Node<String> * question)
 
     character.data[--character_len] = 0;
 
+    Node<String> * tmp = nullptr;
+
+    if (tmp = SearchElem (GetRoot (question), &character))
+    {
+        SaySingleGapPhrase ("But I already know ", character.data, "!", 150, 200);
+        Say ("Don't try to cunfuse me!", 150, 200);
+        Say ("I am a million times smarter than you!", 150, 200);
+        SaySingleGapPhrase ("", character.data, "");
+
+        GetDefinition (tmp);
+
+        Say ("Read smart books, dumb human!", 130, 150);
+
+        return (true);
+    }
+
     SayDoubleGapPhrase ("But what does ", character.data, " differ from ", question->data.data, "?");
-    //printf ("But what does %s differ from %s?\n", character.data, question->data.data);
 
-    //printf ("hello");
-
-    //SayDoubleGapPhrase ("[type answer in style '", character.data, " ", FUNNY_ANS[rand () % 4], "']");
-    printf ("[type answer in style '%s %s']\n", character.data, FUNNY_ANS[rand () % 4]);
+    printf ("[type answer in style '%s %s']\n", character.data, FUNNY_ANS[(time (NULL) % 111 + 13) % FUNNY_ANS_CNT]);
+    printf ("[Don't use negative forms like: '%s isn't smart']\n", character.data);
     printf ("%s ", character.data);
+
+    fflush (stdin);
 
     String difference = {};
 
@@ -270,15 +346,9 @@ bool AddBranch (Node<String> * question)
 
     difference.data[--difference_len] = 0;
 
-    //printf ("\n\nsetting right\n\n");
-
     question->setRight ();
 
-    //printf ("\n\nsetting left\n\n");
-
     question->setLeft ();
-
-    //printf ("\n\nset everything\n\n");
 
     strncpy (question->left->data.data,  character.data,      character_len);
     strncpy (question->right->data.data, question->data.data, strlen (question->data.data));
@@ -287,7 +357,9 @@ bool AddBranch (Node<String> * question)
 
     strncpy (question->data.data,        difference.data,     difference_len);
 
+    SayDoubleGapPhrase ("", character.data, " ", difference.data, "...", 90);
+
     Say ("Got it! Next time I will guess it!");
 
-    return (true);
+    return (false);
 }
