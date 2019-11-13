@@ -39,16 +39,18 @@ bool Node<elem_t>::clear ()
     return (true);
 }
 
+//STOPPED HERE
+
 template <typename elem_t>
-bool Node<elem_t>::print (FILE * log)
+void Node<elem_t>::print (FILE * log, void (* printer) (FILE *, const void *))
 {
     fprintf (log, "{");
 
-    fwrite (&this->data, sizeof (this->data), 1, log);
+    printer (log, &this->data);
 
     if (this->left)
     {
-        this->left->print (log);
+        this->left->print (log, printer);
     }
     else if (this->right)
     {
@@ -57,38 +59,10 @@ bool Node<elem_t>::print (FILE * log)
 
     if (this->right)
     {
-        this->right->print (log);
+        this->right->print (log, printer);
     }
 
     fprintf (log, "}");
-    
-    return (true);
-}
-
-template <typename elem_t>
-bool Node<elem_t>::fprint (FILE * log, const char * format)
-{
-    fprintf (log, "{");
-
-    fprintf (log, format, this->data);
-
-    if (this->left)
-    {
-        this->left->fprint (log, format);
-    }
-    else if (this->right)
-    {
-        fprintf (log, "$");
-    }
-
-    if (this->right)
-    {
-        this->right->fprint (log, format);
-    }
-
-    fprintf (log, "}");
-    
-    return (true);
 }
 
 template <typename elem_t>
@@ -148,26 +122,26 @@ Node<elem_t> * Node<elem_t>::setRight ()
 }
 
 template <typename elem_t>
-bool Node<elem_t>::printDot (FILE * log, const char * format)
+bool Node<elem_t>::printDot (FILE * log, void (* printer) (FILE *, const void *))
 {
-    fprintf (log, "\tnode%p [shape = \"record\", label = \"{<f1>data: '", 
+    fprintf (log, "\tnode%p [shape = \"record\", label = \"{<f1>data: ", 
             this);
 
-    fprintf (log, format, this->data.data);
+    printer (log, &this->data);
 
-    fprintf (log, "'|{<f2>left: %p|<f3>right: %p}|<f4>parent: %p}\"];\n", 
+    fprintf (log, "|{<f2>left: %p|<f3>right: %p}|<f4>parent: %p}\"];\n", 
             this->left, this->right, this->parent);
 
     if (this->left)
     {
-        this->left->printDot (log, format);
+        this->left->printDot (log, printer);
 
         fprintf (log, "\tnode%p:f2 -> node%p\n", this, this->left);
     }
 
     if (this->right)
     {
-        this->right->printDot (log, format);
+        this->right->printDot (log, printer);
 
         fprintf (log, "\tnode%p:f3 -> node%p\n", this, this->right);
     }

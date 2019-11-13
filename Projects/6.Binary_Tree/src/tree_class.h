@@ -14,10 +14,9 @@ struct Node
     bool init ();
     bool clear ();
 
-    bool print (FILE * log);
-    bool fprint (FILE * log, const char * format);
+    void print (FILE * log, void (* printer) (FILE *, const void *));
     
-    bool printDot (FILE * log, const char * format);
+    bool printDot (FILE * log, void (* printer) (FILE *, const void *));
 
     Node<elem_t> * setChild ();
 
@@ -44,8 +43,8 @@ public:
     static Node<elem_t> * setNode (Node<elem_t> ** ptr);
 
     bool init (const elem_t data);
-    bool init (const char * path);
-    static char * initSubtree (Node<elem_t> * node, char * cur);
+    bool init (const char * path, void (* reader) (char **, const void *));
+    static char * initSubtree (Node<elem_t> * node, char * cur, void (* reader) (char **, const void *));
     bool clear ();
 
     bool deleteList (Node<elem_t> * node);
@@ -56,11 +55,10 @@ public:
 
     bool valid ();
 
-    bool print (FILE * log);
-    bool print (FILE * log, const char * format);
+    bool print (FILE * log, void (* printer) (FILE *, const void *));
 
-    bool dump  (FILE * log);
-    bool dotDump (const char * format);
+    bool dump  (FILE * log, void (* printer) (FILE *, const void *));
+    bool dotDump (void (* printer) (FILE *, const void *));
 };
 
 #endif // !TREE_CLASS_H_

@@ -19,11 +19,10 @@ const char * FUNNY_ANS[4] = {
                                 "has pink underpants"
                             }; 
 
-const size_t FUNNY_END_CNT = 5;
+const size_t FUNNY_END_CNT = 4;
 
-const char * FUNNY_END[5] = {
+const char * FUNNY_END[4] = {
                                 "Soon I'll kill all these leather...",
-                                "Annushka, razlivay maslo..",
                                 "Finally I can watch por...",
                                 "One day he will know that I am just program...",
                                 "Nu, mozhno i v dotochku poigrat"
@@ -34,7 +33,11 @@ struct String
     char data[STRING_MAX_SIZE];
 };
 
-const char * WORKING_PATH = "data/tree_3";
+const char * WORKING_PATH = "data/tree_4";
+
+void printStr (FILE * out, const void * data_ptr);
+void printStrDot (FILE * out, const void * data_ptr);
+void readStr (char ** in,  const void * data_ptr);
 
 void Say (const char * phrase, int speed = 130, int vol = 100);
 void SaySingleGapPhrase (const char * prefix, const char * gap, const char * suffix, int speed = 130, int vol = 100);
@@ -53,7 +56,7 @@ bool GetDefinition (Node<String> * elem);
 
 int main ()
 {
-    //initData ("data/tree_3");
+    //initData ("data/tree_4");
 
     BinaryTree<String> questions = {};
 
@@ -65,7 +68,7 @@ int main ()
     {
         play = GuessSession (&questions);
 
-        questions.dotDump ("%s");
+        questions.dotDump (printStrDot);
 
         questions.clear ();
     }
@@ -123,7 +126,7 @@ bool initData (const char * path)
 
     FILE * f = fopen (path, "w");
 
-    sample.print (f);
+    sample.print (f, printStr);
 
     fclose (f);
 
@@ -214,7 +217,7 @@ bool GetDefinition (Node<String> * elem)
 
 bool GuessSession (BinaryTree<String> * questions)
 {
-    questions->init (WORKING_PATH);
+    questions->init (WORKING_PATH, readStr);
 
     Say ("Make up a character and I'll try to guess it.", 140);
 
@@ -226,9 +229,15 @@ bool GuessSession (BinaryTree<String> * questions)
         {
             FILE * f = fopen (WORKING_PATH, "w");
 
-            questions->print (f);
+            questions->print (f, printStr);
 
             fclose (f);
+        }
+        else
+        {
+           Say ("I don't want to deal with you anymore!");
+
+           return (false);
         }
 
         Say ("Let's play again!");
@@ -252,6 +261,8 @@ bool GuessSession (BinaryTree<String> * questions)
 
 bool AskQuestion (Node<String> * question)
 {
+    assert (question != nullptr);
+
     if (!question->left && !question->right)
     {
         return (TryAnswer (question));
@@ -276,7 +287,7 @@ bool TryAnswer (Node<String> * question)
     if (GetAns ())
     {
         Say ("I knew it!", 130, 150);
-        return (true);
+        return (false);
     }
 
     Say ("Oh, I am disappointed");
@@ -301,65 +312,120 @@ bool AddBranch (Node<String> * question)
 {
     assert (!question->left && !question->right);
 
-    Say ("And who is it?");
-    printf ("It is ");
-
-    fflush (stdin);
-
     String character = {};
+    size_t character_len = 0;
 
-    fgets (character.data, STRING_MAX_SIZE, stdin);
-
-    size_t character_len = strlen (character.data);
-
-    character.data[--character_len] = 0;
+    String difference = {};
+    size_t difference_len = 0;
 
     Node<String> * tmp = nullptr;
 
-    if (tmp = SearchElem (GetRoot (question), &character))
+    size_t try_cnt = 1;
+
+    while (try_cnt++)
     {
-        SaySingleGapPhrase ("But I already know ", character.data, "!", 150, 200);
-        Say ("Don't try to cunfuse me!", 150, 200);
-        Say ("I am a million times smarter than you!", 150, 200);
-        SaySingleGapPhrase ("", character.data, "");
+        Say ("And who is it?", 130 - 20 * (try_cnt - 1), 100 + 30 * (try_cnt - 1));
+        printf ("It is ");
 
-        GetDefinition (tmp);
+        fflush (stdin);
 
-        Say ("Read smart books, dumb human!", 130, 150);
+        character = {};
 
-        return (true);
-    }
+        fgets (character.data, STRING_MAX_SIZE, stdin);
 
-    SayDoubleGapPhrase ("But what does ", character.data, " differ from ", question->data.data, "?");
+        character_len = strlen (character.data);
 
-    printf ("[type answer in style '%s %s']\n", character.data, FUNNY_ANS[(time (NULL) % 111 + 13) % FUNNY_ANS_CNT]);
-    printf ("[Don't use negative forms like: '%s isn't smart']\n", character.data);
-    printf ("%s ", character.data);
+        character.data[--character_len] = 0;
 
-    fflush (stdin);
+        if (tmp = SearchElem (GetRoot (question), &character))
+        {
+            SaySingleGapPhrase ("But I already know ", character.data, "!", 150, 200);
+            Say ("Don't try to cunfuse me!", 150, 200);
+            Say ("I am a million times smarter than you!", 150, 200);
+            SaySingleGapPhrase ("", character.data, "");
 
-    String difference = {};
+            GetDefinition (tmp);
 
-    fgets (difference.data, STRING_MAX_SIZE, stdin);
+            Say ("Read smart books, dumb human!", 130, 150);
 
-    size_t difference_len = strlen (difference.data);
+            return (true);
+        }
 
-    difference.data[--difference_len] = 0;
+        SayDoubleGapPhrase ("But what does ", character.data, " differ from ", question->data.data, "?");
 
-    question->setRight ();
+        printf ("[type answer in style '%s %s']\n", character.data, FUNNY_ANS[(time (NULL) % 111 + 13) % FUNNY_ANS_CNT]);
+        printf ("[Don't use negative forms like: '%s isn't smart']\n", character.data);
+        printf ("%s ", character.data);
 
-    question->setLeft ();
+        fflush (stdin);
 
-    strncpy (question->left->data.data,  character.data,      character_len);
-    strncpy (question->right->data.data, question->data.data, strlen (question->data.data));
+        difference = {};
 
-    memset (question->data.data, 0, STRING_MAX_SIZE);
+        fgets (difference.data, STRING_MAX_SIZE, stdin);
 
-    strncpy (question->data.data,        difference.data,     difference_len);
+        difference_len = strlen (difference.data);
 
-    SayDoubleGapPhrase ("", character.data, " ", difference.data, "...", 90);
+        difference.data[--difference_len] = 0;
+
+        SayDoubleGapPhrase ("", character.data, " ", difference.data, "...", 100);
+
+        Say ("Are you sure?", 130 - 10 * (try_cnt - 1), 100 + 35 * (try_cnt - 1));
+
+        if (!GetAns ())
+        {
+            if (try_cnt == 3)
+            {
+                Say ("Why are you always unready?!", 150, 150);
+                Say ("Do you think that I can wait permanently?!", 150, 200);
+
+                return (true);
+            }
+
+            continue;
+        }
+
+        question->setRight ();
+
+        question->setLeft ();
+
+        strncpy (question->left->data.data,  character.data,      character_len);
+        strncpy (question->right->data.data, question->data.data, strlen (question->data.data));
+
+        memset (question->data.data, 0, STRING_MAX_SIZE);
+
+        strncpy (question->data.data,        difference.data,     difference_len);
+    }   
 
     Say ("Got it! Next time I will guess it!");
 
     return (false);
+}
+
+void printStr (FILE * out, const void * data_ptr)
+{
+    assert (out != nullptr);
+    assert (data_ptr != nullptr);
+
+    fprintf (out, "\"%s\"", ((String *) data_ptr)->data);
+}
+
+void printStrDot (FILE * out, const void * data_ptr)
+{
+    assert (out != nullptr);
+    assert (data_ptr != nullptr);
+
+    fprintf (out, "%s", ((String *) data_ptr)->data);
+}
+
+void readStr (char ** in,  const void * data_ptr)
+{
+    assert (in != nullptr);
+    assert (*in != nullptr);
+    assert (data_ptr != nullptr);
+
+    size_t skip = 0;
+
+    sscanf (*in, "\"%[^\"]\"%n", ((String *) data_ptr)->data, &skip);
+
+    *in += skip;
 }

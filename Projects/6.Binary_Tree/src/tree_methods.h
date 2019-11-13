@@ -23,7 +23,7 @@ bool BinaryTree<elem_t>::init (const elem_t data)
 }
 
 template <typename elem_t>
-bool BinaryTree<elem_t>::init (const char * path)
+bool BinaryTree<elem_t>::init (const char * path, void (* reader) (char **, const void *))
 {
     FILE* f = fopen (path, "r");
 
@@ -39,29 +39,25 @@ bool BinaryTree<elem_t>::init (const char * path)
 
     assert (cur != nullptr);
 
-    if (*cur != '{' || sof_code < sizeof (elem_t) + 2)
+    if (*cur != '{')
     {
         return (false);
     }
 
     setNode (&this->root);
 
-    initSubtree (this->root, cur);
+    initSubtree (this->root, cur, reader);
 }
 
 template <typename elem_t>
-char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur)
+char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur, void (* reader) (char **, const void *))
 {
-    if (cur == nullptr)
-    {
-        return (nullptr);
-    }
+    assert (cur != nullptr);
+    assert (node != nullptr);
 
     cur += 1;
 
-    memcpy (&(node->data), cur, sizeof (node->data));
-
-    cur += sizeof (node->data);
+    reader (&cur, &(node->data));
 
     if (*cur == '{')
     {
@@ -69,7 +65,7 @@ char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur)
 
         assert (node->left->parent == node);
 
-        cur = initSubtree (node->left, cur);
+        cur = initSubtree (node->left, cur, reader);
 
         if (*cur == '{')
         {
@@ -77,7 +73,7 @@ char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur)
 
             assert (node->right->parent == node);
 
-            cur = initSubtree (node->right, cur);
+            cur = initSubtree (node->right, cur, reader);
         }
     }
     else if (*cur == '$')
@@ -92,7 +88,7 @@ char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur)
 
         assert (node->right->parent == node);
 
-        cur = initSubtree (node->right, ++cur);
+        cur = initSubtree (node->right, ++cur, reader);
     }
 
     if (*cur != '}')
@@ -163,17 +159,9 @@ bool BinaryTree<elem_t>::deleteSubtree (Node<elem_t> * node)
 }
 
 template <typename elem_t>
-bool BinaryTree<elem_t>::print (FILE * log)
+bool BinaryTree<elem_t>::print (FILE * log, void (* printer) (FILE *, const void *))
 {
-    this->root->print (log);
-
-    return (true);
-}
-
-template <typename elem_t>
-bool BinaryTree<elem_t>::print (FILE * log, const char * format)
-{
-    this->root->fprint (log, format);
+    this->root->print (log, printer);
 
     return (true);
 }
@@ -218,7 +206,7 @@ Node<elem_t> * BinaryTree<elem_t>::rec_search (Node<elem_t> * node, const elem_t
 }
 
 template <typename elem_t>
-bool BinaryTree<elem_t>::dotDump (const char * format)
+bool BinaryTree<elem_t>::dotDump (void (* printer) (FILE *, const void *))
 {
     system("mkdir -p tmp");
 
@@ -226,7 +214,7 @@ bool BinaryTree<elem_t>::dotDump (const char * format)
 
     fprintf (log, "digraph dump\n{\n");
 
-    this->root->printDot (log, format);
+    this->root->printDot (log, printer);
 
     fprintf (log, "\n}\n");
 
