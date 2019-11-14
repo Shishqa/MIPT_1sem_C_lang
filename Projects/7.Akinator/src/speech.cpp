@@ -5,7 +5,9 @@
 
 void Say (const char * phrase, int speed, int vol)
 {
-    printf ("%s\n", phrase);
+    printf ("%s", phrase);
+
+    fflush (stdout);
 
     char * call_espeak = (char *) calloc (CALL_MAX_SIZE, sizeof (char));
 
@@ -36,4 +38,10 @@ void Say (const char * prefix, const char * gap1, const char * mid, const char *
     Say (phrase, speed, vol);
 
     free (phrase);
+}
+
+void flush ()
+{
+    char c = 0;
+    while ((c = getchar ()) != '\n' && c != EOF);
 }

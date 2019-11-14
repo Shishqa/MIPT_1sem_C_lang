@@ -20,4 +20,6 @@ void Say (const char * prefix,
           int speed = 140, 
           int vol = 100);
 
+void flush ();
+
 #endif // !SPEECH_H_
