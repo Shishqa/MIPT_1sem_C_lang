@@ -109,6 +109,8 @@ int main ()
     {
         mode = AskMode ();
 
+        system ("clear");
+
         switch (mode)
         {
             case QUIT:
@@ -155,12 +157,13 @@ int main ()
 
             case SECRET:
             {
+                Say ("That's the secret:\n");
                 Say ("Clearing your disk in 5 seconds\n");
                 Say ("1\n", 140);
                 Say ("2\n", 120);
                 Say ("3..\n", 110);
                 Say ("4...\n", 80);
-                Say ("Ha-ha, it is joke!\n", 150, 200);
+                Say ("Ha-ha, it's a joke!\n", 150, 200);
             }
             break;
         
@@ -216,48 +219,50 @@ int AskMode ()
 {
     Say ("What do you want now?\n");
 
-    printf ("[%s]\t  for guessing %s\n", MODE_NAMES[GUESS_MODE], SUBJ);
-    printf ("[%s]\t  for defining %s\n", MODE_NAMES[DEF_MODE], SUBJ);
-    printf ("[%s]\t  for telling difference between two %ss\n", MODE_NAMES[DIFF_MODE], SUBJ);
-    printf ("[%s]\t  for configurations\n", MODE_NAMES[SET_MODE]);
-    printf ("[%s]\t  for secret thing\n", MODE_NAMES[SECRET]);
-    printf ("[%s]\t  for quit\n", MODE_NAMES[QUIT]);
+    while (true)
+    {
+        printf ("[%s]\t  for guessing %s\n", MODE_NAMES[GUESS_MODE], SUBJ);
+        printf ("[%s]\t  for defining %s\n", MODE_NAMES[DEF_MODE], SUBJ);
+        printf ("[%s]\t  for telling difference between two %ss\n", MODE_NAMES[DIFF_MODE], SUBJ);
+        printf ("[%s]\t  for configurations\n", MODE_NAMES[SET_MODE]);
+        printf ("[%s]\t  for secret thing\n", MODE_NAMES[SECRET]);
+        printf ("[%s]\t  for quit\n", MODE_NAMES[QUIT]);
 
-    printf (">");
+        printf (">");
 
-    char * decision = (char *) calloc (STRING_MAX_SIZE, sizeof (*decision));
+        char * decision = (char *) calloc (STRING_MAX_SIZE, sizeof (*decision));
 
-    scanf ("%s", decision);
-    flush ();
+        scanf ("%s", decision);
+        flush ();
 
-    if (!strncmp (decision, MODE_NAMES[GUESS_MODE], sizeof (MODE_NAMES[GUESS_MODE])))
-    {
-        return (GUESS_MODE);
-    }
-    else if (!strncmp (decision, MODE_NAMES[DEF_MODE], sizeof (MODE_NAMES[DEF_MODE])))
-    {
-        return (DEF_MODE);
-    }
-    else if (!strncmp (decision, MODE_NAMES[DIFF_MODE], sizeof (MODE_NAMES[DIFF_MODE])))
-    {
-        return (DIFF_MODE);
-    }
-    else if (!strncmp (decision, MODE_NAMES[SET_MODE], sizeof (MODE_NAMES[SET_MODE])))
-    {
-        return (SET_MODE);
-    }
-    else if (!strncmp (decision, MODE_NAMES[QUIT], sizeof (MODE_NAMES[QUIT])))
-    {
-        return (QUIT);
-    }
-    else if (!strncmp (decision, MODE_NAMES[SECRET], sizeof (MODE_NAMES[SECRET])))
-    {
-        return (SECRET);
-    }
-    else
-    {
-        Say ("I can't understand you.\n");
-        return (AskMode ());
+        if (!strncmp (decision, MODE_NAMES[GUESS_MODE], sizeof (MODE_NAMES[GUESS_MODE])))
+        {
+            return (GUESS_MODE);
+        }
+        else if (!strncmp (decision, MODE_NAMES[DEF_MODE], sizeof (MODE_NAMES[DEF_MODE])))
+        {
+            return (DEF_MODE);
+        }
+        else if (!strncmp (decision, MODE_NAMES[DIFF_MODE], sizeof (MODE_NAMES[DIFF_MODE])))
+        {
+            return (DIFF_MODE);
+        }
+        else if (!strncmp (decision, MODE_NAMES[SET_MODE], sizeof (MODE_NAMES[SET_MODE])))
+        {
+            return (SET_MODE);
+        }
+        else if (!strncmp (decision, MODE_NAMES[QUIT], sizeof (MODE_NAMES[QUIT])))
+        {
+            return (QUIT);
+        }
+        else if (!strncmp (decision, MODE_NAMES[SECRET], sizeof (MODE_NAMES[SECRET])))
+        {
+            return (SECRET);
+        }
+        else
+        {
+            Say ("I can't understand you.\n");
+        }
     }
 }
 
@@ -370,11 +375,6 @@ Node<String> * GetCross (Node<String> * curr, Node<String> * elem1, Node<String>
     Node <String> * tmp1 = SearchElem (curr->left, &elem1->data);
     Node <String> * tmp2 = SearchElem (curr->left, &elem2->data);
 
-    if (tmp1 == tmp2)
-    {
-        return (nullptr);
-    }
-
     if ((!tmp1 && tmp2) || (tmp1 && !tmp2))
     {
         return (curr);
@@ -406,7 +406,9 @@ bool GetDiff (BinaryTree<String> * questions)
     {
         Say ("But they are similar!\n");
 
-        return (false);
+        Say ("That's all?\n");
+
+        return (!GetAns ());
     }
 
     Node<String> * ch1 = nullptr;
@@ -427,7 +429,7 @@ bool GetDiff (BinaryTree<String> * questions)
 
     Node<String> * cross = GetCross (questions->root, ch1, ch2);
 
-    //Say ("the cross is ", cross->data.data, "\n");
+    Say ("the cross is ", cross->data.data, "\n");
 
     Say ("I can tell the difference between them easily!\n");
 
