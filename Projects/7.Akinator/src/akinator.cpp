@@ -31,8 +31,11 @@ void Say (const char * prefix,
 
 void flush ();
 
-char * WORKING_PATH = "data/tree_2";
-int SILENT = 0;
+int  SILENT = 0;
+char WORKING_PATH[PATH_MAX]  = {};
+
+char SUBJ[STRING_MAX_SIZE]   = {};
+char SINGLE[STRING_MAX_SIZE] = {};
 
 enum modes
 {
@@ -51,6 +54,9 @@ const char * MODE_NAMES[5] = {
     "quit"
 };
 
+void initAkinator ();
+void saveConfig ();
+
 bool initData ();
 size_t GetLine (char * to);
 
@@ -67,7 +73,7 @@ void DiffSession (BinaryTree<String> * questions);
 bool GetDiff (BinaryTree<String> * questions);
 Node<String> * GetCross (Node<String> * curr, Node<String> * elem1, Node<String> * elem2);
 
-void GuessSession (BinaryTree<String> * questions);
+bool GuessSession (BinaryTree<String> * questions);
 bool AskQuestion (Node<String> * question);
 bool TryAnswer (Node<String> * question);
 bool AddBranch (Node<String> * question);
@@ -84,7 +90,11 @@ Node<String> * SearchElem (Node<String> * curr, String * elem);
 
 int main ()
 {
+    srand (time (NULL));
+
     BinaryTree<String> questions = {};
+
+    initAkinator ();
 
     Say ("Hi, I am Akinator!\n");
 
@@ -107,7 +117,10 @@ int main ()
 
             case GUESS_MODE:
             {
-                GuessSession (&questions);
+                if (!GuessSession (&questions))
+                {
+                    return (0);
+                }
 
                 break;
             }
@@ -142,6 +155,36 @@ int main ()
     }
 }
 
+void initAkinator ()
+{
+    FILE * conf = fopen ("config/config", "r");
+
+    fscanf (conf, "SUBJ: \"%[^\"]\"\n", SUBJ);
+    fscanf (conf, "SINGLE: \"%[^\"]\"\n", SINGLE);
+
+    fscanf (conf, "SILENT: %d\n", &SILENT);
+
+    fscanf (conf, "WORKING_PATH: \"%[^\"]\"", WORKING_PATH);
+
+    fclose (conf);
+}
+
+void saveConfig ()
+{
+    FILE * conf = fopen ("config/config", "w");
+
+    fprintf (conf, "SUBJ: \"%s\"\n", SUBJ);
+    fprintf (conf, "SINGLE: \"%s\"\n", SINGLE);
+
+    fprintf (conf, "SILENT: %d\n", SILENT);
+
+    fprintf (conf, "WORKING_PATH: \"%s\"\n", WORKING_PATH);
+
+    fprintf (conf, "\n#don't change the order of lines!");
+
+    fclose (conf);
+}
+
 bool printData (BinaryTree<String> * questions)
 {
     FILE * f = fopen (WORKING_PATH, "w");
@@ -155,9 +198,9 @@ int AskMode ()
 {
     Say ("What do you want from me?\n");
 
-    printf ("[%s]\t  for guessing character\n", MODE_NAMES[GUESS_MODE]);
-    printf ("[%s]\t  for defining character\n", MODE_NAMES[DEF_MODE]);
-    printf ("[%s]\t  for telling difference between two characters\n", MODE_NAMES[DIFF_MODE]);
+    printf ("[%s]\t  for guessing %s\n", MODE_NAMES[GUESS_MODE], SUBJ);
+    printf ("[%s]\t  for defining %s\n", MODE_NAMES[DEF_MODE], SUBJ);
+    printf ("[%s]\t  for telling difference between two %ss\n", MODE_NAMES[DIFF_MODE], SUBJ);
     printf ("[%s]\t  for configurations\n", MODE_NAMES[SET_MODE]);
     printf ("[%s]\t  for quit\n", MODE_NAMES[QUIT]);
 
@@ -222,12 +265,10 @@ void Setup ()
 
             case 'w':
             {
-                scanf ("%s", path);
+                scanf ("%s", WORKING_PATH);
                 flush ();
 
-                WORKING_PATH = path;
-
-                printf ("Working path is now %s\n", path);
+                printf ("Working path is now %s\n", WORKING_PATH);
             }
             break;
 
@@ -242,6 +283,8 @@ void Setup ()
                 break;
         }
     }
+
+    saveConfig ();
 }
 
 void DefSession (BinaryTree<String> * questions)
@@ -274,12 +317,15 @@ Node<String> * GetCross (Node<String> * curr, Node<String> * elem1, Node<String>
 
 bool GetDiff (BinaryTree<String> * questions)
 {
-    Say ("What two characters you want to differentiate?\n");
+    Say ("What two ", SUBJ, "s you want to differentiate?\n");
 
     String char1 = {};
     String char2 = {};
 
+    printf (">");
     GetLine (char1.data);
+
+    printf (">");
     GetLine (char2.data);
 
     Say (char1.data, " and ", char2.data, "", "...\n", 100);
@@ -289,13 +335,13 @@ bool GetDiff (BinaryTree<String> * questions)
 
     if (!(ch1 = SearchElem (questions->root, &char1)))
     {
-        Say ("I don't know, who is ", char1.data, ".\n");
+        Say ("I don't know ", SINGLE, " is ", char1.data, ".\n");
 
         return (true);
     }
     else if (!(ch2 = SearchElem (questions->root, &char2)))
     {
-        Say ("I don't know, who is ", char2.data, ".\n");
+        Say ("I don't know ", SINGLE, " is ", char2.data, ".\n");
 
         return (true);
     }
@@ -346,7 +392,7 @@ void DiffSession (BinaryTree<String> * questions)
 
 bool GetDef (BinaryTree<String> * questions)
 {
-    Say ("What character do you want to know?\n");
+    Say ("What ", SUBJ, " do you want to know?\n");
 
     printf ("I want to know about ");
 
@@ -359,7 +405,7 @@ bool GetDef (BinaryTree<String> * questions)
 
     if (tmp = SearchElem (questions->root, &element))
     {
-        Say ("Obviously I know who it is!\n");
+        Say ("Obviously I know ", SINGLE, " it is!\n");
 
         Say (element.data, " ", "");
 
@@ -367,7 +413,7 @@ bool GetDef (BinaryTree<String> * questions)
     }
     else
     {
-        Say ("I assume, this character doesn't exist\n");
+        Say ("I assume, this ", SUBJ, " doesn't exist\n");
     }
 
     Say ("That's all?\n");
@@ -377,7 +423,7 @@ bool GetDef (BinaryTree<String> * questions)
 
 void EndSession ()
 {
-    Say (FUNNY_END[time (NULL) % FUNNY_END_CNT], "", "\n", 150, 20);
+    Say (FUNNY_END[rand () % FUNNY_END_CNT], "", "\n", 150, 20);
     Say ("Oh... Hmm.. Goodbye!\n");
 }
 
@@ -446,11 +492,11 @@ bool GetDefinition (Node<String> * elem, Node<String> * stop_parent, Node<String
 
         if (!start_node && elem->parent->parent != stop_parent)
         {
-            Say (CONNECT_END[time (NULL) % CONNECT_END_CNT]);
+            Say (CONNECT_END[rand () % CONNECT_END_CNT]);
         }
         else if (elem->parent->parent != stop_parent)
         {
-            Say (CONNECT[time (NULL) % CONNECT_CNT], 120);
+            Say (CONNECT[rand () % CONNECT_CNT], 120);
         }
 
         if (elem->parent->left == elem)
@@ -480,7 +526,7 @@ bool GetDefinition (Node<String> * elem, Node<String> * stop_parent, Node<String
     }
 }
 
-void GuessSession (BinaryTree<String> * questions)
+bool GuessSession (BinaryTree<String> * questions)
 {
     questions->init (WORKING_PATH, readStr);
 
@@ -488,7 +534,7 @@ void GuessSession (BinaryTree<String> * questions)
 
     while (play)
     {
-        Say ("Make up a character and I'll try to guess it.\n", 140);
+        Say ("Make up a ", SUBJ, " and I'll try to guess it.\n", 140);
 
         Say ("Ready?\n");
 
@@ -502,7 +548,7 @@ void GuessSession (BinaryTree<String> * questions)
             {
                 Say ("I don't want to deal with you anymore!\n", 150, 200);
 
-                return;
+                return (false);
             }
 
             Say ("Let's play again!\n");
@@ -513,11 +559,13 @@ void GuessSession (BinaryTree<String> * questions)
         {
             Say ("OMG, and why did you launched me?!\n", 150, 200);
 
-            return;
+            return (true);
         }
     }
 
     Say ("Giving up, huh?\n");
+
+    return (true);
 }
 
 bool AskQuestion (Node<String> * question)
@@ -529,7 +577,7 @@ bool AskQuestion (Node<String> * question)
         return (TryAnswer (question));
     }
 
-    Say ("Your character ", question->data.data, "?\n");
+    Say ("Your ", SUBJ, " ", question->data.data, "?\n");
 
     if (GetAns ())
     {
@@ -597,7 +645,7 @@ bool AddBranch (Node<String> * question)
     {
         character = {};
 
-        Say ("Who is it?\n");
+        Say ("", SINGLE, " is it?\n");
         printf ("It is ");
 
         character_len = GetLine (character.data);
@@ -613,12 +661,12 @@ bool AddBranch (Node<String> * question)
 
             Say ("Read smart books, dumb human!\n", 130, 150);
 
-            return (true);
+            return (false);
         }
 
         Say ("But what does ", character.data, " differ from ", question->data.data, "?\n");
 
-        printf ("[type answer in style '%s %s']\n", character.data, FUNNY_ANS[(time (NULL) % 111 + 13) % FUNNY_ANS_CNT]);
+        printf ("[type answer in style '%s %s']\n", character.data, FUNNY_ANS[rand () % FUNNY_ANS_CNT]);
         printf ("[Don't use negative forms like: '%s isn't smart']\n", character.data);
         printf ("%s ", character.data);
 
@@ -654,7 +702,7 @@ bool AddBranch (Node<String> * question)
 
     SetQuestion (question, character.data, character_len, difference.data, difference_len);
 
-    Say ("Ah, right, I knew it, ", FUNNY_RSN[time (NULL) % FUNNY_RSN_CNT], "\n");
+    Say ("Ah, right, I knew it, ", FUNNY_RSN[rand () % FUNNY_RSN_CNT], "\n");
 
     return (false);
 }

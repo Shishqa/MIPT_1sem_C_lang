@@ -231,4 +231,10 @@ bool BinaryTree<elem_t>::dotDump (void (* printer) (FILE *, const void *))
     return (true);
 }
 
+template <typename elem_t>
+bool BinaryTree<elem_t>::valid (Node<elem_t> * node)
+{
+    return (true);
+}
+
 #endif // !TREE_METHODS_H_

@@ -53,7 +53,7 @@ public:
     Node<elem_t> * search (const elem_t data);
     Node<elem_t> * rec_search (Node<elem_t> * node, const elem_t data);
 
-    bool valid ();
+    bool valid (Node<elem_t> * node);
 
     bool print (FILE * log, void (* printer) (FILE *, const void *));
 
