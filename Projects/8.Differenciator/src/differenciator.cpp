@@ -79,7 +79,7 @@ int main ()
 {
     BinaryTree<Monomial> expression = {};
 
-    initExpression (&expression, "data/exp1");
+    initExpression (&expression, "data/exp3");
 
     expression.dotDump (PrintMonomDot, 1);
 
@@ -166,7 +166,7 @@ void initMonomial (Node<Monomial> ** node, char ** cur)
             (*node)->left->parent = *node;
         }
         
-        if (isdigit (**cur))
+        if (isdigit (**cur) || (**cur == '-' && isdigit (*(*cur + 1))))
         {
             InitNum (*node, cur);
             printf ("num %d\n", (*node)->data.data);
@@ -571,6 +571,10 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
 
     if (node->parent && node->parent->data.type == OP_TYPE &&
         node->data.type == OP_TYPE && node->data.data < node->parent->data.data)
+    {
+        low_priority = true;
+    }
+    else if (TYPE(N) == NUM_TYPE && DATA(N) < 0)
     {
         low_priority = true;
     }
