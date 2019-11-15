@@ -77,20 +77,12 @@ void Node<elem_t>::print (FILE * log, const char mode, void (* printer) (FILE *,
             {
                 this->left->print (log, mode, printer, left_brac, right_brac, sep);
             }
-            else
-            {
-                fprintf (log, "%c", sep);
-            }
 
             printer (log, &this->data);
 
             if (this->right)
             {
                 this->right->print (log, mode, printer, left_brac, right_brac, sep);
-            }
-            else
-            {
-                fprintf (log, "%c", sep);
             }
 
             fprintf (log, "%c", right_brac);

@@ -11,6 +11,16 @@
 #include "tree_class.h"
 
 template <typename elem_t>
+bool BinaryTree<elem_t>::init ()
+{
+    this->root = nullptr;
+
+    this->dump_cnt = 0;
+
+    return (true);
+}
+
+template <typename elem_t>
 bool BinaryTree<elem_t>::init (const elem_t data)
 {
     setNode (&this->root);

@@ -43,6 +43,7 @@ public:
 
     static Node<elem_t> * setNode (Node<elem_t> ** ptr);
 
+    bool init ();
     bool init (const elem_t data);
     bool init (const char * path, void (* reader) (char **, const void *));
     static char * initSubtree (Node<elem_t> * node, char * cur, void (* reader) (char **, const void *));
