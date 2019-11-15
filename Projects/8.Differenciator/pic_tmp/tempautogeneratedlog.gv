@@ -1,0 +1,26 @@
+digraph dump
+{
+node [style = filled]
+	node0x55870f450b50 [shape = "circle" label = "+", fillcolor = "#fffacd", fontsize = 18]
+	node0x55870f450a30 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
+	node0x55870f4509d0 [shape = "circle" label = "d", fillcolor = "#fffacd", fontsize = 18]
+	node0x55870f450970 [shape = "square" label = "x", fillcolor = "#9acd32"]
+	node0x55870f4509d0 -> node0x55870f450970
+	node0x55870f4509a0 [shape = "square" label = "t", fillcolor = "#9acd32"]
+	node0x55870f4509d0 -> node0x55870f4509a0
+	node0x55870f450a30 -> node0x55870f4509d0
+	node0x55870f450a00 [shape = "square" label = "y", fillcolor = "#9acd32"]
+	node0x55870f450a30 -> node0x55870f450a00
+	node0x55870f450b50 -> node0x55870f450a30
+	node0x55870f450b20 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
+	node0x55870f450a60 [shape = "square" label = "x", fillcolor = "#9acd32"]
+	node0x55870f450b20 -> node0x55870f450a60
+	node0x55870f450af0 [shape = "circle" label = "d", fillcolor = "#fffacd", fontsize = 18]
+	node0x55870f450a90 [shape = "square" label = "y", fillcolor = "#9acd32"]
+	node0x55870f450af0 -> node0x55870f450a90
+	node0x55870f450ac0 [shape = "square" label = "t", fillcolor = "#9acd32"]
+	node0x55870f450af0 -> node0x55870f450ac0
+	node0x55870f450b20 -> node0x55870f450af0
+	node0x55870f450b50 -> node0x55870f450b20
+
+}

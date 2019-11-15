@@ -25,24 +25,32 @@ enum operations
     POW,
     SIN,
     COS,
-    LN
+    LN,
+    DIFF
 };
 
-const char * op_names[9] = {
+const char * op_names[10] = {
                                 "@",
                                 "+",
                                 "-",
                                 "*",
                                 "/",
                                 "^",
-                                "ln",
                                 "sin",
-                                "cos"
-                           };
+                                "cos",
+                                "ln",
+                                "d"
+                            };
 
 void PrintMonomDot (FILE * f, const void * ptr);
 
-void initExpression (BinaryTree<Monomial> * node, const char * path);
+void getPic   (BinaryTree<Monomial> * expression, const char * name, bool open = false);
+void getNodePic (Node<Monomial> * node, FILE * f);
+
+void getLaTex (BinaryTree<Monomial> * expression, const char * name, bool open = false);
+void getNodeLaTex (Node<Monomial> * node, FILE * f);
+
+void initExpression (BinaryTree<Monomial> * expression, const char * path);
 void initMonomial   (Node<Monomial> ** node, char ** cur);
 
 void InitNum (Node<Monomial> * node, char ** cur);
@@ -55,8 +63,8 @@ Node<Monomial> * CreateNode (const int data, const char type, Node<Monomial> * r
                                                               Node<Monomial> * left  = nullptr);
 Node<Monomial> * Copy (const Node<Monomial> * origin);
 
-BinaryTree<Monomial> * DiffExpression (const BinaryTree<Monomial> * node);
-Node<Monomial> * Diff (Node<Monomial> * node);
+BinaryTree<Monomial> * DiffExpression (const BinaryTree<Monomial> * node, const char var);
+Node<Monomial> * Diff (Node<Monomial> * node, const char var);
 
 int main ()
 {
@@ -66,9 +74,11 @@ int main ()
 
     expression.dotDump (PrintMonomDot, 1);
 
-    BinaryTree<Monomial> * diff_expression = DiffExpression (&expression);
+    BinaryTree<Monomial> * diff_expression = DiffExpression (&expression, 't');
 
     diff_expression->dotDump (PrintMonomDot, 2);
+
+    getPic (diff_expression, "my_first_pic", true);
 
     return (0);
 }
@@ -306,7 +316,7 @@ int ParseOperation (const char * op)
     assert (0);
 }
 
-BinaryTree<Monomial> * DiffExpression (const BinaryTree<Monomial> * expression)
+BinaryTree<Monomial> * DiffExpression (const BinaryTree<Monomial> * expression, const char var)
 {
     assert (expression != nullptr);
 
@@ -316,58 +326,89 @@ BinaryTree<Monomial> * DiffExpression (const BinaryTree<Monomial> * expression)
 
     diff->init ();
 
-    diff->root = Diff (expression->root);
+    diff->root = Diff (expression->root, var);
 
     return (diff);
 }
 
-Node<Monomial> * Diff (Node<Monomial> * node)
+Node<Monomial> * Diff (Node<Monomial> * node, const char var)
 {
     assert (node != nullptr);
 
     if (node->data.type == NUM_TYPE)
     {
-        return (CreateNode (0, NUM_TYPE));
+        return (n(0));
+    }
+    else if (node->data.type == VAR_TYPE && node->data.data == var)
+    {
+        return (n(1));
     }
     else if (node->data.type == VAR_TYPE)
     {
-        return (CreateNode (1, NUM_TYPE));
+        return (DIFF (v(node->data.data), v(var)));
     }
     else
     {
         switch (node->data.data)
         {
-            case ADD:
+            case ADD: // dL + dR
             {
-                return (ADD ( d(L), d(R) ));
+                return (ADD ( d(L), d(R) )); 
             }
             break;
 
-            case SUB:
+            case SUB: // dL - dR
             {
-                return (SUB ( d(L), d(R) ));
+                return (SUB ( d(L), d(R) )); 
             }
             break;
 
-            case MUL:
+            case MUL: // dL * R + L * dR
             {
                 return (ADD ( MUL( d(L), c(R) ), 
-                              MUL( c(L), d(R) )));
+                              MUL( c(L), d(R) ))); 
             }
             break;
 
-            case DIV:
+            case DIV: // (dL * R - L * dR) / (R ^ 2)
             {
                 return (DIV ( SUB ( MUL ( d(L), c(R) ), 
                                     MUL ( c(L), d(R) )), 
-                              POW ( c(R), v(2) )));
+                              POW ( c(R), n(2) ))); 
             }
+            break;
+
+            case POW: // (L ^ R) * (dR * ln(L) + (dL / L) * R)
+            {
+                return (MUL ( c(N), 
+                              ADD ( MUL ( d(R), LN(L) ),
+                                    MUL ( DIV ( d(L), c(L) ), c(R) )))); 
+            }
+            break;
+
+            case LN: // (1 / R) * dR
+            {
+                return (MUL ( DIV ( n(1), c(R) ), d(R) )); 
+            }
+            break;
+
+            case SIN: // cos(R) * dR
+            {
+                return (MUL ( COS ( c(R) ), d(R) ));
+            }
+            break;
+
+            case COS: // -1 * sin(R) * dR
+            {
+                return (MUL ( MUL( n(-1), SIN ( c(R) )), 
+                              d(R) ));
+            }
+            break;
         
             default:
             break;
         }
     }
-    
 }
 
 Node<Monomial> * CreateNode (const int data, const char type, Node<Monomial> * right, Node<Monomial> * left)
@@ -398,3 +439,83 @@ Node<Monomial> * Copy (const Node<Monomial> * origin)
 
     return (CreateNode (origin->data.data, origin->data.type, Copy (origin->right), Copy (origin->left)));
 }
+
+void getPic (BinaryTree<Monomial> * expression, const char * name, bool open)
+{
+    system("mkdir -p pic_tmp");
+
+	FILE *log = fopen("pic_tmp/tempautogeneratedlog.gv", "w");
+
+    fprintf (log, "digraph dump\n{\n");
+
+    fprintf (log, "node [style = filled]\n");
+
+    getNodePic (expression->root, log);
+
+    fprintf (log, "\n}\n");
+
+    fclose(log);
+
+	system("mkdir -p pic");
+
+	char call_dot[100] = "";
+
+    sprintf(call_dot, "dot -Tpng -opic/%s.png pic_tmp/tempautogeneratedlog.gv", name);
+
+	system(call_dot);
+
+    if (open)
+    {
+        char call_open[100] = "";
+
+        sprintf (call_open, "xdg-open 'pic/%s.png'", name);
+
+        system (call_open);
+    }
+}
+
+void getNodePic (Node<Monomial> * node, FILE * f)
+{
+    fprintf (f, "\tnode%p [shape = \"%s\" label = \"", node, ((node->data.type == OP_TYPE) ? "circle" : "square"));
+
+    PrintMonomDot (f, node);
+
+    switch (node->data.type)
+    {
+        case OP_TYPE:
+        {
+            fprintf (f, "\", fillcolor = \"#fffacd\", fontsize = 18]\n");
+        }
+        break;
+
+        case VAR_TYPE:
+        {
+            fprintf (f, "\", fillcolor = \"#9acd32\"]\n");
+        }
+        break;
+
+        case NUM_TYPE:
+        {
+            fprintf (f, "\", fillcolor = \"#ffa500\"]\n");
+        }
+        break;
+    
+        default:
+        break;
+    }
+
+    if (node->left)
+    {
+        getNodePic (node->left, f);
+        fprintf (f, "\tnode%p -> node%p\n", node, node->left);
+    }
+
+    if (node->right)
+    {
+        getNodePic (node->right, f);
+        fprintf (f, "\tnode%p -> node%p\n", node, node->right);
+    }
+}
+
+//void getLaTex (BinaryTree<Monomial> * expression, const char * name, bool open = false);
+//void getNodeLaTex (Node<Monomial> * node, FILE * f);

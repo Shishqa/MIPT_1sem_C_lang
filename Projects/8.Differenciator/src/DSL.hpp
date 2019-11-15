@@ -5,6 +5,8 @@
 
 #define R node->right
 
+#define N node
+
 #define ADD( elem_l, elem_r )                       \
         CreateNode (ADD, OP_TYPE, elem_r, elem_l)
 
@@ -29,13 +31,22 @@
 #define LN( elem )                                  \
         CreateNode (LN, OP_TYPE, elem)
 
+#define DIFF( elem, val )                           \
+        CreateNode (DIFF, OP_TYPE, val, elem)       
+
 #define c( elem )                                   \
         Copy (elem)
 
 #define d( elem )                                   \
-        Diff (elem)
+        Diff (elem, var)
+
+#define n( elem )                                   \
+        CreateNode (elem, NUM_TYPE)
 
 #define v( elem )                                   \
-        CreateNode (elem, NUM_TYPE)
+        CreateNode (elem, VAR_TYPE)
+
+#define type( elem, t )                             \
+        (elem)->data.type == t##_TYPE
 
 #endif // !DSL_H_
