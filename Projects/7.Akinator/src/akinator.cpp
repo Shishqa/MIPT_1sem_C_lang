@@ -10,8 +10,8 @@
 #include "readers.h"
 #include "phrases.h"
 
-const size_t CALL_MAX_SIZE = 100;
-const size_t PHRASE_MAX_SIZE = 100;
+const size_t CALL_MAX_SIZE = 300;
+const size_t PHRASE_MAX_SIZE = 300;
 
 void Say (const char * phrase, 
           int speed = 140, 
