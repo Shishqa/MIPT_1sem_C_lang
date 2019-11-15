@@ -3,6 +3,8 @@
 #include <assert.h>
 #include <ctype.h>
 
+#include "../../../Include/ms_stack.h"
+
 #include "../../6.Binary_Tree/src/tree.h"
 #include "monomial.hpp"
 
@@ -67,7 +69,11 @@ BinaryTree<Monomial> * DiffExpression (const BinaryTree<Monomial> * expression, 
 Node<Monomial> * Diff (Node<Monomial> * node, const char var);
 
 Node<Monomial> * Simplify (BinaryTree<Monomial> * exp, Node<Monomial> * node);
-int Count (const char op, const int l, const int r);
+Node<Monomial> * SimplifyConst (BinaryTree<Monomial> * exp, Node<Monomial> * node);
+
+int Count (const char op, int r);
+int Count (const char op, int l, int r);
+int BinaryPow (int x, int a);
 
 int main ()
 {
@@ -689,6 +695,18 @@ Node<Monomial> * Simplify (BinaryTree<Monomial> * exp, Node<Monomial> * node)
     }
 
     Node<Monomial> * tmp = nullptr;
+    char op = 0;
+    int l_val = 0;
+    int r_val = 0;
+
+    if ((R && TYPE(R) == NUM_TYPE) && ((!L) || (L && TYPE(L) == NUM_TYPE)))
+    {
+        op = DATA(N);
+        l_val = DATA(L);
+        r_val = DATA(R);
+        exp->deleteSubtree (node);
+        return (n(Count (op, l_val, r_val)));
+    }
 
     //ZERO
     if ((DATA(N) == ADD || DATA(N) == SUB) && RIGHT (0))
@@ -757,6 +775,76 @@ Node<Monomial> * Simplify (BinaryTree<Monomial> * exp, Node<Monomial> * node)
         return (tmp);
     }
 
+    //
+
+    if (DATA(N) == MUL && TYPE(R) == NUM_TYPE)
+    {
+        tmp = L;
+        L = R;
+        R = tmp;
+
+        return (node);
+    }
+
     return (node);
 }
 
+int Count (const char op, int r)
+{
+    return 0;
+}
+
+int Count (const char op, int l, int r)
+{
+    switch (op)
+    {
+        case ADD:
+        {
+            return (l + r);
+        }
+        break;
+
+        case SUB:
+        {
+            return (l - r);
+        }
+        break;
+
+        case MUL:
+        {
+            return (l * r);
+        }
+        break;
+
+        case DIV:
+        {
+            return (l / r);
+        }
+        break;
+
+        case POW:
+        {
+            return (BinaryPow (l, r));
+        }
+        break;
+    
+        default:
+        break;
+    }
+}
+
+int BinaryPow (int x, int a)
+{
+    if (a < 0)
+    {
+    	return 0;
+    }
+    if (a == 0)
+    {
+    	return 1;
+    }
+
+    int tmp = BinaryPow (x, a / 2);
+
+    return ((a % 2 == 0) ? (tmp * tmp) : (tmp * tmp * x));
+}
