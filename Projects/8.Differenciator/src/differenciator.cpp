@@ -21,11 +21,11 @@ enum operations
     ADD,
     SUB,
     MUL,
-    DIV,
-    POW,
     SIN,
     COS,
     LN,
+    DIV,
+    POW,
     DIFF
 };
 
@@ -34,11 +34,11 @@ const char * op_names[10] = {
                                 "+",
                                 "-",
                                 "*",
-                                "/",
-                                "^",
                                 "sin",
                                 "cos",
                                 "ln",
+                                "/",
+                                "^",
                                 "d"
                             };
 
@@ -63,8 +63,11 @@ Node<Monomial> * CreateNode (const int data, const char type, Node<Monomial> * r
                                                               Node<Monomial> * left  = nullptr);
 Node<Monomial> * Copy (const Node<Monomial> * origin);
 
-BinaryTree<Monomial> * DiffExpression (const BinaryTree<Monomial> * node, const char var);
+BinaryTree<Monomial> * DiffExpression (const BinaryTree<Monomial> * expression, const char var);
 Node<Monomial> * Diff (Node<Monomial> * node, const char var);
+
+Node<Monomial> * Simplify (BinaryTree<Monomial> * exp, Node<Monomial> * node);
+int Count (const char op, const int l, const int r);
 
 int main ()
 {
@@ -77,6 +80,8 @@ int main ()
     BinaryTree<Monomial> * diff_expression = DiffExpression (&expression, 'x');
 
     diff_expression->dotDump (PrintMonomDot, 2);
+
+    diff_expression->root = Simplify (diff_expression, diff_expression->root);
 
     getPic (diff_expression, "my_first_pic");
 
@@ -539,7 +544,7 @@ void getLaTeX (BinaryTree<Monomial> * expression, const char * name, bool open)
 
 	FILE *log = fopen("LaTeX/tmp/temp.tex", "w");
 
-    fprintf (log, "\\documentclass{report}\n");
+    fprintf (log, "\\documentclass[a4paper,12pt]{article}\n");
     //fprintf (log, "\\usepackage[cp1251]{inputenc}\n");
     //fprintf (log, "\\usepackage[russian]{babel}\n\n");
 
@@ -663,3 +668,95 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
         fprintf (f, ")");
     }
 }
+
+Node<Monomial> * Simplify (BinaryTree<Monomial> * exp, Node<Monomial> * node)
+{
+    if (L)
+    {
+        L = Simplify (exp, L);
+        L->parent = N;
+    }
+
+    if (R)
+    {
+        R = Simplify (exp, R);
+        R->parent = N;
+    }
+
+    if (TYPE(N) != OP_TYPE)
+    {
+        return (N);
+    }
+
+    Node<Monomial> * tmp = nullptr;
+
+    //ZERO
+    if ((DATA(N) == ADD || DATA(N) == SUB) && RIGHT (0))
+    {
+        tmp = c(L);
+        exp->deleteSubtree (node);
+        return (tmp);
+    }
+    if (DATA(N) == ADD && LEFT (0))
+    {
+        tmp = c(R);
+        exp->deleteSubtree (node);
+        return (tmp);
+    }
+    if (DATA(N) == SUB && LEFT (0))
+    {
+        tmp = c(R);
+        exp->deleteSubtree (node);
+        return (MUL( n(-1), tmp ));
+    }
+    if ((DATA(N) == MUL || DATA(N) == DIV) && (LEFT (0) || RIGHT (0)))
+    {
+        exp->deleteSubtree (node);
+        return (n(0));
+    }
+    if (DATA(N) == POW && LEFT (0))
+    {
+        exp->deleteSubtree (node);
+        return (n(0));
+    }
+    if (DATA(N) == POW && RIGHT (0))
+    {
+        exp->deleteSubtree (node);
+        return (n(1));
+    }
+
+    //ONE
+
+    if (DATA(N) == MUL && LEFT (1))
+    {
+        tmp = c(R);
+        exp->deleteSubtree (node);
+        return (tmp);
+    }
+    if (DATA(N) == MUL && RIGHT (1))
+    {
+        tmp = c(L);
+        exp->deleteSubtree (node);
+        return (tmp);
+    }
+    if (DATA(N) == DIV && RIGHT (1))
+    {
+        tmp = c(L);
+        exp->deleteSubtree (node);
+        return (tmp);
+    }
+    if (DATA(N) == POW && LEFT (1))
+    {
+        exp->deleteSubtree (node);
+        return (n(1));
+    }
+    if (DATA(N) == POW && RIGHT (1))
+    {
+        tmp = c(L);
+        exp->deleteSubtree (node);
+        return (tmp);
+    }
+
+    return (node);
+}
+

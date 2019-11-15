@@ -7,6 +7,12 @@
 
 #define N node
 
+#define DATA( elem )                                \
+        (elem)->data.data
+
+#define TYPE( elem )                                \
+        (elem)->data.type
+
 #define ADD( elem_l, elem_r )                       \
         CreateNode (ADD, OP_TYPE, elem_r, elem_l)
 
@@ -48,5 +54,11 @@
 
 #define type( elem, t )                             \
         (elem)->data.type == t##_TYPE
+
+#define RIGHT( val )                                \
+        (TYPE(R) == NUM_TYPE && DATA(R) == (val))
+
+#define LEFT( val )                                 \
+        (TYPE(L) == NUM_TYPE && DATA(L) == (val))
 
 #endif // !DSL_H_
