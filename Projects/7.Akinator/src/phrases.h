@@ -40,6 +40,6 @@ const char * CONNECT_END[3] = {
                                 "and, finally, ",
                                 "and at last ",
                                 "and most importantly, "
-                            };
+                              };
 
 #endif // !PHRASES_H_

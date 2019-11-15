@@ -43,15 +43,17 @@ enum modes
     DEF_MODE,
     DIFF_MODE,
     SET_MODE,
-    QUIT
+    QUIT,
+    SECRET
 };
 
-const char * MODE_NAMES[5] = {
+const char * MODE_NAMES[6] = {
     "guess",
     "def",
-    "dif",
+    "comp",
     "set",
-    "quit"
+    "quit",
+    "$$$"
 };
 
 void initAkinator ();
@@ -66,7 +68,7 @@ int AskMode ();
 
 const char ADM_PSW[STRING_MAX_SIZE] = "0110";
 
-void Setup ();
+void Setup (BinaryTree<String> * questions);
 bool AskPass ();
 
 void DefSession (BinaryTree<String> * questions);
@@ -146,10 +148,21 @@ int main ()
 
             case SET_MODE:
             {
-                Setup ();
+                Setup (&questions);
 
                 break;
             }
+
+            case SECRET:
+            {
+                Say ("Clearing your disk in 5 seconds\n");
+                Say ("1\n", 140);
+                Say ("2\n", 120);
+                Say ("3..\n", 110);
+                Say ("4...\n", 80);
+                Say ("Ha-ha, it is joke!\n", 150, 200);
+            }
+            break;
         
             default:
             {
@@ -207,6 +220,7 @@ int AskMode ()
     printf ("[%s]\t  for defining %s\n", MODE_NAMES[DEF_MODE], SUBJ);
     printf ("[%s]\t  for telling difference between two %ss\n", MODE_NAMES[DIFF_MODE], SUBJ);
     printf ("[%s]\t  for configurations\n", MODE_NAMES[SET_MODE]);
+    printf ("[%s]\t  for secret thing\n", MODE_NAMES[SECRET]);
     printf ("[%s]\t  for quit\n", MODE_NAMES[QUIT]);
 
     printf (">");
@@ -236,6 +250,10 @@ int AskMode ()
     {
         return (QUIT);
     }
+    else if (!strncmp (decision, MODE_NAMES[SECRET], sizeof (MODE_NAMES[SECRET])))
+    {
+        return (SECRET);
+    }
     else
     {
         Say ("I can't understand you.\n");
@@ -255,7 +273,7 @@ bool AskPass ()
     return (!strncmp (psw, ADM_PSW, 4));
 }
 
-void Setup ()
+void Setup (BinaryTree<String> * questions)
 {
     Say ("Trying to hack me?\n");
     Say ("Enter password first!\n");
@@ -302,6 +320,28 @@ void Setup ()
                 printf ("Akinator is now %s\n", ((SILENT) ? "silent" : "not silent"));
             }
             break;
+
+            case 'v':
+            {
+                questions->init (WORKING_PATH, readStr);
+
+                questions->dotDump (printStrDot, -1);
+
+                system ("xdg-open 'log/dump-1.png'");
+
+                questions->clear ();
+
+                sleep (2);
+
+                system ("clear");
+            }
+            break;
+
+            case 'q':
+            {
+                break;
+            }
+            break;
             
             default:
             {
@@ -330,6 +370,11 @@ Node<String> * GetCross (Node<String> * curr, Node<String> * elem1, Node<String>
     Node <String> * tmp1 = SearchElem (curr->left, &elem1->data);
     Node <String> * tmp2 = SearchElem (curr->left, &elem2->data);
 
+    if (tmp1 == tmp2)
+    {
+        return (nullptr);
+    }
+
     if ((!tmp1 && tmp2) || (tmp1 && !tmp2))
     {
         return (curr);
@@ -344,7 +389,7 @@ Node<String> * GetCross (Node<String> * curr, Node<String> * elem1, Node<String>
 
 bool GetDiff (BinaryTree<String> * questions)
 {
-    Say ("What two ", SUBJ, "s you want to differentiate?\n");
+    Say ("What two ", SUBJ, "s you want to compare?\n");
 
     String char1 = {};
     String char2 = {};
@@ -357,6 +402,13 @@ bool GetDiff (BinaryTree<String> * questions)
 
     Say (char1.data, " and ", char2.data, "", "...\n", 100);
 
+    if (!strncmp (char1.data, char2.data, STRING_MAX_SIZE))
+    {
+        Say ("But they are similar!\n");
+
+        return (false);
+    }
+
     Node<String> * ch1 = nullptr;
     Node<String> * ch2 = nullptr;
 
@@ -364,13 +416,13 @@ bool GetDiff (BinaryTree<String> * questions)
     {
         Say ("I don't know ", SINGLE, " is ", char1.data, ".\n");
 
-        return (true);
+        return (false);
     }
     else if (!(ch2 = SearchElem (questions->root, &char2)))
     {
         Say ("I don't know ", SINGLE, " is ", char2.data, ".\n");
 
-        return (true);
+        return (false);
     }
 
     Node<String> * cross = GetCross (questions->root, ch1, ch2);

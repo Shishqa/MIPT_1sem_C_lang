@@ -58,7 +58,7 @@ public:
     bool print (FILE * log, void (* printer) (FILE *, const void *));
 
     bool dump  (FILE * log, void (* printer) (FILE *, const void *));
-    bool dotDump (void (* printer) (FILE *, const void *));
+    bool dotDump (void (* printer) (FILE *, const void *), int num = 0);
 };
 
 #endif // !TREE_CLASS_H_
