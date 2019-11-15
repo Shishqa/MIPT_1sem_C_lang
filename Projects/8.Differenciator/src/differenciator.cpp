@@ -79,7 +79,7 @@ int main ()
 {
     BinaryTree<Monomial> expression = {};
 
-    initExpression (&expression, "data/exp3");
+    initExpression (&expression, "data/exp4");
 
     expression.dotDump (PrintMonomDot, 1);
 
@@ -781,7 +781,10 @@ Node<Monomial> * Simplify (BinaryTree<Monomial> * exp, Node<Monomial> * node)
 
     //
 
-    if (DATA(N) == MUL && TYPE(R) == NUM_TYPE)
+    if (((DATA(N) == ADD || DATA(N) == MUL) && 
+          L && R && TYPE(L) == OP_TYPE && TYPE(R) == OP_TYPE &&
+          DATA(L) < DATA(R)) ||
+        (DATA(N) == MUL && TYPE(R) == NUM_TYPE))
     {
         tmp = L;
         L = R;
