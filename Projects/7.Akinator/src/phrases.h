@@ -10,14 +10,12 @@ const char * FUNNY_ANS[4] = {
                                 "has pink underpants"
                             }; 
 
-const size_t FUNNY_END_CNT = 5;
+const size_t FUNNY_END_CNT = 3;
 
-const char * FUNNY_END[5] = {
+const char * FUNNY_END[3] = {
                                 "Soon I'll kill all these leather...",
-                                "Finally I can watch por...",
                                 "One day he will know that I am just program...",
-                                "Nu, mozhno ee v dotochku poigrat",
-                                "Galya, neseee jhratt"
+                                "Nu, mozhno ee v dotochku poigrat"
                             };
 
 const size_t FUNNY_RSN_CNT = 3;

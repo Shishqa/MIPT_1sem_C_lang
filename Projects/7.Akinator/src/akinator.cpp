@@ -64,7 +64,10 @@ bool printData (BinaryTree<String> * questions);
 
 int AskMode ();
 
+const char ADM_PSW[STRING_MAX_SIZE] = "0110";
+
 void Setup ();
+bool AskPass ();
 
 void DefSession (BinaryTree<String> * questions);
 bool GetDef (BinaryTree<String> * questions);
@@ -198,7 +201,7 @@ bool printData (BinaryTree<String> * questions)
 
 int AskMode ()
 {
-    Say ("What do you want from me?\n");
+    Say ("What do you want now?\n");
 
     printf ("[%s]\t  for guessing %s\n", MODE_NAMES[GUESS_MODE], SUBJ);
     printf ("[%s]\t  for defining %s\n", MODE_NAMES[DEF_MODE], SUBJ);
@@ -240,9 +243,28 @@ int AskMode ()
     }
 }
 
+bool AskPass ()
+{
+    printf ("password: ");
+
+    char psw[STRING_MAX_SIZE] = {};
+
+    scanf ("%s", psw);
+    flush ();
+
+    return (!strncmp (psw, ADM_PSW, 4));
+}
+
 void Setup ()
 {
     Say ("Trying to hack me?\n");
+    Say ("Enter password first!\n");
+
+    if (!AskPass ())
+    {
+        Say ("Access denied!\n");
+        return;
+    }
 
     int c = 0;
     char path[PATH_MAX] = {};
@@ -282,7 +304,10 @@ void Setup ()
             break;
             
             default:
-                break;
+            {
+                printf ("Unknown command\n");
+            }
+            break;
         }
     }
 
