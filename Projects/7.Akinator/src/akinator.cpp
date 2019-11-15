@@ -210,7 +210,7 @@ bool printData (BinaryTree<String> * questions)
 {
     FILE * f = fopen (WORKING_PATH, "w");
 
-    questions->print (f, printStr);
+    questions->print (f, 'p', printStr);
 
     fclose (f);
 }

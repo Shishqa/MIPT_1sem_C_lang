@@ -14,7 +14,8 @@ struct Node
     bool init ();
     bool clear ();
 
-    void print (FILE * log, void (* printer) (FILE *, const void *));
+    void print (FILE * log, const char mode, void (* printer) (FILE *, const void *),
+                const char left_brac = '{', const char right_brac = '}', const char sep = '$');
     
     bool printDot (FILE * log, void (* printer) (FILE *, const void *));
 
@@ -55,7 +56,8 @@ public:
 
     bool valid (Node<elem_t> * node);
 
-    bool print (FILE * log, void (* printer) (FILE *, const void *));
+    bool print (FILE * log, const char mode, void (* printer) (FILE *, const void *),
+                const char left_brac = '{', const char right_brac = '}', const char sep = '$');
 
     bool dump  (FILE * log, void (* printer) (FILE *, const void *));
     bool dotDump (void (* printer) (FILE *, const void *), int num = 0);

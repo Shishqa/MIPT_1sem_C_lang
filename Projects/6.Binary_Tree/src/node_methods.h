@@ -39,46 +39,105 @@ bool Node<elem_t>::clear ()
     return (true);
 }
 
-//STOPPED HERE
-
 template <typename elem_t>
-void Node<elem_t>::print (FILE * log, void (* printer) (FILE *, const void *))
+void Node<elem_t>::print (FILE * log, const char mode, void (* printer) (FILE *, const void *),
+                          const char left_brac, const char right_brac, const char sep)
 {
-    fprintf (log, "{");
-
-    printer (log, &this->data);
-
-    if (this->left)
+    switch (mode)
     {
-        this->left->print (log, printer);
-    }
-    else if (this->right)
-    {
-        fprintf (log, "$");
-    }
+        case 'p':
+        {
+            fprintf (log, "%c", left_brac);
 
-    if (this->right)
-    {
-        this->right->print (log, printer);
-    }
+            printer (log, &this->data);
 
-    fprintf (log, "}");
+            if (this->left)
+            {
+                this->left->print (log, mode, printer, left_brac, right_brac, sep);
+            }
+            else if (this->right)
+            {
+                fprintf (log, "%c", sep);
+            }
+
+            if (this->right)
+            {
+                this->right->print (log, mode, printer, left_brac, right_brac, sep);
+            }
+
+            fprintf (log, "%c", right_brac);
+        }
+        break;
+
+        case 'i':
+        {
+            fprintf (log, "%c", left_brac);
+
+            if (this->left)
+            {
+                this->left->print (log, mode, printer, left_brac, right_brac, sep);
+            }
+            else
+            {
+                fprintf (log, "%c", sep);
+            }
+
+            printer (log, &this->data);
+
+            if (this->right)
+            {
+                this->right->print (log, mode, printer, left_brac, right_brac, sep);
+            }
+            else
+            {
+                fprintf (log, "%c", sep);
+            }
+
+            fprintf (log, "%c", right_brac);
+        }
+        break;
+
+        case 's':
+        {
+            fprintf (log, "%c", left_brac);
+
+            if (this->left)
+            {
+                this->left->print (log, mode, printer, left_brac, right_brac, sep);
+            }
+            else 
+            {
+                fprintf (log, "%c", sep);
+            }
+
+            if (this->right)
+            {
+                this->right->print (log, mode, printer, left_brac, right_brac, sep);
+            }
+            else 
+            {
+                fprintf (log, "%c", sep);
+            }
+
+            printer (log, &this->data);
+
+            fprintf (log, "%c", right_brac);
+        }
+        break;
+    
+    default:
+        break;
+    }
 }
 
 template <typename elem_t>
 Node<elem_t> * Node<elem_t>::setChild ()
 {
-    //printf ("\nsetting child\n");
-
     Node<elem_t> * child = (Node<elem_t> *) calloc (1, sizeof (Node<elem_t>));
-
-    //printf ("\nchild set\n");
 
     child->init ();
 
     child->parent = this;
-
-    //printf ("child inited\n");
 
     return (child);
 }
@@ -114,8 +173,6 @@ Node<elem_t> * Node<elem_t>::addRight (const elem_t data)
 template <typename elem_t>
 Node<elem_t> * Node<elem_t>::setRight ()
 {
-    //printf ("gonna set child\n");
-
     this->right = this->setChild ();
 
     return (this->right);

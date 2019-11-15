@@ -122,8 +122,6 @@ bool BinaryTree<elem_t>::deleteList (Node<elem_t> * node)
         return (false);
     }
 
-    //printf ("cleaning %s\n", node->data.data);
-
     if (node->parent && node->parent->right == node)
     {
         node->parent->right = nullptr;
@@ -134,8 +132,6 @@ bool BinaryTree<elem_t>::deleteList (Node<elem_t> * node)
     }
 
     free (node);
-
-    //printf ("cleaned\n");
 
     return (true);
 }
@@ -159,9 +155,10 @@ bool BinaryTree<elem_t>::deleteSubtree (Node<elem_t> * node)
 }
 
 template <typename elem_t>
-bool BinaryTree<elem_t>::print (FILE * log, void (* printer) (FILE *, const void *))
+bool BinaryTree<elem_t>::print (FILE * log, const char mode, void (* printer) (FILE *, const void *),
+                                const char left_brac, const char right_brac, const char sep)
 {
-    this->root->print (log, printer);
+    this->root->print (log, mode, printer, left_brac, right_brac, sep);
 
     return (true);
 }

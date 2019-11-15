@@ -1,8 +1,10 @@
 #include <stdio.h>
-#include "tree.h"
+#include <stdlib.h>
+#include <assert.h>
 
 int main ()
 {
-    BinaryTree<int> test = {};
+    
+
     return (0);
 }

@@ -1,61 +1,65 @@
 digraph dump
 {
-	node0x55aec6540150 [shape = "record", label = "{<f1>data: love Physics|{<f2>left: 0x55aec65401e0|<f3>right: 0x55aec6540b70}|<f4>parent: (nil)}"];
-	node0x55aec65401e0 [shape = "record", label = "{<f1>data: is from MFTI|{<f2>left: 0x55aec6540270|<f3>right: 0x55aec65409c0}|<f4>parent: 0x55aec6540150}"];
-	node0x55aec6540270 [shape = "record", label = "{<f1>data: is really crazy about physics|{<f2>left: 0x55aec6540300|<f3>right: 0x55aec65404b0}|<f4>parent: 0x55aec65401e0}"];
-	node0x55aec6540300 [shape = "record", label = "{<f1>data: have rector|{<f2>left: 0x55aec6540390|<f3>right: 0x55aec6540420}|<f4>parent: 0x55aec6540270}"];
-	node0x55aec6540390 [shape = "record", label = "{<f1>data: FOPF|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec6540300}"];
-	node0x55aec6540300:f2 -> node0x55aec6540390
-	node0x55aec6540420 [shape = "record", label = "{<f1>data: FEFM|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec6540300}"];
-	node0x55aec6540300:f3 -> node0x55aec6540420
-	node0x55aec6540270:f2 -> node0x55aec6540300
-	node0x55aec65404b0 [shape = "record", label = "{<f1>data: appreciate each other|{<f2>left: 0x55aec6540540|<f3>right: 0x55aec65405d0}|<f4>parent: 0x55aec6540270}"];
-	node0x55aec6540540 [shape = "record", label = "{<f1>data: FIVT|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec65404b0}"];
-	node0x55aec65404b0:f2 -> node0x55aec6540540
-	node0x55aec65405d0 [shape = "record", label = "{<f1>data: exist|{<f2>left: 0x55aec6540660|<f3>right: 0x55aec6540810}|<f4>parent: 0x55aec65404b0}"];
-	node0x55aec6540660 [shape = "record", label = "{<f1>data: is useless|{<f2>left: 0x55aec65406f0|<f3>right: 0x55aec6540780}|<f4>parent: 0x55aec65405d0}"];
-	node0x55aec65406f0 [shape = "record", label = "{<f1>data: FUPM|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec6540660}"];
-	node0x55aec6540660:f2 -> node0x55aec65406f0
-	node0x55aec6540780 [shape = "record", label = "{<f1>data: FRTK|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec6540660}"];
-	node0x55aec6540660:f3 -> node0x55aec6540780
-	node0x55aec65405d0:f2 -> node0x55aec6540660
-	node0x55aec6540810 [shape = "record", label = "{<f1>data: dean is etherium grandfather|{<f2>left: 0x55aec65408a0|<f3>right: 0x55aec6540930}|<f4>parent: 0x55aec65405d0}"];
-	node0x55aec65408a0 [shape = "record", label = "{<f1>data: RADIOCHEMICAL|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec6540810}"];
-	node0x55aec6540810:f2 -> node0x55aec65408a0
-	node0x55aec6540930 [shape = "record", label = "{<f1>data: INBIKS|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec6540810}"];
-	node0x55aec6540810:f3 -> node0x55aec6540930
-	node0x55aec65405d0:f3 -> node0x55aec6540810
-	node0x55aec65404b0:f3 -> node0x55aec65405d0
-	node0x55aec6540270:f3 -> node0x55aec65404b0
-	node0x55aec65401e0:f2 -> node0x55aec6540270
-	node0x55aec65409c0 [shape = "record", label = "{<f1>data: is holy place|{<f2>left: 0x55aec6540a50|<f3>right: 0x55aec6540ae0}|<f4>parent: 0x55aec65401e0}"];
-	node0x55aec6540a50 [shape = "record", label = "{<f1>data: MEPHI|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec65409c0}"];
-	node0x55aec65409c0:f2 -> node0x55aec6540a50
-	node0x55aec6540ae0 [shape = "record", label = "{<f1>data: MAI|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec65409c0}"];
-	node0x55aec65409c0:f3 -> node0x55aec6540ae0
-	node0x55aec65401e0:f3 -> node0x55aec65409c0
-	node0x55aec6540150:f2 -> node0x55aec65401e0
-	node0x55aec6540b70 [shape = "record", label = "{<f1>data: average teacher's age is 90|{<f2>left: 0x55aec6540c00|<f3>right: 0x55aec6540ed0}|<f4>parent: 0x55aec6540150}"];
-	node0x55aec6540c00 [shape = "record", label = "{<f1>data: teacher killed his student and lover|{<f2>left: 0x55aec6540c90|<f3>right: 0x55aec6540d20}|<f4>parent: 0x55aec6540b70}"];
-	node0x55aec6540c90 [shape = "record", label = "{<f1>data: SPSU|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec6540c00}"];
-	node0x55aec6540c00:f2 -> node0x55aec6540c90
-	node0x55aec6540d20 [shape = "record", label = "{<f1>data: is located in Krasnoyarsk|{<f2>left: 0x55aec6540db0|<f3>right: 0x55aec6540e40}|<f4>parent: 0x55aec6540c00}"];
-	node0x55aec6540db0 [shape = "record", label = "{<f1>data: IKIT|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec6540d20}"];
-	node0x55aec6540d20:f2 -> node0x55aec6540db0
-	node0x55aec6540e40 [shape = "record", label = "{<f1>data: BAUMANA|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec6540d20}"];
-	node0x55aec6540d20:f3 -> node0x55aec6540e40
-	node0x55aec6540c00:f3 -> node0x55aec6540d20
-	node0x55aec6540b70:f2 -> node0x55aec6540c00
-	node0x55aec6540ed0 [shape = "record", label = "{<f1>data: scolarship 36k rubles|{<f2>left: 0x55aec6540f60|<f3>right: 0x55aec6540ff0}|<f4>parent: 0x55aec6540b70}"];
-	node0x55aec6540f60 [shape = "record", label = "{<f1>data: INNOPILS|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec6540ed0}"];
-	node0x55aec6540ed0:f2 -> node0x55aec6540f60
-	node0x55aec6540ff0 [shape = "record", label = "{<f1>data: dangerous roof|{<f2>left: 0x55aec6541080|<f3>right: 0x55aec6541340}|<f4>parent: 0x55aec6540ed0}"];
-	node0x55aec6541080 [shape = "record", label = "{<f1>data: ITMO|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec6540ff0}"];
-	node0x55aec6540ff0:f2 -> node0x55aec6541080
-	node0x55aec6541340 [shape = "record", label = "{<f1>data: MSU|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55aec6540ff0}"];
-	node0x55aec6540ff0:f3 -> node0x55aec6541340
-	node0x55aec6540ed0:f3 -> node0x55aec6540ff0
-	node0x55aec6540b70:f3 -> node0x55aec6540ed0
-	node0x55aec6540150:f3 -> node0x55aec6540b70
+	node0x5573fd18c9f0 [shape = "record", label = "{<f1>data: love Physics|{<f2>left: 0x5573fd18ca80|<f3>right: 0x5573fd18d410}|<f4>parent: (nil)}"];
+	node0x5573fd18ca80 [shape = "record", label = "{<f1>data: is from MFTI|{<f2>left: 0x5573fd18cb10|<f3>right: 0x5573fd18d260}|<f4>parent: 0x5573fd18c9f0}"];
+	node0x5573fd18cb10 [shape = "record", label = "{<f1>data: is really crazy about physics|{<f2>left: 0x5573fd18cba0|<f3>right: 0x5573fd18cd50}|<f4>parent: 0x5573fd18ca80}"];
+	node0x5573fd18cba0 [shape = "record", label = "{<f1>data: have rector|{<f2>left: 0x5573fd18cc30|<f3>right: 0x5573fd18ccc0}|<f4>parent: 0x5573fd18cb10}"];
+	node0x5573fd18cc30 [shape = "record", label = "{<f1>data: FOPF|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18cba0}"];
+	node0x5573fd18cba0:f2 -> node0x5573fd18cc30
+	node0x5573fd18ccc0 [shape = "record", label = "{<f1>data: FEFM|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18cba0}"];
+	node0x5573fd18cba0:f3 -> node0x5573fd18ccc0
+	node0x5573fd18cb10:f2 -> node0x5573fd18cba0
+	node0x5573fd18cd50 [shape = "record", label = "{<f1>data: appreciate each other|{<f2>left: 0x5573fd18cde0|<f3>right: 0x5573fd18ce70}|<f4>parent: 0x5573fd18cb10}"];
+	node0x5573fd18cde0 [shape = "record", label = "{<f1>data: FIVT|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18cd50}"];
+	node0x5573fd18cd50:f2 -> node0x5573fd18cde0
+	node0x5573fd18ce70 [shape = "record", label = "{<f1>data: exist|{<f2>left: 0x5573fd18cf00|<f3>right: 0x5573fd18d0b0}|<f4>parent: 0x5573fd18cd50}"];
+	node0x5573fd18cf00 [shape = "record", label = "{<f1>data: is useless|{<f2>left: 0x5573fd18cf90|<f3>right: 0x5573fd18d020}|<f4>parent: 0x5573fd18ce70}"];
+	node0x5573fd18cf90 [shape = "record", label = "{<f1>data: FUPM|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18cf00}"];
+	node0x5573fd18cf00:f2 -> node0x5573fd18cf90
+	node0x5573fd18d020 [shape = "record", label = "{<f1>data: FRTK|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18cf00}"];
+	node0x5573fd18cf00:f3 -> node0x5573fd18d020
+	node0x5573fd18ce70:f2 -> node0x5573fd18cf00
+	node0x5573fd18d0b0 [shape = "record", label = "{<f1>data: dean is etherium grandfather|{<f2>left: 0x5573fd18d140|<f3>right: 0x5573fd18d1d0}|<f4>parent: 0x5573fd18ce70}"];
+	node0x5573fd18d140 [shape = "record", label = "{<f1>data: RADIOCHEMICAL|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18d0b0}"];
+	node0x5573fd18d0b0:f2 -> node0x5573fd18d140
+	node0x5573fd18d1d0 [shape = "record", label = "{<f1>data: INBIKS|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18d0b0}"];
+	node0x5573fd18d0b0:f3 -> node0x5573fd18d1d0
+	node0x5573fd18ce70:f3 -> node0x5573fd18d0b0
+	node0x5573fd18cd50:f3 -> node0x5573fd18ce70
+	node0x5573fd18cb10:f3 -> node0x5573fd18cd50
+	node0x5573fd18ca80:f2 -> node0x5573fd18cb10
+	node0x5573fd18d260 [shape = "record", label = "{<f1>data: is holy place|{<f2>left: 0x5573fd18d2f0|<f3>right: 0x5573fd18d380}|<f4>parent: 0x5573fd18ca80}"];
+	node0x5573fd18d2f0 [shape = "record", label = "{<f1>data: MEPHI|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18d260}"];
+	node0x5573fd18d260:f2 -> node0x5573fd18d2f0
+	node0x5573fd18d380 [shape = "record", label = "{<f1>data: MAI|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18d260}"];
+	node0x5573fd18d260:f3 -> node0x5573fd18d380
+	node0x5573fd18ca80:f3 -> node0x5573fd18d260
+	node0x5573fd18c9f0:f2 -> node0x5573fd18ca80
+	node0x5573fd18d410 [shape = "record", label = "{<f1>data: average teacher's age is 90|{<f2>left: 0x5573fd18d4a0|<f3>right: 0x5573fd18d770}|<f4>parent: 0x5573fd18c9f0}"];
+	node0x5573fd18d4a0 [shape = "record", label = "{<f1>data: teacher killed his student and lover|{<f2>left: 0x5573fd18d530|<f3>right: 0x5573fd18d5c0}|<f4>parent: 0x5573fd18d410}"];
+	node0x5573fd18d530 [shape = "record", label = "{<f1>data: SPSU|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18d4a0}"];
+	node0x5573fd18d4a0:f2 -> node0x5573fd18d530
+	node0x5573fd18d5c0 [shape = "record", label = "{<f1>data: is located in Krasnoyarsk|{<f2>left: 0x5573fd18d650|<f3>right: 0x5573fd18d6e0}|<f4>parent: 0x5573fd18d4a0}"];
+	node0x5573fd18d650 [shape = "record", label = "{<f1>data: IKIT|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18d5c0}"];
+	node0x5573fd18d5c0:f2 -> node0x5573fd18d650
+	node0x5573fd18d6e0 [shape = "record", label = "{<f1>data: BAUMANA|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18d5c0}"];
+	node0x5573fd18d5c0:f3 -> node0x5573fd18d6e0
+	node0x5573fd18d4a0:f3 -> node0x5573fd18d5c0
+	node0x5573fd18d410:f2 -> node0x5573fd18d4a0
+	node0x5573fd18d770 [shape = "record", label = "{<f1>data: scolarship 36k rubles|{<f2>left: 0x5573fd18d800|<f3>right: 0x5573fd18dbf0}|<f4>parent: 0x5573fd18d410}"];
+	node0x5573fd18d800 [shape = "record", label = "{<f1>data: is dream|{<f2>left: 0x5573fd18d890|<f3>right: 0x5573fd18d920}|<f4>parent: 0x5573fd18d770}"];
+	node0x5573fd18d890 [shape = "record", label = "{<f1>data: DREAM|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18d800}"];
+	node0x5573fd18d800:f2 -> node0x5573fd18d890
+	node0x5573fd18d920 [shape = "record", label = "{<f1>data: INNOPILS|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18d800}"];
+	node0x5573fd18d800:f3 -> node0x5573fd18d920
+	node0x5573fd18d770:f2 -> node0x5573fd18d800
+	node0x5573fd18dbf0 [shape = "record", label = "{<f1>data: dangerous roof|{<f2>left: 0x5573fd18dc80|<f3>right: 0x5573fd18dd10}|<f4>parent: 0x5573fd18d770}"];
+	node0x5573fd18dc80 [shape = "record", label = "{<f1>data: ITMO|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18dbf0}"];
+	node0x5573fd18dbf0:f2 -> node0x5573fd18dc80
+	node0x5573fd18dd10 [shape = "record", label = "{<f1>data: MSU|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5573fd18dbf0}"];
+	node0x5573fd18dbf0:f3 -> node0x5573fd18dd10
+	node0x5573fd18d770:f3 -> node0x5573fd18dbf0
+	node0x5573fd18d410:f3 -> node0x5573fd18d770
+	node0x5573fd18c9f0:f3 -> node0x5573fd18d410
 
 }
