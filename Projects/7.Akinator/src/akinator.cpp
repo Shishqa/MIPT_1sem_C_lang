@@ -122,6 +122,8 @@ int main ()
                     return (0);
                 }
 
+                questions.dotDump (printStrDot);
+
                 break;
             }
 

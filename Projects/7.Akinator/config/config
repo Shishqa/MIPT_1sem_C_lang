@@ -1,6 +1,6 @@
 SUBJ: "faculty"
 SINGLE: "what"
-SILENT: 0
+SILENT: 1
 WORKING_PATH: "data/tree_2"
 
 #don't change the order of lines!
