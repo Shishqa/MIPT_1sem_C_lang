@@ -20,4 +20,28 @@ const char * FUNNY_END[5] = {
                                 "Galya, neseee jhratt"
                             };
 
+const size_t FUNNY_RSN_CNT = 3;
+
+const char * FUNNY_RSN[3] = {
+                                "but all of us are not ideal...",
+                                "but today is Tuesday unfortunately!",
+                                "but you stared at me so I was embarassed..." 
+                            };
+
+const size_t CONNECT_CNT = 3;
+
+const char * CONNECT[3] = {
+                                "",
+                                "aaaand ",
+                                "and also "
+                          };
+
+const size_t CONNECT_END_CNT = 3;
+
+const char * CONNECT_END[3] = {
+                                "and, finally, ",
+                                "and at last ",
+                                "and most importantly, "
+                            };
+
 #endif // !PHRASES_H_
