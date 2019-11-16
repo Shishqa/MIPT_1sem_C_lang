@@ -75,7 +75,7 @@ void PrintMonomDot (FILE * f, const void * ptr);
 void getPic   (BinaryTree<Monomial> * expression, const char * name, bool open = false);
 void getNodePic (Node<Monomial> * node, FILE * f);
 
-void getLaTeX (BinaryTree<Monomial> * expression, const char * name, bool open = false);
+void getLaTeX (BinaryTree<Monomial> * expression, BinaryTree<Monomial> * diff, const char * name, bool open = false);
 void getNodeLaTeX (Node<Monomial> * node, FILE * f);
 
 void initExpression (BinaryTree<Monomial> * expression, const char * path);
@@ -105,19 +105,24 @@ int main ()
 {
     BinaryTree<Monomial> expression = {};
 
-    initExpression (&expression, "data/exp4");
+    initExpression (&expression, "data/exp1");
 
     expression.dotDump (PrintMonomDot, 1);
 
-    BinaryTree<Monomial> * diff_expression = DiffExpression (&expression, 'g');
+    BinaryTree<Monomial> * diff_expression = DiffExpression (&expression, 'x');
 
+    expression.dotDump (PrintMonomDot, 3);
     diff_expression->dotDump (PrintMonomDot, 2);
 
     diff_expression->root = Simplify (diff_expression, diff_expression->root);
 
-    getPic (diff_expression, "my_first_pic");
+    expression.dotDump (PrintMonomDot, 3);
+    diff_expression->dotDump (PrintMonomDot, 4);
 
-    getLaTeX (diff_expression, "hello");
+    getPic (&expression, "exp_pic");
+    getPic (diff_expression, "diff_pic");
+
+    getLaTeX (&expression, diff_expression, "hello");
 
     return (0);
 }
@@ -402,7 +407,7 @@ Node<Monomial> * Diff (Node<Monomial> * node, const char var)
             case POW: // (L ^ R) * (dR * ln(L) + (dL / L) * R)
             {
                 return (MUL ( c(N), 
-                              ADD ( MUL ( d(R), LN(L) ),
+                              ADD ( MUL ( d(R), LN( c(L) ) ),
                                     MUL ( DIV ( d(L), c(L) ), c(R) )))); 
             }
             break;
@@ -410,6 +415,12 @@ Node<Monomial> * Diff (Node<Monomial> * node, const char var)
             case LN: // (1 / R) * dR
             {
                 return (MUL ( DIV ( n(1), c(R) ), d(R) )); 
+            }
+            break;
+
+            case EXP:
+            {
+                return (MUL ( EXP ( c(R) ), d(R) ));
             }
             break;
 
@@ -423,6 +434,78 @@ Node<Monomial> * Diff (Node<Monomial> * node, const char var)
             {
                 return (MUL ( MUL( n(-1), SIN ( c(R) )), 
                               d(R) ));
+            }
+            break;
+
+            case TG:
+            {
+                return (MUL ( DIV ( n(1), POW ( COS ( c(R) ), n(2) ) ), d(R) ));
+            }
+            break;
+
+            case CTG:
+            {
+                return (MUL ( DIV ( n(-1), POW ( SIN ( c(R) ), n(2) ) ) , d(R)));
+            }
+            break;
+
+            case ARCSIN:
+            {
+                return (MUL ( DIV ( n(1), POW ( SUB ( n(1), POW ( c(R), n(2) ) ), DIV (n(1), n(2)) ) ), d(R) ) );
+            }
+            break;
+
+            case ARCCOS:
+            {
+                return (MUL ( DIV ( n(-1), POW ( SUB ( n(1), POW ( c(R), n(2) ) ), DIV (n(1), n(2)) ) ), d(R) ) );
+            }
+            break;
+
+            case ARCTG:
+            {
+                return (MUL ( DIV ( n(1), ADD ( n(1), POW ( c(R), n(2) )) ), d(R) ) );
+            }
+            break;
+
+            case ARCCTG:
+            {
+                return (MUL ( DIV ( n(-1), ADD ( n(1), POW ( c(R), n(2) )) ), d(R) ) );
+            }
+            break;
+
+            case SH:
+            {
+                return (MUL ( CH ( c(R) ) , d(R) ));
+            }
+            break;
+
+            case CH:
+            {
+                return (MUL ( SH ( c(R) ) , d(R) ));
+            }
+            break;
+
+            case TH:
+            {
+                return (MUL ( DIV ( n(1), POW ( CH ( c(R) ), n(2) ) ) , d(R) ));
+            }
+            break;
+
+            case CTH:
+            {
+                return (MUL ( DIV ( n(-1), POW ( SH ( c(R) ), n(2) ) ) , d(R) ));
+            }
+            break;
+
+            case ABS:
+            {
+                return (MUL ( SIGN ( c(R) ), d(R) ));
+            }
+            break;
+
+            case SIGN:
+            {
+                return (n(0));
             }
             break;
         
@@ -553,7 +636,7 @@ void getNodePic (Node<Monomial> * node, FILE * f)
     }
 }
 
-void getLaTeX (BinaryTree<Monomial> * expression, const char * name, bool open)
+void getLaTeX (BinaryTree<Monomial> * expression, BinaryTree<Monomial> * diff, const char * name, bool open)
 {
     system("mkdir -p LaTeX");
 
@@ -562,12 +645,14 @@ void getLaTeX (BinaryTree<Monomial> * expression, const char * name, bool open)
 	FILE *log = fopen("LaTeX/tmp/temp.tex", "w");
 
     fprintf (log, "\\documentclass[a4paper,12pt]{article}\n");
-    //fprintf (log, "\\usepackage[cp1251]{inputenc}\n");
-    //fprintf (log, "\\usepackage[russian]{babel}\n\n");
 
-    fprintf (log, "\\begin{document}\n$$");
+    fprintf (log, "\\begin{document}\n$$(");
 
     getNodeLaTeX (expression->root, log);
+
+    fprintf (log, ")' = ");
+
+    getNodeLaTeX (diff->root, log);
 
     fprintf (log, "$$\n\\end{document}\n");
 
@@ -597,7 +682,14 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
 
     if (TYPE(N) != OP_TYPE)
     {
-        PrintMonomDot (f, N);
+        if (TYPE(N) == NUM_TYPE)
+        {
+            fprintf (f, "%d", DATA(N));
+        }
+        else
+        {
+            fprintf (f, "%c", DATA(N));
+        }
     }
     else
     {
@@ -646,27 +738,27 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
             }
             break;
 
-            case SIN:
+            case ABS:
             {
-                fprintf (f, " \\sin (");
+                fprintf (f, " |");
+                getNodeLaTeX (R, f);
+                fprintf (f, "| ");
+            }
+            break;
+
+            case SIGN:
+            {
+                fprintf (f, " sign (");
                 getNodeLaTeX (R, f);
                 fprintf (f, ") ");
             }
             break;
 
-            case COS:
+            case EXP:
             {
-                fprintf (f, " \\cos (");
+                fprintf (f, " e^{");
                 getNodeLaTeX (R, f);
-                fprintf (f, ") ");
-            }
-            break;
-
-            case LN:
-            {
-                fprintf (f, " \\ln (");
-                getNodeLaTeX (R, f);
-                fprintf (f, ") ");
+                fprintf (f, "} ");
             }
             break;
 
@@ -679,7 +771,12 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
             }
             break;
         
-        default:
+            default:
+            {
+                fprintf (f, " \\%s (", op_names[DATA(N)]);
+                getNodeLaTeX (R, f);
+                fprintf (f, ") ");
+            }
             break;
         }
     }

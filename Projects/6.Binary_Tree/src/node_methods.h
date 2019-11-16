@@ -178,8 +178,8 @@ bool Node<elem_t>::printDot (FILE * log, void (* printer) (FILE *, const void *)
 
     printer (log, &this->data);
 
-    fprintf (log, "|{<f2>left: %p|<f3>right: %p}|<f4>parent: %p}\"];\n", 
-            this->left, this->right, this->parent);
+    fprintf (log, "|{<f2>left: %p|<f3>right: %p}|<f4>parent: %p|<f5>adress: %p}\"];\n", 
+            this->left, this->right, this->parent, this);
 
     if (this->left)
     {

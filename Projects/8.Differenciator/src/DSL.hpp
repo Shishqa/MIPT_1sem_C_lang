@@ -50,8 +50,47 @@
 #define COS( elem )                                 \
         CreateNode (COS, OP_TYPE, elem)
 
+#define TG( elem )                                 \
+        CreateNode (TG, OP_TYPE, elem)
+
+#define CTG( elem )                                 \
+        CreateNode (CTG, OP_TYPE, elem)
+
+#define ARCSIN( elem )                                 \
+        CreateNode (ARCSIN, OP_TYPE, elem)
+
+#define ARCCOS( elem )                                 \
+        CreateNode (ARCCOS, OP_TYPE, elem)
+
+#define ARCTG( elem )                                 \
+        CreateNode (ARCTG, OP_TYPE, elem)
+
+#define ARCCTG( elem )                                 \
+        CreateNode (ARCCTG, OP_TYPE, elem)
+
 #define LN( elem )                                  \
         CreateNode (LN, OP_TYPE, elem)
+
+#define EXP( elem )                                  \
+        CreateNode (EXP, OP_TYPE, elem)
+
+#define ABS( elem )                                  \
+        CreateNode (ABS, OP_TYPE, elem)
+
+#define SIGN( elem )                                  \
+        CreateNode (SIGN, OP_TYPE, elem)
+
+#define SH( elem )                                  \
+        CreateNode (SH, OP_TYPE, elem)
+
+#define CH( elem )                                  \
+        CreateNode (CH, OP_TYPE, elem)
+
+#define TH( elem )                                  \
+        CreateNode (TH, OP_TYPE, elem)
+
+#define CTH( elem )                                  \
+        CreateNode (CTH, OP_TYPE, elem)
 
 #define DIFF( elem, val )                           \
         CreateNode (DIFF, OP_TYPE, val, elem)       
