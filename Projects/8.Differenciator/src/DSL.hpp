@@ -7,6 +7,22 @@
 
 #define N node
 
+#define CASE( len, parsers )                        \
+        case (len):                                 \
+        {                                           \
+            parsers                                 \
+            return (UNDEF);                         \
+        }                                           \
+        break;                                      
+
+#define PARSE( operation , len )                      \
+        if (!strncmp (op, op_names[operation], len))  \
+        {                                             \
+            return (operation);                       \
+        }                                             
+
+#define UNDEF() return (UNDEF)                      \
+
 #define DATA( elem )                                \
         (elem)->data.data
 

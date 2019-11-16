@@ -25,20 +25,46 @@ enum operations
     MUL,
     SIN,
     COS,
+    TG,
+    CTG,
     LN,
+    EXP,
+    ARCSIN,
+    ARCCOS,
+    ARCTG,
+    ARCCTG,
+    SH,
+    CH,
+    TH,
+    CTH,
+    ABS,
+    SIGN,
     DIV,
     POW,
     DIFF
 };
 
-const char * op_names[10] = {
+const char * op_names[23] = {
                                 "@",
                                 "+",
                                 "-",
                                 "*",
                                 "sin",
                                 "cos",
+                                "tg",
+                                "ctg",
                                 "ln",
+                                "exp",
+                                "arcsin",
+                                "arccos",
+                                "arctg",
+                                "arcctg",
+                                "sh",
+                                "ch",
+                                "th",
+                                "cth",
+                                "abs",
+                                "sign",
                                 "/",
                                 "^",
                                 "d"
@@ -83,7 +109,7 @@ int main ()
 
     expression.dotDump (PrintMonomDot, 1);
 
-    BinaryTree<Monomial> * diff_expression = DiffExpression (&expression, 'x');
+    BinaryTree<Monomial> * diff_expression = DiffExpression (&expression, 'g');
 
     diff_expression->dotDump (PrintMonomDot, 2);
 
@@ -103,18 +129,21 @@ void PrintMonomDot (FILE * f, const void * ptr)
         case OP_TYPE:
         {
             fprintf (f, "%s", op_names[((Node<Monomial> *) ptr)->data.data]);
+            printf ("%s\n", op_names[((Node<Monomial> *) ptr)->data.data]);
         }
         break;
 
         case NUM_TYPE:
         {
             fprintf (f, "%d", ((Node<Monomial> *) ptr)->data.data);
+            printf ("%d\n", ((Node<Monomial> *) ptr)->data.data);
         }
         break;
 
         case VAR_TYPE:
         {
             fprintf (f, "%c", ((Node<Monomial> *) ptr)->data.data);
+            printf ("%c\n", ((Node<Monomial> *) ptr)->data.data);
         }
         break;
     
@@ -213,8 +242,8 @@ void InitNum (Node<Monomial> * node, char ** cur)
 
     size_t skip = 0;
 
-    node->data.type = NUM_TYPE;
-    sscanf (*cur, "%d%n", &(node->data.data), &skip);
+    TYPE(N) = NUM_TYPE;
+    sscanf (*cur, "%d%n", &(DATA(N)), &skip);
 
     *cur += skip;
 }
@@ -224,8 +253,8 @@ void InitVar (Node<Monomial> * node, char ** cur)
     assert (node != nullptr);
     assert (cur != nullptr && *cur != nullptr);
 
-    node->data.type = VAR_TYPE;
-    sscanf (*cur, "%c", &(node->data.data));
+    TYPE(N) = VAR_TYPE;
+    sscanf (*cur, "%c", &(DATA(N)));
 
     (*cur)++;
 }
@@ -237,15 +266,15 @@ void InitOp (Node<Monomial> * node, char ** cur)
     
     size_t skip = 0;
 
-    node->data.type = OP_TYPE;
+    TYPE(N) = OP_TYPE;
 
     char * op = (char *) calloc (10, sizeof (*op));
 
     sscanf (*cur, "%[^()]%n", op, &skip);
 
-    node->data.data = ParseOperation (op);
+    DATA(N) = ParseOperation (op);
 
-    assert (node->data.data != UNDEF);
+    assert (DATA(N) != UNDEF);
 
     *cur += skip;
 
@@ -260,64 +289,43 @@ int ParseOperation (const char * op)
 
     switch (op_len)
     {
-        case 1:
-        {
-            if (*op == '*')
-            {
-                return (MUL);
-            }
-            else if (*op == '/')
-            {
-                return (DIV);
-            }
-            else if (*op == '+')
-            {
-                return (ADD);
-            }
-            else if (*op == '-')
-            {
-                return (SUB);
-            }
-            else if (*op == '^')
-            {
-                return (POW);
-            }
-            else
-            {
-                return (UNDEF);
-            }
-        }
-        break;
+        CASE (1, {
+                    PARSE (MUL, 1)
+                    PARSE (DIV, 1)
+                    PARSE (ADD, 1)
+                    PARSE (SUB, 1)
+                    PARSE (POW, 1)
+                 })
 
-        case 2:
-        {
-            if (!strncmp (op, "ln", 2))
-            {
-                return (LN);
-            }
-            else
-            {
-                return (UNDEF);
-            }
-        }
-        break;
+        CASE (2, {
+                    PARSE (LN, 2)
+                    PARSE (TG, 2)
+                    PARSE (SH, 2)
+                    PARSE (CH, 2)
+                    PARSE (TH, 2)
+                 })
 
-        case 3:
-        {
-            if (!strncmp (op, "sin", 3))
-            {
-                return (SIN);
-            }
-            else if (!strncmp (op, "cos", 3))
-            {
-                return (COS);
-            }
-            else
-            {
-                return (UNDEF);
-            }
-        }
-        break;
+        CASE (3, {
+                    PARSE (SIN, 3)
+                    PARSE (COS, 3)
+                    PARSE (CTG, 3)
+                    PARSE (ABS, 3)
+                    PARSE (EXP, 3)
+                 })
+
+        CASE (4, {
+                    PARSE (SIGN, 4)
+                 })
+
+        CASE (5, {
+                    PARSE (ARCTG, 5)
+                 })
+
+        CASE (6, {
+                    PARSE (ARCSIN, 6)
+                    PARSE (ARCCOS, 6)
+                    PARSE (ARCCTG, 6)
+                 })
     
         default:
         {
@@ -348,21 +356,21 @@ Node<Monomial> * Diff (Node<Monomial> * node, const char var)
 {
     assert (node != nullptr);
 
-    if (node->data.type == NUM_TYPE)
+    if (TYPE(N) == NUM_TYPE)
     {
         return (n(0));
     }
-    else if (node->data.type == VAR_TYPE && node->data.data == var)
+    else if (TYPE(N) == VAR_TYPE && DATA(N) == var)
     {
         return (n(1));
     }
-    else if (node->data.type == VAR_TYPE)
+    else if (TYPE(N) == VAR_TYPE)
     {
-        return (DIFF (v(node->data.data), v(var)));
+        return (DIFF (v(DATA(N)), v(var)));
     }
     else
     {
-        switch (node->data.data)
+        switch (DATA(N))
         {
             case ADD: // dL + dR
             {
@@ -419,6 +427,9 @@ Node<Monomial> * Diff (Node<Monomial> * node, const char var)
             break;
         
             default:
+            {
+                assert (0);
+            }
             break;
         }
     }
@@ -501,11 +512,11 @@ void getPic (BinaryTree<Monomial> * expression, const char * name, bool open)
 
 void getNodePic (Node<Monomial> * node, FILE * f)
 {
-    fprintf (f, "\tnode%p [shape = \"%s\" label = \"", node, ((node->data.type == OP_TYPE) ? "circle" : "square"));
+    fprintf (f, "\tnode%p [shape = \"%s\" label = \"", N, ((TYPE(N) == OP_TYPE) ? "circle" : "square"));
 
-    PrintMonomDot (f, node);
+    PrintMonomDot (f, N);
 
-    switch (node->data.type)
+    switch (TYPE(N))
     {
         case OP_TYPE:
         {
@@ -529,16 +540,16 @@ void getNodePic (Node<Monomial> * node, FILE * f)
         break;
     }
 
-    if (node->left)
+    if (L)
     {
-        getNodePic (node->left, f);
-        fprintf (f, "\tnode%p -> node%p\n", node, node->left);
+        getNodePic (L, f);
+        fprintf (f, "\tnode%p -> node%p\n", N, L);
     }
 
-    if (node->right)
+    if (R)
     {
-        getNodePic (node->right, f);
-        fprintf (f, "\tnode%p -> node%p\n", node, node->right);
+        getNodePic (R, f);
+        fprintf (f, "\tnode%p -> node%p\n", N, R);
     }
 }
 
@@ -569,8 +580,8 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
 {
     bool low_priority = false;
 
-    if (node->parent && node->parent->data.type == OP_TYPE &&
-        node->data.type == OP_TYPE && node->data.data < node->parent->data.data)
+    if (N->parent && TYPE(N->parent) == OP_TYPE &&
+        TYPE(N) == OP_TYPE && DATA(N) < DATA(N->parent))
     {
         low_priority = true;
     }
@@ -584,53 +595,53 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
         fprintf (f, "(");
     }
 
-    if (node->data.type != OP_TYPE)
+    if (TYPE(N) != OP_TYPE)
     {
-        PrintMonomDot (f, node);
+        PrintMonomDot (f, N);
     }
     else
     {
-        switch (node->data.data)
+        switch (DATA(N))
         {
             case ADD:
             {
-                getNodeLaTeX (node->left, f);
+                getNodeLaTeX (L, f);
                 fprintf (f, " + ");
-                getNodeLaTeX (node->right, f);
+                getNodeLaTeX (R, f);
             }
             break;
 
             case SUB:
             {
-                getNodeLaTeX (node->left, f);
+                getNodeLaTeX (L, f);
                 fprintf (f, " - ");
-                getNodeLaTeX (node->right, f);
+                getNodeLaTeX (R, f);
             }
             break;
 
             case DIV:
             {
                 fprintf (f, " \\frac{");
-                getNodeLaTeX (node->left, f);
+                getNodeLaTeX (L, f);
                 fprintf (f, "}{");
-                getNodeLaTeX (node->right, f);
+                getNodeLaTeX (R, f);
                 fprintf (f, "} ");
             }
             break;
 
             case MUL:
             {
-                getNodeLaTeX (node->left, f);
+                getNodeLaTeX (L, f);
                 fprintf (f, " \\cdot ");
-                getNodeLaTeX (node->right, f);
+                getNodeLaTeX (R, f);
             }
             break;
 
             case POW:
             {
-                getNodeLaTeX (node->left, f);
+                getNodeLaTeX (L, f);
                 fprintf (f, " ^{");
-                getNodeLaTeX (node->right, f);
+                getNodeLaTeX (R, f);
                 fprintf (f, "} ");
             }
             break;
@@ -638,7 +649,7 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
             case SIN:
             {
                 fprintf (f, " \\sin (");
-                getNodeLaTeX (node->right, f);
+                getNodeLaTeX (R, f);
                 fprintf (f, ") ");
             }
             break;
@@ -646,7 +657,7 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
             case COS:
             {
                 fprintf (f, " \\cos (");
-                getNodeLaTeX (node->right, f);
+                getNodeLaTeX (R, f);
                 fprintf (f, ") ");
             }
             break;
@@ -654,16 +665,16 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
             case LN:
             {
                 fprintf (f, " \\ln (");
-                getNodeLaTeX (node->right, f);
+                getNodeLaTeX (R, f);
                 fprintf (f, ") ");
             }
             break;
 
             case DIFF:
             {
-                getNodeLaTeX (node->left, f);
+                getNodeLaTeX (L, f);
                 fprintf (f, "'_{");
-                getNodeLaTeX (node->right, f);
+                getNodeLaTeX (R, f);
                 fprintf (f, "} ");
             }
             break;
@@ -703,12 +714,12 @@ Node<Monomial> * Simplify (BinaryTree<Monomial> * exp, Node<Monomial> * node)
     int l_val = 0;
     int r_val = 0;
 
-    if ((R && TYPE(R) == NUM_TYPE) && ((!L) || (L && TYPE(L) == NUM_TYPE)))
+    if ((R && TYPE(R) == NUM_TYPE) && (L && TYPE(L) == NUM_TYPE))
     {
         op = DATA(N);
         l_val = DATA(L);
         r_val = DATA(R);
-        exp->deleteSubtree (node);
+        exp->deleteSubtree (N);
         return (n(Count (op, l_val, r_val)));
     }
 
@@ -716,34 +727,34 @@ Node<Monomial> * Simplify (BinaryTree<Monomial> * exp, Node<Monomial> * node)
     if ((DATA(N) == ADD || DATA(N) == SUB) && RIGHT (0))
     {
         tmp = c(L);
-        exp->deleteSubtree (node);
+        exp->deleteSubtree (N);
         return (tmp);
     }
     if (DATA(N) == ADD && LEFT (0))
     {
         tmp = c(R);
-        exp->deleteSubtree (node);
+        exp->deleteSubtree (N);
         return (tmp);
     }
     if (DATA(N) == SUB && LEFT (0))
     {
         tmp = c(R);
-        exp->deleteSubtree (node);
+        exp->deleteSubtree (N);
         return (MUL( n(-1), tmp ));
     }
     if ((DATA(N) == MUL || DATA(N) == DIV) && (LEFT (0) || RIGHT (0)))
     {
-        exp->deleteSubtree (node);
+        exp->deleteSubtree (N);
         return (n(0));
     }
     if (DATA(N) == POW && LEFT (0))
     {
-        exp->deleteSubtree (node);
+        exp->deleteSubtree (N);
         return (n(0));
     }
     if (DATA(N) == POW && RIGHT (0))
     {
-        exp->deleteSubtree (node);
+        exp->deleteSubtree (N);
         return (n(1));
     }
 
@@ -752,30 +763,30 @@ Node<Monomial> * Simplify (BinaryTree<Monomial> * exp, Node<Monomial> * node)
     if (DATA(N) == MUL && LEFT (1))
     {
         tmp = c(R);
-        exp->deleteSubtree (node);
+        exp->deleteSubtree (N);
         return (tmp);
     }
     if (DATA(N) == MUL && RIGHT (1))
     {
         tmp = c(L);
-        exp->deleteSubtree (node);
+        exp->deleteSubtree (N);
         return (tmp);
     }
     if (DATA(N) == DIV && RIGHT (1))
     {
         tmp = c(L);
-        exp->deleteSubtree (node);
+        exp->deleteSubtree (N);
         return (tmp);
     }
     if (DATA(N) == POW && LEFT (1))
     {
-        exp->deleteSubtree (node);
+        exp->deleteSubtree (N);
         return (n(1));
     }
     if (DATA(N) == POW && RIGHT (1))
     {
         tmp = c(L);
-        exp->deleteSubtree (node);
+        exp->deleteSubtree (N);
         return (tmp);
     }
 
@@ -790,10 +801,10 @@ Node<Monomial> * Simplify (BinaryTree<Monomial> * exp, Node<Monomial> * node)
         L = R;
         R = tmp;
 
-        return (node);
+        return (N);
     }
 
-    return (node);
+    return (N);
 }
 
 int Count (const char op, int r)
