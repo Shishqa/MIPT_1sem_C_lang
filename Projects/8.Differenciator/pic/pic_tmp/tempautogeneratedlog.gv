@@ -1,36 +1,36 @@
 digraph dump
 {
 node [style = filled]
-	node0x5632ef801dd0 [shape = "circle" label = "-", fillcolor = "#fffacd", fontsize = 18]
-	node0x5632ef801cb0 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
-	node0x5632ef801aa0 [shape = "circle" label = "^", fillcolor = "#fffacd", fontsize = 18]
-	node0x5632ef801a40 [shape = "square" label = "x", fillcolor = "#9acd32"]
-	node0x5632ef801aa0 -> node0x5632ef801a40
-	node0x5632ef801a70 [shape = "square" label = "x", fillcolor = "#9acd32"]
-	node0x5632ef801aa0 -> node0x5632ef801a70
-	node0x5632ef801cb0 -> node0x5632ef801aa0
-	node0x5632ef801c80 [shape = "circle" label = "+", fillcolor = "#fffacd", fontsize = 18]
-	node0x5632ef801e30 [shape = "circle" label = "ln", fillcolor = "#fffacd", fontsize = 18]
-	node0x5632ef801e00 [shape = "square" label = "x", fillcolor = "#9acd32"]
-	node0x5632ef801e30 -> node0x5632ef801e00
-	node0x5632ef801c80 -> node0x5632ef801e30
-	node0x5632ef801c50 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
-	node0x5632ef801bf0 [shape = "circle" label = "/", fillcolor = "#fffacd", fontsize = 18]
-	node0x5632ef801b90 [shape = "square" label = "1", fillcolor = "#ffa500"]
-	node0x5632ef801bf0 -> node0x5632ef801b90
-	node0x5632ef801bc0 [shape = "square" label = "x", fillcolor = "#9acd32"]
-	node0x5632ef801bf0 -> node0x5632ef801bc0
-	node0x5632ef801c50 -> node0x5632ef801bf0
-	node0x5632ef801c20 [shape = "square" label = "x", fillcolor = "#9acd32"]
-	node0x5632ef801c50 -> node0x5632ef801c20
-	node0x5632ef801c80 -> node0x5632ef801c50
-	node0x5632ef801cb0 -> node0x5632ef801c80
-	node0x5632ef801dd0 -> node0x5632ef801cb0
-	node0x5632ef801ec0 [shape = "circle" label = "/", fillcolor = "#fffacd", fontsize = 18]
-	node0x5632ef801e60 [shape = "square" label = "1", fillcolor = "#ffa500"]
-	node0x5632ef801ec0 -> node0x5632ef801e60
-	node0x5632ef801e90 [shape = "square" label = "x", fillcolor = "#9acd32"]
-	node0x5632ef801ec0 -> node0x5632ef801e90
-	node0x5632ef801dd0 -> node0x5632ef801ec0
+	node0x56545a366dd0 [shape = "circle" label = "-", fillcolor = "#fffacd", fontsize = 18]
+	node0x56545a366cb0 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
+	node0x56545a366aa0 [shape = "circle" label = "^", fillcolor = "#fffacd", fontsize = 18]
+	node0x56545a366a40 [shape = "square" label = "x", fillcolor = "#9acd32"]
+	node0x56545a366aa0 -> node0x56545a366a40
+	node0x56545a366a70 [shape = "square" label = "x", fillcolor = "#9acd32"]
+	node0x56545a366aa0 -> node0x56545a366a70
+	node0x56545a366cb0 -> node0x56545a366aa0
+	node0x56545a366c80 [shape = "circle" label = "+", fillcolor = "#fffacd", fontsize = 18]
+	node0x56545a366e30 [shape = "circle" label = "ln", fillcolor = "#fffacd", fontsize = 18]
+	node0x56545a366e00 [shape = "square" label = "x", fillcolor = "#9acd32"]
+	node0x56545a366e30 -> node0x56545a366e00
+	node0x56545a366c80 -> node0x56545a366e30
+	node0x56545a366c50 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
+	node0x56545a366bf0 [shape = "circle" label = "/", fillcolor = "#fffacd", fontsize = 18]
+	node0x56545a366b90 [shape = "square" label = "1", fillcolor = "#ffa500"]
+	node0x56545a366bf0 -> node0x56545a366b90
+	node0x56545a366bc0 [shape = "square" label = "x", fillcolor = "#9acd32"]
+	node0x56545a366bf0 -> node0x56545a366bc0
+	node0x56545a366c50 -> node0x56545a366bf0
+	node0x56545a366c20 [shape = "square" label = "x", fillcolor = "#9acd32"]
+	node0x56545a366c50 -> node0x56545a366c20
+	node0x56545a366c80 -> node0x56545a366c50
+	node0x56545a366cb0 -> node0x56545a366c80
+	node0x56545a366dd0 -> node0x56545a366cb0
+	node0x56545a366ec0 [shape = "circle" label = "/", fillcolor = "#fffacd", fontsize = 18]
+	node0x56545a366e60 [shape = "square" label = "1", fillcolor = "#ffa500"]
+	node0x56545a366ec0 -> node0x56545a366e60
+	node0x56545a366e90 [shape = "square" label = "x", fillcolor = "#9acd32"]
+	node0x56545a366ec0 -> node0x56545a366e90
+	node0x56545a366dd0 -> node0x56545a366ec0
 
 }

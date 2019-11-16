@@ -1,5 +1,5 @@
-#ifndef DSL_H_
-#define DSL_H_
+#ifndef DSL_HPP_
+#define DSL_HPP_
 
 #define L node->left
 
@@ -116,4 +116,4 @@
 #define LEFT( val )                                 \
         (TYPE(L) == NUM_TYPE && DATA(L) == (val))
 
-#endif // !DSL_H_
+#endif // !DSL_HPP_

@@ -1,5 +1,5 @@
-#ifndef MONOMIAL_H_
-#define MONOMIAL_H_
+#ifndef MONOMIAL_HPP_
+#define MONOMIAL_HPP_
 
 struct Monomial
 {
@@ -7,4 +7,13 @@ struct Monomial
     int  data;
 };
 
-#endif // !MONOMIAL_H_
+enum types
+{
+    OP_TYPE,
+    NUM_TYPE,
+    VAR_TYPE
+};
+
+void PrintMonomial (FILE * f, const void * ptr);
+
+#endif // !MONOMIAL_HPP_
