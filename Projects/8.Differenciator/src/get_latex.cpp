@@ -62,18 +62,11 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
 
     if (TYPE(N) != OP_TYPE)
     {
-        if (TYPE(N) == NUM_TYPE)
-        {
-            fprintf (f, "%d", DATA(N));
-        }
-        else
-        {
-            fprintf (f, "%c", DATA(N));
-        }
+        PrintMonomial (f, &(N->data));
     }
     else
     {
-        switch (DATA(N))
+        switch (N->data.opcode)
         {
             case ADD:
             {
@@ -153,7 +146,7 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
         
             default:
             {
-                fprintf (f, " \\%s (", op_names[DATA(N)]);
+                fprintf (f, " \\%s (", op_names[N->data.opcode]);
                 getNodeLaTeX (R, f);
                 fprintf (f, ") ");
             }

@@ -8,19 +8,19 @@ void PrintMonomial (FILE * f, const void * ptr)
     {
         case OP_TYPE:
         {
-            fprintf (f, "%s", op_names[((Node<Monomial> *) ptr)->data.data]);
+            fprintf (f, "%s", op_names[((Node<Monomial> *) ptr)->data.opcode]);
         }
         break;
 
         case NUM_TYPE:
         {
-            fprintf (f, "%d", ((Node<Monomial> *) ptr)->data.data);
+            fprintf (f, "%.0lf", ((Node<Monomial> *) ptr)->data.data);
         }
         break;
 
         case VAR_TYPE:
         {
-            fprintf (f, "%c", ((Node<Monomial> *) ptr)->data.data);
+            fprintf (f, "%c", ((Node<Monomial> *) ptr)->data.opcode);
         }
         break;
     

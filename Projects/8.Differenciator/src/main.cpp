@@ -24,7 +24,7 @@ int main ()
 {
     BinaryTree<Monomial> expression = {};
 
-    initExpression (&expression, "data/exp1");
+    initExpression (&expression, "data/exp2");
 
     BinaryTree<Monomial> * diff_expression = DiffExpression (&expression, 'x');
 
@@ -86,17 +86,17 @@ void initMonomial (Node<Monomial> ** node, char ** cur)
         if (isdigit (**cur) || (**cur == '-' && isdigit (*(*cur + 1))))
         {
             InitNum (*node, cur);
-            printf ("num %d\n", (*node)->data.data);
+            printf ("num %lf\n", (*node)->data.data);
         }
         else if (isalpha (**cur) && *(*cur + 1) == ')')  // КОСТЫЛЬ
         {
             InitVar (*node, cur);
-            printf ("var %c\n", (*node)->data.data);
+            printf ("var %c\n", (*node)->data.opcode);
         }
         else
         {
             InitOp (*node, cur);
-            printf ("op %d\n", (*node)->data.data);
+            printf ("op %d\n", (*node)->data.opcode);
         }
 
         if (**cur == '(')
@@ -131,7 +131,9 @@ void InitNum (Node<Monomial> * node, char ** cur)
     size_t skip = 0;
 
     TYPE(N) = NUM_TYPE;
-    sscanf (*cur, "%d%n", &(DATA(N)), &skip);
+    sscanf (*cur, "%lf%n", &(node->data.data), &skip);
+
+    node->data.opcode = UNDEF;
 
     *cur += skip;
 }
@@ -142,7 +144,9 @@ void InitVar (Node<Monomial> * node, char ** cur)
     assert (cur != nullptr && *cur != nullptr);
 
     TYPE(N) = VAR_TYPE;
-    sscanf (*cur, "%c", &(DATA(N)));
+    sscanf (*cur, "%c", &(node->data.opcode));
+
+    node->data.data = -1;
 
     (*cur)++;
 }
@@ -160,7 +164,8 @@ void InitOp (Node<Monomial> * node, char ** cur)
 
     sscanf (*cur, "%[^()]%n", op, &skip);
 
-    DATA(N) = ParseOperation (op);
+    node->data.opcode = ParseOperation (op);
+    node->data.data = -1;
 
     assert (DATA(N) != UNDEF);
 
@@ -258,7 +263,7 @@ Node<Monomial> * Diff (Node<Monomial> * node, const char var)
     }
     else
     {
-        switch (DATA(N))
+        switch (N->data.opcode)
         {
             case ADD: // dL + dR
             {
@@ -400,4 +405,3 @@ Node<Monomial> * Diff (Node<Monomial> * node, const char var)
         }
     }
 }
-

@@ -3,8 +3,12 @@
 
 struct Monomial
 {
-    char type;
-    int  data;
+    char    type;
+    double  data;
+    int     opcode;
+
+    //Удобно носить с собой ссылку на функцию, если type == OP_TYPE
+    //Аналогично удобно будет носить с собой ссылку на переменную в дальнейшем
 };
 
 enum types

@@ -4,7 +4,7 @@
 
 #include "node_operations.hpp"
 
-Node<Monomial> * CreateNode (const int data, const char type, Node<Monomial> * right, Node<Monomial> * left)
+Node<Monomial> * CreateNode (const double data, const int opcode, const char type, Node<Monomial> * right, Node<Monomial> * left)
 {
     Node<Monomial> * node = (Node<Monomial> *) calloc (1, sizeof (*node));
 
@@ -12,11 +12,12 @@ Node<Monomial> * CreateNode (const int data, const char type, Node<Monomial> * r
 
     node->init ();
 
-    node->data.data = data;
-    node->data.type = type;
+    node->data.data   = data;
+    node->data.opcode = opcode;
+    node->data.type   = type;
 
     node->right = right;
-    node->left = left;
+    node->left  = left;
 
     if (node->left)
     {
@@ -40,5 +41,6 @@ Node<Monomial> * Copy (const Node<Monomial> * origin)
         return (nullptr);
     }
 
-    return (CreateNode (origin->data.data, origin->data.type, Copy (origin->right), Copy (origin->left)));
+    return (CreateNode (origin->data.data, origin->data.opcode, origin->data.type, 
+                        Copy (origin->right), Copy (origin->left)));
 }
