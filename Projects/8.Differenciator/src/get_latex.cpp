@@ -4,7 +4,7 @@
 
 #include "get_latex.hpp"
 
-void getLaTeX (BinaryTree<Monomial> * expression, BinaryTree<Monomial> * diff, const char * name, bool open)
+void getLaTeX (BinaryTree<Token> * expression, BinaryTree<Token> * diff, const char * name, bool open)
 {
     system("mkdir -p LaTeX");
 
@@ -41,7 +41,7 @@ void getLaTeX (BinaryTree<Monomial> * expression, BinaryTree<Monomial> * diff, c
     system (call_tex);
 }
 
-void getNodeLaTeX (Node<Monomial> * node, FILE * f)
+void getNodeLaTeX (Node<Token> * node, FILE * f)
 {
     bool low_priority = false;
 
@@ -62,7 +62,7 @@ void getNodeLaTeX (Node<Monomial> * node, FILE * f)
 
     if (TYPE(N) != OP_TYPE)
     {
-        PrintMonomial (f, &(N->data));
+        PrintToken (f, &(N->data));
     }
     else
     {

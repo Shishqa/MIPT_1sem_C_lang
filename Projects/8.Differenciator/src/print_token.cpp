@@ -4,29 +4,29 @@
 
 void PrintMonomial (FILE * f, const void * ptr)
 {
-    switch (((Node<Monomial> *) ptr)->data.type)
+    switch (((Node<Token> *) ptr)->data.type)
     {
         case OP_TYPE:
         {
-            fprintf (f, "%s", op_names[((Node<Monomial> *) ptr)->data.opcode]);
+            fprintf (f, "%s", op_names[((Node<Token> *) ptr)->data.opcode]);
         }
         break;
 
         case NUM_TYPE:
         {
-            fprintf (f, "%.0lf", ((Node<Monomial> *) ptr)->data.data);
+            fprintf (f, "%.0lf", ((Node<Token> *) ptr)->data.data);
         }
         break;
 
         case VAR_TYPE:
         {
-            fprintf (f, "%c", ((Node<Monomial> *) ptr)->data.opcode);
+            fprintf (f, "%c", ((Node<Token> *) ptr)->data.opcode);
         }
         break;
     
         default:
         {
-            printf ("Wrong type of Monomial!\n");
+            printf ("Wrong type of Token!\n");
             fprintf (f, "$$$");
         }
         break;

@@ -4,7 +4,7 @@
 
 #include "get_pic.hpp"
 
-void getPic (BinaryTree<Monomial> * expression, const char * name, bool open)
+void getPic (BinaryTree<Token> * expression, const char * name, bool open)
 {
     system("mkdir -p pic");
 
@@ -40,11 +40,11 @@ void getPic (BinaryTree<Monomial> * expression, const char * name, bool open)
     }
 }
 
-void getNodePic (Node<Monomial> * node, FILE * f)
+void getNodePic (Node<Token> * node, FILE * f)
 {
     fprintf (f, "\tnode%p [shape = \"%s\" label = \"", N, ((TYPE(N) == OP_TYPE) ? "circle" : "square"));
 
-    PrintMonomial (f, N);
+    PrintToken (f, N);
 
     switch (TYPE(N))
     {

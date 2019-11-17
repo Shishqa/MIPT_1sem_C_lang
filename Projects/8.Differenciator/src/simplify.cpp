@@ -6,7 +6,7 @@
 
 #include "simplify.hpp"
 
-Node<Monomial> * Simplify (BinaryTree<Monomial> * exp, Node<Monomial> * node)
+Node<Token> * Simplify (BinaryTree<Token> * exp, Node<Token> * node)
 {
     if (L)
     {
@@ -25,7 +25,7 @@ Node<Monomial> * Simplify (BinaryTree<Monomial> * exp, Node<Monomial> * node)
         return (N);
     }
 
-    Node<Monomial> * tmp = nullptr;
+    Node<Token> * tmp = nullptr;
     char op = 0;
     int l_val = 0;
     int r_val = 0;

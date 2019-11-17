@@ -3,7 +3,7 @@
 
 #include "headers.hpp"
 
-void getLaTeX (BinaryTree<Monomial> * expression, BinaryTree<Monomial> * diff, const char * name, bool open = false);
-void getNodeLaTeX (Node<Monomial> * node, FILE * f);
+void getLaTeX (BinaryTree<Token> * expression, BinaryTree<Token> * diff, const char * name, bool open = false);
+void getNodeLaTeX (Node<Token> * node, FILE * f);
 
 #endif // !GET_LATEX_HPP_

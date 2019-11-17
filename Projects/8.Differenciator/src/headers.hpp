@@ -11,6 +11,6 @@
 
 #include "DSL.hpp"
 
-#include "monomial.hpp"
+#include "token.hpp"
 
 #endif // !HEADERS_HPP_

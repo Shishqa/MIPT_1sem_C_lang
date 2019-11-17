@@ -1,11 +1,13 @@
-#ifndef MONOMIAL_HPP_
-#define MONOMIAL_HPP_
+#ifndef TOKEN_HPP_
+#define TOKEN_HPP_
 
-struct Monomial
+struct Token
 {
     char    type;
     double  data;
     int     opcode;
+
+    double (* func) (const void *, const void *);
 
     //Удобно носить с собой ссылку на функцию, если type == OP_TYPE
     //Аналогично удобно будет носить с собой ссылку на переменную в дальнейшем
@@ -18,6 +20,6 @@ enum types
     VAR_TYPE
 };
 
-void PrintMonomial (FILE * f, const void * ptr);
+void PrintToken (FILE * f, const void * ptr);
 
-#endif // !MONOMIAL_HPP_
+#endif // !TOKEN_HPP_

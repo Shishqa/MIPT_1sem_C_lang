@@ -8,25 +8,25 @@
 #include "get_latex.hpp"
 #include "simplify.hpp"
 
-void initExpression (BinaryTree<Monomial> * expression, const char * path);
-void initMonomial   (Node<Monomial> ** node, char ** cur);
+void initExpression (BinaryTree<Token> * expression, const char * path);
+void initToken      (Node<Token> ** node, char ** cur);
 
-void InitNum (Node<Monomial> * node, char ** cur);
-void InitVar (Node<Monomial> * node, char ** cur);
-void InitOp  (Node<Monomial> * node, char ** cur);
+void InitNum (Node<Token> * node, char ** cur);
+void InitVar (Node<Token> * node, char ** cur);
+void InitOp  (Node<Token> * node, char ** cur);
 
 int ParseOperation (const char * op);
 
-BinaryTree<Monomial> * DiffExpression (const BinaryTree<Monomial> * expression, const char var);
-Node<Monomial> * Diff (Node<Monomial> * node, const char var);
+BinaryTree<Token> * DiffExpression (const BinaryTree<Token> * expression, const char var);
+Node<Token> * Diff (Node<Token> * node, const char var);
 
 int main ()
 {
-    BinaryTree<Monomial> expression = {};
+    BinaryTree<Token> expression = {};
 
     initExpression (&expression, "data/exp2");
 
-    BinaryTree<Monomial> * diff_expression = DiffExpression (&expression, 'x');
+    BinaryTree<Token> * diff_expression = DiffExpression (&expression, 'x');
 
     getPic (diff_expression, "not_simple_diff_pic");
 
@@ -40,7 +40,7 @@ int main ()
     return (0);
 }
 
-void initExpression (BinaryTree<Monomial> * expression, const char * path)
+void initExpression (BinaryTree<Token> * expression, const char * path)
 {
     FILE * f = fopen (path, "r");
 
@@ -59,10 +59,10 @@ void initExpression (BinaryTree<Monomial> * expression, const char * path)
 
     printf ("%s\n", cur);
 
-    initMonomial (&expression->root, &cur);
+    initToken (&expression->root, &cur);
 }
 
-void initMonomial (Node<Monomial> ** node, char ** cur)
+void initToken (Node<Token> ** node, char ** cur)
 {
     assert (node != nullptr && *node == nullptr);
     assert (cur != nullptr && *cur != nullptr);
@@ -72,14 +72,14 @@ void initMonomial (Node<Monomial> ** node, char ** cur)
         printf ("(\n");
 
         (*cur)++;
-        *node = (Node<Monomial> *) calloc (1, sizeof (**node));
+        *node = (Node<Token> *) calloc (1, sizeof (**node));
 
         (*node)->init ();
 
         if (**cur == '(')
         {
             printf ("init left\n");
-            initMonomial (&(*node)->left, cur);
+            initToken (&(*node)->left, cur);
             (*node)->left->parent = *node;
         }
         
@@ -102,7 +102,7 @@ void initMonomial (Node<Monomial> ** node, char ** cur)
         if (**cur == '(')
         {
             printf ("init right\n");
-            initMonomial (&(*node)->right, cur);
+            initToken (&(*node)->right, cur);
             (*node)->right->parent = *node;
         }
 
@@ -123,7 +123,7 @@ void initMonomial (Node<Monomial> ** node, char ** cur)
     }
 }
 
-void InitNum (Node<Monomial> * node, char ** cur)
+void InitNum (Node<Token> * node, char ** cur)
 {
     assert (node != nullptr);
     assert (cur != nullptr && *cur != nullptr);
@@ -138,7 +138,7 @@ void InitNum (Node<Monomial> * node, char ** cur)
     *cur += skip;
 }
 
-void InitVar (Node<Monomial> * node, char ** cur)
+void InitVar (Node<Token> * node, char ** cur)
 {
     assert (node != nullptr);
     assert (cur != nullptr && *cur != nullptr);
@@ -151,7 +151,7 @@ void InitVar (Node<Monomial> * node, char ** cur)
     (*cur)++;
 }
 
-void InitOp (Node<Monomial> * node, char ** cur)
+void InitOp (Node<Token> * node, char ** cur)
 {
     assert (node != nullptr);
     assert (cur != nullptr && *cur != nullptr);
@@ -230,11 +230,11 @@ int ParseOperation (const char * op)
     assert (0);
 }
 
-BinaryTree<Monomial> * DiffExpression (const BinaryTree<Monomial> * expression, const char var)
+BinaryTree<Token> * DiffExpression (const BinaryTree<Token> * expression, const char var)
 {
     assert (expression != nullptr);
 
-    BinaryTree<Monomial> * diff = (BinaryTree<Monomial> *) calloc (1, sizeof (*diff));
+    BinaryTree<Token> * diff = (BinaryTree<Token> *) calloc (1, sizeof (*diff));
 
     assert (diff != nullptr);
 
@@ -245,7 +245,7 @@ BinaryTree<Monomial> * DiffExpression (const BinaryTree<Monomial> * expression, 
     return (diff);
 }
 
-Node<Monomial> * Diff (Node<Monomial> * node, const char var)
+Node<Token> * Diff (Node<Token> * node, const char var)
 {
     assert (node != nullptr);
 

@@ -4,9 +4,9 @@
 
 #include "node_operations.hpp"
 
-Node<Monomial> * CreateNode (const double data, const int opcode, const char type, Node<Monomial> * right, Node<Monomial> * left)
+Node<Token> * CreateNode (const double data, const int opcode, const char type, Node<Token> * right, Node<Token> * left)
 {
-    Node<Monomial> * node = (Node<Monomial> *) calloc (1, sizeof (*node));
+    Node<Token> * node = (Node<Token> *) calloc (1, sizeof (*node));
 
     assert (node != nullptr);
 
@@ -34,7 +34,7 @@ Node<Monomial> * CreateNode (const double data, const int opcode, const char typ
     return (node);
 }
 
-Node<Monomial> * Copy (const Node<Monomial> * origin)
+Node<Token> * Copy (const Node<Token> * origin)
 {
     if (origin == nullptr)
     {
