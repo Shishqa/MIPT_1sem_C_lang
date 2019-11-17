@@ -20,12 +20,14 @@ enum op_enum
     ADD,
     SUB,
     MUL,
+    ABS,
+    SIGN,
+    LN,
+    EXP,
     SIN,
     COS,
     TG,
     CTG,
-    LN,
-    EXP,
     ARCSIN,
     ARCCOS,
     ARCTG,
@@ -34,8 +36,6 @@ enum op_enum
     CH,
     TH,
     CTH,
-    ABS,
-    SIGN,
     DIV,
     POW,
     DIFF
@@ -45,28 +45,29 @@ static const Operation operations[OP_CNT] = {
     {"@",      1, UNDEF,  nullptr, 0},
     {"+",      1, ADD,    nullptr, 1},
     {"-",      1, SUB,    nullptr, 1},
-    {"*",      1, MUL,    nullptr, 1},
-    {"/",      1, DIV,    nullptr, 1},
-    {"^",      1, POW,    nullptr, 1},
-    {"abs",    3, ABS,    nullptr, 1},
-    {"sign",   4, SIGN,   nullptr, 1},
-    {"ln",     2, LN,     nullptr, 1},
-    {"exp",    3, EXP,    nullptr, 1},
-    {"sin",    3, SIN,    nullptr, 1},
-    {"cos",    3, COS,    nullptr, 1},
-    {"tg",     2, TG,     nullptr, 1},
-    {"ctg",    3, CTG,    nullptr, 1},
-    {"arcsin", 6, ARCSIN, nullptr, 1},
-    {"arccos", 6, ARCCOS, nullptr, 1},
-    {"arctg",  5, ARCTG,  nullptr, 1},
-    {"arcctg", 6, ARCCTG, nullptr, 1},
-    {"sh",     2, SH,     nullptr, 1},
-    {"ch",     2, CH,     nullptr, 1},
-    {"th",     2, TH,     nullptr, 1},
-    {"cth",    3, CTH,    nullptr, 1},
-    {"d",      1, DIFF,   nullptr, 1}
+    {"*",      1, MUL,    nullptr, 2},
+    {"abs",    3, ABS,    nullptr, 0},
+    {"sign",   4, SIGN,   nullptr, 3},
+    {"ln",     2, LN,     nullptr, 3},
+    {"exp",    3, EXP,    nullptr, 3},
+    {"sin",    3, SIN,    nullptr, 3},
+    {"cos",    3, COS,    nullptr, 3},
+    {"tg",     2, TG,     nullptr, 3},
+    {"ctg",    3, CTG,    nullptr, 3},
+    {"arcsin", 6, ARCSIN, nullptr, 3},
+    {"arccos", 6, ARCCOS, nullptr, 3},
+    {"arctg",  5, ARCTG,  nullptr, 3},
+    {"arcctg", 6, ARCCTG, nullptr, 3},
+    {"sh",     2, SH,     nullptr, 3},
+    {"ch",     2, CH,     nullptr, 3},
+    {"th",     2, TH,     nullptr, 3},
+    {"cth",    3, CTH,    nullptr, 3},
+    {"/",      1, DIV,    nullptr, 4},
+    {"^",      1, POW,    nullptr, 4},
+    {"d",      1, DIFF,   nullptr, 4}
 };
 
+/*
 static const char * op_names[23] = {
         "@",
         "+",
@@ -92,6 +93,7 @@ static const char * op_names[23] = {
         "^",
         "d"
 };
+*/
 
 
 #endif // !OPERATIONS_HPP_

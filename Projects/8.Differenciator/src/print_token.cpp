@@ -8,7 +8,7 @@ void PrintToken (FILE * f, const void * ptr)
     {
         case OP_TYPE:
         {
-            fprintf (f, "%s", op_names[((Node<Token> *) ptr)->data.opcode]);
+            fprintf (f, "%s", operations[((Node<Token> *) ptr)->data.op_id].name);
         }
         break;
 
@@ -20,7 +20,7 @@ void PrintToken (FILE * f, const void * ptr)
 
         case VAR_TYPE:
         {
-            fprintf (f, "%c", ((Node<Token> *) ptr)->data.opcode);
+            fprintf (f, "%c", ((Node<Token> *) ptr)->data.var);
         }
         break;
     

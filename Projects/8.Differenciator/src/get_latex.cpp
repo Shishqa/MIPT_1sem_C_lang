@@ -45,8 +45,8 @@ void getNodeLaTeX (Node<Token> * node, FILE * f)
 {
     bool low_priority = false;
 
-    if (N->parent && TYPE(N->parent) == OP_TYPE &&
-        TYPE(N) == OP_TYPE && DATA(N) < DATA(N->parent))
+    if (N->P && TYPE(N->P) == OP_TYPE &&
+        TYPE(N) == OP_TYPE && operations[N->data.op_id].priority < operations[N->P->data.op_id].priority)
     {
         low_priority = true;
     }
@@ -66,7 +66,7 @@ void getNodeLaTeX (Node<Token> * node, FILE * f)
     }
     else
     {
-        switch (N->data.opcode)
+        switch (OPCODE(N))
         {
             case ADD:
             {
@@ -138,7 +138,7 @@ void getNodeLaTeX (Node<Token> * node, FILE * f)
         
             default:
             {
-                fprintf (f, " %s (", op_names[N->data.opcode]);
+                fprintf (f, " %s (", operations[node->data.op_id].name);
                 getNodeLaTeX (R, f);
                 fprintf (f, ") ");
             }

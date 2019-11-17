@@ -86,18 +86,20 @@ void initToken (Node<Token> ** node, char ** cur)
         if (isdigit (**cur) || (**cur == '-' && isdigit (*(*cur + 1))))
         {
             InitNum (*node, cur);
-            printf ("num %lf\n", (*node)->data.data);
         }
-        else if (isalpha (**cur) && *(*cur + 1) == ')')  // КОСТЫЛЬ
+        else if (isalpha (**cur) && *(*cur + 1) == ')') 
         {
             InitVar (*node, cur);
-            printf ("var %c\n", (*node)->data.opcode);
         }
         else
         {
             InitOp (*node, cur);
-            printf ("op %d\n", (*node)->data.opcode);
         }
+
+        printf ("New token:\n");
+        printf ("\tdata: %.2lf\n", (*node)->data.data);
+        printf ("\tvar: %c\n", (*node)->data.var);
+        printf ("\top: %d\n", (*node)->data.op_id);
 
         if (**cur == '(')
         {
@@ -133,7 +135,8 @@ void InitNum (Node<Token> * node, char ** cur)
     TYPE(N) = NUM_TYPE;
     sscanf (*cur, "%lf%n", &(node->data.data), &skip);
 
-    node->data.opcode = UNDEF;
+    node->data.op_id = 0;
+    node->data.var = '~';
 
     *cur += skip;
 }
@@ -144,9 +147,10 @@ void InitVar (Node<Token> * node, char ** cur)
     assert (cur != nullptr && *cur != nullptr);
 
     TYPE(N) = VAR_TYPE;
-    sscanf (*cur, "%c", &(node->data.opcode));
+    sscanf (*cur, "%c", &(node->data.var));
 
     node->data.data = -1;
+    node->data.op_id = 0;
 
     (*cur)++;
 }
@@ -164,10 +168,12 @@ void InitOp (Node<Token> * node, char ** cur)
 
     sscanf (*cur, "%[^()]%n", op, &skip);
 
-    node->data.opcode = ParseOperation (op);
-    node->data.data = -1;
+    node->data.op_id = ParseOperation (op);
 
-    assert (DATA(N) != UNDEF);
+    node->data.data = -1;
+    node->data.var = '~';
+
+    assert (OPCODE(N) != UNDEF);
 
     *cur += skip;
 
@@ -180,54 +186,20 @@ int ParseOperation (const char * op)
 
     size_t op_len = strlen (op);
 
-    switch (op_len)
+    printf ("parsing %s\n", op);
+
+    for (size_t i = 0; i < OP_CNT; i++)
     {
-        CASE (1, {
-                    PARSE (MUL, 1)
-                    PARSE (DIV, 1)
-                    PARSE (ADD, 1)
-                    PARSE (SUB, 1)
-                    PARSE (POW, 1)
-                 })
+        printf ("with %s\n", operations[i].name);
 
-        CASE (2, {
-                    PARSE (LN, 2)
-                    PARSE (TG, 2)
-                    PARSE (SH, 2)
-                    PARSE (CH, 2)
-                    PARSE (TH, 2)
-                 })
-
-        CASE (3, {
-                    PARSE (SIN, 3)
-                    PARSE (COS, 3)
-                    PARSE (CTG, 3)
-                    PARSE (ABS, 3)
-                    PARSE (EXP, 3)
-                 })
-
-        CASE (4, {
-                    PARSE (SIGN, 4)
-                 })
-
-        CASE (5, {
-                    PARSE (ARCTG, 5)
-                 })
-
-        CASE (6, {
-                    PARSE (ARCSIN, 6)
-                    PARSE (ARCCOS, 6)
-                    PARSE (ARCCTG, 6)
-                 })
-    
-        default:
+        if (op_len == operations[i].name_len && 
+            !strncmp (op, operations[i].name, op_len))
         {
-            return (UNDEF);
+            return (i);
         }
-        break;
     }
 
-    assert (0);
+    return (0);
 }
 
 BinaryTree<Token> * DiffExpression (const BinaryTree<Token> * expression, const char var)
@@ -253,17 +225,17 @@ Node<Token> * Diff (Node<Token> * node, const char var)
     {
         return (n(0));
     }
-    else if (TYPE(N) == VAR_TYPE && DATA(N) == var)
+    else if (TYPE(N) == VAR_TYPE && node->data.var == var)
     {
         return (n(1));
     }
     else if (TYPE(N) == VAR_TYPE)
     {
-        return (DIFF (v(DATA(N)), v(var)));
+        return (DIFF (v(node->data.var), v(var)));
     }
     else
     {
-        switch (N->data.opcode)
+        switch (OPCODE(N))
         {
             case ADD: // dL + dR
             {

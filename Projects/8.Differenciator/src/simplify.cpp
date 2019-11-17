@@ -11,13 +11,13 @@ Node<Token> * Simplify (BinaryTree<Token> * exp, Node<Token> * node)
     if (L)
     {
         L = Simplify (exp, L);
-        L->parent = N;
+        L->P = N;
     }
 
     if (R)
     {
         R = Simplify (exp, R);
-        R->parent = N;
+        R->P = N;
     }
 
     if (TYPE(N) != OP_TYPE)
@@ -30,45 +30,47 @@ Node<Token> * Simplify (BinaryTree<Token> * exp, Node<Token> * node)
     int l_val = 0;
     int r_val = 0;
 
+    /*
     if ((R && TYPE(R) == NUM_TYPE) && (L && TYPE(L) == NUM_TYPE))
     {
-        op = DATA(N);
+        op    = DATA(N);
         l_val = DATA(L);
         r_val = DATA(R);
         exp->deleteSubtree (N);
         return (n(Count (op, l_val, r_val)));
     }
+    */
 
     //ZERO
-    if ((DATA(N) == ADD || DATA(N) == SUB) && RIGHT (0))
+    if ((OPCODE(N) == ADD || OPCODE(N) == SUB) && RIGHT (0))
     {
         tmp = c(L);
         exp->deleteSubtree (N);
         return (tmp);
     }
-    if (DATA(N) == ADD && LEFT (0))
+    if (OPCODE(N) == ADD && LEFT (0))
     {
         tmp = c(R);
         exp->deleteSubtree (N);
         return (tmp);
     }
-    if (DATA(N) == SUB && LEFT (0))
+    if (OPCODE(N) == SUB && LEFT (0))
     {
         tmp = c(R);
         exp->deleteSubtree (N);
         return (MUL( n(-1), tmp ));
     }
-    if ((DATA(N) == MUL || DATA(N) == DIV) && (LEFT (0) || RIGHT (0)))
+    if ((OPCODE(N) == MUL || OPCODE(N) == DIV) && (LEFT (0) || RIGHT (0)))
     {
         exp->deleteSubtree (N);
         return (n(0));
     }
-    if (DATA(N) == POW && LEFT (0))
+    if (OPCODE(N) == POW && LEFT (0))
     {
         exp->deleteSubtree (N);
         return (n(0));
     }
-    if (DATA(N) == POW && RIGHT (0))
+    if (OPCODE(N) == POW && RIGHT (0))
     {
         exp->deleteSubtree (N);
         return (n(1));
@@ -76,30 +78,30 @@ Node<Token> * Simplify (BinaryTree<Token> * exp, Node<Token> * node)
 
     //ONE
 
-    if (DATA(N) == MUL && LEFT (1))
+    if (OPCODE(N) == MUL && LEFT (1))
     {
         tmp = c(R);
         exp->deleteSubtree (N);
         return (tmp);
     }
-    if (DATA(N) == MUL && RIGHT (1))
+    if (OPCODE(N) == MUL && RIGHT (1))
     {
         tmp = c(L);
         exp->deleteSubtree (N);
         return (tmp);
     }
-    if (DATA(N) == DIV && RIGHT (1))
+    if (OPCODE(N) == DIV && RIGHT (1))
     {
         tmp = c(L);
         exp->deleteSubtree (N);
         return (tmp);
     }
-    if (DATA(N) == POW && LEFT (1))
+    if (OPCODE(N) == POW && LEFT (1))
     {
         exp->deleteSubtree (N);
         return (n(1));
     }
-    if (DATA(N) == POW && RIGHT (1))
+    if (OPCODE(N) == POW && RIGHT (1))
     {
         tmp = c(L);
         exp->deleteSubtree (N);
@@ -108,17 +110,17 @@ Node<Token> * Simplify (BinaryTree<Token> * exp, Node<Token> * node)
 
     //
 
-    if (((DATA(N) == ADD || DATA(N) == MUL) && 
-          L && R && TYPE(L) == OP_TYPE && TYPE(R) == OP_TYPE &&
-          DATA(L) < DATA(R)) ||
-        (DATA(N) == MUL && TYPE(R) == NUM_TYPE))
-    {
-        tmp = L;
-        L = R;
-        R = tmp;
+    // if (((DATA(N) == ADD || DATA(N) == MUL) && 
+    //       L && R && TYPE(L) == OP_TYPE && TYPE(R) == OP_TYPE &&
+    //       DATA(L) < DATA(R)) ||
+    //     (DATA(N) == MUL && TYPE(R) == NUM_TYPE))
+    // {
+    //     tmp = L;
+    //     L = R;
+    //     R = tmp;
 
-        return (N);
-    }
+    //     return (N);
+    // }
 
     return (N);
 }

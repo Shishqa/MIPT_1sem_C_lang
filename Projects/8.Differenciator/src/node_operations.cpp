@@ -4,7 +4,8 @@
 
 #include "node_operations.hpp"
 
-Node<Token> * CreateNode (const double data, const int opcode, const char type, Node<Token> * right, Node<Token> * left)
+Node<Token> * CreateNode (const double data, const int op_id, const char var, const char type, 
+                          Node<Token> * right, Node<Token> * left)
 {
     Node<Token> * node = (Node<Token> *) calloc (1, sizeof (*node));
 
@@ -12,9 +13,10 @@ Node<Token> * CreateNode (const double data, const int opcode, const char type, 
 
     node->init ();
 
-    node->data.data   = data;
-    node->data.opcode = opcode;
-    node->data.type   = type;
+    node->data.data  = data;
+    node->data.op_id = op_id;
+    node->data.type  = type;
+    node->data.var   = var;
 
     node->right = right;
     node->left  = left;
@@ -41,6 +43,6 @@ Node<Token> * Copy (const Node<Token> * origin)
         return (nullptr);
     }
 
-    return (CreateNode (origin->data.data, origin->data.opcode, origin->data.type, 
+    return (CreateNode (origin->data.data, origin->data.op_id, origin->data.var, origin->data.type, 
                         Copy (origin->right), Copy (origin->left)));
 }
