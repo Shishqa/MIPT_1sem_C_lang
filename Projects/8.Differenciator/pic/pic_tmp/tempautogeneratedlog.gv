@@ -1,6 +1,32 @@
 digraph dump
 {
 node [style = filled]
-	node0x5650498b5e60 [shape = "square" label = "7", fillcolor = "#ffa500"]
+	node0x5594478acec0 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
+	node0x5594478acbc0 [shape = "circle" label = "/", fillcolor = "#fffacd", fontsize = 18]
+	node0x5594478aca00 [shape = "square" label = "1", fillcolor = "#ffa500"]
+	node0x5594478acbc0 -> node0x5594478aca00
+	node0x5594478acb80 [shape = "circle" label = "^", fillcolor = "#fffacd", fontsize = 18]
+	node0x5594478acb00 [shape = "circle" label = "cos", fillcolor = "#fffacd", fontsize = 18]
+	node0x5594478acac0 [shape = "circle" label = "/", fillcolor = "#fffacd", fontsize = 18]
+	node0x5594478aca40 [shape = "square" label = "1", fillcolor = "#ffa500"]
+	node0x5594478acac0 -> node0x5594478aca40
+	node0x5594478aca80 [shape = "square" label = "x", fillcolor = "#9acd32"]
+	node0x5594478acac0 -> node0x5594478aca80
+	node0x5594478acb00 -> node0x5594478acac0
+	node0x5594478acb80 -> node0x5594478acb00
+	node0x5594478acb40 [shape = "square" label = "2", fillcolor = "#ffa500"]
+	node0x5594478acb80 -> node0x5594478acb40
+	node0x5594478acbc0 -> node0x5594478acb80
+	node0x5594478acec0 -> node0x5594478acbc0
+	node0x5594478ace80 [shape = "circle" label = "/", fillcolor = "#fffacd", fontsize = 18]
+	node0x5594478acd80 [shape = "square" label = "-1", fillcolor = "#ffa500"]
+	node0x5594478ace80 -> node0x5594478acd80
+	node0x5594478ace40 [shape = "circle" label = "^", fillcolor = "#fffacd", fontsize = 18]
+	node0x5594478acdc0 [shape = "square" label = "x", fillcolor = "#9acd32"]
+	node0x5594478ace40 -> node0x5594478acdc0
+	node0x5594478ace00 [shape = "square" label = "2", fillcolor = "#ffa500"]
+	node0x5594478ace40 -> node0x5594478ace00
+	node0x5594478ace80 -> node0x5594478ace40
+	node0x5594478acec0 -> node0x5594478ace80
 
 }

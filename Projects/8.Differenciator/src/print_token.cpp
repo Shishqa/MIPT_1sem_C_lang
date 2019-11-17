@@ -2,7 +2,7 @@
 
 #include "operations.hpp"
 
-void PrintMonomial (FILE * f, const void * ptr)
+void PrintToken (FILE * f, const void * ptr)
 {
     switch (((Node<Token> *) ptr)->data.type)
     {

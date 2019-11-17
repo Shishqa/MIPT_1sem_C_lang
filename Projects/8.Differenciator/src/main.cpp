@@ -24,7 +24,7 @@ int main ()
 {
     BinaryTree<Token> expression = {};
 
-    initExpression (&expression, "data/exp2");
+    initExpression (&expression, "data/exp5");
 
     BinaryTree<Token> * diff_expression = DiffExpression (&expression, 'x');
 

@@ -119,14 +119,6 @@ void getNodeLaTeX (Node<Token> * node, FILE * f)
             }
             break;
 
-            case SIGN:
-            {
-                fprintf (f, " sign (");
-                getNodeLaTeX (R, f);
-                fprintf (f, ") ");
-            }
-            break;
-
             case EXP:
             {
                 fprintf (f, " e^{");
@@ -146,7 +138,7 @@ void getNodeLaTeX (Node<Token> * node, FILE * f)
         
             default:
             {
-                fprintf (f, " \\%s (", op_names[N->data.opcode]);
+                fprintf (f, " %s (", op_names[N->data.opcode]);
                 getNodeLaTeX (R, f);
                 fprintf (f, ") ");
             }

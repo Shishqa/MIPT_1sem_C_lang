@@ -3,7 +3,7 @@
 
 const size_t MAX_OP_NAME_LEN = 6 + 1;
 const size_t OP_CNT = 23;
-struct operation 
+struct Operation 
 {
     char name[MAX_OP_NAME_LEN];
     size_t name_len;
@@ -41,7 +41,7 @@ enum op_enum
     DIFF
 };
 
-static const operation operations[OP_CNT] = {
+static const Operation operations[OP_CNT] = {
     {"@",      1, UNDEF,  nullptr, 0},
     {"+",      1, ADD,    nullptr, 1},
     {"-",      1, SUB,    nullptr, 1},

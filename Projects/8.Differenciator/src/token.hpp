@@ -1,13 +1,13 @@
 #ifndef TOKEN_HPP_
 #define TOKEN_HPP_
 
+#include "operations.hpp"
+
 struct Token
 {
     char    type;
     double  data;
     int     opcode;
-
-    double (* func) (const void *, const void *);
 
     //Удобно носить с собой ссылку на функцию, если type == OP_TYPE
     //Аналогично удобно будет носить с собой ссылку на переменную в дальнейшем
