@@ -24,7 +24,7 @@ int main ()
 {
     BinaryTree<Token> expression = {};
 
-    initExpression (&expression, "data/exp5");
+    initExpression (&expression, "data/exp4");
 
     BinaryTree<Token> * diff_expression = DiffExpression (&expression, 'x');
 
@@ -186,12 +186,8 @@ int ParseOperation (const char * op)
 
     size_t op_len = strlen (op);
 
-    printf ("parsing %s\n", op);
-
     for (size_t i = 0; i < OP_CNT; i++)
     {
-        printf ("with %s\n", operations[i].name);
-
         if (op_len == operations[i].name_len && 
             !strncmp (op, operations[i].name, op_len))
         {

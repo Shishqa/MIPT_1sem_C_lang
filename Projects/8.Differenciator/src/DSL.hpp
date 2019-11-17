@@ -18,6 +18,8 @@
 #define OPCODE( elem )                              \
         operations[(elem)->data.op_id].opcode
 
+//НЕТ ОБРАТНОЙ ПРИВЯЗКИ К OP_ID
+
 #define ADD( elem_l, elem_r )                       \
         CreateNode (-1, ADD, '#', OP_TYPE, elem_r, elem_l)
 

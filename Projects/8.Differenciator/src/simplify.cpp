@@ -26,20 +26,18 @@ Node<Token> * Simplify (BinaryTree<Token> * exp, Node<Token> * node)
     }
 
     Node<Token> * tmp = nullptr;
-    char op = 0;
-    int l_val = 0;
-    int r_val = 0;
+    int op_id = 0;
+    double l_val = 0;
+    double r_val = 0;
 
-    /*
     if ((R && TYPE(R) == NUM_TYPE) && (L && TYPE(L) == NUM_TYPE))
     {
-        op    = DATA(N);
+        op_id = node->data.op_id;
         l_val = DATA(L);
         r_val = DATA(R);
         exp->deleteSubtree (N);
-        return (n(Count (op, l_val, r_val)));
+        return (n(operations[op_id].op (l_val, r_val)));
     }
-    */
 
     //ZERO
     if ((OPCODE(N) == ADD || OPCODE(N) == SUB) && RIGHT (0))
@@ -125,48 +123,9 @@ Node<Token> * Simplify (BinaryTree<Token> * exp, Node<Token> * node)
     return (N);
 }
 
-int Count (const char op, int r)
+double Count (const int op_id, const double l, const double r)
 {
-    return 0;
-}
-
-int Count (const char op, int l, int r)
-{
-    switch (op)
-    {
-        case ADD:
-        {
-            return (l + r);
-        }
-        break;
-
-        case SUB:
-        {
-            return (l - r);
-        }
-        break;
-
-        case MUL:
-        {
-            return (l * r);
-        }
-        break;
-
-        case DIV:
-        {
-            return (l / r);
-        }
-        break;
-
-        case POW:
-        {
-            return (BinaryPow (l, r));
-        }
-        break;
-    
-        default:
-        break;
-    }
+    return (operations[op_id].op (l, r));
 }
 
 int BinaryPow (int x, int a)
