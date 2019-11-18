@@ -24,7 +24,7 @@ int main ()
 {
     BinaryTree<Token> expression = {};
 
-    initExpression (&expression, "data/exp6");
+    initExpression (&expression, "data/exp7");
 
     expression.dotDump (PrintToken, 1);
 
@@ -43,6 +43,9 @@ int main ()
     getPic (diff_expression, "diff_pic");
 
     getLaTeX (&expression, diff_expression, "hello");
+
+    expression.clear();
+    diff_expression->clear();
 
     return (0);
 }
@@ -300,73 +303,73 @@ Node<Token> * Diff (Node<Token> * node, const char var)
             }
             break;
 
-            case TG:
+            case TG: // (1 / cos(R)^2) * dR
             {
                 return (MUL ( DIV ( n(1), POW ( COS ( c(R) ), n(2) ) ), d(R) ));
             }
             break;
 
-            case CTG:
+            case CTG: // (-1 / sin(R)^2) * dR
             {
                 return (MUL ( DIV ( n(-1), POW ( SIN ( c(R) ), n(2) ) ) , d(R)));
             }
             break;
 
-            case ARCSIN:
+            case ARCSIN: // (1 / sqrt ( 1 - R^2 )) * dR
             {
                 return (MUL ( DIV ( n(1), POW ( SUB ( n(1), POW ( c(R), n(2) ) ), DIV (n(1), n(2)) ) ), d(R) ) );
             }
             break;
 
-            case ARCCOS:
+            case ARCCOS: // (-1 / sqrt ( 1 - R^2 )) * dR
             {
                 return (MUL ( DIV ( n(-1), POW ( SUB ( n(1), POW ( c(R), n(2) ) ), DIV (n(1), n(2)) ) ), d(R) ) );
             }
             break;
 
-            case ARCTG:
+            case ARCTG: // (1 / ( 1 + R^2 )) * dR
             {
                 return (MUL ( DIV ( n(1), ADD ( n(1), POW ( c(R), n(2) )) ), d(R) ) );
             }
             break;
 
-            case ARCCTG:
+            case ARCCTG: // (-1 / ( 1 + R^2 )) * dR
             {
                 return (MUL ( DIV ( n(-1), ADD ( n(1), POW ( c(R), n(2) )) ), d(R) ) );
             }
             break;
 
-            case SH:
+            case SH: // ch(R) * dR
             {
                 return (MUL ( CH ( c(R) ) , d(R) ));
             }
             break;
 
-            case CH:
+            case CH: // sh(R) * dR
             {
                 return (MUL ( SH ( c(R) ) , d(R) ));
             }
             break;
 
-            case TH:
+            case TH: // (1 / ( ch(R) ^ 2 )) * dR 
             {
                 return (MUL ( DIV ( n(1), POW ( CH ( c(R) ), n(2) ) ) , d(R) ));
             }
             break;
 
-            case CTH:
+            case CTH: // (-1 / ( sh(R) ^ 2 )) * dR 
             {
                 return (MUL ( DIV ( n(-1), POW ( SH ( c(R) ), n(2) ) ) , d(R) ));
             }
             break;
 
-            case ABS:
+            case ABS: // sign(R) * dR
             {
                 return (MUL ( SIGN ( c(R) ), d(R) ));
             }
             break;
 
-            case SIGN:
+            case SIGN: // 0
             {
                 return (n(0));
             }
