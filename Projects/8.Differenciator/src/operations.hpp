@@ -67,7 +67,7 @@ static const Operation operations[OP_CNT] = {
     {"@",      1, UNDEF,  nullptr, 0},
     {"+",      1, ADD,    my_add,  1},
     {"-",      1, SUB,    my_sub,  1},
-    {"*",      1, MUL,    my_mul,  2},
+    {"*",      1, MUL,    my_mul,  3},
     {"abs",    3, ABS,    nullptr, 0},
     {"sign",   4, SIGN,   nullptr, 3},
     {"ln",     2, LN,     nullptr, 3},
