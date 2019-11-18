@@ -24,13 +24,20 @@ int main ()
 {
     BinaryTree<Token> expression = {};
 
-    initExpression (&expression, "data/exp4");
+    initExpression (&expression, "data/exp6");
+
+    expression.dotDump (PrintToken, 1);
 
     BinaryTree<Token> * diff_expression = DiffExpression (&expression, 'x');
+
+    expression.dotDump (PrintToken, 2);
+    diff_expression->dotDump (PrintToken, 3);
 
     getPic (diff_expression, "not_simple_diff_pic");
 
     diff_expression->root = Simplify (diff_expression, diff_expression->root);
+
+    diff_expression->dotDump (PrintToken, 4);
 
     getPic (&expression, "exp_pic");
     getPic (diff_expression, "diff_pic");
@@ -274,7 +281,7 @@ Node<Token> * Diff (Node<Token> * node, const char var)
             }
             break;
 
-            case EXP:
+            case EXP: // (e ^ R) * dR
             {
                 return (MUL ( EXP ( c(R) ), d(R) ));
             }

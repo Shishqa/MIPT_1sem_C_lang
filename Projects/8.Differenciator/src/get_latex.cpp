@@ -22,7 +22,7 @@ void getLaTeX (BinaryTree<Token> * expression, BinaryTree<Token> * diff, const c
 
     fprintf (log, "\\documentclass[a4paper,12pt]{article}\n");
 
-    fprintf (log, "\\begin{document}\n$$(");
+    fprintf (log, "\\begin{document}\n\\begin{math}\n\t(");
 
     getNodeLaTeX (expression->root, log);
 
@@ -30,13 +30,13 @@ void getLaTeX (BinaryTree<Token> * expression, BinaryTree<Token> * diff, const c
 
     getNodeLaTeX (diff->root, log);
 
-    fprintf (log, "$$\n\\end{document}\n");
+    fprintf (log, "\\end{math}\n\\end{document}\n");
 
     fclose (log);
 
     char call_tex[PATH_MAX] = {};
 
-    sprintf (call_tex, "pdflatex -output-directory LaTeX/%s LaTeX/%s/%s.tex", name, name, name); 
+    sprintf (call_tex, "pdflatex -interaction nonstopmode -output-directory LaTeX/%s LaTeX/%s/%s.tex", name, name, name); 
 
     system (call_tex);
 }
@@ -46,7 +46,7 @@ void getNodeLaTeX (Node<Token> * node, FILE * f)
     bool low_priority = false;
 
     if (N->P && TYPE(N->P) == OP_TYPE &&
-        TYPE(N) == OP_TYPE && operations[N->data.op_id].priority < operations[N->P->data.op_id].priority)
+        TYPE(N) == OP_TYPE && PRIORITY(N) < PRIORITY(N->P))
     {
         low_priority = true;
     }

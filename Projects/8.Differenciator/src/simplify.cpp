@@ -108,17 +108,17 @@ Node<Token> * Simplify (BinaryTree<Token> * exp, Node<Token> * node)
 
     //
 
-    // if (((DATA(N) == ADD || DATA(N) == MUL) && 
-    //       L && R && TYPE(L) == OP_TYPE && TYPE(R) == OP_TYPE &&
-    //       DATA(L) < DATA(R)) ||
-    //     (DATA(N) == MUL && TYPE(R) == NUM_TYPE))
-    // {
-    //     tmp = L;
-    //     L = R;
-    //     R = tmp;
+    if (((OPCODE(N) == ADD || OPCODE(N) == MUL) && 
+          L && R && TYPE(L) == OP_TYPE && TYPE(R) == OP_TYPE &&
+          OPCODE(L) < OPCODE(R)) ||
+        (OPCODE(N) == MUL && TYPE(R) == NUM_TYPE))
+    {
+        tmp = L;
+        L = R;
+        R = tmp;
 
-    //     return (N);
-    // }
+        return (N);
+    }
 
     return (N);
 }

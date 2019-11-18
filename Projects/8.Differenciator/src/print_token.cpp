@@ -14,7 +14,7 @@ void PrintToken (FILE * f, const void * ptr)
 
         case NUM_TYPE:
         {
-            fprintf (f, "%.0lf", ((Node<Token> *) ptr)->data.data);
+            fprintf (f, "%.3lf", ((Node<Token> *) ptr)->data.data);
         }
         break;
 

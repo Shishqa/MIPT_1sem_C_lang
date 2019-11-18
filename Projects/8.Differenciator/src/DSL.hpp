@@ -15,8 +15,15 @@
 #define DATA( elem )                                \
         (elem)->data.data
 
+#define OP_ID( elem )                               \
+        (elem)->data.op_id
+
 #define OPCODE( elem )                              \
         operations[(elem)->data.op_id].opcode
+
+#define VAR( elem )                                 \
+        (elem)->data.var
+
 
 //НЕТ ОБРАТНОЙ ПРИВЯЗКИ К OP_ID
 

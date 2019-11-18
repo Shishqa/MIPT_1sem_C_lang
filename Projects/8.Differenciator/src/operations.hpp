@@ -84,8 +84,8 @@ static const Operation operations[OP_CNT] = {
     {"ch",     2, CH,     nullptr, 3},
     {"th",     2, TH,     nullptr, 3},
     {"cth",    3, CTH,    nullptr, 3},
-    {"/",      1, DIV,    my_div,  4},
-    {"^",      1, POW,    nullptr, 4},
+    {"/",      1, DIV,    my_div,  3},
+    {"^",      1, POW,    nullptr, 3},
     {"d",      1, DIFF,   nullptr, 4}
 };
 
