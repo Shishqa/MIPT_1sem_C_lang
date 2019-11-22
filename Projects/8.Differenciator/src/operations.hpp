@@ -34,15 +34,21 @@ struct Operation
     double (* op) (const double, const double);
 
     size_t priority;
+
+    //void (* printDiff) (Node<Token> *, FILE * f);
+    //Node<Token> * (* getDiff) (Node<Token> *);
 };
 
 enum op_enum
 {
     UNDEF,
+    DIFF,
+    ABS,
     ADD,
     SUB,
     MUL,
-    ABS,
+    DIV,
+    POW,
     SIGN,
     LN,
     EXP,
@@ -57,18 +63,18 @@ enum op_enum
     SH,
     CH,
     TH,
-    CTH,
-    DIV,
-    POW,
-    DIFF
+    CTH
 };
 
 static const Operation operations[OP_CNT] = {
     {"@",      1, UNDEF,  nullptr, 0},
+    {"d",      1, DIFF,   nullptr, 0},
+    {"abs",    3, ABS,    nullptr, 0},
     {"+",      1, ADD,    my_add,  1},
     {"-",      1, SUB,    my_sub,  1},
     {"*",      1, MUL,    my_mul,  3},
-    {"abs",    3, ABS,    nullptr, 0},
+    {"/",      1, DIV,    my_div,  3},
+    {"^",      1, POW,    nullptr, 3},
     {"sign",   4, SIGN,   nullptr, 3},
     {"ln",     2, LN,     nullptr, 3},
     {"exp",    3, EXP,    nullptr, 3},
@@ -83,10 +89,7 @@ static const Operation operations[OP_CNT] = {
     {"sh",     2, SH,     nullptr, 3},
     {"ch",     2, CH,     nullptr, 3},
     {"th",     2, TH,     nullptr, 3},
-    {"cth",    3, CTH,    nullptr, 3},
-    {"/",      1, DIV,    my_div,  3},
-    {"^",      1, POW,    nullptr, 3},
-    {"d",      1, DIFF,   nullptr, 4}
+    {"cth",    3, CTH,    nullptr, 3}
 };
 
 /*

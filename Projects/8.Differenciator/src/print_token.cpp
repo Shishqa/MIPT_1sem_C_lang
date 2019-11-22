@@ -4,6 +4,9 @@
 
 void PrintToken (FILE * f, const void * ptr)
 {
+    const double eps = 0.01;
+    double mod = 0;
+
     switch (((Node<Token> *) ptr)->data.type)
     {
         case OP_TYPE:
@@ -14,7 +17,23 @@ void PrintToken (FILE * f, const void * ptr)
 
         case NUM_TYPE:
         {
-            fprintf (f, "%.3lf", ((Node<Token> *) ptr)->data.data);
+            if (((Node<Token> *) ptr)->data.data < 0)
+            {
+                modf (((Node<Token> *) ptr)->data.data - 0.5, &mod);
+            }
+            else
+            {
+                modf (((Node<Token> *) ptr)->data.data + 0.5, &mod);
+            }
+
+            if (fabs (mod - ((Node<Token> *) ptr)->data.data) < eps)
+            {
+                fprintf (f, "%.0lf", mod);
+            }
+            else
+            {
+                fprintf (f, "%.2lf", ((Node<Token> *) ptr)->data.data);
+            }
         }
         break;
 

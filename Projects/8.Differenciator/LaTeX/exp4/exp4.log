@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.12)  18 NOV 2019 16:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.12)  21 NOV 2019 12:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -53,7 +53,7 @@ Here is how much of TeX's memory you used:
  3624 multiletter control sequences out of 15000+600000
  6376 words of font info for 23 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 22i,4n,19p,246b,107s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 22i,4n,19p,254b,107s stack positions out of 5000i,500n,10000p,200000b,80000s
 </u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texl
@@ -64,7 +64,7 @@ ype1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy8.pfb>
-Output written on LaTeX/exp4/exp4.pdf (1 page, 68973 bytes).
+Output written on LaTeX/exp4/exp4.pdf (1 page, 68581 bytes).
 PDF statistics:
  44 PDF objects out of 1000 (max. 8388607)
  31 compressed objects within 1 object stream

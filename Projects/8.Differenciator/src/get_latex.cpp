@@ -4,7 +4,7 @@
 
 #include "get_latex.hpp"
 
-void getLaTeX (BinaryTree<Token> * expression, BinaryTree<Token> * diff, const char * name, bool open)
+FILE * initLaTeX (const char * name)
 {
     system("mkdir -p LaTeX");
 
@@ -21,19 +21,22 @@ void getLaTeX (BinaryTree<Token> * expression, BinaryTree<Token> * diff, const c
 	FILE *log = fopen(path_file, "w");
 
     fprintf (log, "\\documentclass[a4paper,12pt]{article}\n");
+    //fprintf (log, "\\usepackage[utf8]{inputenc}\n");
+    //fprintf (log, "\\usepackage[T1]{fontenc}\n");
 
-    fprintf (log, "\\begin{document}\n\\begin{math}\n\t(");
+    fprintf (log, "\\begin{document}\n");
 
-    getNodeLaTeX (expression->root, log);
+    return (log);
+}
 
-    fprintf (log, ")' = ");
+void closeLaTeX (FILE * latex)
+{
+    fprintf (latex, "\\end{document}\n");
+    fclose (latex);
+}
 
-    getNodeLaTeX (diff->root, log);
-
-    fprintf (log, "\\end{math}\n\\end{document}\n");
-
-    fclose (log);
-
+void compileLaTeX (const char * name)
+{
     char call_tex[PATH_MAX] = {};
 
     sprintf (call_tex, "pdflatex -interaction nonstopmode -output-directory LaTeX/%s LaTeX/%s/%s.tex", name, name, name); 
@@ -41,7 +44,24 @@ void getLaTeX (BinaryTree<Token> * expression, BinaryTree<Token> * diff, const c
     system (call_tex);
 }
 
-void getNodeLaTeX (Node<Token> * node, FILE * f)
+void getLaTeX (BinaryTree<Token> * expression, BinaryTree<Token> * diff, const char * name, bool open)
+{
+	FILE * log = initLaTeX (name);
+
+    fprintf (log, "(");
+
+    getNodeLaTeX (expression->root, log);
+
+    fprintf (log, ")' = ");
+
+    getNodeLaTeX (diff->root, log);
+
+    closeLaTeX (log);
+
+    compileLaTeX (name);
+}
+
+void getNodeLaTeX (Node<Token> * node, FILE * f, Node<Token> * stop_node, Node<Token> * replace)
 {
     bool low_priority = false;
 
@@ -70,43 +90,43 @@ void getNodeLaTeX (Node<Token> * node, FILE * f)
         {
             case ADD:
             {
-                getNodeLaTeX (L, f);
+                getNodeLaTeX (L, f, stop_node);
                 fprintf (f, " + ");
-                getNodeLaTeX (R, f);
+                getNodeLaTeX (R, f, stop_node);
             }
             break;
 
             case SUB:
             {
-                getNodeLaTeX (L, f);
+                getNodeLaTeX (L, f, stop_node);
                 fprintf (f, " - ");
-                getNodeLaTeX (R, f);
+                getNodeLaTeX (R, f, stop_node);
             }
             break;
 
             case DIV:
             {
                 fprintf (f, " \\frac{");
-                getNodeLaTeX (L, f);
+                getNodeLaTeX (L, f, stop_node);
                 fprintf (f, "}{");
-                getNodeLaTeX (R, f);
+                getNodeLaTeX (R, f, stop_node);
                 fprintf (f, "} ");
             }
             break;
 
             case MUL:
             {
-                getNodeLaTeX (L, f);
+                getNodeLaTeX (L, f, stop_node);
                 fprintf (f, " \\cdot ");
-                getNodeLaTeX (R, f);
+                getNodeLaTeX (R, f, stop_node);
             }
             break;
 
             case POW:
             {
-                getNodeLaTeX (L, f);
+                getNodeLaTeX (L, f, stop_node);
                 fprintf (f, " ^{");
-                getNodeLaTeX (R, f);
+                getNodeLaTeX (R, f, stop_node);
                 fprintf (f, "} ");
             }
             break;
@@ -114,7 +134,7 @@ void getNodeLaTeX (Node<Token> * node, FILE * f)
             case ABS:
             {
                 fprintf (f, " |");
-                getNodeLaTeX (R, f);
+                getNodeLaTeX (R, f, stop_node);
                 fprintf (f, "| ");
             }
             break;
@@ -122,16 +142,16 @@ void getNodeLaTeX (Node<Token> * node, FILE * f)
             case EXP:
             {
                 fprintf (f, " e^{");
-                getNodeLaTeX (R, f);
+                getNodeLaTeX (R, f, stop_node);
                 fprintf (f, "} ");
             }
             break;
 
             case DIFF:
             {
-                getNodeLaTeX (L, f);
+                getNodeLaTeX (L, f, stop_node);
                 fprintf (f, "'_{");
-                getNodeLaTeX (R, f);
+                getNodeLaTeX (R, f, stop_node);
                 fprintf (f, "} ");
             }
             break;
@@ -139,7 +159,7 @@ void getNodeLaTeX (Node<Token> * node, FILE * f)
             default:
             {
                 fprintf (f, " %s (", operations[node->data.op_id].name);
-                getNodeLaTeX (R, f);
+                getNodeLaTeX (R, f, stop_node);
                 fprintf (f, ") ");
             }
             break;

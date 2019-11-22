@@ -97,7 +97,7 @@
         Copy (elem)
 
 #define d( elem )                                   \
-        Diff (elem, var)
+        Diff (elem, var, latex)
 
 #define n( elem )                                   \
         CreateNode (elem, 0, '#', NUM_TYPE)
