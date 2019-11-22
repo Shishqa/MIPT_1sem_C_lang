@@ -13,4 +13,6 @@
 
 #include "token.hpp"
 
+#include "operations.hpp"
+
 #endif // !HEADERS_HPP_

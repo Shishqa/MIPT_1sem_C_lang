@@ -10,7 +10,7 @@ FILE * initLaTeX  (const char * name);
 void closeLaTeX   (FILE * latex);
 void compileLaTeX (const char * name);
 void getLaTeX     (BinaryTree<Token> * expression, BinaryTree<Token> * diff, const char * name, bool open = false);
-void getNodeLaTeX (Node<Token> * node, FILE * f, Node<Token> * stop_node = nullptr, Node<Token> * replace = nullptr);
+void getNodeLaTeX (Node<Token> * node, FILE * f);
 void getExpressionLaTeX (Node<Token> * node, FILE * f);
 
 #endif // !GET_LATEX_HPP_

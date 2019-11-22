@@ -23,6 +23,29 @@ static double my_div (const double l, const double r)
     return (l / r);
 }
 
+// static void latex_add   (Node<Token> * node, FILE * f);
+// static void latex_sub   (Node<Token> * node, FILE * f);
+// static void latex_mul   (Node<Token> * node, FILE * f);
+// static void latex_div   (Node<Token> * node, FILE * f);
+// static void latex_pow   (Node<Token> * node, FILE * f);
+// static void latex_abs   (Node<Token> * node, FILE * f);
+// static void latex_sign  (Node<Token> * node, FILE * f);
+// static void latex_ln    (Node<Token> * node, FILE * f);
+// static void latex_exp   (Node<Token> * node, FILE * f);
+// static void latex_sin   (Node<Token> * node, FILE * f);
+// static void latex_cos   (Node<Token> * node, FILE * f);
+// static void latex_tg    (Node<Token> * node, FILE * f);
+// static void latex_ctg   (Node<Token> * node, FILE * f);
+// static void latex_arcsin (Node<Token> * node, FILE * f);
+// static void latex_arccos (Node<Token> * node, FILE * f);
+// static void latex_arctg  (Node<Token> * node, FILE * f);
+// static void latex_arcctg (Node<Token> * node, FILE * f);
+// static void latex_sh    (Node<Token> * node, FILE * f);
+// static void latex_ch    (Node<Token> * node, FILE * f);
+// static void latex_th    (Node<Token> * node, FILE * f);
+// static void latex_cth   (Node<Token> * node, FILE * f);
+
+
 const size_t MAX_OP_NAME_LEN = 6 + 1;
 const size_t OP_CNT = 23;
 struct Operation 
@@ -69,7 +92,7 @@ enum op_enum
 static const Operation operations[OP_CNT] = {
     {"@",      1, UNDEF,  nullptr, 0},
     {"d",      1, DIFF,   nullptr, 0},
-    {"abs",    3, ABS,    nullptr, 0},
+    {"abs",    3, ABS,    nullptr, 4},
     {"+",      1, ADD,    my_add,  1},
     {"-",      1, SUB,    my_sub,  1},
     {"*",      1, MUL,    my_mul,  3},
@@ -91,34 +114,5 @@ static const Operation operations[OP_CNT] = {
     {"th",     2, TH,     nullptr, 3},
     {"cth",    3, CTH,    nullptr, 3}
 };
-
-/*
-static const char * op_names[23] = {
-        "@",
-        "+",
-        "-",
-        "*",
-        "sin",
-        "cos",
-        "tg",
-        "ctg",
-        "ln",
-        "exp",
-        "arcsin",
-        "arccos",
-        "arctg",
-        "arcctg",
-        "sh",
-        "ch",
-        "th",
-        "cth",
-        "abs",
-        "sign",
-        "/",
-        "^",
-        "d"
-};
-*/
-
 
 #endif // !OPERATIONS_HPP_

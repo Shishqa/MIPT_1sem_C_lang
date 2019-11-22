@@ -1,37 +1,25 @@
 digraph dump
 {
-	node0x55d26b71f600 [shape = "record", label = "{<f1>data: +|{<f2>left: 0x55d26b71f400|<f3>right: 0x55d26b71f5c0}|<f4>parent: (nil)|<f5>adress: 0x55d26b71f600}"];
-	node0x55d26b71f400 [shape = "record", label = "{<f1>data: *|{<f2>left: 0x55d26b71ef40|<f3>right: 0x55d26b71f280}|<f4>parent: 0x55d26b71f600|<f5>adress: 0x55d26b71f400}"];
-	node0x55d26b71ef40 [shape = "record", label = "{<f1>data: +|{<f2>left: 0x55d26b71f0c0|<f3>right: 0x55d26b71ef80}|<f4>parent: 0x55d26b71f400|<f5>adress: 0x55d26b71ef40}"];
-	node0x55d26b71f0c0 [shape = "record", label = "{<f1>data: cos|{<f2>left: (nil)|<f3>right: 0x55d26b71f100}|<f4>parent: 0x55d26b71ef40|<f5>adress: 0x55d26b71f0c0}"];
-	node0x55d26b71f100 [shape = "record", label = "{<f1>data: x|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55d26b71f0c0|<f5>adress: 0x55d26b71f100}"];
-	node0x55d26b71f0c0:f3 -> node0x55d26b71f100
-	node0x55d26b71ef40:f2 -> node0x55d26b71f0c0
-	node0x55d26b71ef80 [shape = "record", label = "{<f1>data: *|{<f2>left: 0x55d26b71f080|<f3>right: 0x55d26b71efc0}|<f4>parent: 0x55d26b71ef40|<f5>adress: 0x55d26b71ef80}"];
-	node0x55d26b71f080 [shape = "record", label = "{<f1>data: 3|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55d26b71ef80|<f5>adress: 0x55d26b71f080}"];
-	node0x55d26b71ef80:f2 -> node0x55d26b71f080
-	node0x55d26b71efc0 [shape = "record", label = "{<f1>data: d|{<f2>left: 0x55d26b71f040|<f3>right: 0x55d26b71f000}|<f4>parent: 0x55d26b71ef80|<f5>adress: 0x55d26b71efc0}"];
-	node0x55d26b71f040 [shape = "record", label = "{<f1>data: y|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55d26b71efc0|<f5>adress: 0x55d26b71f040}"];
-	node0x55d26b71efc0:f2 -> node0x55d26b71f040
-	node0x55d26b71f000 [shape = "record", label = "{<f1>data: x|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55d26b71efc0|<f5>adress: 0x55d26b71f000}"];
-	node0x55d26b71efc0:f3 -> node0x55d26b71f000
-	node0x55d26b71ef80:f3 -> node0x55d26b71efc0
-	node0x55d26b71ef40:f3 -> node0x55d26b71ef80
-	node0x55d26b71f400:f2 -> node0x55d26b71ef40
-	node0x55d26b71f280 [shape = "record", label = "{<f1>data: x|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55d26b71f400|<f5>adress: 0x55d26b71f280}"];
-	node0x55d26b71f400:f3 -> node0x55d26b71f280
-	node0x55d26b71f600:f2 -> node0x55d26b71f400
-	node0x55d26b71f5c0 [shape = "record", label = "{<f1>data: +|{<f2>left: 0x55d26b71f4c0|<f3>right: 0x55d26b71f580}|<f4>parent: 0x55d26b71f600|<f5>adress: 0x55d26b71f5c0}"];
-	node0x55d26b71f4c0 [shape = "record", label = "{<f1>data: sin|{<f2>left: (nil)|<f3>right: 0x55d26b71f440}|<f4>parent: 0x55d26b71f5c0|<f5>adress: 0x55d26b71f4c0}"];
-	node0x55d26b71f440 [shape = "record", label = "{<f1>data: x|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55d26b71f4c0|<f5>adress: 0x55d26b71f440}"];
-	node0x55d26b71f4c0:f3 -> node0x55d26b71f440
-	node0x55d26b71f5c0:f2 -> node0x55d26b71f4c0
-	node0x55d26b71f580 [shape = "record", label = "{<f1>data: *|{<f2>left: 0x55d26b71f500|<f3>right: 0x55d26b71f540}|<f4>parent: 0x55d26b71f5c0|<f5>adress: 0x55d26b71f580}"];
-	node0x55d26b71f500 [shape = "record", label = "{<f1>data: 3|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55d26b71f580|<f5>adress: 0x55d26b71f500}"];
-	node0x55d26b71f580:f2 -> node0x55d26b71f500
-	node0x55d26b71f540 [shape = "record", label = "{<f1>data: y|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55d26b71f580|<f5>adress: 0x55d26b71f540}"];
-	node0x55d26b71f580:f3 -> node0x55d26b71f540
-	node0x55d26b71f5c0:f3 -> node0x55d26b71f580
-	node0x55d26b71f600:f3 -> node0x55d26b71f5c0
+	node0x55e561274970 [shape = "record", label = "{<f1>data: *|{<f2>left: 0x55e5612749b0|<f3>right: 0x55e561274c70}|<f4>parent: (nil)|<f5>adress: 0x55e561274970}"];
+	node0x55e5612749b0 [shape = "record", label = "{<f1>data: -1|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55e561274970|<f5>adress: 0x55e5612749b0}"];
+	node0x55e561274970:f2 -> node0x55e5612749b0
+	node0x55e561274c70 [shape = "record", label = "{<f1>data: *|{<f2>left: 0x55e561274870|<f3>right: 0x55e561274c30}|<f4>parent: 0x55e561274970|<f5>adress: 0x55e561274c70}"];
+	node0x55e561274870 [shape = "record", label = "{<f1>data: ^|{<f2>left: 0x55e561274930|<f3>right: 0x55e5612748f0}|<f4>parent: 0x55e561274c70|<f5>adress: 0x55e561274870}"];
+	node0x55e561274930 [shape = "record", label = "{<f1>data: x|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55e561274870|<f5>adress: 0x55e561274930}"];
+	node0x55e561274870:f2 -> node0x55e561274930
+	node0x55e5612748f0 [shape = "record", label = "{<f1>data: 2|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55e561274870|<f5>adress: 0x55e5612748f0}"];
+	node0x55e561274870:f3 -> node0x55e5612748f0
+	node0x55e561274c70:f2 -> node0x55e561274870
+	node0x55e561274c30 [shape = "record", label = "{<f1>data: *|{<f2>left: 0x55e561274830|<f3>right: 0x55e561274bf0}|<f4>parent: 0x55e561274c70|<f5>adress: 0x55e561274c30}"];
+	node0x55e561274830 [shape = "record", label = "{<f1>data: 2|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55e561274c30|<f5>adress: 0x55e561274830}"];
+	node0x55e561274c30:f2 -> node0x55e561274830
+	node0x55e561274bf0 [shape = "record", label = "{<f1>data: /|{<f2>left: 0x55e561274b70|<f3>right: 0x55e561274bb0}|<f4>parent: 0x55e561274c30|<f5>adress: 0x55e561274bf0}"];
+	node0x55e561274b70 [shape = "record", label = "{<f1>data: 1|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55e561274bf0|<f5>adress: 0x55e561274b70}"];
+	node0x55e561274bf0:f2 -> node0x55e561274b70
+	node0x55e561274bb0 [shape = "record", label = "{<f1>data: x|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55e561274bf0|<f5>adress: 0x55e561274bb0}"];
+	node0x55e561274bf0:f3 -> node0x55e561274bb0
+	node0x55e561274c30:f3 -> node0x55e561274bf0
+	node0x55e561274c70:f3 -> node0x55e561274c30
+	node0x55e561274970:f3 -> node0x55e561274c70
 
 }

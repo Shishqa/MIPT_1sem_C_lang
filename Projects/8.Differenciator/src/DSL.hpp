@@ -25,7 +25,7 @@
         (elem)->data.var
 
 
-//НЕТ ОБРАТНОЙ ПРИВЯЗКИ К OP_ID
+//НЕТ ОБРАТНОЙ ПРИВЯЗКИ К OP_ID          
 
 #define ADD( elem_l, elem_r )                       \
         CreateNode (-1, ADD, '#', OP_TYPE, elem_r, elem_l)
