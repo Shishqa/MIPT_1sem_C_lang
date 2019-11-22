@@ -92,13 +92,21 @@ Node<Token> * RecursiveDescentParser::parsePow ()
     Node<Token> * left  = parsePrimary ();
     Node<Token> * right = nullptr;
 
-    while (*cur == '^')
+    if (*cur == '^')
     {
         cur++;
 
-        right = parsePrimary ();
+        right = parseAddSub ();
 
-        left = POW (left, right);
+        if (left->data.type == VAR_TYPE &&
+            left->data.var  == 'e')
+        {
+            left = EXP (right);
+        }
+        else
+        {
+            left = POW (left, right);
+        }
     }
 
     return (left);
@@ -143,6 +151,12 @@ Node<Token> * RecursiveDescentParser::parsePrimary ()
     if (isalpha (*cur))
     {
         return (parseFunc ());
+    }
+
+    if (*cur == '-' && isalpha (*(cur + 1)))
+    {
+        cur++;
+        return (MUL(n(-1), parseFunc()));
     }
 
     return (parseNum ());

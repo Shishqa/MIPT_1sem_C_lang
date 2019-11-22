@@ -26,7 +26,7 @@ BinaryTree<Token> * DiffWithLaTeX  (const BinaryTree<Token> * expression, const 
 
     getNodeLaTeX (diff_expression->root, latex);
 
-    fprintf (latex, "\\end{math}\n");
+    fprintf (latex, "\n\\end{math}\n");
 
     closeLaTeX (latex);
     compileLaTeX (name);

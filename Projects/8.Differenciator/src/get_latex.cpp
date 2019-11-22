@@ -35,7 +35,7 @@ FILE * initLaTeX (const char * name)
 
 void closeLaTeX (FILE * latex)
 {
-    fprintf (latex, "\\end{document}\n");
+    fprintf (latex, "\\end{document}\n\n");
     fclose (latex);
 }
 
