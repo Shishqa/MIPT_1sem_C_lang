@@ -11,7 +11,7 @@
 
 int main ()
 {
-    const char working_with[PATH_MAX] = "exp1";
+    const char working_with[PATH_MAX] = "exp2";
 
     BinaryTree<Token> expression = {};
 
@@ -25,21 +25,17 @@ int main ()
 
     expression.dotDump (PrintToken, 1);
 
-    BinaryTree<Token> * diff_expression = DiffWithLaTeX (&expression, 'x', working_with);
+    Differenciator diff = {};
+
+    BinaryTree<Token> * diff_expression = diff.DiffWithLaTeX (&expression, 'x', working_with);
 
     expression.dotDump (PrintToken, 2);
     diff_expression->dotDump (PrintToken, 3);
-
-    getPic (diff_expression, "not_simple_diff_pic");
-
-    diff_expression->root = Simplify (diff_expression, diff_expression->root);
 
     diff_expression->dotDump (PrintToken, 4);
 
     getPic (&expression, "exp_pic");
     getPic (diff_expression, "diff_pic");
-
-    //getLaTeX (&expression, diff_expression, working_with);
 
     expression.clear();
     diff_expression->clear();

@@ -23,29 +23,6 @@ static double my_div (const double l, const double r)
     return (l / r);
 }
 
-// static void latex_add   (Node<Token> * node, FILE * f);
-// static void latex_sub   (Node<Token> * node, FILE * f);
-// static void latex_mul   (Node<Token> * node, FILE * f);
-// static void latex_div   (Node<Token> * node, FILE * f);
-// static void latex_pow   (Node<Token> * node, FILE * f);
-// static void latex_abs   (Node<Token> * node, FILE * f);
-// static void latex_sign  (Node<Token> * node, FILE * f);
-// static void latex_ln    (Node<Token> * node, FILE * f);
-// static void latex_exp   (Node<Token> * node, FILE * f);
-// static void latex_sin   (Node<Token> * node, FILE * f);
-// static void latex_cos   (Node<Token> * node, FILE * f);
-// static void latex_tg    (Node<Token> * node, FILE * f);
-// static void latex_ctg   (Node<Token> * node, FILE * f);
-// static void latex_arcsin (Node<Token> * node, FILE * f);
-// static void latex_arccos (Node<Token> * node, FILE * f);
-// static void latex_arctg  (Node<Token> * node, FILE * f);
-// static void latex_arcctg (Node<Token> * node, FILE * f);
-// static void latex_sh    (Node<Token> * node, FILE * f);
-// static void latex_ch    (Node<Token> * node, FILE * f);
-// static void latex_th    (Node<Token> * node, FILE * f);
-// static void latex_cth   (Node<Token> * node, FILE * f);
-
-
 const size_t MAX_OP_NAME_LEN = 6 + 1;
 const size_t OP_CNT = 23;
 struct Operation 

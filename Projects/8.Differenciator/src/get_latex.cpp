@@ -66,7 +66,7 @@ void getLaTeX (BinaryTree<Token> * expression, BinaryTree<Token> * diff, const c
 }
 
 void getNodeLaTeX (Node<Token> * node, FILE * f)
-{
+{    
     bool low_priority = false;
 
     if (N->P && TYPE(N->P) == OP_TYPE &&

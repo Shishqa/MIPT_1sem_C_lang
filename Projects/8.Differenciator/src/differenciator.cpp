@@ -7,71 +7,90 @@
 #include "differenciator.hpp"
 
 #include "get_latex.hpp"
+#include "get_pic.hpp"
 
 #include "simplify.hpp"
 
-BinaryTree<Token> * DiffWithLaTeX  (const BinaryTree<Token> * expression, const char var, const char * name)
+#define PRINT( s )      \
+        fprintf (latex, s)
+
+BinaryTree<Token> * Differenciator::DiffWithLaTeX  (const BinaryTree<Token> * exp, const char dvar, const char * latex_path)
 {
-    FILE * latex = initLaTeX (name);
+    expression = exp;
+    var = dvar;
 
-    fprintf (latex, "\\section*{Крутейшая-моднейшая производная}\\\\\n");
+    latex = initLaTeX (latex_path);
 
-    BinaryTree<Token> * diff_expression = DiffExpression (expression, var, latex);
+    PRINT ("\\section*{Стишок}\\\\\n");
 
-    fprintf (latex, "Now a little bit попроще:\\\\\n");
+    PRINT ("Продифференцируем $(");
+    getNodeLaTeX (expression->root, latex);
+    PRINT (")$, ведь мы не деградируем\\\\\n");
 
-    diff_expression->root = Simplify (diff_expression, diff_expression->root);
+    diff_expression = DiffExpression ();
 
-    fprintf (latex, "\\begin{math}\n\t");
+    getPic (diff_expression, "not_simple_diff_pic");
 
+    PRINT ("\\\\Поумерь, дружочек, злобу. Получили зелибобу\\\\ $(");
+    getNodeLaTeX (expression->root, latex);
+    PRINT (")' = ");
     getNodeLaTeX (diff_expression->root, latex);
+    PRINT ("$\\\\\n");
 
-    fprintf (latex, "\n\\end{math}\n");
+    PRINT ("Чтобы похвастаться тёще, сделаем чуть попроще\\\\\n");
+
+    Simplifier simplify = {};
+
+    diff_expression->root = simplify.Simplify (diff_expression, diff_expression->root);
+    diff_expression->root = simplify.Simplify (diff_expression, diff_expression->root);
+
+    PRINT ("$(");
+    getNodeLaTeX (expression->root, latex);
+    PRINT (")' = ");
+    getNodeLaTeX (diff_expression->root, latex);
+    PRINT ("$\\\\\n");
 
     closeLaTeX (latex);
-    compileLaTeX (name);
+    compileLaTeX (latex_path);
 
     return (diff_expression);
 }
 
-BinaryTree<Token> * DiffExpression (const BinaryTree<Token> * expression, const char var, FILE * latex)
+BinaryTree<Token> * Differenciator::DiffExpression ()
 {
     assert (expression != nullptr);
 
-    BinaryTree<Token> * diff = (BinaryTree<Token> *) calloc (1, sizeof (*diff));
+    diff_expression = (BinaryTree<Token> *) calloc (1, sizeof (*diff_expression));
 
-    assert (diff != nullptr);
+    assert (diff_expression != nullptr);
 
-    diff->init ();
+    diff_expression->init ();
 
-    diff->root = Diff (expression->root, var, latex);
+    diff_expression->root = Diff (expression->root);
 
-    return (diff);
+    return (diff_expression);
 }
 
-Node<Token> * Diff (Node<Token> * node, const char var, FILE * latex)
+Node<Token> * Differenciator::Diff (Node<Token> * node)
 {
     assert (node  != nullptr);
 
     Node<Token> * res = nullptr;
 
-    fprintf (latex, "\\begin{math}\n\t(");
-
-    getNodeLaTeX (node, latex);
-
-    fprintf (latex, ")'\n\\end{math}\\\\\n");
-
     if (TYPE(N) == NUM_TYPE)
     {
         res = n(0);
+        PRINT("Ну константа - тривиально, и ничуть не криминально\\\\\n");
     }
     else if (TYPE(N) == VAR_TYPE && node->data.var == var)
     {
         res = n(1);
+        PRINT("Знает рыжая лисица, что у нас тут единица\\\\\n");
     }
     else if (TYPE(N) == VAR_TYPE)
     {
-        res = DIFF (v(node->data.var), v(var));
+        res = DIFF (v(VAR(N)), v(var));
+        PRINT("Этот дружочек зашёл не туда, наложим мы штрих на него навсегда\\\\\n");
     }
     else
     {
@@ -80,12 +99,14 @@ Node<Token> * Diff (Node<Token> * node, const char var, FILE * latex)
             case ADD: // dL + dR
             {
                 res = ADD ( d(L), d(R) ); 
+                PRINT("Производная суммы, тут ничего не рифмуется\\\\\n");
             }
             break;
 
             case SUB: // dL - dR
             {
                 res = SUB ( d(L), d(R) ); 
+                PRINT("Давай раскроем разность, тут не ждет опасность\\\\\n");
             }
             break;
 
@@ -93,40 +114,50 @@ Node<Token> * Diff (Node<Token> * node, const char var, FILE * latex)
             {
                 res = ADD ( MUL( d(L), c(R) ), 
                               MUL( c(L), d(R) )); 
+                PRINT("Скобок мельтешение - раскрыли умножение\\\\\n");
             }
             break;
 
             case DIV: // (dL * R - L * dR) / (R ^ 2)
             {
-                res = DIV ( SUB ( MUL ( d(L), c(R) ), 
-                                    MUL ( c(L), d(R) )), 
-                              POW ( c(R), n(2) )); 
+                res = DIV ( SUB ( MUL ( d(L), c(R) ), MUL ( c(L), d(R) )), POW ( c(R), n(2) ) ); 
+                PRINT("Производная частного для тебя несчастного\\\\\n");
             }
             break;
 
             case POW: // (L ^ R) * (dR * ln(L) + (dL / L) * R)
             {
-                res = MUL ( c(N), 
-                              ADD ( MUL ( d(R), LN( c(L) ) ),
-                                    MUL ( DIV ( d(L), c(L) ), c(R) ))); 
+                if (TYPE(R) == NUM_TYPE)
+                {
+                    res = MUL ( n(DATA(R)), MUL ( POW(c(L), n(DATA(R) - 1)), d(L)) );
+                    PRINT("Вниз снеси ты показатель, производной соискатель\\\\\n");
+                }
+                else
+                {
+                    res = MUL ( c(N), ADD ( MUL ( d(R), LN( c(L) ) ), MUL ( DIV ( d(L), c(L) ), c(R) ))); 
+                    PRINT("Мама Люба раму мыла, щас получим крокодила\\\\\n");
+                }
             }
             break;
 
             case LN: // (1 / R) * dR
             {
                 res = MUL ( DIV ( n(1), c(R) ), d(R) ); 
+                PRINT("Посчитаем логарифм, тут не надо других рифм\\\\\n");
             }
             break;
 
             case EXP: // (e ^ R) * dR
             {
                 res = MUL ( EXP ( c(R) ), d(R) );
+                PRINT("ехехехеххехехехехеххе\\\\\n");
             }
             break;
 
             case SIN: // cos(R) * dR
             {
                 res = MUL ( COS ( c(R) ), d(R) );
+                PRINT("Синус быстренько раскроем, а потом полы помоем\\\\\n");
             }
             break;
 
@@ -217,25 +248,15 @@ Node<Token> * Diff (Node<Token> * node, const char var, FILE * latex)
         }
     }
 
-    // fprintf (latex, "\\begin{math}\n\t(");
+    fprintf (latex, "\\begin{math}\n\t(");
 
-    // getNodeLaTeX (node, latex);
+    getNodeLaTeX (node, latex);
 
-    // fprintf (latex, ")' = ");
+    fprintf (latex, ")' = ");
 
-    // getNodeLaTeX (res, latex);
+    getNodeLaTeX (res, latex);
 
-    // fprintf (latex, "\n\\end{math}\\\\\n");
+    fprintf (latex, "\n\\end{math}\\\\\n");
 
     return (res);
-}
-
-Node<Token> * getRoot (Node<Token> * node)
-{
-    if (node->parent)
-    {
-        return (getRoot(node->parent));
-    }
-
-    return (node);
 }

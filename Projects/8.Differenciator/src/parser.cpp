@@ -27,6 +27,7 @@ void RecursiveDescentParser::parse (BinaryTree<Token> * expression, const char *
 Node<Token> * RecursiveDescentParser::parseExpression (const char * str_begin)
 {
     cur = str_begin;
+    exp_start = str_begin;
 
     Node<Token> * res = parseAddSub ();
 
@@ -67,7 +68,12 @@ Node<Token> * RecursiveDescentParser::parseMulDiv ()
     Node<Token> * left  = parsePow ();
     Node<Token> * right = nullptr;
 
-    while (*cur == '*' || *cur == '\\')
+    if (!left)
+    {
+        return (nullptr);
+    }
+
+    while (*cur == '*' || *cur == '/')
     {
         op = *cur;
         cur++;
@@ -92,11 +98,16 @@ Node<Token> * RecursiveDescentParser::parsePow ()
     Node<Token> * left  = parsePrimary ();
     Node<Token> * right = nullptr;
 
+    if (!left)
+    {
+        return (nullptr);
+    }
+
     if (*cur == '^')
     {
         cur++;
 
-        right = parseAddSub ();
+        right = parsePrimary ();
 
         if (left->data.type == VAR_TYPE &&
             left->data.var  == 'e')
@@ -115,7 +126,7 @@ Node<Token> * RecursiveDescentParser::parsePow ()
 Node<Token> * RecursiveDescentParser::parsePrimary ()
 {
     Node<Token> * res = nullptr;
-
+    
     if (*cur == '(')
     {
         cur++;
@@ -178,7 +189,7 @@ Node<Token> * RecursiveDescentParser::parseFunc ()
 }
 
 Node<Token> * RecursiveDescentParser::parseVar ()
-{
+{    
     Node<Token> * res = v(*cur);
 
     cur++;
@@ -188,6 +199,14 @@ Node<Token> * RecursiveDescentParser::parseVar ()
 
 Node<Token> * RecursiveDescentParser::parseNum ()
 {
+    if (!isdigit(*cur))
+    {
+        printf ("expected number at %s\n", exp_start);
+        //printf ("%s")
+        error_marker = cur;
+        return (nullptr);
+    }
+
     double val  = 0;
     size_t skip = 0;
 

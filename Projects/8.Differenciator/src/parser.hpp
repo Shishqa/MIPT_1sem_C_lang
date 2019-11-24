@@ -6,6 +6,7 @@
 class RecursiveDescentParser
 {
     const char * cur;
+    const char * exp_start;
 
     const char * error_marker;
     const char * end_ptr;

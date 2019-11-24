@@ -6,7 +6,7 @@
 #include <assert.h>
 #include <string.h>
 
-#include "../../../Include/ms_stream.h"
+#include "ms_stream.h"
 
 #include "tree_class.h"
 
