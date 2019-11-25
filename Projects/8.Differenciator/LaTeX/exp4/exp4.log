@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.11.23)  25 NOV 2019 15:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.11.23)  25 NOV 2019 14:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**LaTeX/exp2/exp2.tex
-(./LaTeX/exp2/exp2.tex
+**LaTeX/exp4/exp4.tex
+(./LaTeX/exp4/exp4.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 16 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -663,8 +663,8 @@ Language: russian 2017/08/12 1.3j Russian support for the Babel system
 Package babel Info: Making " an active character on input line 120.
 Package babel Info: Default for \cyrdash is provided on input line 157.
 ))
-(LaTeX/exp2/exp2.aux)
-\openout1 = `exp2.aux'.
+(LaTeX/exp4/exp4.aux)
+\openout1 = `exp4.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
 LaTeX Font Info:    ... okay on input line 7.
@@ -689,7 +689,7 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.9 �
-     �родифференцируем $(2 \cdot x ^{2}  + 3 \cdot x ^{2} )$...
+     �родифференцируем $(x ^{x ^{2} } )$, ведь мы не...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -704,38 +704,40 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 9.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 9--49
+Underfull \hbox (badness 10000) in paragraph at lines 9--29
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 9--49
+Underfull \hbox (badness 10000) in paragraph at lines 9--29
 
  []
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (LaTeX/exp2/exp2.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (LaTeX/exp4/exp4.aux) ) 
 Here is how much of TeX's memory you used:
  2981 strings out of 494324
  33518 string characters out of 6170705
- 90810 words of memory out of 5000000
+ 89810 words of memory out of 5000000
  6290 multiletter control sequences out of 15000+600000
  14612 words of font info for 40 fonts, out of 8000000 for 9000
  475 hyphenation exceptions out of 8191
- 27i,4n,27p,256b,138s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,4n,27p,232b,138s stack positions out of 5000i,500n,10000p,200000b,80000s
  </
 home/shishqa/.texlive2017/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larm1200.600pk> <
 /home/shishqa/.texlive2017/texmf-var/fonts/pk/ljfour/lh/lh-t2a/labx1728.600pk><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on LaTeX/exp2/exp2.pdf (1 page, 55625 bytes).
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy8.pfb>
+Output written on LaTeX/exp4/exp4.pdf (1 page, 67363 bytes).
 PDF statistics:
  90 PDF objects out of 1000 (max. 8388607)
- 27 compressed objects within 1 object stream
+ 33 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

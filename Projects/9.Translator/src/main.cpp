@@ -3,7 +3,6 @@
 struct Token
 {
     char type;
-    
 };
 
 

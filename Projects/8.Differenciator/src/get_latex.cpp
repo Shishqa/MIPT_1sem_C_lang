@@ -4,6 +4,16 @@
 
 #include "get_latex.hpp"
 
+void sendMail (const char * email, const char * latex_path)
+{
+    char call_mail[PATH_MAX] = "";
+
+    sprintf (call_mail, "echo \"Пожалуйста, оцените мои творческие начинания по заслугам\" |" 
+            "mail -s \"Домашняя работа по дифференцированию\" -A LaTeX/%s/%s.pdf %s", latex_path, latex_path, email);
+
+    system (call_mail);
+}
+
 FILE * initLaTeX (const char * name)
 {
     system("mkdir -p LaTeX");
@@ -162,9 +172,9 @@ void getNodeLaTeX (Node<Token> * node, FILE * f)
         
             default:
             {
-                fprintf (f, " %s (", operations[node->data.op_id].name);
+                fprintf (f, " %s ", operations[node->data.op_id].name);
                 getNodeLaTeX (R, f);
-                fprintf (f, ") ");
+                fprintf (f, " ");
             }
             break;
         }

@@ -107,7 +107,7 @@ Node<Token> * RecursiveDescentParser::parsePow ()
     {
         cur++;
 
-        right = parsePrimary ();
+        right = parsePow ();
 
         if (left->data.type == VAR_TYPE &&
             left->data.var  == 'e')

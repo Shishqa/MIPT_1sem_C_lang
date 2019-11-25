@@ -11,7 +11,7 @@
 
 int main ()
 {
-    const char working_with[PATH_MAX] = "exp2";
+    const char working_with[PATH_MAX] = "exp5";
 
     BinaryTree<Token> expression = {};
 

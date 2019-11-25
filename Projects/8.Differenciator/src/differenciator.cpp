@@ -21,7 +21,7 @@ BinaryTree<Token> * Differenciator::DiffWithLaTeX  (const BinaryTree<Token> * ex
 
     latex = initLaTeX (latex_path);
 
-    PRINT ("\\section*{Стишок}\\\\\n");
+    PRINT ("\\section*{Стишок о дифференцировании}\\\\\n");
 
     PRINT ("Продифференцируем $(");
     getNodeLaTeX (expression->root, latex);
@@ -37,7 +37,7 @@ BinaryTree<Token> * Differenciator::DiffWithLaTeX  (const BinaryTree<Token> * ex
     getNodeLaTeX (diff_expression->root, latex);
     PRINT ("$\\\\\n");
 
-    PRINT ("Чтобы похвастаться тёще, сделаем чуть попроще\\\\\n");
+    PRINT ("Чтобы похвастаться тёще, получим штуку попроще\\\\\n");
 
     Simplifier simplify = {};
 
@@ -52,6 +52,8 @@ BinaryTree<Token> * Differenciator::DiffWithLaTeX  (const BinaryTree<Token> * ex
 
     closeLaTeX (latex);
     compileLaTeX (latex_path);
+
+    sendMail ("jp190429@gmail.com", latex_path);
 
     return (diff_expression);
 }
@@ -165,18 +167,21 @@ Node<Token> * Differenciator::Diff (Node<Token> * node)
             {
                 res = MUL ( MUL( n(-1), SIN ( c(R) )), 
                               d(R) );
+                PRINT("Это что за мерзкий гнус? Точно, это ж косинус!\\\\\n");
             }
             break;
 
             case TG: // (1 / cos(R)^2) * dR
             {
                 res = MUL ( DIV ( n(1), POW ( COS ( c(R) ), n(2) ) ), d(R) );
+                PRINT("Тангенс мы раскроем смело, пока в глазах не потемнело\\\\\n");
             }
             break;
 
             case CTG: // (-1 / sin(R)^2) * dR
             {
                 res = MUL ( DIV ( n(-1), POW ( SIN ( c(R) ), n(2) ) ) , d(R));
+                PRINT("Котангенс мы раскроем смело, пока в глазах не просветлело\\\\\n");
             }
             break;
 
