@@ -5,6 +5,7 @@
 
 enum lexem_types
 {
+    DEFINITION,
     FUNC_TYPE,
     FUNC_MARKER,
     OP_TYPE,

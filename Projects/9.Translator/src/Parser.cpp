@@ -83,7 +83,7 @@ Node<Token> * Parser::ParseFunc ()
     {
         Move (3);
 
-        return (ParseAssignment ());
+        return (SetNode (DEFINITION, "def", 3, ParseAssignment ()));
     }
 
     return (nullptr);
@@ -118,6 +118,36 @@ Node<Token> * Parser::ParseBlock ()
     }
 
     return (nullptr);
+}
+
+Node<Token> * Parser::ParseAssignment ()
+{
+    Move (0);
+
+    Node<Token> * id = ParseId ();
+    Node<Token> * expression = nullptr;
+
+    Move (0);
+
+    if (*cur == '=')
+    {
+        Move (1);
+
+        expression = ParseExpression ();
+
+        Move (0);
+
+        if (*cur == ';')
+        {
+            Move (1);
+
+            return (SetNode (OP_TYPE, "=", 1, id, expression));
+        }
+
+        return (nullptr);
+    }
+
+    return (id);
 }
 
 Node<Token> * Parser::ParseCond ()
