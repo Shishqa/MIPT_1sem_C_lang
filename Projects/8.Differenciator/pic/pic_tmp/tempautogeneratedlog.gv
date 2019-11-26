@@ -1,38 +1,38 @@
 digraph dump
 {
 node [style = filled]
-	node0x55f9fc11cd30 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
-	node0x55f9fc11c6b0 [shape = "square" label = "2", fillcolor = "#ffa500"]
-	node0x55f9fc11cd30 -> node0x55f9fc11c6b0
-	node0x55f9fc11ccf0 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
-	node0x55f9fc11d0e0 [shape = "circle" label = "sh", fillcolor = "#fffacd", fontsize = 18]
-	node0x55f9fc11d0a0 [shape = "circle" label = "+", fillcolor = "#fffacd", fontsize = 18]
-	node0x55f9fc11d020 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
-	node0x55f9fc11cfa0 [shape = "square" label = "2", fillcolor = "#ffa500"]
-	node0x55f9fc11d020 -> node0x55f9fc11cfa0
-	node0x55f9fc11cfe0 [shape = "square" label = "x", fillcolor = "#9acd32"]
-	node0x55f9fc11d020 -> node0x55f9fc11cfe0
-	node0x55f9fc11d0a0 -> node0x55f9fc11d020
-	node0x55f9fc11d060 [shape = "square" label = "3", fillcolor = "#ffa500"]
-	node0x55f9fc11d0a0 -> node0x55f9fc11d060
-	node0x55f9fc11d0e0 -> node0x55f9fc11d0a0
-	node0x55f9fc11ccf0 -> node0x55f9fc11d0e0
-	node0x55f9fc11ccb0 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
-	node0x55f9fc11cc70 [shape = "square" label = "2", fillcolor = "#ffa500"]
-	node0x55f9fc11ccb0 -> node0x55f9fc11cc70
-	node0x55f9fc11ca30 [shape = "circle" label = "ch", fillcolor = "#fffacd", fontsize = 18]
-	node0x55f9fc11c9f0 [shape = "circle" label = "+", fillcolor = "#fffacd", fontsize = 18]
-	node0x55f9fc11c970 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
-	node0x55f9fc11c8f0 [shape = "square" label = "2", fillcolor = "#ffa500"]
-	node0x55f9fc11c970 -> node0x55f9fc11c8f0
-	node0x55f9fc11c930 [shape = "square" label = "x", fillcolor = "#9acd32"]
-	node0x55f9fc11c970 -> node0x55f9fc11c930
-	node0x55f9fc11c9f0 -> node0x55f9fc11c970
-	node0x55f9fc11c9b0 [shape = "square" label = "3", fillcolor = "#ffa500"]
-	node0x55f9fc11c9f0 -> node0x55f9fc11c9b0
-	node0x55f9fc11ca30 -> node0x55f9fc11c9f0
-	node0x55f9fc11ccb0 -> node0x55f9fc11ca30
-	node0x55f9fc11ccf0 -> node0x55f9fc11ccb0
-	node0x55f9fc11cd30 -> node0x55f9fc11ccf0
+	node0x556adfdc4d30 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
+	node0x556adfdc46b0 [shape = "square" label = "2", fillcolor = "#ffa500"]
+	node0x556adfdc4d30 -> node0x556adfdc46b0
+	node0x556adfdc4cf0 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
+	node0x556adfdc50e0 [shape = "circle" label = "sh", fillcolor = "#fffacd", fontsize = 18]
+	node0x556adfdc50a0 [shape = "circle" label = "+", fillcolor = "#fffacd", fontsize = 18]
+	node0x556adfdc5020 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
+	node0x556adfdc4fa0 [shape = "square" label = "2", fillcolor = "#ffa500"]
+	node0x556adfdc5020 -> node0x556adfdc4fa0
+	node0x556adfdc4fe0 [shape = "square" label = "x", fillcolor = "#9acd32"]
+	node0x556adfdc5020 -> node0x556adfdc4fe0
+	node0x556adfdc50a0 -> node0x556adfdc5020
+	node0x556adfdc5060 [shape = "square" label = "3", fillcolor = "#ffa500"]
+	node0x556adfdc50a0 -> node0x556adfdc5060
+	node0x556adfdc50e0 -> node0x556adfdc50a0
+	node0x556adfdc4cf0 -> node0x556adfdc50e0
+	node0x556adfdc4cb0 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
+	node0x556adfdc4c70 [shape = "square" label = "2", fillcolor = "#ffa500"]
+	node0x556adfdc4cb0 -> node0x556adfdc4c70
+	node0x556adfdc4a30 [shape = "circle" label = "ch", fillcolor = "#fffacd", fontsize = 18]
+	node0x556adfdc49f0 [shape = "circle" label = "+", fillcolor = "#fffacd", fontsize = 18]
+	node0x556adfdc4970 [shape = "circle" label = "*", fillcolor = "#fffacd", fontsize = 18]
+	node0x556adfdc48f0 [shape = "square" label = "2", fillcolor = "#ffa500"]
+	node0x556adfdc4970 -> node0x556adfdc48f0
+	node0x556adfdc4930 [shape = "square" label = "x", fillcolor = "#9acd32"]
+	node0x556adfdc4970 -> node0x556adfdc4930
+	node0x556adfdc49f0 -> node0x556adfdc4970
+	node0x556adfdc49b0 [shape = "square" label = "3", fillcolor = "#ffa500"]
+	node0x556adfdc49f0 -> node0x556adfdc49b0
+	node0x556adfdc4a30 -> node0x556adfdc49f0
+	node0x556adfdc4cb0 -> node0x556adfdc4a30
+	node0x556adfdc4cf0 -> node0x556adfdc4cb0
+	node0x556adfdc4d30 -> node0x556adfdc4cf0
 
 }

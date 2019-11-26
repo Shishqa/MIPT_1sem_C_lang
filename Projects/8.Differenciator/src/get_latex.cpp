@@ -9,7 +9,7 @@ void sendMail (const char * email, const char * latex_path)
     char call_mail[PATH_MAX] = "";
 
     sprintf (call_mail, "echo \"Пожалуйста, оцените мои творческие начинания по заслугам\" |" 
-            "mail -s \"Домашняя работа по дифференцированию\" -A LaTeX/%s/%s.pdf %s", latex_path, latex_path, email);
+            "mail -s \"Домафференцированию\" -A LaTeX/%s/%s.pdf %s", latex_path, latex_path, email);
 
     system (call_mail);
 }
