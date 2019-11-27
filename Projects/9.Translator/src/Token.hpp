@@ -5,21 +5,30 @@
 
 enum lexem_types
 {
-    DEFINITION,
-    VARIABLE,
-    FUNC_TYPE,
-    FUNC_MARKER,
-    OP_TYPE,
-    OP_MARKER,
-    BOOL_TYPE,
-    NUM_TYPE,
-    ID_TYPE,
-    NEWLINE,
-    BRAC,
-    FOR,
+    DEF_FUNC,
+    FUNC,
+    DEF_VAR,
+    ID,
+    BLOCK,
+    OPERATOR,
+    SEQUENCE,
+    NUM,
+    ASSIGN,
     IF,
     WHILE,
-    SEQ
+    AND,
+    OR,
+    G,
+    L,
+    EQ,
+    NEQ,
+    LEQ,
+    GEQ,
+    ADD,
+    SUB,
+    MUL,
+    DIV,
+    NOARG,
 };
 
 struct Token

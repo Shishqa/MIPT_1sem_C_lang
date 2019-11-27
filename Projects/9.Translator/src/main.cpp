@@ -8,8 +8,10 @@ int main ()
 
     BinaryTree<Token> * prog = p.ParseFile ("test");
 
-    assert (prog);
-    assert (prog->root);
+    if (!prog)
+    {
+        return (0);
+    }
 
     prog->dotDump (PrintToken, 1);
 

@@ -3,6 +3,19 @@
 
 #include "libraries.hpp"
 
+
+enum errors
+{
+    OK,
+    NUM_EXPECT,
+    PRIMARY_EXPECT,
+    ID_EXPECT,
+    UNCLOSED_BRACES,
+    VAR_FUNC,
+    NO_END,
+    NO_BLOCK
+};
+
 class Parser 
 {
     BinaryTree<Token> * program_parsed;
@@ -11,21 +24,23 @@ class Parser
     const char * cur;
 
     size_t error;
+    size_t line;
+    const char * newline;
 
     Node<Token> * ParseGrammar ();
 
     Node<Token> * ParseGlobalBlock ();
+
     Node<Token> * ParseFunc  ();
     Node<Token> * ParseBlock ();
-    Node<Token> * ParseArgs  ();
     Node<Token> * ParseOp    ();
     Node<Token> * ParseAssignment ();
     Node<Token> * ParseDefinition ();
 
     Node<Token> * ParseCond   ();
     Node<Token> * ParseCondOp (const char * op, const int opcode);
-    Node<Token> * ParseReturn ();
     Node<Token> * ParseSequence ();
+    Node<Token> * ParseArgs ();
     
     Node<Token> * ParseAnd ();
     Node<Token> * ParseOr  ();
@@ -39,8 +54,13 @@ class Parser
     Node<Token> * ParseId  ();
     Node<Token> * ParseNum ();
 
+    char * GetId  (size_t * len);
+    char * GetNum (size_t * len);
+
     void SkipSpaces ();
     void Move (size_t len);
+
+    void PrintError ();
 
 public:
 
