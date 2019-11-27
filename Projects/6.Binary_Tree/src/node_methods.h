@@ -173,6 +173,8 @@ Node<elem_t> * Node<elem_t>::setRight ()
 template <typename elem_t>
 bool Node<elem_t>::printDot (FILE * log, void (* printer) (FILE *, const void *))
 {
+    printf ("HELLO\n\n\n\n");
+
     fprintf (log, "\tnode%p [shape = \"record\", label = \"{<f1>data: ", 
             this);
 

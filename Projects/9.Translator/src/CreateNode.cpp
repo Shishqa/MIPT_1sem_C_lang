@@ -8,8 +8,8 @@ Node<Token> * SetNode (char type, const char * lexem, const size_t lexem_len,
 
     node->init ();
 
-    node->data.type = type;
-    node->data.lexem = lexem;
+    node->data.type      = type;
+    node->data.lexem     = lexem;
     node->data.lexem_len = lexem_len;
 
     if (left)

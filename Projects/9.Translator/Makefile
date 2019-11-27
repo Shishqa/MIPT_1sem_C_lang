@@ -13,7 +13,6 @@ EXECUTABLE	:= translator
 all: $(BIN)/$(EXECUTABLE)
 
 run: clean all
-	clear
 	./$(BIN)/$(EXECUTABLE)
 
 $(BIN)/$(EXECUTABLE): $(SRC)/*.cpp

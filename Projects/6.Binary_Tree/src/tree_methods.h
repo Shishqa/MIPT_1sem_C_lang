@@ -215,6 +215,8 @@ Node<elem_t> * BinaryTree<elem_t>::rec_search (Node<elem_t> * node, const elem_t
 template <typename elem_t>
 bool BinaryTree<elem_t>::dotDump (void (* printer) (FILE *, const void *), int num)
 {
+    printf ("hell!!!!\n");
+
     system("mkdir -p log");
 
     system("mkdir -p log/tmp");

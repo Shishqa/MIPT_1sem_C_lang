@@ -6,9 +6,12 @@ int main ()
 {
     Parser p = {};
 
-    BinaryTree<Token> * prog = p.Parse ("var abacaba = 2 * (12 + 4);");
+    BinaryTree<Token> * prog = p.ParseFile ("test");
 
-    prog->dotDump (PrintToken, 111);
+    assert (prog);
+    assert (prog->root);
+
+    prog->dotDump (PrintToken, 1);
 
     return (0);
 }

@@ -5,13 +5,7 @@
 
 class Parser 
 {
-    // const char FUNC_MARKER[5]   = "func";
-    // const char MAIN_MARKER[5]   = "main";
-    // const char IF_MARKER[3]     = "if";
-    // const char WHILE_MARKER[6]  = "while";
-    // const char FOR_MARKER[4]    = "for";
-    // const char VAR_MARKER[4]    = "var";
-    // const char RETURN_MARKER[7] = "return";
+    BinaryTree<Token> * program_parsed;
 
     const char * str_begin;
     const char * cur;
@@ -29,13 +23,13 @@ class Parser
     Node<Token> * ParseDefinition ();
 
     Node<Token> * ParseCond   ();
-    Node<Token> * ParseIf     ();
-    Node<Token> * ParseWhile  ();
-    Node<Token> * ParseFor    ();
+    Node<Token> * ParseCondOp (const char * op, const int opcode);
     Node<Token> * ParseReturn ();
     
     Node<Token> * ParseAnd ();
     Node<Token> * ParseOr  ();
+    Node<Token> * ParsePrimaryBool ();
+    Node<Token> * ParseBool ();
 
     Node<Token> * ParseExpression ();
     Node<Token> * ParseMulDiv     ();
@@ -49,7 +43,8 @@ class Parser
 
 public:
 
-    BinaryTree<Token> * Parse (const char * path);
+    BinaryTree<Token> * Parse (const char * str);
+    BinaryTree<Token> * ParseFile (const char * path);
 };
 
 void PrintToken (FILE * out, const void * data);

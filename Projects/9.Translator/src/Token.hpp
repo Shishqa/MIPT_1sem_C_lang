@@ -6,14 +6,19 @@
 enum lexem_types
 {
     DEFINITION,
+    VARIABLE,
     FUNC_TYPE,
     FUNC_MARKER,
     OP_TYPE,
     OP_MARKER,
+    BOOL_TYPE,
     NUM_TYPE,
     ID_TYPE,
     NEWLINE,
-    BRAC
+    BRAC,
+    FOR,
+    IF,
+    WHILE
 };
 
 struct Token
