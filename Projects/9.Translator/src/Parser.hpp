@@ -25,6 +25,7 @@ class Parser
     Node<Token> * ParseCond   ();
     Node<Token> * ParseCondOp (const char * op, const int opcode);
     Node<Token> * ParseReturn ();
+    Node<Token> * ParseSequence ();
     
     Node<Token> * ParseAnd ();
     Node<Token> * ParseOr  ();

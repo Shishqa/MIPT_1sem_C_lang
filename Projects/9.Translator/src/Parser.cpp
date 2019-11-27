@@ -648,6 +648,39 @@ Node<Token> * Parser::ParsePrimary ()
     return (ParseNum ());
 }
 
+Node<Token> * Parser::ParseSequence ()
+{
+    Move (0);
+
+    Node<Token> * res = ParseExpression ();
+    Node<Token> * tmp = nullptr;
+
+    if (!res)
+    {
+        STOP (error, res);
+    }
+
+    Move (0);
+
+    while (*cur == ',')
+    {
+        Move (1);
+
+        tmp = ParseExpression ();
+
+        if (!tmp)
+        {
+            STOP (error, res);
+        }
+
+        res = SetNode (SEQ, "seq", 3, tmp, res);
+
+        Move (0);
+    }
+
+    return (res);
+}
+
 Node<Token> * Parser::ParseId ()
 {
     Move (0);
@@ -667,6 +700,32 @@ Node<Token> * Parser::ParseId ()
 
     cur += len;
     printf ("id len = %lu var = \"%s\"\n", len, id);
+
+    Move (0);
+
+    if (*cur == '(')
+    {
+        Move (1);
+
+        if (*cur == ')')
+        {
+            Move (1);
+            return (SetNode (FUNC_MARKER, id, len));
+        }
+
+        Node<Token> * args = ParseSequence ();
+
+        Move (0);
+
+        if (*cur != ')')
+        {
+            STOP (error, args);
+        }
+
+        Move (1);
+
+        return (SetNode (FUNC_MARKER, id, len, args));
+    }
 
     return (SetNode (ID_TYPE, id, len));
 }

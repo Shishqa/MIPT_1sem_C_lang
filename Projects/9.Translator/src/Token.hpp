@@ -18,7 +18,8 @@ enum lexem_types
     BRAC,
     FOR,
     IF,
-    WHILE
+    WHILE,
+    SEQ
 };
 
 struct Token
