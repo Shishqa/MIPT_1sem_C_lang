@@ -20,7 +20,7 @@ struct Token
 {
     char   type;
 
-    char * lexem;
+    const char * lexem;
     size_t lexem_len;
 };
 

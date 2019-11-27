@@ -7,7 +7,7 @@ INCLUDE	:= ../../Include
 LIB		:= ../../Include/Lib
 
 LIBRARIES	:= -lMSLib
-EXECUTABLE	:= main
+EXECUTABLE	:= translator
 
 
 all: $(BIN)/$(EXECUTABLE)

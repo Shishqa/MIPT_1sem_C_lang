@@ -20,16 +20,19 @@ class Parser
 
     Node<Token> * ParseGrammar ();
 
+    Node<Token> * ParseGlobalBlock ();
     Node<Token> * ParseFunc  ();
     Node<Token> * ParseBlock ();
     Node<Token> * ParseArgs  ();
     Node<Token> * ParseOp    ();
     Node<Token> * ParseAssignment ();
+    Node<Token> * ParseDefinition ();
 
-    Node<Token> * ParseCond  ();
-    Node<Token> * ParseIf    ();
-    Node<Token> * ParseWhile ();
-    Node<Token> * ParseFor   ();
+    Node<Token> * ParseCond   ();
+    Node<Token> * ParseIf     ();
+    Node<Token> * ParseWhile  ();
+    Node<Token> * ParseFor    ();
+    Node<Token> * ParseReturn ();
     
     Node<Token> * ParseAnd ();
     Node<Token> * ParseOr  ();
@@ -48,5 +51,7 @@ public:
 
     BinaryTree<Token> * Parse (const char * path);
 };
+
+void PrintToken (FILE * out, const void * data);
 
 #endif // !FLEXER_HPP_

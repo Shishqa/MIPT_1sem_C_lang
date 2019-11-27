@@ -1,0 +1,21 @@
+digraph dump
+{
+	node0x5618d9871910 [shape = "record", label = "{<f1>data: block|{<f2>left: 0x5618d98718d0|<f3>right: (nil)}|<f4>parent: (nil)|<f5>adress: 0x5618d9871910}"];
+	node0x5618d98718d0 [shape = "record", label = "{<f1>data: def|{<f2>left: 0x5618d9871890|<f3>right: (nil)}|<f4>parent: 0x5618d9871910|<f5>adress: 0x5618d98718d0}"];
+	node0x5618d9871890 [shape = "record", label = "{<f1>data: =|{<f2>left: 0x5618d98716b0|<f3>right: 0x5618d9871850}|<f4>parent: 0x5618d98718d0|<f5>adress: 0x5618d9871890}"];
+	node0x5618d98716b0 [shape = "record", label = "{<f1>data: abacaba|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5618d9871890|<f5>adress: 0x5618d98716b0}"];
+	node0x5618d9871890:f2 -> node0x5618d98716b0
+	node0x5618d9871850 [shape = "record", label = "{<f1>data: *|{<f2>left: 0x5618d9871710|<f3>right: 0x5618d9871810}|<f4>parent: 0x5618d9871890|<f5>adress: 0x5618d9871850}"];
+	node0x5618d9871710 [shape = "record", label = "{<f1>data: 2|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5618d9871850|<f5>adress: 0x5618d9871710}"];
+	node0x5618d9871850:f2 -> node0x5618d9871710
+	node0x5618d9871810 [shape = "record", label = "{<f1>data: +|{<f2>left: 0x5618d9871770|<f3>right: 0x5618d98717d0}|<f4>parent: 0x5618d9871850|<f5>adress: 0x5618d9871810}"];
+	node0x5618d9871770 [shape = "record", label = "{<f1>data: 12|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5618d9871810|<f5>adress: 0x5618d9871770}"];
+	node0x5618d9871810:f2 -> node0x5618d9871770
+	node0x5618d98717d0 [shape = "record", label = "{<f1>data: 4|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5618d9871810|<f5>adress: 0x5618d98717d0}"];
+	node0x5618d9871810:f3 -> node0x5618d98717d0
+	node0x5618d9871850:f3 -> node0x5618d9871810
+	node0x5618d9871890:f3 -> node0x5618d9871850
+	node0x5618d98718d0:f2 -> node0x5618d9871890
+	node0x5618d9871910:f2 -> node0x5618d98718d0
+
+}
