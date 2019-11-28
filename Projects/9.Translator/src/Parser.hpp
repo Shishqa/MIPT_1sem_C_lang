@@ -1,8 +1,7 @@
-#ifndef FLEXER_HPP_
-#define FLEXER_HPP_
+#ifndef PARSER_HPP_
+#define PARSER_HPP_
 
 #include "libraries.hpp"
-
 
 enum errors
 {
@@ -74,4 +73,4 @@ public:
 
 void PrintToken (FILE * out, const void * data);
 
-#endif // !FLEXER_HPP_
+#endif // !PARSER_HPP_

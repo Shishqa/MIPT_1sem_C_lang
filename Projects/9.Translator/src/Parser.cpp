@@ -3,8 +3,26 @@
 #include "Parser.hpp"
 #include "CreateNode.hpp"
 
+//#define DEBUG
+
+#ifdef DEBUG
+#define PRINT( str )                    \
+        {                               \
+            printf ("\033[3;33m");      \
+            printf ( str );             \
+            printf ("\033[0m");         \
+        }
+
+#else
+#define PRINT( str )          \
+        if (0) printf ( str )
+#endif // DEBUG
+
+
 #define STOP( err_code, node )                          \
         {                                               \
+            PRINT("ERROR\n");                           \
+                                                        \
             if (node)                                   \
             {                                           \
                 program_parsed->deleteSubtree (node);   \
@@ -67,14 +85,14 @@ BinaryTree<Token> * Parser::Parse (const char * str)
 */
 Node<Token> * Parser::ParseGrammar ()
 {
-    printf ("grammar %c\n", *cur);
+    PRINT ("grammar\n");
 
     Node<Token> * res = nullptr;
     Node<Token> * tmp = nullptr;
 
     while (*cur != '\0')
     {
-        printf ("new block\n");
+        PRINT ("new block\n");
 
         tmp = ParseGlobalBlock ();
 
@@ -85,7 +103,7 @@ Node<Token> * Parser::ParseGrammar ()
 
         res = SetNode (BLOCK, "block", 5, tmp, res);
 
-        printf ("block set\n");
+        PRINT ("block set\n");
 
         Move (0);
     }
@@ -100,7 +118,7 @@ Node<Token> * Parser::ParseGlobalBlock ()
 {
     Move (0);
 
-    printf ("block %c\n", *cur);
+    PRINT ("block\n");
 
     if (!strncmp (cur, "def", 3))
     {
@@ -117,7 +135,7 @@ Node<Token> * Parser::ParseFunc ()
 {
     Move (0);
 
-    printf ("func %c\n", *cur);
+    PRINT ("func\n");
 
     Node<Token> * id = nullptr;
 
@@ -163,7 +181,7 @@ Node<Token> * Parser::ParseFunc ()
 */
 Node<Token> * Parser::ParseBlock ()
 {
-    printf ("block %c\n", *cur);
+    PRINT ("block\n");
 
     Node<Token> * res = nullptr;
     Node<Token> * op  = nullptr;
@@ -194,7 +212,7 @@ Node<Token> * Parser::ParseBlock ()
 
         Move (1);
 
-        printf ("block <- }\n");
+        PRINT ("block <- }\n");
 
         return (res);
     }
@@ -207,7 +225,7 @@ Node<Token> * Parser::ParseBlock ()
 */
 Node<Token> * Parser::ParseAssignment ()
 {
-    printf ("assn %c\n", *cur);
+    PRINT ("assn\n");
 
     Move (0);
 
@@ -239,7 +257,7 @@ Node<Token> * Parser::ParseAssignment ()
 
         if (*cur == ';')
         {
-            printf ("assn <- id = exp;\n");
+            PRINT ("assn <- id = exp;\n");
 
             Move (1);
 
@@ -251,7 +269,7 @@ Node<Token> * Parser::ParseAssignment ()
 
     if (*cur == ';')
     {
-        printf ("assn <- id;\n");
+        PRINT ("assn <- id;\n");
 
         Move (1);
 
@@ -266,7 +284,7 @@ Node<Token> * Parser::ParseAssignment ()
 */
 Node<Token> * Parser::ParseOp ()
 {
-    printf ("op %c\n", *cur);
+    PRINT ("op\n");
 
     Move (0);
 
@@ -289,11 +307,11 @@ Node<Token> * Parser::ParseOp ()
 }
 
 /*
-    CondOp :: {"if","while"} '(' Cond ')' Block
+    CondOp :: {"if","while"} '(' Expression ')' Block
 */
 Node<Token> * Parser::ParseCondOp (const char * op, const int opcode)
 {
-    printf ("%s %c\n", op, *cur);
+    PRINT (op);
 
     size_t op_len = strlen (op);
 
@@ -338,11 +356,11 @@ Node<Token> * Parser::ParseCondOp (const char * op, const int opcode)
 }
 
 /*
-    Cond :: Or '&' Or+
+    Expression :: Or '&' Or+
 */
 Node<Token> * Parser::ParseExpression ()
 {
-    printf ("and\n");
+    PRINT ("and\n");
 
     Node<Token> * left = ParseOr ();
     Node<Token> * right = nullptr;
@@ -378,7 +396,7 @@ Node<Token> * Parser::ParseExpression ()
 */
 Node<Token> * Parser::ParseOr ()
 {
-    printf ("or\n");
+    PRINT ("or\n");
 
     Node<Token> * left  = ParsePrimaryBool ();
     Node<Token> * right = nullptr;
@@ -414,7 +432,7 @@ Node<Token> * Parser::ParseOr ()
 */
 Node<Token> * Parser::ParsePrimaryBool ()
 {
-    printf ("primary bool\n");
+    PRINT ("primary bool\n");
 
     Node<Token> * res = nullptr;
 
@@ -461,10 +479,12 @@ Node<Token> * Parser::ParsePrimaryBool ()
         }
 
 /*
-    Bool :: Expression {<,>,==,<=,>=,!=} Expression | Expression
+    Bool :: AddSub {<,>,==,<=,>=,!=} AddSub | AddSub
 */
 Node<Token> * Parser::ParseBool ()
 {
+    PRINT ("bool\n");
+
     Move (0);
 
     Node<Token> * left  = ParseAddSub ();
@@ -477,22 +497,22 @@ Node<Token> * Parser::ParseBool ()
 
     Move (0);
 
-    CHECK_BOOL (G,   ">",  1);
-    CHECK_BOOL (L,   "<",  1);
     CHECK_BOOL (GEQ, ">=", 2);
     CHECK_BOOL (LEQ, "<=", 2);
     CHECK_BOOL (EQ,  "==", 2);
     CHECK_BOOL (NEQ, "!=", 2);
+    CHECK_BOOL (G,   ">",  1);
+    CHECK_BOOL (L,   "<",  1);
 
     return (left);
 }
 
 /*
-    Expression :: MulDiv {+,-} MulDiv
+    AddSub :: MulDiv {+,-} MulDiv
 */
 Node<Token> * Parser::ParseAddSub ()
 {
-    printf ("exp\n");
+    PRINT ("exp\n");
 
     Move (0);
 
@@ -540,7 +560,7 @@ Node<Token> * Parser::ParseAddSub ()
 */
 Node<Token> * Parser::ParseMulDiv ()
 {
-    printf ("muldiv\n");
+    PRINT ("muldiv\n");
 
     Move (0);
 
@@ -597,7 +617,7 @@ Node<Token> * Parser::ParseMulDiv ()
 */
 Node<Token> * Parser::ParsePrimary ()
 {
-    printf ("primary ");
+    PRINT ("primary ");
 
     Node<Token> * res  = nullptr;
     Node<Token> * args = nullptr; 
@@ -606,7 +626,7 @@ Node<Token> * Parser::ParsePrimary ()
 
     if (isalpha (*cur))
     {
-        printf ("-> id\n");
+        PRINT ("-> id\n");
 
         if (!strncmp (cur, "var", 3))
         {
@@ -642,7 +662,7 @@ Node<Token> * Parser::ParsePrimary ()
 
     if (*cur == '(')
     {
-        printf ("-> (\n");
+        PRINT ("-> (\n");
         Move (1);
 
         res = ParseExpression ();
@@ -654,7 +674,7 @@ Node<Token> * Parser::ParsePrimary ()
 
         if (*cur == ')')
         {
-            printf ("primary <- )\n");
+            PRINT ("primary <- )\n");
             Move (1);
             return (res);
         }
@@ -664,7 +684,7 @@ Node<Token> * Parser::ParsePrimary ()
 
     if (isdigit (*cur) || (*cur == '-' && isdigit(*(cur + 1))))
     {
-        printf ("-> num\n");
+        PRINT ("-> num\n");
         return (ParseNum ());
     }
 
@@ -676,6 +696,8 @@ Node<Token> * Parser::ParsePrimary ()
 */
 Node<Token> * Parser::ParseVar ()
 {
+    PRINT ("var\n");
+
     Node<Token> * res = nullptr;
 
     if (!strncmp (cur, "var", 3))
@@ -700,6 +722,8 @@ Node<Token> * Parser::ParseVar ()
 */
 Node<Token> * Parser::ParseSequence ()
 {
+    PRINT ("seq\n");
+
     Move (0);
 
     Node<Token> * res = ParseExpression ();
@@ -738,6 +762,8 @@ Node<Token> * Parser::ParseSequence ()
 */
 Node<Token> * Parser::ParseArgs ()
 {
+    PRINT ("args\n");
+
     Node<Token> * args = nullptr;
 
     if (*cur == '(')
@@ -777,6 +803,8 @@ Node<Token> * Parser::ParseArgs ()
 */
 Node<Token> * Parser::ParseId ()
 {
+    PRINT ("id\n");
+
     Node<Token> * tmp = nullptr;
 
     Move (0);
@@ -814,7 +842,8 @@ char * Parser::GetId (size_t * len)
     strncpy (id, cur, *len);
 
     cur += *len;
-    printf ("id len = %lu id = \"%s\"\n", *len, id);
+
+    PRINT (id); PRINT ("\n");
 
     return (id);
 }
@@ -824,6 +853,8 @@ char * Parser::GetId (size_t * len)
 */
 Node<Token> * Parser::ParseNum ()
 {
+    PRINT ("num\n");
+
     Move (0);
 
     size_t len = 0;
@@ -854,7 +885,8 @@ char * Parser::GetNum (size_t * len)
     strncpy (num, cur, *len);
 
     cur += *len;
-    printf ("num len = %lu var = \"%s\"\n", *len, num);
+
+    PRINT (num); PRINT ("\n");
 
     return (num);
 }
