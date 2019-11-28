@@ -61,6 +61,8 @@ class Parser
     void SkipSpaces ();
     void Move (size_t len);
 
+    void SkipComment ();
+
     void PrintError ();
 
 public:

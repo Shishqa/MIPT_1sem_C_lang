@@ -10,9 +10,24 @@ def main (var argc)
     return (2);
 }
 
+$$ hello
+
+
+$    it 
+*    is
+*    my
+*    comment   $
+
+$
+    it 
+        is 
+            my
+                comment
+                            $
+
 def kukaracha ()
 {
 
     var a_1 = 1;
-    
+
 }

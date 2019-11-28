@@ -711,9 +711,7 @@ char * Parser::GetId (size_t * len)
         return (nullptr);
     }
 
-    // Багос: в имени могут быть '[' и ']'
-
-    sscanf (cur, "%*[^ =+-*/,;&|(){}\n\t]%n", len);
+    sscanf (cur, "%*[a-zA-Z0-9_]%n", len);
 
     if (!(*len))
     {
@@ -781,7 +779,36 @@ void Parser::SkipSpaces ()
 void Parser::Move (size_t len)
 {
     cur += len;
-    SkipSpaces ();
+
+    SkipSpaces  ();
+    SkipComment ();
+    SkipSpaces  ();
+}
+
+void Parser::SkipComment ()
+{
+    if (!strncmp (cur, "$$", 2))
+    {
+        cur += 2;
+
+        while (*cur != '\n')
+        {
+            cur++;
+        }
+
+        cur++;
+    }
+    else if (*cur == '$')
+    {
+        cur += 1;
+
+        while (*cur != '$')
+        {
+            cur++;
+        }
+
+        cur += 1;
+    }
 }
 
 void PrintToken (FILE * out, const void * data)
@@ -797,3 +824,4 @@ void PrintToken (FILE * out, const void * data)
 
     fprintf (out, "%s", token->lexem);
 }
+
