@@ -13,7 +13,8 @@ enum errors
     UNCLOSED_BRACES,
     VAR_FUNC,
     NO_END,
-    NO_BLOCK
+    NO_BLOCK,
+    EMPTY_BLOCK
 };
 
 class Parser 
@@ -31,25 +32,25 @@ class Parser
 
     Node<Token> * ParseGlobalBlock ();
 
-    Node<Token> * ParseFunc  ();
-    Node<Token> * ParseBlock ();
-    Node<Token> * ParseOp    ();
+    Node<Token> * ParseFunc       ();
     Node<Token> * ParseAssignment ();
-    Node<Token> * ParseDefinition ();
 
-    Node<Token> * ParseCond   ();
+    Node<Token> * ParseBlock  ();
+    Node<Token> * ParseOp     ();
     Node<Token> * ParseCondOp (const char * op, const int opcode);
-    Node<Token> * ParseSequence ();
-    Node<Token> * ParseArgs ();
-    
-    Node<Token> * ParseAnd ();
-    Node<Token> * ParseOr  ();
-    Node<Token> * ParsePrimaryBool ();
-    Node<Token> * ParseBool ();
 
-    Node<Token> * ParseExpression ();
-    Node<Token> * ParseMulDiv     ();
-    Node<Token> * ParsePrimary    ();
+    Node<Token> * ParseCond     ();
+    Node<Token> * ParseSequence ();
+    Node<Token> * ParseArgs     ();
+    
+    Node<Token> * ParseAnd         ();
+    Node<Token> * ParseOr          ();
+    Node<Token> * ParsePrimaryBool ();
+    Node<Token> * ParseBool        ();
+
+    Node<Token> * ParseExpression  ();
+    Node<Token> * ParseMulDiv      ();
+    Node<Token> * ParsePrimary     ();
 
     Node<Token> * ParseId  ();
     Node<Token> * ParseNum ();

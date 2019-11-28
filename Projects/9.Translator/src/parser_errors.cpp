@@ -45,6 +45,10 @@ void Parser::PrintError ()
         case NO_BLOCK:
         printf ("expected definition of function\n");
         break;
+
+        case EMPTY_BLOCK:
+        printf ("block is empty\n");
+        break;
     
         default:
         printf ("everything is OK, but developer of this code is bad\n");

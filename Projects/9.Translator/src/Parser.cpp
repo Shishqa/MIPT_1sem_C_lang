@@ -159,6 +159,11 @@ Node<Token> * Parser::ParseBlock ()
 
             if (!op)
             {
+                if (error == OK)
+                {
+                    STOP (EMPTY_BLOCK, res);
+                }
+                
                 STOP (error, res);
             }
 
@@ -168,6 +173,12 @@ Node<Token> * Parser::ParseBlock ()
         Move (1);
 
         printf ("block <- }\n");
+
+        if (!res)
+        {
+            STOP (EMPTY_BLOCK, res);
+        }
+
         return (res);
     }
 
@@ -695,6 +706,13 @@ Node<Token> * Parser::ParseId ()
 
 char * Parser::GetId (size_t * len)
 {
+    if (isdigit (*cur))
+    {
+        return (nullptr);
+    }
+
+    // Багос: в имени могут быть '[' и ']'
+
     sscanf (cur, "%*[^ =+-*/,;&|(){}\n\t]%n", len);
 
     if (!(*len))
@@ -769,6 +787,13 @@ void Parser::Move (size_t len)
 void PrintToken (FILE * out, const void * data)
 {
     Token * token = (Token *) data;
+
+    if (*(token->lexem) == '|' ||
+        *(token->lexem) == '<' ||
+        *(token->lexem) == '>' )
+    {
+        fprintf (out, "\\");
+    }
 
     fprintf (out, "%s", token->lexem);
 }

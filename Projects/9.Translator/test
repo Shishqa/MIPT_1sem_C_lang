@@ -10,4 +10,9 @@ def main (var argc)
     return (2);
 }
 
-def kukaracha
+def kukaracha ()
+{
+
+    var a_1 = 1;
+    
+}
