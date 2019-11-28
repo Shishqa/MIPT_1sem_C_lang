@@ -28,7 +28,9 @@ enum lexem_types
     SUB,
     MUL,
     DIV,
-    NOARG,
+    INC,
+    DEC,
+    VOID
 };
 
 struct Token

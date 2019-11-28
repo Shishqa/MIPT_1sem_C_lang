@@ -43,15 +43,16 @@ class Parser
     Node<Token> * ParseSequence ();
     Node<Token> * ParseArgs     ();
     
-    Node<Token> * ParseAnd         ();
+    Node<Token> * ParseExpression  ();
     Node<Token> * ParseOr          ();
     Node<Token> * ParsePrimaryBool ();
     Node<Token> * ParseBool        ();
 
-    Node<Token> * ParseExpression  ();
+    Node<Token> * ParseAddSub      ();
     Node<Token> * ParseMulDiv      ();
     Node<Token> * ParsePrimary     ();
 
+    Node<Token> * ParseVar ();
     Node<Token> * ParseId  ();
     Node<Token> * ParseNum ();
 
