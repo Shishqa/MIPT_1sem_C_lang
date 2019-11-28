@@ -2,12 +2,6 @@
 
 #include "Parser.hpp"
 
-#define RESET  "\033[0m"
-#define RED    "\033[1;31m"
-
-#define SETCOLOR(color)             \
-        printf ("%s", color)        \
-
 void Parser::PrintError ()
 {
     SETCOLOR (RED);

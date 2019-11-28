@@ -3,22 +3,6 @@
 #include "Parser.hpp"
 #include "CreateNode.hpp"
 
-//#define DEBUG
-
-#ifdef DEBUG
-#define PRINT( str )                    \
-        {                               \
-            printf ("\033[3;33m");      \
-            printf ( str );             \
-            printf ("\033[0m");         \
-        }
-
-#else
-#define PRINT( str )          \
-        if (0) printf ( str )
-#endif // DEBUG
-
-
 #define STOP( err_code, node )                          \
         {                                               \
             PRINT("ERROR\n");                           \
@@ -72,6 +56,9 @@ BinaryTree<Token> * Parser::Parse (const char * str)
     if (!program_parsed->root)
     {
         PrintError ();
+        SETCOLOR (RED);
+        printf ("PARSING FAILED\n");
+        SETCOLOR (RESET);
         return (nullptr);
     }
 
@@ -288,14 +275,49 @@ Node<Token> * Parser::ParseOp ()
 
     Move (0);
 
-    if (*cur == '{')
-    {
-        return (ParseBlock ());
-    }
+    Node<Token> * res = nullptr;
+    Node<Token> * tmp = nullptr;
 
     if (!strncmp (cur, "if", 2))
     {
-        return (ParseCondOp ("if", IF));
+        tmp = ParseCondOp ("if", IF);
+
+        if (!tmp)
+        {
+            return (nullptr);
+        }
+
+        res = SetNode (COND, "cond", 4, tmp);
+        Move (0);
+
+        while (!strncmp (cur, "else if", 7))
+        {
+            tmp = ParseCondOp ("else if", IF);
+
+            if (!tmp)
+            {
+                STOP (error, res);
+            }
+
+            res = SetNode (COND, "cond", 4, tmp, res);
+            Move (0);
+        }
+
+        if (!strncmp (cur, "else", 4))
+        {
+            Move (4);
+
+            tmp = ParseBlock ();
+
+            if (!tmp)
+            {
+                STOP (error, res);
+            }
+
+            res = SetNode (COND, "cond", 4, tmp, res);
+        }
+
+        return (res);
     }
 
     if (!strncmp (cur, "while", 5))

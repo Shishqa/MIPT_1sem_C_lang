@@ -1,19 +1,12 @@
 #include "libraries.hpp"
 
-#include "Parser.hpp"
+#include "Translator.hpp"
 
 int main () 
 {
-    Parser p = {};
+    Translator t = {};
 
-    BinaryTree<Token> * prog = p.ParseFile ("test");
-
-    if (!prog)
-    {
-        return (0);
-    }
-
-    prog->dotDump (PrintToken, 1);
+    t.GetAsmCode ("programs/fibonacci/main.plan", "programs/fibonacci/test.asm");
 
     return (0);
 }

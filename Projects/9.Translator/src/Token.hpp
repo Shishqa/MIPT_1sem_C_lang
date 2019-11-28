@@ -14,6 +14,7 @@ enum lexem_types
     SEQUENCE,
     NUM,
     ASSIGN,
+    COND,
     IF,
     WHILE,
     AND,

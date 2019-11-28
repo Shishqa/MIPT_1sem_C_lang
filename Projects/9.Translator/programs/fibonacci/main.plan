@@ -1,0 +1,27 @@
+
+$$ Программа находит n-ое число Фибоначчи
+
+def Fib (var num)
+{
+    if (num == 0)
+    {
+        return (0);
+    }
+    else if (num == 1)
+    {
+        return (1);
+    }
+    else
+    {
+        return (Fib (num - 1) + Fib (num - 2));
+    }
+}
+
+def main ()
+{
+    var n = input ();
+
+    print (Fib (n));
+
+    return (0);
+}
