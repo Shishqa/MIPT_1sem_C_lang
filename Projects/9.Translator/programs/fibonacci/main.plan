@@ -11,17 +11,13 @@ def Fib (var num)
     {
         return (1);
     }
-    else
-    {
-        return (Fib (num - 1) + Fib (num - 2));
-    }
+
+    return (Fib (num - 1) + Fib (num - 2));
 }
 
 def main ()
 {
-    var n = input ();
-
-    print (Fib (n));
+    print (Fib (input ()));
 
     return (0);
 }

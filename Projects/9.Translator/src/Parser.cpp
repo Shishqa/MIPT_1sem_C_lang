@@ -16,6 +16,10 @@
             return (nullptr);                           \
         }                                       
 
+#define SET_VOID()                          \
+        SetNode(VOID, "void", 4)            \
+
+
 BinaryTree<Token> * Parser::ParseFile (const char * path)
 {
     FILE * f = fopen (path, "r");
@@ -74,7 +78,7 @@ Node<Token> * Parser::ParseGrammar ()
 {
     PRINT ("grammar\n");
 
-    Node<Token> * res = nullptr;
+    Node<Token> * res = SET_VOID ();
     Node<Token> * tmp = nullptr;
 
     while (*cur != '\0')
@@ -170,7 +174,7 @@ Node<Token> * Parser::ParseBlock ()
 {
     PRINT ("block\n");
 
-    Node<Token> * res = nullptr;
+    Node<Token> * res = SET_VOID ();
     Node<Token> * op  = nullptr;
 
     Move (0);
@@ -182,7 +186,7 @@ Node<Token> * Parser::ParseBlock ()
         if (*cur == '}')
         {
             Move (1);
-            return (SetNode (VOID, "void", 4));
+            return (res);
         }
 
         while (*cur != '}')
@@ -275,19 +279,19 @@ Node<Token> * Parser::ParseOp ()
 
     Move (0);
 
-    Node<Token> * res = nullptr;
-    Node<Token> * tmp = nullptr;
-
     if (!strncmp (cur, "if", 2))
     {
+        Node<Token> * res = SET_VOID ();
+        Node<Token> * tmp = nullptr;
+
         tmp = ParseCondOp ("if", IF);
 
         if (!tmp)
         {
-            return (nullptr);
+            STOP (error, res);
         }
 
-        res = SetNode (COND, "cond", 4, tmp);
+        res = SetNode (COND, "cond", 4, tmp, res);
         Move (0);
 
         while (!strncmp (cur, "else if", 7))
@@ -519,12 +523,12 @@ Node<Token> * Parser::ParseBool ()
 
     Move (0);
 
-    CHECK_BOOL (GEQ, ">=", 2);
-    CHECK_BOOL (LEQ, "<=", 2);
-    CHECK_BOOL (EQ,  "==", 2);
-    CHECK_BOOL (NEQ, "!=", 2);
-    CHECK_BOOL (G,   ">",  1);
-    CHECK_BOOL (L,   "<",  1);
+    CHECK_BOOL (GEQ,     ">=", 2);
+    CHECK_BOOL (LEQ,     "<=", 2);
+    CHECK_BOOL (EQ,      "==", 2);
+    CHECK_BOOL (NEQ,     "!=", 2);
+    CHECK_BOOL (GREATER, ">",  1);
+    CHECK_BOOL (LESS,    "<",  1);
 
     return (left);
 }
@@ -756,7 +760,7 @@ Node<Token> * Parser::ParseSequence ()
         STOP (error, res);
     }
 
-    res = SetNode (SEQUENCE, "seq", 3, res);
+    res = SetNode (SEQUENCE, "seq", 3, res, SET_VOID ());
 
     Move (0);
 

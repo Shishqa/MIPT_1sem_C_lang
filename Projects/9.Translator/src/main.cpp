@@ -6,7 +6,7 @@ int main ()
 {
     Translator t = {};
 
-    t.GetAsmCode ("programs/fibonacci/main.plan", "programs/fibonacci/test.asm");
+    t.Build ("programs/fibonacci/main.plan", "programs/fibonacci/test.bin");
 
     return (0);
 }
