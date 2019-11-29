@@ -6,7 +6,7 @@ int main ()
 {
     Translator t = {};
 
-    t.Build ("programs/fibonacci/main.plan", "programs/fibonacci/test.bin");
+    t.BuildAndRun ("programs/fibonacci/main.plan", "programs/fibonacci/test.bin");
 
     return (0);
 }

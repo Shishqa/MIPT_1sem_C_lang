@@ -12,7 +12,7 @@ EXECUTABLE	:= translator
 
 all: $(BIN)/$(EXECUTABLE)
 
-run: clean all
+run: all
 	clear
 	./$(BIN)/$(EXECUTABLE)
 

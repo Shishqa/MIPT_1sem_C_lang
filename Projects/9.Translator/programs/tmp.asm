@@ -10,12 +10,12 @@
 ;	function "Fib"
 func_Fib:
 ;	Fib_var_num (arg_0)
-	POP [ex + 0]
+	POP [ex+0]
 ;	"Fib" body:
 
 	if_0:
 ;	case_0_condition
-		PUSH	[ex + 0]
+		PUSH	[ex+0]
 		PUSH	0
 	JE case_1_positive
 	JMP case_1_negative
@@ -43,7 +43,7 @@ func_Fib:
 	case_0_next:
 
 ;	case_2_condition
-		PUSH	[ex + 0]
+		PUSH	[ex+0]
 		PUSH	1
 	JE case_3_positive
 	JMP case_3_negative
@@ -74,16 +74,16 @@ func_Fib:
 
 ; pushing argument before call return
 ; pushing argument before call Fib
-		PUSH	[ex + 0]
+		PUSH	[ex+0]
 		PUSH	1
 		SUB
-	MOV	ex + 50	ex
+	MOV	ex+50	ex
 	CALL	func_Fib
 ; pushing argument before call Fib
-		PUSH	[ex + 0]
+		PUSH	[ex+0]
 		PUSH	2
 		SUB
-	MOV	ex + 50	ex
+	MOV	ex+50	ex
 	CALL	func_Fib
 		ADD
 	PUSH	ex
@@ -99,10 +99,12 @@ func_Fib:
 func_main:
 ;	"main" body:
 
+	IN
+	POP	[ex+0]
 ; pushing argument before call print
 ; pushing argument before call Fib
-	IN
-	MOV	ex + 50	ex
+		PUSH	[ex+0]
+	MOV	ex+50	ex
 	CALL	func_Fib
 	OUT
 ; pushing argument before call return

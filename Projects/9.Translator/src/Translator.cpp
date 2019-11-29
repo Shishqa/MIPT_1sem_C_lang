@@ -6,6 +6,17 @@
 #define L node->left
 #define R node->right
 
+bool Translator::BuildAndRun (const char * path, const char * output_path)
+{
+    Build (path, output_path);
+
+    char call_cpu[200] = "";
+
+    sprintf (call_cpu, "./bin/cpu %s", output_path);
+
+    system (call_cpu);
+}
+
 bool Translator::Build (const char * path, const char * output_path)
 {
     const char * tmp_output = "programs/tmp.asm";
@@ -126,7 +137,7 @@ void Translator::DefFunc (Node<Token> * node)
         curr_func->local_var[curr_func->var_cnt].len = curr_arg->left->left->data.lexem_len;
 
         fprintf (out, ";\t%s_var_%s (arg_%lu)\n", curr_func->name, curr_func->local_var[curr_func->var_cnt].id, curr_func->var_cnt);
-        fprintf (out, "\tPOP [ex + %lu]\n", var_cnt);
+        fprintf (out, "\tPOP [ex+%lu]\n", var_cnt);
 
         curr_func->var_cnt++;
 
@@ -164,13 +175,36 @@ void Translator::GetOperators (Node<Token> * node)
     else if (L->data.type == ASSIGN)
     {
         Calculate (L->right);
-        //GetAssign (L->left);
+
+        if (L->left->data.type == DEF_VAR)
+        {
+            DefVar (L->left);
+            fprintf (out, "\tPOP\t[ex+%d]\n", curr_func->var_cnt - 1);
+            return;
+        }
+        else
+        {
+            int id = FindVar (L->data.lexem, L->data.lexem_len);
+
+            if (id != -1)
+            {
+                fprintf (out, "\tPOP\t[ex+%d]\n", id);
+            }
+        }
     }
     else if (L->data.type == FUNC)
     {
         //fprintf (out, ";\tCALL %s\n", L->left->data.lexem);
         GetCall (L);
     }
+}
+
+void Translator::DefVar (Node<Token> * node)
+{
+    Variable * curr_var = curr_func->local_var + (curr_func->var_cnt++);
+
+    curr_var->id = node->left->data.lexem;
+    curr_var->len = node->left->data.lexem_len;
 }
 
 void Translator::GetCall (Node<Token> * node)
@@ -192,7 +226,7 @@ void Translator::GetCall (Node<Token> * node)
 
     if (call_func != -1)
     {
-        fprintf (out, "\tMOV\tex + %lu\tex\n", functions[call_func].VAR_MAX);
+        fprintf (out, "\tMOV\tex+%lu\tex\n", functions[call_func].VAR_MAX);
         fprintf (out, "\tCALL\tfunc_%s\n", functions[call_func].name);
         return;
     }
@@ -222,7 +256,7 @@ void Translator::GetCall (Node<Token> * node)
         return;
     }
 
-    fprintf (out, ";\t gonna call std func %s\n", L->data.lexem);
+    fprintf (out, ";\t gonna call %s\n", L->data.lexem);
 }
 
 void Translator::GetIf (Node<Token> * node)
@@ -254,6 +288,11 @@ void Translator::GetIf (Node<Token> * node)
         GetOperators (L);
     }
 }
+
+// void Translator::GetWhile (Node<Token> * node)
+// {
+
+// }
 
 #define GET_BOOL( asm_jmp )                                                                                   \
     {                                                                                                         \
@@ -364,7 +403,7 @@ void Translator::Calculate (Node<Token> * node)
         break;
 
         case ID:
-            fprintf (out, "\t\tPUSH\t[ex + %d]\n", FindVar (N->data.lexem, N->data.lexem_len));
+            fprintf (out, "\t\tPUSH\t[ex+%d]\n", FindVar (N->data.lexem, N->data.lexem_len));
         break;
 
         case FUNC:

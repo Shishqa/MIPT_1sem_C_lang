@@ -17,7 +17,9 @@ def Fib (var num)
 
 def main ()
 {
-    print (Fib (input ()));
+    var n = input();
+
+    print (Fib (n));
 
     return (0);
 }
