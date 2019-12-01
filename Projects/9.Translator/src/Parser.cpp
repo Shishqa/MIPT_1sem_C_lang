@@ -50,14 +50,14 @@ BinaryTree<Token> * Parser::Parse (const char * str)
 
     line  = 1;
     newline = str_begin;
-    error = OK;
+    error = PARSER_OK;
 
     program_parsed = (BinaryTree<Token> *) calloc (1, sizeof (*program_parsed));
 
     program_parsed->init();
     program_parsed->root = ParseGrammar ();
 
-    if (!program_parsed->root)
+    if (!program_parsed->root || error != PARSER_OK)
     {
         PrintError ();
         SETCOLOR (RED);
@@ -714,6 +714,11 @@ Node<Token> * Parser::ParsePrimary ()
         return (ParseNum ());
     }
 
+    if (*cur == '\'')
+    {
+        return (ParseId ());
+    }
+
     STOP (PRIMARY_EXPECT, nullptr);
 }
 
@@ -843,6 +848,11 @@ Node<Token> * Parser::ParseId ()
         STOP (ID_EXPECT, nullptr);
     }
 
+    if (*id == '\'')
+    {
+        return (SetNode (CHAR, id, len));
+    }
+
     return (SetNode (ID, id, len));
 }
 
@@ -856,7 +866,19 @@ char * Parser::GetId (size_t * len)
         return (nullptr);
     }
 
-    sscanf (cur, "%*[a-zA-Z0-9_]%n", len);
+    if (*cur == '\'')
+    {
+        sscanf (cur, "'%*c'%n", len);
+
+        if (*len != 3)
+        {
+            return (nullptr);
+        }
+    }
+    else
+    {
+        sscanf (cur, "%*[a-zA-Z0-9_]%n", len);
+    }
 
     if (!(*len))
     {
@@ -867,7 +889,7 @@ char * Parser::GetId (size_t * len)
 
     strncpy (id, cur, *len);
 
-    cur += *len;
+    Move (*len);
 
     PRINT (id); PRINT ("\n");
 

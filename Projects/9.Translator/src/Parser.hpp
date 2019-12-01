@@ -3,9 +3,11 @@
 
 #include "libraries.hpp"
 
+//YACC Bizon
+
 enum errors
 {
-    OK,
+    PARSER_OK,
     NUM_EXPECT,
     PRIMARY_EXPECT,
     ID_EXPECT,

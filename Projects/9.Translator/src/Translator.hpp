@@ -4,12 +4,21 @@
 #include "libraries.hpp"
 #include "Parser.hpp"
 
+enum Errors
+{
+    TRANSLATOR_OK,
+    FUNC_REDEF,
+    VAR_REDEF,
+    FEW_ARGS,
+    MANY_ARGS,
+    NO_RETURN
+};
+
 struct Variable
 {
     const char * id;
     size_t len;
 };
-
 
 struct Function
 {
@@ -25,6 +34,8 @@ struct Function
 class Translator
 {
     Parser parser;
+
+    size_t error;
 
     BinaryTree<Token> * prog;
 

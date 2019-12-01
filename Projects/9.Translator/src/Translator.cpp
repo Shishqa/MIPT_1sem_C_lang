@@ -6,6 +6,12 @@
 #define L node->left
 #define R node->right
 
+#define STOP( err_code )                    \
+    {                                       \
+        error = err_code;                   \
+        return;                             \
+    }                                   
+
 bool Translator::BuildAndRun (const char * path, const char * output_path)
 {
     Build (path, output_path);
@@ -112,6 +118,15 @@ void Translator::DefFunc (Node<Token> * node)
 {
     fprintf (out, ";#####################################################################\n", var_cnt);
 
+    for (size_t i = 0; i < func_cnt; i++)
+    {
+        if (node->data.lexem_len == functions[i].name_len &&
+            !strncmp (node->data.lexem, functions[i].name, node->data.lexem_len))
+        {
+            STOP (FUNC_REDEF);
+        }
+    }
+
     curr_func = functions + (func_cnt++);
 
     curr_func->name      = node->data.lexem;
@@ -172,6 +187,10 @@ void Translator::GetOperators (Node<Token> * node)
 
         curr_if = remember_curr_if;
     }
+    else if (L->data.type == WHILE)
+    {
+        GetWhile (L);
+    }
     else if (L->data.type == ASSIGN)
     {
         Calculate (L->right);
@@ -184,11 +203,15 @@ void Translator::GetOperators (Node<Token> * node)
         }
         else
         {
-            int id = FindVar (L->data.lexem, L->data.lexem_len);
+            int id = FindVar (L->left->data.lexem, L->left->data.lexem_len);
 
             if (id != -1)
             {
                 fprintf (out, "\tPOP\t[ex+%d]\n", id);
+            }
+            else
+            {
+                printf ("UNDEFINED %s\n\n", L->left->data.lexem);
             }
         }
     }
@@ -256,6 +279,12 @@ void Translator::GetCall (Node<Token> * node)
         return;
     }
 
+    if (L->data.lexem_len == 4 &&!strncmp (L->data.lexem, "putc", L->data.lexem_len))
+    {
+        fprintf (out, "\tOUTC\n");
+        return;
+    }
+
     fprintf (out, ";\t gonna call %s\n", L->data.lexem);
 }
 
@@ -289,10 +318,26 @@ void Translator::GetIf (Node<Token> * node)
     }
 }
 
-// void Translator::GetWhile (Node<Token> * node)
-// {
+void Translator::GetWhile (Node<Token> * node)
+{
+    size_t remember_cycle = curr_cycle;
 
-// }
+    curr_cycle = (cycle_cnt++);
+
+    fprintf (out, "cycle_%lu:\n", curr_cycle);
+
+    Calculate (L);
+
+    fprintf (out, "\tPUSH\t0\n");
+    fprintf (out, "\tJE cycle_%lu_stop\n", curr_cycle);
+    
+    GetOperators (R);
+
+    fprintf (out, "\tJMP cycle_%lu\n", curr_cycle);
+    fprintf (out, "cycle_%lu_stop:\n", curr_cycle);
+
+    curr_cycle = remember_cycle;
+}
 
 #define GET_BOOL( asm_jmp )                                                                                   \
     {                                                                                                         \
@@ -406,8 +451,11 @@ void Translator::Calculate (Node<Token> * node)
             fprintf (out, "\t\tPUSH\t[ex+%d]\n", FindVar (N->data.lexem, N->data.lexem_len));
         break;
 
+        case CHAR:
+            fprintf (out, "\t\tPUSH\t%d\n", *(N->data.lexem + 1));
+        break;
+
         case FUNC:
-            //fprintf (out, ";\t\tCALL %s\n", N->left->data.lexem);
             GetCall (node);
         break;
     

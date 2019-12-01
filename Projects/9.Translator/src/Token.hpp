@@ -9,6 +9,7 @@ enum lexem_types
     FUNC,
     DEF_VAR,
     ID,
+    CHAR,
     BLOCK,
     OPERATOR,
     SEQUENCE,

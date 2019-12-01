@@ -157,17 +157,13 @@ DEF_CMD (11, MOV, SYS, 3, 2, 0,
 
 
 
-DEF_CMD (12, OUTC, STD, 4, 1, 0,
+DEF_CMD (12, OUTC, STD, 4, 0, 0,
 {
 	MCUR (1)
-
-	GET_ARG ()
-
-	GET_VAL (T_REG(0))
+	
+	POP (T_REG(0))
 
 	printf ("%c", T_REG(0));
-
-	MCUR (SOF_ARG)
 })
 
 
