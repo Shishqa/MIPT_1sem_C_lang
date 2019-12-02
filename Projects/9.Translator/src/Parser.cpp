@@ -68,6 +68,8 @@ BinaryTree<Token> * Parser::Parse (const char * str)
 
     printf ("PARSING COMPLETED\n");
 
+    program_parsed->dotDump (PrintToken, 0);
+
     return (program_parsed);
 }
 
@@ -78,23 +80,23 @@ Node<Token> * Parser::ParseGrammar ()
 {
     PRINT ("grammar\n");
 
-    Node<Token> * res = SET_VOID ();
+    Node<Token> * res = nullptr;
     Node<Token> * tmp = nullptr;
 
     while (*cur != '\0')
     {
-        PRINT ("new block\n");
+        PRINT ("new definition\n");
 
-        tmp = ParseGlobalBlock ();
+        tmp = ParseDefinition ();
 
         if (!tmp)
         {
             STOP (error, nullptr);
         }
 
-        res = SetNode (BLOCK, "block", 5, tmp, res);
+        res = SetNode (DEFINITION, "D", 1, res, tmp);
 
-        PRINT ("block set\n");
+        PRINT ("definition set\n");
 
         Move (0);
     }
@@ -105,66 +107,78 @@ Node<Token> * Parser::ParseGrammar ()
 /*
     GlobalBlock :: Func | Assignment
 */
-Node<Token> * Parser::ParseGlobalBlock ()
+Node<Token> * Parser::ParseDefinition ()
 {
     Move (0);
 
-    PRINT ("block\n");
+    PRINT ("definition\n");
 
     if (!strncmp (cur, "def", 3))
     {
-        return (ParseFunc ());
+        return (ParseDef ());
     }
 
-    return (ParseAssignment ());
+    return (ParseVar ());
 }
 
 /*
     Func :: "def" Id Args Block
 */
-Node<Token> * Parser::ParseFunc ()
+Node<Token> * Parser::ParseDef ()
 {
     Move (0);
 
-    PRINT ("func\n");
+    PRINT ("def_func\n");
 
-    Node<Token> * id = nullptr;
+    Node<Token> * res = SetNode (DEF_FUNC, "def", 3);
 
     if (!strncmp (cur, "def", 3))
     {
         Move (3);
 
-        id = ParseId ();
+        res->right = ParseId ();
 
-        if (!id)
+        if (!res->right)
         {
-            STOP (error, id);
+            STOP (error, res);
         }
+
+        res->right->parent = res;
 
         Move (0);
 
-        id->left = ParseArgs ();
-
-        if (!id->left)
+        if (*cur != '(')
         {
-            STOP (error, id);
+            STOP (ID_EXPECT, res);
         }
 
-        id->left->parent = id;
+        Move (1);
 
-        id->right = ParseBlock ();
-
-        if (!id->right)
+        if (*cur != ')')
         {
-            STOP (error, id);
+            res->left = ParseVarList ();
+
+            if (!res->left)
+            {
+                STOP (error, res);
+            }
+
+            res->left->parent = res;
         }
 
-        id->right->parent = id;
+        res->right->right = ParseBlock ();
 
-        return (SetNode (DEF_FUNC, "def", 3, id));
+        if (!res->right->right)
+        {
+            STOP (error, res);
+        }
+
+        res->right->right->parent = res;
+
+        return (res);
     }
 
-    STOP (error, id);
+    STOP (error, res);
 }
 
 /*
@@ -174,7 +188,7 @@ Node<Token> * Parser::ParseBlock ()
 {
     PRINT ("block\n");
 
-    Node<Token> * res = SET_VOID ();
+    Node<Token> * res = nullptr;
     Node<Token> * op  = nullptr;
 
     Move (0);
@@ -186,7 +200,7 @@ Node<Token> * Parser::ParseBlock ()
         if (*cur == '}')
         {
             Move (1);
-            return (res);
+            return (SetNode (BLOCK, "B", 1));
         }
 
         while (*cur != '}')
@@ -198,14 +212,18 @@ Node<Token> * Parser::ParseBlock ()
                 STOP (error, res);
             }
 
-            res = SetNode (OPERATOR, "op", 2, op, res);
+            op->left    = res;
+            res->parent = op;
+            res = op;
+
+            Move (0);
         }
 
         Move (1);
 
         PRINT ("block <- }\n");
 
-        return (res);
+        return (SetNode (BLOCK, "B", 1, nullptr, res));
     }
 
     STOP (NO_BLOCK, nullptr);
@@ -281,74 +299,35 @@ Node<Token> * Parser::ParseOp ()
 
     if (!strncmp (cur, "if", 2))
     {
-        Node<Token> * res = SET_VOID ();
-        Node<Token> * tmp = nullptr;
-
-        tmp = ParseCondOp ("if", IF);
-
-        if (!tmp)
-        {
-            STOP (error, res);
-        }
-
-        res = SetNode (COND, "cond", 4, tmp, res);
-        Move (0);
-
-        while (!strncmp (cur, "else if", 7))
-        {
-            tmp = ParseCondOp ("else if", IF);
-
-            if (!tmp)
-            {
-                STOP (error, res);
-            }
-
-            res = SetNode (COND, "cond", 4, tmp, res);
-            Move (0);
-        }
-
-        if (!strncmp (cur, "else", 4))
-        {
-            Move (4);
-
-            tmp = ParseBlock ();
-
-            if (!tmp)
-            {
-                STOP (error, res);
-            }
-
-            res = SetNode (COND, "cond", 4, tmp, res);
-        }
-
-        return (res);
+        return (SetNode (OPERATOR, "op", 2, nullptr, ParseIf ()));
     }
 
     if (!strncmp (cur, "while", 5))
     {
-        return (ParseCondOp ("while", WHILE));
+        return (SetNode (OPERATOR, "op", 2, nullptr, ParseWhile ()));
     }
 
-    return (ParseAssignment ());
+    if (!strncmp (cur, "var", 3))
+    {
+        return (SetNode (OPERATOR, "op", 2, nullptr, ParseVar ()));
+    }
+
+    return (ParseExpression ());
 }
 
 /*
-    CondOp :: {"if","while"} '(' Expression ')' Block
+    CondOp :: "while" '(' Expression ')' Block
 */
-Node<Token> * Parser::ParseCondOp (const char * op, const int opcode)
+Node<Token> * Parser::ParseWhile ()
 {
-    PRINT (op);
-
-    size_t op_len = strlen (op);
-
     Node<Token> * cond  = nullptr;
     Node<Token> * block = nullptr;
 
     Move (0);
 
-    if (!strncmp (cur, op, op_len))
+    if (!strncmp (cur, "while", 5))
     {
-        Move (op_len);
+        Move (5);
 
         if (*cur == '(')
         {
@@ -374,7 +353,7 @@ Node<Token> * Parser::ParseCondOp (const char * op, const int opcode)
                 STOP (error, cond);
             }
 
-            return (SetNode (opcode, op, op_len, cond, block));
+            return (SetNode (WHILE, "while", 5, cond, block));
         }
     }
 
@@ -382,9 +361,9 @@ Node<Token> * Parser::ParseCondOp (const char * op, const int opcode)
 }
 
 /*
-    Expression :: Or '&' Or+
+    Expression :: Or ('&' Or)*
 */
-Node<Token> * Parser::ParseExpression ()
+Node<Token> * Parser::ParseAnd ()
 {
     PRINT ("and\n");
 

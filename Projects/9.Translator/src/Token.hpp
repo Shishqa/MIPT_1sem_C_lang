@@ -6,18 +6,18 @@
 enum lexem_types
 {
     DEF_FUNC,
-    FUNC,
     DEF_VAR,
     ID,
+    NUM,
     CHAR,
+    STRING,
+    DEFINITION,
     BLOCK,
     OPERATOR,
-    SEQUENCE,
-    NUM,
-    ASSIGN,
-    COND,
+    COMMA,
     IF,
     WHILE,
+    ASSIGN,
     AND,
     OR,
     GREATER,
@@ -30,9 +30,7 @@ enum lexem_types
     SUB,
     MUL,
     DIV,
-    INC,
-    DEC,
-    VOID
+    MOD
 };
 
 struct Token

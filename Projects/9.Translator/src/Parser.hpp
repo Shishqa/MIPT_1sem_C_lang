@@ -31,20 +31,22 @@ class Parser
 
     Node<Token> * ParseGrammar ();
 
-    Node<Token> * ParseGlobalBlock ();
+    Node<Token> * ParseDefinition ();
 
-    Node<Token> * ParseFunc       ();
-    Node<Token> * ParseAssignment ();
+    Node<Token> * ParseDef     ();
+    Node<Token> * ParseVar     ();
+    Node<Token> * ParseVarList ();
 
     Node<Token> * ParseBlock  ();
     Node<Token> * ParseOp     ();
-    Node<Token> * ParseCondOp (const char * op, const int opcode);
+    Node<Token> * ParseIf     ();
+    Node<Token> * ParseWhile  ();
 
     Node<Token> * ParseCond     ();
     Node<Token> * ParseSequence ();
     Node<Token> * ParseArgs     ();
     
-    Node<Token> * ParseExpression  ();
+    Node<Token> * ParseAnd         ();
     Node<Token> * ParseOr          ();
     Node<Token> * ParsePrimaryBool ();
     Node<Token> * ParseBool        ();
@@ -53,7 +55,6 @@ class Parser
     Node<Token> * ParseMulDiv      ();
     Node<Token> * ParsePrimary     ();
 
-    Node<Token> * ParseVar ();
     Node<Token> * ParseId  ();
     Node<Token> * ParseNum ();
 
