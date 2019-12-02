@@ -7,7 +7,7 @@ int main ()
     Translator t = {};
 
     //t.GetAsmCode ("programs/get_chars/main.plan", "programs/get_chars/main.asm");
-    t.BuildAndRun ("programs/get_chars/main.plan", "programs/get_chars/test.bin");
+    //t.BuildAndRun ("programs/fibonacci/main.plan", "programs/fibonacci/test.bin");
 
     return (0);
 }
