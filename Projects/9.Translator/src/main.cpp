@@ -1,3 +1,4 @@
+
 #include "libraries.hpp"
 
 #include "Translator.hpp"
@@ -6,18 +7,18 @@
 
 int main () 
 {
-    //Translator t = {};
+    Translator t = {};
 
     //t.GetAsmCode ("programs/fibonacci/main.plan", "programs/fibonacci/main.asm");
-    //t.BuildAndRun ("programs/fibonacci/main.plan", "programs/fibonacci/test.bin");
+    t.BuildAndRun ("programs/get_chars/main.plan", "programs/get_chars/test.bin");
 
-    Parser p = {};
+    // Parser p = {};
 
-    BinaryTree<Token> * prog = p.ParseFile ("programs/fibonacci/main.plan");
+    // BinaryTree<Token> * prog = p.ParseFile ("programs/fibonacci/main.plan");
 
-    Decompiler d = {};
+    // Decompiler d = {};
 
-    d.GetCode (prog, "programs/fibonacci/DECOMPILED.plan");
+    // d.GetCode (prog, "programs/fibonacci/DECOMPILED.plan");
 
     return (0);
 }

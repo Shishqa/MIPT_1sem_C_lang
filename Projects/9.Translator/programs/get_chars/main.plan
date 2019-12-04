@@ -2,12 +2,15 @@ $$ Пытаемся выводить символы
 
 def main ()
 {
-	putc ('A');
-	putc ('A');
-	putc ('A');
-	putc ('A');
-	putc (10);
-	putc (10);
-	putc (10);
-	return (0);
+	var s = input()
+
+	while (s != 0)
+	{
+		putc (s)
+		putc (10)
+
+		s = input ()
+	}
+
+	return ()
 }

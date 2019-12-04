@@ -1,23 +1,22 @@
 ; ##      THIS FILE IS GENERATED AUTOMATICALLY      ##
 ; ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##
-; ORIGIN :: programs/fibonacci/main.plan
+; ORIGIN :: programs/get_chars/main.plan
 
 	CALL	func_main
 	MOV		100	ex
 	END
 
 ;#####################################################################
-;	function "Fib"
-func_Fib:
-;	Fib_var_num (arg_1)
-	POP [ex+1]
-;	"Fib" body:
+;	function "main"
+func_main:
+;	"main" body:
 
-	if_0:
-;	if_0_condition
+	IN
+	POP	[ex+1]
+cycle_0:
 		PUSH	[ex+1]
-		PUSH	1
-	JBE case_0_positive
+		PUSH	0
+	JNE case_0_positive
 	JMP case_0_negative
 	case_0_positive:
 		PUSH	1
@@ -26,124 +25,18 @@ func_Fib:
 		PUSH	0
 		JMP	case_0_continue
 	case_0_continue:
-		PUSH	0
-		JNE	if_0_positive
-		JMP	if_0_negative
-	if_0_positive:
-
-; pushing argument before call return
-		PUSH	[ex+1]
-	PUSH	ex
-	PUSH	50
-	SUB
-	POP	ex
-	RET
-
-		JMP	if_0_end
-	if_0_negative:
-
-
-	if_0_end:
-; pushing argument before call return
-; pushing argument before call Fib
-		PUSH	[ex+1]
-		PUSH	1
-		SUB
-	MOV	ex+50	ex
-	CALL	func_Fib
-; pushing argument before call Fib
-		PUSH	[ex+1]
-		PUSH	2
-		SUB
-	MOV	ex+50	ex
-	CALL	func_Fib
-		ADD
-	PUSH	ex
-	PUSH	50
-	SUB
-	POP	ex
-	RET
-;#####################################################################
-
-
-;#####################################################################
-;	function "main"
-func_main:
-;	"main" body:
-
+	PUSH	0
+	JE cycle_0_stop
 ; pushing argument before call putc
-		PUSH	77
+		PUSH	[ex+1]
 	OUTC
 ; pushing argument before call putc
-		PUSH	58
+		PUSH	10
 	OUTC
 	IN
 	POP	[ex+1]
-	IN
-	POP	[ex+2]
-	if_1:
-;	if_1_condition
-		PUSH	[ex+1]
-		PUSH	1
-	JE case_1_positive
-	JMP case_1_negative
-	case_1_positive:
-		PUSH	1
-		JMP	case_1_continue
-	case_1_negative:
-		PUSH	0
-		JMP	case_1_continue
-	case_1_continue:
-		PUSH	0
-		JNE	if_1_positive
-		JMP	if_1_negative
-	if_1_positive:
-
-		PUSH	0
-	POP	[ex+3]
-cycle_0:
-		PUSH	[ex+3]
-		PUSH	[ex+2]
-	JBE case_2_positive
-	JMP case_2_negative
-	case_2_positive:
-		PUSH	1
-		JMP	case_2_continue
-	case_2_negative:
-		PUSH	0
-		JMP	case_2_continue
-	case_2_continue:
-	PUSH	0
-	JE cycle_0_stop
-; pushing argument before call print
-; pushing argument before call Fib
-		PUSH	[ex+3]
-	MOV	ex+50	ex
-	CALL	func_Fib
-	OUT
-; pushing argument before call putc
-		PUSH	32
-	OUTC
-		PUSH	[ex+3]
-		PUSH	1
-		ADD
-	POP	[ex+3]
 	JMP cycle_0
 cycle_0_stop:
-
-		JMP	if_1_end
-	if_1_negative:
-
-; pushing argument before call print
-; pushing argument before call Fib
-		PUSH	[ex+2]
-	MOV	ex+50	ex
-	CALL	func_Fib
-	OUT
-
-	if_1_end:
-; pushing argument before call return
-		PUSH	0
 	PUSH	ex
 	PUSH	50
 	SUB

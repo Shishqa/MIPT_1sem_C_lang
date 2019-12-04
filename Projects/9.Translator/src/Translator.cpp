@@ -240,19 +240,22 @@ void Translator::DefVar (Node<Token> * node)
 
     int check = FindVar (node->data.lexem, node->data.lexem_len);
 
+    PRINT ("FOUND\n");
+
     Variable * curr_var = nullptr;
 
-    if (curr_func && check <= 0)
+    if (check)
+    {
+        return;
+    }
+
+    if (curr_func)
     {
         curr_var = curr_func->local_var + (curr_func->var_cnt++);
     }
-    else if (!curr_func && check == 0)
-    {
-        curr_var = global_var + (var_cnt++);
-    }
     else
     {
-        return;
+        curr_var = global_var + (var_cnt++);
     }
 
     curr_var->id  = L->data.lexem;
@@ -532,12 +535,15 @@ int Translator::FindVar (const char * var_id,  const size_t len)
 {
     PRINT ("find var\n");
 
-    for (int i = 1; i < curr_func->var_cnt; i++)
+    if (curr_func)
     {
-        if (len == curr_func->local_var[i].len &&
-            !strncmp (var_id, curr_func->local_var[i].id, len))
+        for (int i = 1; i < curr_func->var_cnt; i++)
         {
-            return (i);
+            if (len == curr_func->local_var[i].len &&
+                !strncmp (var_id, curr_func->local_var[i].id, len))
+            {
+                return (i);
+            }
         }
     }
 
