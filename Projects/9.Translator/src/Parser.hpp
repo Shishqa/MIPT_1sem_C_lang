@@ -11,6 +11,7 @@ enum errors
     NUM_EXPECT,
     PRIMARY_EXPECT,
     ID_EXPECT,
+    ASSIGN_EXPECT,
     UNCLOSED_BRACES,
     VAR_FUNC,
     NO_END,
@@ -45,6 +46,9 @@ class Parser
     Node<Token> * ParseCond     ();
     Node<Token> * ParseSequence ();
     Node<Token> * ParseArgs     ();
+
+    Node<Token> * ParseExpression ();
+    Node<Token> * ParseAssignment ();
     
     Node<Token> * ParseAnd         ();
     Node<Token> * ParseOr          ();
@@ -55,8 +59,11 @@ class Parser
     Node<Token> * ParseMulDiv      ();
     Node<Token> * ParsePrimary     ();
 
-    Node<Token> * ParseId  ();
-    Node<Token> * ParseNum ();
+    Node<Token> * ParseCall   ();
+    Node<Token> * ParseChar   ();
+    Node<Token> * ParseString ();
+    Node<Token> * ParseId     ();
+    Node<Token> * ParseNum    ();
 
     char * GetId  (size_t * len);
     char * GetNum (size_t * len);

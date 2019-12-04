@@ -67,10 +67,10 @@ void Translator::Init (FILE * f)
     out = f;
 
     global_var = (Variable *) calloc (VAR_MAX, sizeof (*global_var));
-    var_cnt = 0;
+    var_cnt = 1;
 
     functions = (Function *) calloc (FUNC_MAX, sizeof (*functions));
-    func_cnt = 0;
+    func_cnt = 1;
 
     curr_func = nullptr;
 
@@ -93,74 +93,72 @@ void Translator::Proceed ()
 
 void Translator::GetBlocks (Node<Token> * node)
 {
-    if (N->data.type == VOID)
+    PRINT ("blocks\n");
+
+    if (!N)
     {
         return;
     }
 
-    GetBlocks (R);
+    GetBlocks (L);
 
-    if (L->data.type == DEF_FUNC)
+    if (R->data.type == DEF_FUNC)
     {
-        DefFunc (L->left);
+        DefFunc (R);
     }
-    else if (L->data.type == ASSIGN)
+    else if (R->data.type == DEF_VAR)
     {
-        //GetAssign (L);
-    }
-    else if (L->data.type == DEF_VAR)
-    {
-        //DefVar (L->left);
+        DefVar (R);
     }
 }
 
 void Translator::DefFunc (Node<Token> * node)
 {
+    PRINT ("func\n");
+
     fprintf (out, ";#####################################################################\n", var_cnt);
 
-    for (size_t i = 0; i < func_cnt; i++)
+    int check = FindFunc (R->data.lexem, R->data.lexem_len);
+
+    if (check != 0)
     {
-        if (node->data.lexem_len == functions[i].name_len &&
-            !strncmp (node->data.lexem, functions[i].name, node->data.lexem_len))
-        {
-            STOP (FUNC_REDEF);
-        }
+        return;
     }
 
     curr_func = functions + (func_cnt++);
 
-    curr_func->name      = node->data.lexem;
-    curr_func->name_len  = node->data.lexem_len;
-    curr_func->local_var = (Variable *) calloc (curr_func->VAR_MAX, sizeof (*curr_func->local_var));
-    curr_func->var_cnt   = 0;
+    curr_func->name      = R->data.lexem;
+    curr_func->name_len  = R->data.lexem_len;
     curr_func->VAR_MAX   = 50;
+    curr_func->local_var = (Variable *) calloc (curr_func->VAR_MAX, sizeof (*curr_func->local_var));
+    curr_func->var_cnt   = 1;
     
     fprintf (out, ";\tfunction \"%s\"\n", curr_func->name);
     fprintf (out, "func_%s:\n", curr_func->name);
 
-    Node<Token> * curr_arg = node->left;
+    Node<Token> * curr_arg = L;
 
-    while (curr_arg->data.type != VOID)
+    while (curr_arg != nullptr)
     {
-        if (curr_arg->left->data.type != DEF_VAR)
+        if (curr_arg->right->data.type != DEF_VAR)
         {
             printf ("variables should be defined");
             return;
         }
 
-        curr_func->local_var[curr_func->var_cnt].id = curr_arg->left->left->data.lexem;
-        curr_func->local_var[curr_func->var_cnt].len = curr_arg->left->left->data.lexem_len;
+        curr_func->local_var[curr_func->var_cnt].id = curr_arg->right->left->data.lexem;
+        curr_func->local_var[curr_func->var_cnt].len = curr_arg->right->left->data.lexem_len;
 
         fprintf (out, ";\t%s_var_%s (arg_%lu)\n", curr_func->name, curr_func->local_var[curr_func->var_cnt].id, curr_func->var_cnt);
         fprintf (out, "\tPOP [ex+%lu]\n", var_cnt);
 
         curr_func->var_cnt++;
 
-        curr_arg = curr_arg->right;
+        curr_arg = curr_arg->left;
     }
 
     fprintf (out, ";\t\"%s\" body:\n\n", curr_func->name);
-    GetOperators (node->right);
+    GetOperators (R->right);
 
     fprintf (out, ";#####################################################################\n\n\n", var_cnt);
 
@@ -169,85 +167,123 @@ void Translator::DefFunc (Node<Token> * node)
 
 void Translator::GetOperators (Node<Token> * node)
 {
-    if (node->data.type == VOID)
+    PRINT ("operator\n");
+
+    if (!N)
     {
         return;
     }
 
-    GetOperators (node->right);
-
-    if (L->data.type == COND)
+    if (N->data.type == BLOCK)
     {
-        size_t remember_curr_if = curr_if;
-        curr_if = (if_cnt++);
-
-        fprintf (out, "\tif_%lu:\n", curr_if);
-        GetIf (L);
-        fprintf (out, "\tif_%lu_end:\n\n", curr_if);
-
-        curr_if = remember_curr_if;
+        GetOperators (R);
+        return;
     }
-    else if (L->data.type == WHILE)
-    {
-        GetWhile (L);
-    }
-    else if (L->data.type == ASSIGN)
-    {
-        Calculate (L->right);
 
-        if (L->left->data.type == DEF_VAR)
+    GetOperators (L);
+
+    if (R->data.type == IF)
+    {
+        GetIf (R);
+    }
+    else if (R->data.type == WHILE)
+    {
+        GetWhile (R);
+    }
+    else if (R->data.type == DEF_VAR)
+    {
+        DefVar (R);
+    }
+    else if (R->data.type == ASSIGN)
+    {
+        GetAssign (R);
+    }
+    else if (R->data.type == CALL)
+    {
+        GetCall (R);
+    }
+}
+
+void Translator::GetAssign (Node<Token> * node)
+{
+    PRINT ("assn\n");
+
+    if (L->data.type != ID)
+    {
+        return;
+    }
+
+    Calculate (R);
+
+    int id = FindVar (L->data.lexem, L->data.lexem_len);
+
+    if (id != 0)
+    {
+        if (id > 0)
         {
-            DefVar (L->left);
-            fprintf (out, "\tPOP\t[ex+%d]\n", curr_func->var_cnt - 1);
-            return;
+            fprintf (out, "\tPOP\t[ex+%d]\n", id);
         }
         else
         {
-            int id = FindVar (L->left->data.lexem, L->left->data.lexem_len);
-
-            if (id != -1)
-            {
-                fprintf (out, "\tPOP\t[ex+%d]\n", id);
-            }
-            else
-            {
-                printf ("UNDEFINED %s\n\n", L->left->data.lexem);
-            }
+            fprintf (out, "\tPOP\t[%d]\n", -id);
         }
     }
-    else if (L->data.type == FUNC)
+    else
     {
-        //fprintf (out, ";\tCALL %s\n", L->left->data.lexem);
-        GetCall (L);
+        printf ("UNDEFINED %s\n\n", L->data.lexem);
     }
 }
 
 void Translator::DefVar (Node<Token> * node)
 {
-    Variable * curr_var = curr_func->local_var + (curr_func->var_cnt++);
+    PRINT ("var\n");
 
-    curr_var->id = node->left->data.lexem;
-    curr_var->len = node->left->data.lexem_len;
+    int check = FindVar (node->data.lexem, node->data.lexem_len);
+
+    Variable * curr_var = nullptr;
+
+    if (curr_func && check <= 0)
+    {
+        curr_var = curr_func->local_var + (curr_func->var_cnt++);
+    }
+    else if (!curr_func && check == 0)
+    {
+        curr_var = global_var + (var_cnt++);
+    }
+    else
+    {
+        return;
+    }
+
+    curr_var->id  = L->data.lexem;
+    curr_var->len = L->data.lexem_len;
+
+    if (R)
+    {
+        GetAssign (N);
+    }
 }
 
 void Translator::GetCall (Node<Token> * node)
 {
+    PRINT ("call\n");
+
     int call_func = FindFunc (L->data.lexem, L->data.lexem_len);
 
     size_t arg_cnt = 0;
     Node<Token> * curr_arg = R;
 
-    while (curr_arg->data.type != VOID)
+    while (curr_arg)
     {
         arg_cnt++;
 
         fprintf (out, "; pushing argument before call %s\n", L->data.lexem);
-        Calculate (curr_arg->left);
+        Calculate (curr_arg->right);
 
-        curr_arg = curr_arg->right;
+        curr_arg = curr_arg->left;
     }
 
-    if (call_func != -1)
+    if (call_func != 0)
     {
         fprintf (out, "\tMOV\tex+%lu\tex\n", functions[call_func].VAR_MAX);
         fprintf (out, "\tCALL\tfunc_%s\n", functions[call_func].name);
@@ -290,36 +326,40 @@ void Translator::GetCall (Node<Token> * node)
 
 void Translator::GetIf (Node<Token> * node)
 {
-    if (N->data.type == VOID)
-    {
-        return;
-    }
+    PRINT ("if\n");
 
-    GetIf (R);
+    size_t remember_curr_if = curr_if;
+    curr_if = (if_cnt++);
 
-    size_t curr_case = case_cnt;
-    case_cnt++;
+    fprintf (out, "\tif_%lu:\n", curr_if);
+    fprintf (out, ";\tif_%lu_condition\n", curr_if);
 
-    if (L->data.type == IF)
-    {
-        fprintf (out, ";\tcase_%lu_condition\n", curr_case);
-        Calculate (L->left);
-        fprintf (out, "\t\tPUSH\t0\n");
-        fprintf (out, "\t\tJNE\tcase_%lu_operators\n", curr_case);
-        fprintf (out, "\t\tJMP\tcase_%lu_next\n", curr_case);
-        fprintf (out, "\tcase_%lu_operators:\n\n", curr_case);
-        GetOperators (L->right);
-        fprintf (out, "\n\t\tJMP\tif_%lu_end\n", curr_if);
-        fprintf (out, "\tcase_%lu_next:\n\n", curr_case);
-    }
-    else if (L->data.type == OPERATOR)
-    {
-        GetOperators (L);
-    }
+    Calculate (N->left);
+
+    fprintf (out, "\t\tPUSH\t0\n");
+    fprintf (out, "\t\tJNE\tif_%lu_positive\n", curr_if);
+    fprintf (out, "\t\tJMP\tif_%lu_negative\n", curr_if);
+
+    Node<Token> * tmp = R;
+
+    fprintf (out, "\tif_%lu_positive:\n\n", curr_if);
+
+    GetOperators (R->right);
+
+    fprintf (out, "\n\t\tJMP\tif_%lu_end\n", curr_if);
+    fprintf (out, "\tif_%lu_negative:\n\n", curr_if);
+
+    GetOperators (R->left);
+
+    fprintf (out, "\n\tif_%lu_end:\n", curr_if);
+
+    curr_if = remember_curr_if;
 }
 
 void Translator::GetWhile (Node<Token> * node)
 {
+    PRINT ("while\n");
+
     size_t remember_cycle = curr_cycle;
 
     curr_cycle = (cycle_cnt++);
@@ -383,15 +423,19 @@ void Translator::GetWhile (Node<Token> * node)
 
 void Translator::Calculate (Node<Token> * node)
 {
-    if (L && N->data.type != FUNC)
+    PRINT ("calculate\n");
+
+    if (L && N->data.type != CALL)
     {
         Calculate (L);
     }
 
-    if (R && N->data.type != FUNC)
+    if (R && N->data.type != CALL)
     {
         Calculate (R);
     }
+
+    int tmp = 0;
 
     switch (node->data.type)
     {
@@ -409,6 +453,10 @@ void Translator::Calculate (Node<Token> * node)
 
         case DIV:
             fprintf (out, "\t\tDIV\n");
+        break;
+
+        case MOD:
+            fprintf (out, "\t\tMOD\n");
         break;
         
         case AND:
@@ -448,14 +496,29 @@ void Translator::Calculate (Node<Token> * node)
         break;
 
         case ID:
-            fprintf (out, "\t\tPUSH\t[ex+%d]\n", FindVar (N->data.lexem, N->data.lexem_len));
+            tmp = FindVar (N->data.lexem, N->data.lexem_len);
+            if (tmp > 0)
+            {
+                fprintf (out, "\t\tPUSH\t[ex+%d]\n", tmp);
+            }
+            else
+            {
+                fprintf (out, "\t\tPUSH\t[%d]\n", -tmp);
+            }
         break;
 
         case CHAR:
-            fprintf (out, "\t\tPUSH\t%d\n", *(N->data.lexem + 1));
+            fprintf (out, "\t\tPUSH\t%d\n", *(N->data.lexem));
         break;
 
-        case FUNC:
+        case STRING:
+            for (size_t i = node->data.lexem_len - 1; i >= 0; i--)
+            {
+                fprintf (out, "\t\tPUSH\t%d", *(N->data.lexem + i));
+            }
+        break;
+
+        case CALL:
             GetCall (node);
         break;
     
@@ -467,7 +530,9 @@ void Translator::Calculate (Node<Token> * node)
 
 int Translator::FindVar (const char * var_id,  const size_t len)
 {
-    for (int i = 0; i < curr_func->var_cnt; i++)
+    PRINT ("find var\n");
+
+    for (int i = 1; i < curr_func->var_cnt; i++)
     {
         if (len == curr_func->local_var[i].len &&
             !strncmp (var_id, curr_func->local_var[i].id, len))
@@ -476,19 +541,32 @@ int Translator::FindVar (const char * var_id,  const size_t len)
         }
     }
 
-    return (-1);
+    for (int i = 1; i < var_cnt; i++)
+    {
+        if (len == global_var[i].len &&
+            !strncmp (var_id, global_var[i].id, len))
+        {
+            return (-i);
+        }
+    }
+
+    return (0);
 }
 
 int Translator::FindFunc (const char * func_id, const size_t len)
 {
-    for (int i = 0; i < func_cnt; i++)
+    PRINT ("find func\n");
+
+    for (int i = 1; i < func_cnt; i++)
     {
         if (len == functions[i].name_len &&
             !strncmp (func_id, functions[i].name, len))
         {
+            PRINT ("FOUND\n");
             return (i);
         }
     }
 
-    return (-1);
+    PRINT ("NOT FOUND\n");
+    return (0);
 }

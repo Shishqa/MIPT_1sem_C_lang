@@ -2,12 +2,22 @@
 
 #include "Translator.hpp"
 
+#include "Decompiler.hpp"
+
 int main () 
 {
-    Translator t = {};
+    //Translator t = {};
 
-    //t.GetAsmCode ("programs/get_chars/main.plan", "programs/get_chars/main.asm");
+    //t.GetAsmCode ("programs/fibonacci/main.plan", "programs/fibonacci/main.asm");
     //t.BuildAndRun ("programs/fibonacci/main.plan", "programs/fibonacci/test.bin");
+
+    Parser p = {};
+
+    BinaryTree<Token> * prog = p.ParseFile ("programs/fibonacci/main.plan");
+
+    Decompiler d = {};
+
+    d.GetCode (prog, "programs/fibonacci/DECOMPILED.plan");
 
     return (0);
 }

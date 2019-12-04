@@ -49,7 +49,7 @@ void Parser::PrintError ()
 
     size_t skip = 0;
 
-    printf ("\nLine %lu: \"%n", line, &skip);
+    printf ("\n Line %lu: \"%n", line, &skip);
 
     const char * begin = newline + 1;
     const char * end = strchr (begin, '\n');

@@ -33,11 +33,8 @@ func_Fib:
 
 ; pushing argument before call return
 		PUSH	[ex+1]
-	PUSH	ex
-	PUSH	50
-	SUB
-	POP	ex
-	RET
+	MOV	ex+0	ex
+	CALL	func_(null)
 
 		JMP	if_0_end
 	if_0_negative:
@@ -58,11 +55,8 @@ func_Fib:
 	MOV	ex+50	ex
 	CALL	func_Fib
 		ADD
-	PUSH	ex
-	PUSH	50
-	SUB
-	POP	ex
-	RET
+	MOV	ex+0	ex
+	CALL	func_(null)
 ;#####################################################################
 
 
@@ -71,15 +65,11 @@ func_Fib:
 func_main:
 ;	"main" body:
 
-; pushing argument before call putc
-		PUSH	77
-	OUTC
-; pushing argument before call putc
-		PUSH	58
-	OUTC
-	IN
+	MOV	ex+0	ex
+	CALL	func_(null)
 	POP	[ex+1]
-	IN
+	MOV	ex+0	ex
+	CALL	func_(null)
 	POP	[ex+2]
 	if_1:
 ;	if_1_condition
@@ -120,10 +110,8 @@ cycle_0:
 		PUSH	[ex+3]
 	MOV	ex+50	ex
 	CALL	func_Fib
-	OUT
-; pushing argument before call putc
-		PUSH	32
-	OUTC
+	MOV	ex+0	ex
+	CALL	func_(null)
 		PUSH	[ex+3]
 		PUSH	1
 		ADD
@@ -139,16 +127,14 @@ cycle_0_stop:
 		PUSH	[ex+2]
 	MOV	ex+50	ex
 	CALL	func_Fib
-	OUT
+	MOV	ex+0	ex
+	CALL	func_(null)
 
-	if_1_end:
+	if_0_end:
 ; pushing argument before call return
 		PUSH	0
-	PUSH	ex
-	PUSH	50
-	SUB
-	POP	ex
-	RET
+	MOV	ex+0	ex
+	CALL	func_(null)
 ;#####################################################################
 
 

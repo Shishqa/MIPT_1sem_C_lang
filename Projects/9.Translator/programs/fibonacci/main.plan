@@ -5,34 +5,33 @@ def Fib (var num)
 {
     if (num <= 1)
     {
-        return (num);
+        return (num)
     }
 
-    return (Fib (num - 1) + Fib (num - 2));
+    return (Fib (num - 1) + Fib (num - 2))
 }
 
 def main ()
 {
-    putc('M'); putc (':'); putc (' ');
-    var m = input ();
-
-    putc('N'); putc (':'); putc (' ');
-    var n = input ();
+    putc ('M')
+    putc (':')
+    var m = input ()
+    var n = input ()
 
     if (m == 1)
     {
-        var i = 0;
+        var i = 0
 
         while (i <= n)
         {
-            print (Fib (i)); putc(' ');
-            i = i + 1;
+            print (Fib (i)) putc(' ')
+            i = i + 1
         }
     }
     else
     {
-        print (Fib (n));
+        print (Fib (n))
     }
 
-    return (0);
+    return (0)
 }
