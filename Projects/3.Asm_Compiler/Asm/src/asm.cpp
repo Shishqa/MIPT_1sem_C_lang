@@ -215,7 +215,6 @@ Err_n ParseLabel (char* name, int len, Labels* labels, int ptr)
 	return (NOT_PARSED);
 }
 
-
 Err_n ParseArgs (char** in, char** out, int n_args, Labels* labels)
 {
 	Argument arg = {};

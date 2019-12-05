@@ -43,5 +43,7 @@ struct Token
     size_t lexem_len;
 };
 
+void PrintToken (FILE * out, const void * data);
+
 #endif // !TOKEN_HPP_
 
