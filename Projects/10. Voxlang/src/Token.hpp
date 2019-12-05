@@ -5,11 +5,14 @@
 
 enum lexem_types
 {
+    LEFT,
+    RIGHT,
     DEF_FUNC,
     DEF_VAR,
     ID,
     NUM,
     CALL,
+    RET,
     CHAR,
     STRING,
     DEFINITION,
@@ -43,7 +46,7 @@ struct Token
     size_t lexem_len;
 };
 
-void PrintToken (FILE * out, const void * data)
+void PrintToken (FILE * out, const void * data);
 
 #endif // !TOKEN_HPP_
 

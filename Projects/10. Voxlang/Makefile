@@ -12,7 +12,7 @@ EXECUTABLE	:= vox
 
 all: $(BIN)/$(EXECUTABLE)
 
-run: clean all
+run: all
 	clear
 	./$(BIN)/$(EXECUTABLE)
 

@@ -1,6 +1,15 @@
 #ifndef HEAD_HPP_
 #define HEAD_HPP_
 
+#define RESET  "\033[0m"
+#define RED    "\033[1;31m"
+#define YELLOW "\033[3;33m"
+
+#define SETCOLOR(color)             \
+        printf ("%s", color)        \
+
+#define DEBUG meow
+
 #ifdef DEBUG
 #define PRINT( str )                    \
         {                               \
@@ -23,7 +32,6 @@
 
 #include "tree.h"
 
-#include "operators.hpp"
 #include "Token.hpp"
 
 #endif // !HEAD_HPP_
