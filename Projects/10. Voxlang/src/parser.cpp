@@ -1,6 +1,18 @@
 #include "head.hpp"
+#include "operators.hpp"
+#include "CreateNode.hpp"
 
 #include "parser.hpp"
+
+#define CHECK()                 \
+        if (error != PARSE_OK)  \
+        {                       \
+            if (res)            \
+            {                   \
+                free (res);     \
+            }                   \
+            return (nullptr);   \
+        }                       
 
 BinaryTree<Token> * SongParser::Parse (const char * path)
 {
@@ -16,78 +28,188 @@ BinaryTree<Token> * SongParser::Parse (const char * path)
     cur = buff;
     curr_line = 0;
 
-    BinaryTree<Token> * res = (BinaryTree<Token> *) calloc (1, sizeof (*res));
+    result = (BinaryTree<Token> *) calloc (1, sizeof (*result));
 
-    res->init ();
-    res->root = ParseGrammar ();
+    result->init ();
+    result->root = ParseGrammar ();
 
     free (code);
     free (buff);
 
-    if (!res->root)
+    if (error != PARSE_OK)
     {
         SETCOLOR (RED);
         printf ("FAILED\n");
         SETCOLOR (RESET);
 
-        free (res);
+        free (result);
         return (nullptr);
     }
 
-    return (res);
+    return (result);
 }
 
 Node<Token> * SongParser::ParseGrammar ()
 {
-    while (*cur != '|')
+    Node<Token> * res = nullptr;
+
+    while (cur != '\0')
     {
-        Next ();
+        res = SetNode (DEFINITION, "D", 1, res, ParseDefinition ());
+        SkipSpaces ();
     }
-
-    Chord check = {};
-    
-    for (int i = 0; i < 20; i++)
-    {
-        check = GetChord ();
-        cur++;
-
-        printf ("%lu %lu\n", check.min_d, check.max_d);
-    }
-
-    return (nullptr);
 }
 
-void SongParser::SkipSpaces ()
+Node<Token> * SongParser::ParseDefinition ()
 {
+    if (strncmp (cur, "Song", 4) != 0)
+    {
+        error = SYNTAX_ERROR;
+        return (nullptr);
+    }
+
+    SkipSpaces (4);
+
+    Node<Token> * res = SetNode (DEF_FUNC, "def", 3, nullptr, ParseId ());
+    CHECK ();
+
+    res->right->right = ParseBlock ();
+    CHECK ();
+    LINK (res->right->right, res->right);
+
+    res->left = ParseVarList ();
+    CHECK ();
+    LINK (res->left, res);
+
+    return (res);
+}
+
+Node<Token> * SongParser::ParseBlock ()
+{
+    Node<Token> * res = SetNode (BLOCK, "B", 1);
+
+    SkipSpaces ();
+    InitStaff ();
+    CHECK ();
+
+    int op = GetOp ();
+
+    while (op != END)
+    {
+        switch (op)
+        {
+            case IF:
+                res->right = ParseIf ();
+            break;
+
+            case WHILE:
+                res->right = ParseWhile ();
+            break;
+
+            case DEF_VAR:
+                res->right = ParseVar ();
+            break;
+        
+            default:
+                res->right = ParseAssignment ();
+            break;
+        }
+
+        CHECK ();
+        LINK (res->right, res);
+
+    }
+}
+
+Node<Token> * SongParser::ParseOp ()
+{
+
+}
+
+bool SongParser::InitStaff ()
+{
+    error = EXPECT_STAFF;
+
+    if (curr_line + 9 > num_of_lines)
+    {
+        return (false);
+    }
+
+    if (code[curr_line].end - code[curr_line].begin <= 2)
+    {
+        return (false);
+    }
+
+    for (size_t i = curr_line; i < curr_line + 9; i++)
+    {
+        if (*(code[i].begin) != '|' || *(code[i].end - 1) != '|')
+        {
+            return (false);
+        }
+    }
+
+    error = PARSE_OK;
+
+    cur = code[curr_line].begin + 1;
+
+    return (true);
+}
+
+void SongParser::SkipSpaces (size_t pre_step)
+{
+    if (cur + pre_step <= code[curr_line].end)
+    {
+        cur += pre_step;
+    }
+
     while (*cur == ' ' || *cur == '\t' || *cur == '\r')
     {
         cur++;
     }
 
-    if (*cur == '\0')
+    if (*cur == '\0' && curr_line < num_of_lines - 1)
     {
-        Next ();
+        NextLine ();
+        SkipSpaces ();
     }
-
-    SkipSpaces ();
 }
 
-void SongParser::Next ()
+void SongParser::NextLine ()
 {
-    if (curr_line < num_of_lines - 1)
+    curr_line++;
+    cur = code[curr_line].begin;
+}
+
+int SongParser::GetOp ()
+{
+    Chord ch = GetChord ();
+
+    if (ch.max_d == 10 && ch.min_d == 10)
     {
-        curr_line++;
-        cur = code[curr_line].begin;
+        return (END);
+    }
+
+    if (ch.max_d == 0)
+    {
+        return (-ch.min_d);
+    }
+
+    for (int i = 1; i < OP_CNT; i++)
+    {
+        if (ch.min_d == operators[i].min_d &&
+            ch.max_d == operators[i].max_d)
+        {
+            return (i);
+        }
     }
 }
 
 Chord SongParser::GetChord ()
 {
-    printf ("parsing on line %lu\n", curr_line);
+    Chord res = {};
 
     size_t offset = cur - code[curr_line].begin;
 
-    Chord res = {};
     res.min_d = 10;
     res.max_d = 0;
 
@@ -106,7 +228,6 @@ Chord SongParser::GetChord ()
 
             if (prev != -1 && res.min_d > i - prev)
             {
-                printf ("* upd min");
                 res.min_d = i - prev;
             }
 
@@ -115,21 +236,33 @@ Chord SongParser::GetChord ()
             if (first != -1)
             {
                 res.max_d = i - first;
-                printf ("* upd max");
             }
             else
             {
-                printf ("* set first");
                 first = i;
             }
         }
-
-        printf ("\n");
+        else if (*(code[i].begin + offset) == '|')
+        {
+            res.min_d = 10;
+            res.max_d = 10;
+            return (res);
+        }
+        else if (*(code[i].begin + offset) != ' ' &&
+                 *(code[i].begin + offset) != '-')
+        {
+            error = SYNTAX_ERROR;
+            return (res);
+        }
     }
 
     if (notes_met == 1)
     {
-        res.max_d = first - curr_line + 1;
+        res.min_d = first - curr_line + 1;
+    }
+    else if (!notes_met)
+    {
+        res.min_d = 0;
     }
 
     return (res);

@@ -3,18 +3,29 @@
 
 #include "head.hpp"
 
+enum Parser_Errors
+{
+    PARSE_OK,
+    SYNTAX_ERROR,
+    EXPECT_STAFF
+};
+
 struct Chord
 {
-    size_t max_d;
-    size_t min_d;
+    int max_d;
+    int min_d;
 };
 
 class SongParser
 {
+    BinaryTree<Token> * result;
+
     char * buff;
     const char * cur;
     size_t num_of_lines;
     size_t curr_line;
+
+    size_t error;
 
     String * code;
 
@@ -56,9 +67,11 @@ class SongParser
     char * GetId  (size_t * len);
     char * GetNum (size_t * len);
 
+    bool InitStaff ();
+    int GetOp ();
     Chord GetChord ();
-    void Next ();
-    void SkipSpaces ();
+    void NextLine ();
+    void SkipSpaces (size_t pre_step = 0);
 
     public:
 

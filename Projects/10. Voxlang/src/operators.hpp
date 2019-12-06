@@ -14,6 +14,8 @@ struct Operator
 
 const size_t OP_CNT = 30;
 
+const size_t END = 50;
+
 static Operator operators[OP_CNT] = {
     {LEFT,      "(",       2, 1},
     {RIGHT,     ")",       2, 2},
