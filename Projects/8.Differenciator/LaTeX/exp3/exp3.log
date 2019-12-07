@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.11.23)  24 NOV 2019 21:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.11.23)  7 DEC 2019 21:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -689,7 +689,7 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.9 �
-     �родифференцируем $(( \frac{ sin (x) }{x}  + x ^{10} ) ...
+     �родифференцируем $(( \frac{ sin x }{x}  + x ^{10} ) \c...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -723,7 +723,7 @@ Here is how much of TeX's memory you used:
  6290 multiletter control sequences out of 15000+600000
  14612 words of font info for 40 fonts, out of 8000000 for 9000
  475 hyphenation exceptions out of 8191
- 27i,4n,27p,365b,138s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,4n,27p,357b,138s stack positions out of 5000i,500n,10000p,200000b,80000s
  </
 home/shishqa/.texlive2017/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larm1200.600pk> <
 /home/shishqa/.texlive2017/texmf-var/fonts/pk/ljfour/lh/lh-t2a/labx1728.600pk><
@@ -734,9 +734,9 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmsy8.pfb>
-Output written on LaTeX/exp3/exp3.pdf (1 page, 72049 bytes).
+Output written on LaTeX/exp3/exp3.pdf (1 page, 74669 bytes).
 PDF statistics:
- 90 PDF objects out of 1000 (max. 8388607)
+ 98 PDF objects out of 1000 (max. 8388607)
  33 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)

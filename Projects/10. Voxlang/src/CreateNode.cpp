@@ -1,7 +1,7 @@
 #include "head.hpp"
 #include "CreateNode.hpp"
 
-Node<Token> * SetNode (char type, const char * lexem, const size_t lexem_len,
+Node<Token> * SetNode (char type, int data, const char * var,
                        Node<Token> * left, Node<Token> * right)
 {
     Node<Token> * node = (Node<Token> *) calloc (1, sizeof (*node));

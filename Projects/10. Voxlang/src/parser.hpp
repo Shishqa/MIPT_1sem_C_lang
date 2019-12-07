@@ -18,6 +18,10 @@ struct Chord
 
 class SongParser
 {
+    const size_t MAX_TOKENS = 10000;
+    size_t cnt_tokens;
+    size_t cnt_names;
+
     BinaryTree<Token> * result;
 
     char * buff;
@@ -28,6 +32,9 @@ class SongParser
     size_t error;
 
     String * code;
+
+    
+    Node<Token> ** Tokenize ();
 
     Node<Token> * ParseGrammar ();
 
@@ -64,12 +71,6 @@ class SongParser
     Node<Token> * ParseId     ();
     Node<Token> * ParseNum    ();
 
-    char * GetId  (size_t * len);
-    char * GetNum (size_t * len);
-
-    bool InitStaff ();
-    int GetOp ();
-    Chord GetChord ();
     void NextLine ();
     void SkipSpaces (size_t pre_step = 0);
 

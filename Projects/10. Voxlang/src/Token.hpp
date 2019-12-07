@@ -35,7 +35,8 @@ enum lexem_types
     SUB,
     MUL,
     DIV,
-    MOD
+    MOD,
+    VARLIST
 };
 
 struct Token
