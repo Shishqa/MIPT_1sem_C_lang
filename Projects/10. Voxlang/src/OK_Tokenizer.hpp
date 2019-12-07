@@ -32,6 +32,52 @@ class Tokenizer
     const size_t MAX_NAME = 1000;
     const size_t MAX_NUM = 10;
 
+    int Interpret ()
+    {
+        switch (*cur)
+        {
+            case 'A':
+                return (9);
+            break;
+
+            case 'B':
+                return (8);
+            break;
+
+            case 'c':
+                return (7);
+            break;
+
+            case 'd':
+                return (6);
+            break;
+
+            case 'e':
+                return (5);
+            break;
+
+            case 'f':
+                return (4);
+            break;
+
+            case 'g':
+                return (3);
+            break;
+
+            case 'a':
+                return (2);
+            break;
+
+            case 'b':
+                return (1);
+            break;
+        
+            default:
+                return (0);
+            break;
+        }
+    }
+
     void ParseName ()
     {
         char * new_name = (char *) calloc (MAX_NAME, sizeof (*new_name));
@@ -44,16 +90,79 @@ class Tokenizer
         cur += name_len + 1;
     }
 
-    void ParseNum ()
+    void ParseOperator ()
+    {
+        assert (*cur == '[');
+        cur++;
+
+        bool chord[10] = {};
+
+        while (*cur != ']' || *cur != '\0')
+        {
+            chord[Interpret ()] = true;
+            cur++;
+        }
+
+        size_t min_dist = 100;
+        size_t max_dist = 0;
+
+        const size_t UNDEF = 100;
+
+        size_t first = UNDEF;
+        size_t last  = UNDEF;
+
+        for (size_t i = 1; i < 10; i++)
+        {
+            if (chord[i])
+            {
+                if (first == UNDEF)
+                {
+                    first = i;
+                }
+
+                max_dist = i - first;
+
+                if (last != UNDEF && min_dist > i - last)
+                {   
+                    min_dist = i - last;
+                }
+
+                last = i;
+            }
+        }
+
+        for (size_t i = 0; i < MATH_OP_CNT; i++)
+        {
+            if (max_dist == math_op[i].max_dist &&
+                min_dist == math_op[i].min_dist)
+            {
+                tokens[t_num++] = SetNode (MATH_TYPE, math_op[i].opcode, nullptr);
+                return;
+            }
+        }
+
+        for (size_t i = 0; i < OP_CNT; i++)
+        {
+            if (max_dist == operators[i].max_dist &&
+                min_dist == math_op[i].min_dist)
+            {
+                tokens[t_num++] = SetNode (MATH_TYPE, math_op[i].opcode, nullptr);
+                return;
+            } 
+        }
+    }
+
+    void ParseNumber ()
     {
         int num = 0;
-        size_t num_len = 0;
 
-        sscanf (cur, "%d%n", &num, &num_len);
+        while (*cur != '[' && *cur != '\0')
+        {
+            num = num * 10 + Interpret ();
+            cur++;
+        }
 
         tokens[t_num++] = SetNode (NUM_TYPE, num, nullptr);
-
-        cur += num_len;
     }
 
     void ParseStave ()
@@ -67,7 +176,7 @@ class Tokenizer
                 break;
             
                 default:
-                    Parse
+                    ParseNumber ();
                 break;
             }
         }
@@ -93,11 +202,6 @@ class Tokenizer
                 CHECK ('T', {
                                 tokens[t_num++] = SetNode (OP_TYPE, DEF_FUNC, "def");
                                 ParseName ();
-                            })
-                break;
-
-                CHECK ('X', {
-                                ParseNum ();
                             })
                 break;
             
