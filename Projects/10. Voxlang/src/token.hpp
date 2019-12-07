@@ -7,7 +7,7 @@ struct Token
 {
     char    type;
     int     data;
-    const char *  var;
+    const char * name;
 
     //Удобно носить с собой ссылку на функцию, если type == OP_TYPE
     //Аналогично удобно будет носить с собой ссылку на переменную в дальнейшем

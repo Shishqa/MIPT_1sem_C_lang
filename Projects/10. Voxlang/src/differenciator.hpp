@@ -1,19 +1,19 @@
-#ifndef DIFFERENCIATOR_HPP_
-#define DIFFERENCIATOR_HPP_
+// #ifndef DIFFERENCIATOR_HPP_
+// #define DIFFERENCIATOR_HPP_
 
-class Differenciator
-{
-    const BinaryTree<Token> * expression;
-    char var;
-    FILE * latex;
+// class Differenciator
+// {
+//     const BinaryTree<Token> * expression;
+//     char var;
+//     FILE * latex;
 
-    BinaryTree<Token> * diff_expression;
+//     BinaryTree<Token> * diff_expression;
 
-    BinaryTree<Token> * DiffExpression ();
-    Node<Token> * Diff (Node<Token> * node);
+//     BinaryTree<Token> * DiffExpression ();
+//     Node<Token> * Diff (Node<Token> * node);
 
-public:
-    BinaryTree<Token> * DiffWithLaTeX  (const BinaryTree<Token> * exp, const char dvar, const char * latex_path);
-};
+// public:
+//     BinaryTree<Token> * Derivative  (const BinaryTree<Token> * exp, const char dvar);
+// };
 
-#endif // !DIFFERENCIATOR_HPP_
+// #endif // !DIFFERENCIATOR_HPP_

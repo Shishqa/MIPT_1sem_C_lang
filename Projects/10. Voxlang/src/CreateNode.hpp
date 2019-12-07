@@ -8,7 +8,7 @@
             (node1)->parent = node2;        \
         }
 
-Node<Token> * SetNode (char type, const char * lexem, const size_t lexem_len,
+Node<Token> * SetNode (char type, int data, const char * name,
                        Node<Token> * left = nullptr, Node<Token> * right = nullptr);
 
 #endif // !CREATE_NODE_HPP_

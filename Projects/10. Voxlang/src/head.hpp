@@ -32,6 +32,6 @@
 
 #include "tree.h"
 
-#include "Token.hpp"
+#include "token.hpp"
 
 #endif // !HEAD_HPP_
