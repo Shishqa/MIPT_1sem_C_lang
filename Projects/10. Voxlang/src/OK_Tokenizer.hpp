@@ -80,12 +80,18 @@ class Tokenizer
 
     void ParseName ()
     {
+        printf ("ParseName :: HI\n");
+
         char * new_name = (char *) calloc (MAX_NAME, sizeof (*new_name));
         size_t name_len = 0;
 
         sscanf (cur, "%[^,.!?:;\0]%n", new_name, &name_len);
 
+        printf ("ParseName :: %lu\n", n_num);
+
         names[n_num++] = SetNode (ID_TYPE, 0, new_name);
+
+        printf ("ParseName :: BYE\n");
 
         cur += name_len + 1;
     }
@@ -94,12 +100,19 @@ class Tokenizer
     {
         assert (*cur == '[');
         cur++;
+        printf ("ParseOp :: hi, friends! %c\n", *cur);
 
         bool chord[10] = {};
 
-        while (*cur != ']' || *cur != '\0')
+        while (*cur != ']' && *cur != '\0')
         {
             chord[Interpret ()] = true;
+            cur++;
+        }
+
+
+        if (*cur == ']')
+        {
             cur++;
         }
 
@@ -131,22 +144,14 @@ class Tokenizer
             }
         }
 
-        for (size_t i = 0; i < MATH_OP_CNT; i++)
-        {
-            if (max_dist == math_op[i].max_dist &&
-                min_dist == math_op[i].min_dist)
-            {
-                tokens[t_num++] = SetNode (MATH_TYPE, math_op[i].opcode, nullptr);
-                return;
-            }
-        }
+        printf ("ParseOp :: I got %lu %lu!\n", max_dist, min_dist);
 
         for (size_t i = 0; i < OP_CNT; i++)
         {
             if (max_dist == operators[i].max_dist &&
-                min_dist == math_op[i].min_dist)
+                min_dist == operators[i].min_dist)
             {
-                tokens[t_num++] = SetNode (MATH_TYPE, math_op[i].opcode, nullptr);
+                tokens[t_num++] = SetNode (operators[i].type, operators[i].opcode, operators[i].name);
                 return;
             } 
         }
@@ -186,6 +191,8 @@ class Tokenizer
     {
         while (curr_line < n_lines)
         {
+            printf ("Proceed :: %lu %c\n", curr_line, *cur);
+
             SkipSpaces ();
 
             switch (*cur)
@@ -200,7 +207,7 @@ class Tokenizer
                 break;
 
                 CHECK ('T', {
-                                tokens[t_num++] = SetNode (OP_TYPE, DEF_FUNC, "def");
+                                tokens[t_num++] = SetNode (OP_TYPE, DEF_FUNC, "DEF");
                                 ParseName ();
                             })
                 break;
@@ -230,7 +237,13 @@ class Tokenizer
 
     Node<Token> ** tokenize (const String * text, size_t num_of_lines)
     {
+        assert (text != nullptr);
+
         tokens = (Node<Token> **) calloc (T_MAX, sizeof (*tokens));
+        t_num  = 0;
+
+        names = (Node<Token> **) calloc (N_MAX, sizeof (*tokens));
+        n_num = 0;
 
         code = text;
         n_lines = num_of_lines;
@@ -240,7 +253,13 @@ class Tokenizer
 
         Proceed ();
 
-        return (tokens);
+        printf ("tokenize:: HELLO\n\n\n");
+        for (size_t i = 0; i < t_num; i++)
+        {
+            printf ("token : %d %d %s\n\n", tokens[i]->data.type, tokens[i]->data.data, tokens[i]->data.name);
+        }
+
+        return (nullptr);
     }
 };
 
