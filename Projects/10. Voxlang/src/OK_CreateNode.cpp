@@ -1,5 +1,4 @@
-#include "token.hpp"
-#include "CreateNode.hpp"
+#include "head.hpp"
 
 Node<Token> * SetNode (char type, int data, const char * name,
                        Node<Token> * left, Node<Token> * right)

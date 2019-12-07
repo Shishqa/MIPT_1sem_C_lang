@@ -1,8 +1,6 @@
 #ifndef TOKEN_HPP_
 #define TOKEN_HPP_
 
-#include "operations.hpp"
-
 struct Token
 {
     char    type;

@@ -2,7 +2,7 @@
 #define TOKENIZER_HPP
 
 #include "head.hpp"
-#include "CreateNode.hpp"
+#include "OK_CreateNode.hpp"
 
 #define CHECK( ch, code )               \
         case (ch):                      \
@@ -39,19 +39,19 @@ class Tokenizer
 
         sscanf (cur, "%[^,.!?:;\0]%n", new_name, &name_len);
 
-        names[n_num++] = SetNode (ID, new_name, name_len);
+        names[n_num++] = SetNode (ID_TYPE, 0, new_name);
 
         cur += name_len + 1;
     }
 
     void ParseNum ()
     {
-        char * num = (char *) calloc (MAX_NUM, sizeof (*num));
+        int num = 0;
         size_t num_len = 0;
 
-        sscanf (cur, "%[0-9]%n", num, &num_len);
+        sscanf (cur, "%d%n", &num, &num_len);
 
-        tokens[t_num++] = SetNode (NUM, num, num_len);
+        tokens[t_num++] = SetNode (NUM_TYPE, num, nullptr);
 
         cur += num_len;
     }
@@ -63,10 +63,11 @@ class Tokenizer
             switch (*cur)
             {
                 case '[':
-                /* code */
+                    ParseOperator ();
                 break;
             
-            default:
+                default:
+                    Parse
                 break;
             }
         }
@@ -90,7 +91,7 @@ class Tokenizer
                 break;
 
                 CHECK ('T', {
-                                tokens[t_num++] = SetNode (DEF_FUNC, "def", 3);
+                                tokens[t_num++] = SetNode (OP_TYPE, DEF_FUNC, "def");
                                 ParseName ();
                             })
                 break;

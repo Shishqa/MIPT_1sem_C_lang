@@ -32,6 +32,8 @@
 
 #include "tree.h"
 
-#include "token.hpp"
+#include "OK_Token.hpp"
+#include "OK_Math_operators.hpp"
+#include "Operators.hpp"
 
 #endif // !HEAD_HPP_
