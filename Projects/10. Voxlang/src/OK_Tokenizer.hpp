@@ -36,11 +36,11 @@ class Tokenizer
     {
         switch (*cur)
         {
-            case 'A':
+            case 'e':
                 return (9);
             break;
 
-            case 'B':
+            case 'd':
                 return (8);
             break;
 
@@ -48,27 +48,27 @@ class Tokenizer
                 return (7);
             break;
 
-            case 'd':
+            case 'B':
                 return (6);
             break;
 
-            case 'e':
+            case 'A':
                 return (5);
             break;
 
-            case 'f':
+            case 'G':
                 return (4);
             break;
 
-            case 'g':
+            case 'F':
                 return (3);
             break;
 
-            case 'a':
+            case 'E':
                 return (2);
             break;
 
-            case 'b':
+            case 'D':
                 return (1);
             break;
         
@@ -80,40 +80,51 @@ class Tokenizer
 
     void ParseName ()
     {
-        printf ("ParseName :: HI\n");
+        SkipSpaces ();
+
+        //printf ("ParseName :: HI :: %c\n", *cur);
 
         char * new_name = (char *) calloc (MAX_NAME, sizeof (*new_name));
-        size_t name_len = 0;
+        int name_len = 0;
 
-        sscanf (cur, "%[^,.!?:;\0]%n", new_name, &name_len);
+        sscanf (cur, "%[^,.?!]%n", new_name, &name_len);
 
-        printf ("ParseName :: %lu\n", n_num);
+        //printf ("ParseName :: %lu\n", n_num);
 
-        names[n_num++] = SetNode (ID_TYPE, 0, new_name);
+        names[n_num++] = SetNode (ID_TYPE, name_len, new_name);
 
-        printf ("ParseName :: BYE\n");
+        //printf ("ParseName :: BYE\n");
 
-        cur += name_len + 1;
+        cur += name_len;
+
+        if (*cur != '\0')
+        {
+            cur++;
+        }
     }
 
     void ParseOperator ()
     {
-        assert (*cur == '[');
-        cur++;
-        printf ("ParseOp :: hi, friends! %c\n", *cur);
+        //printf ("ParseOp :: hi, friends! %lu\n", curr_line);
 
         bool chord[10] = {};
+        int len = 0;
 
-        while (*cur != ']' && *cur != '\0')
+        while (*cur != '\0' && len < 4)
         {
+            while (!isalpha (*cur) && *cur != '|' && *cur != '\0')
+            {
+                cur++;
+            }
+
+            if (*cur == '|')
+            {
+                break;
+            }
+
             chord[Interpret ()] = true;
             cur++;
-        }
-
-
-        if (*cur == ']')
-        {
-            cur++;
+            len++;
         }
 
         size_t min_dist = 100;
@@ -144,7 +155,7 @@ class Tokenizer
             }
         }
 
-        printf ("ParseOp :: I got %lu %lu!\n", max_dist, min_dist);
+        //printf ("ParseOp :: I got %lu %lu!\n", max_dist, min_dist);
 
         for (size_t i = 0; i < OP_CNT; i++)
         {
@@ -160,27 +171,40 @@ class Tokenizer
     void ParseNumber ()
     {
         int num = 0;
+        bool got_in = false;
 
-        while (*cur != '[' && *cur != '\0')
+        while (*cur != '|' && *cur != '\0' && *cur != '\r')
         {
             num = num * 10 + Interpret ();
             cur++;
+            got_in = true;
         }
 
-        tokens[t_num++] = SetNode (NUM_TYPE, num, nullptr);
+        if (got_in)
+        {
+            tokens[t_num++] = SetNode (NUM_TYPE, num, nullptr);
+        }
     }
 
     void ParseStave ()
     {
-        while (*cur)
+        //printf ("ParseStave :: Hi! :: %lu\n", curr_line);
+
+        while (*cur && *cur != '\r')
         {
+            SkipSpaces ();
             switch (*cur)
             {
-                case '[':
+                case '|':
+                    cur++;
                     ParseOperator ();
                 break;
             
                 default:
+                    if (!isalpha (*cur))
+                    {
+                        cur++;
+                    }
                     ParseNumber ();
                 break;
             }
@@ -191,7 +215,7 @@ class Tokenizer
     {
         while (curr_line < n_lines)
         {
-            printf ("Proceed :: %lu %c\n", curr_line, *cur);
+            //printf ("Proceed :: %lu %c\n", curr_line, *cur);
 
             SkipSpaces ();
 
@@ -210,6 +234,9 @@ class Tokenizer
                                 tokens[t_num++] = SetNode (OP_TYPE, DEF_FUNC, "DEF");
                                 ParseName ();
                             })
+                break;
+
+                case '%':
                 break;
             
                 default:
@@ -253,10 +280,14 @@ class Tokenizer
 
         Proceed ();
 
-        printf ("tokenize:: HELLO\n\n\n");
+        //printf ("tokenize:: HELLO\n\n\n");
         for (size_t i = 0; i < t_num; i++)
         {
             printf ("token : %d %d %s\n\n", tokens[i]->data.type, tokens[i]->data.data, tokens[i]->data.name);
+        }
+        for (size_t i = 0; i < n_num; i++)
+        {
+            printf ("name : %d %d %s\n\n", names[i]->data.type, names[i]->data.data, names[i]->data.name);
         }
 
         return (nullptr);

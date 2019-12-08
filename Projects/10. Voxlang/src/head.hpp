@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <linux/limits.h>
+#include <ctype.h>
 #include "assert_ext.h"
 #include "streamlib.hpp"
 #include "ms_stream.h"

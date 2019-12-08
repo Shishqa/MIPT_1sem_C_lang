@@ -16,11 +16,11 @@ int main ()
 
     size_t num_of_lines = ArrangePointers (buff, file_len, &code);
 
-    printf ("main:: hello!1\n");
+    //printf ("main:: hello!\n");
 
     Node<Token> ** arr = t.tokenize (code, num_of_lines);
+         
+    printf ("SongParse::Parse - Tokenized!!! !\n");
 
-    printf ("SongParse::Parse - Tokenized\n");
-
-    return (0);
+    return (0); 
 }
