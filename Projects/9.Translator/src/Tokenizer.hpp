@@ -3,8 +3,16 @@
 
 #include "libraries.hpp"
 
+enum Tokenizer_errors
+{
+    TOKENIZER_OK,
+    UNKNOWN_OPERATOR
+};
+
 class Tokenizer
 {
+    size_t error;
+
     Node<Token> ** tokens;
     const size_t MAX_TOKENS = 10000;
     size_t n_tokens;
@@ -12,6 +20,7 @@ class Tokenizer
     const size_t MAX_NAME_LEN = 100;
 
     const char * cur;
+    size_t line;
 
     void Proceed ();
     void SkipSpaces ();
@@ -19,6 +28,8 @@ class Tokenizer
     void ParseNum ();
     void ParseId ();
     void ParseOp ();
+
+    void PrintError ();
 
     public:
 

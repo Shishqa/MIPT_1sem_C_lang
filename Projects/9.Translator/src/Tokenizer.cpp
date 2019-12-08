@@ -5,34 +5,63 @@
 
 Node<Token> ** Tokenizer::tokenize (const char * str)
 {
+    error = TOKENIZER_OK;
+
     cur = str;
+    line = 1;
 
     tokens = (Node<Token> **) calloc (MAX_TOKENS, sizeof (*tokens));
     n_tokens = 0;
 
-    printf ("Tokenizer:: got started\n");
-
     Proceed ();
+
+    if (error != TOKENIZER_OK)
+    {
+        PrintError ();
+        free (tokens);
+        return (nullptr);
+    }
 
     return (tokens);
 }
 
+void Tokenizer::PrintError ()
+{
+    SETCOLOR (RED);
+    printf ("Error: ");
+    SETCOLOR (RESET);
+
+    switch (error)
+    {
+        case UNKNOWN_OPERATOR:
+            printf ("unknown operator");
+        break;
+    
+        default:
+            printf ("strange error");
+        break;
+    }
+
+    printf ("\nLine %lu: ", line);
+    SETCOLOR (RED);
+    printf ("%c (%d)", *cur, *cur);
+    SETCOLOR (RESET);
+    printf ("\n");
+}
+
 void Tokenizer::Proceed ()
 {
+    SkipSpaces ();
+
     while (*cur)
     {
-        SkipSpaces ();
-
         if (*cur == '%')
         {
             while (*cur != '\n' && *cur != '\0')
             {
                 cur++;
             }
-            if (*cur == '\n')
-            {
-                cur++;
-            }
+            SkipSpaces ();
         }
         else if (isdigit (*cur))
         {
@@ -46,6 +75,13 @@ void Tokenizer::Proceed ()
         {
             ParseOp ();
         }
+
+        if (error != TOKENIZER_OK)
+        {
+            return;
+        }
+
+        SkipSpaces ();
     }
 }
 
@@ -98,16 +134,25 @@ void Tokenizer::ParseOp ()
         {
             tokens[n_tokens++] = SetNode (MATH_TYPE, operators[i].opcode);
 
+            assert (operators[i].name_len > 0); 
+
             cur += operators[i].name_len;
             return;
         }
     }
+
+    error = UNKNOWN_OPERATOR;
 }
 
 void Tokenizer::SkipSpaces ()
 {
     while (*cur == ' ' || *cur == '\n' || *cur == '\t' || *cur == '\r')
     {
+        if (*cur == '\n')
+        {
+            line++;
+        }
+
         cur++;
     }
 }
