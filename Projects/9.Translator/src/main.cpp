@@ -8,7 +8,11 @@ int main ()
 {
     Parser p = {};
 
-    p.Parse ("programs/fibonacci/main.plan"); 
+    BinaryTree<Token> * my_tree = p.Parse ("programs/fibonacci/main.plan"); 
+
+    FILE * f = fopen ("log/tree", "w");
+    my_tree->print (f, 'i', TokenPrinter);
+    fclose (f);
 
     //printf ("%s", buf);
 

@@ -17,5 +17,6 @@ enum types
 };
 
 void PrintToken (FILE * out, const void * data);
+void TokenPrinter (FILE * out, const void * data);
 
 #endif // !TOKEN_HPP_

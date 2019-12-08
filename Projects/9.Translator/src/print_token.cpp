@@ -19,7 +19,7 @@ void PrintToken (FILE * out, const void * data)
             fprintf (out, "M_OP: %s%s", ((*(operators[token->data].name) == '<' ||
                                           *(operators[token->data].name) == '>' || 
                                           *(operators[token->data].name) == '|') ? "\\" : ""), 
-                                        operators[token->data].name);
+                                          operators[token->data].name);
         break;
 
         case ID_TYPE:
@@ -31,3 +31,25 @@ void PrintToken (FILE * out, const void * data)
         break;
     }
 }
+
+void TokenPrinter (FILE * out, const void * data)
+{
+    Token * token = (Token *) data;
+
+    switch (token->type)
+    {
+        case NUM_TYPE:
+            fprintf (out, "N:%d", token->data);
+        break;
+
+        case ID_TYPE:
+            fprintf (out, "I:%s#", token->name);
+        break;
+    
+        default:
+            fprintf (out, "O:%s#", operators[token->data].name);
+        break;
+    }
+}
+
+void TokenReader (FILE)
