@@ -1,7 +1,7 @@
 #ifndef LIBRARIES_HPP_
 #define LIBRARIES_HPP_
 
-//#define DEBUG 1
+//#define DEBUG MEOW
 
 #include <cstdio>
 #include <cstdlib>

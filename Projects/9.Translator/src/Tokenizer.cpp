@@ -111,7 +111,7 @@ void Tokenizer::ParseId ()
         if (name_len == operators[i].name_len &&
             !strncmp (name, operators[i].name, name_len))
         {
-            tokens[n_tokens++] = SetNode (OP_TYPE, operators[i].opcode);
+            tokens[n_tokens++] = SetNode (operators[i].type, operators[i].opcode);
 
             is_operator = true;
             break;
@@ -132,7 +132,7 @@ void Tokenizer::ParseOp ()
     {
         if (!strncmp (cur, operators[i].name, operators[i].name_len))
         {
-            tokens[n_tokens++] = SetNode (MATH_TYPE, operators[i].opcode);
+            tokens[n_tokens++] = SetNode (operators[i].type, operators[i].opcode);
 
             assert (operators[i].name_len > 0); 
 

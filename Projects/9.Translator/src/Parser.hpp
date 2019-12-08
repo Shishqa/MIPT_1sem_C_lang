@@ -9,15 +9,14 @@ enum Parser_errors
 {
     PARSER_OK,
     DEF_EXPECT,
+    COND_EXPECT,
     NUM_EXPECT,
     PRIMARY_EXPECT,
     ID_EXPECT,
     ASSIGN_EXPECT,
+    ARG_EXPECT,
     UNCLOSED_BRACES,
-    VAR_FUNC,
-    NO_END,
-    NO_BLOCK,
-    EMPTY_BLOCK
+    NO_BLOCK
 };
 
 class Parser 
@@ -42,7 +41,6 @@ class Parser
     Node<Token> * ParseIf     ();
     Node<Token> * ParseWhile  ();
 
-    Node<Token> * ParseCond     ();
     Node<Token> * ParseSequence ();
     Node<Token> * ParseArgs     ();
 
@@ -51,7 +49,6 @@ class Parser
     
     Node<Token> * ParseAnd         ();
     Node<Token> * ParseOr          ();
-    Node<Token> * ParsePrimaryBool ();
     Node<Token> * ParseBool        ();
 
     Node<Token> * ParseAddSub      ();
@@ -59,10 +56,7 @@ class Parser
     Node<Token> * ParsePrimary     ();
 
     Node<Token> * ParseCall   ();
-    Node<Token> * ParseChar   ();
-    Node<Token> * ParseString ();
     Node<Token> * ParseId     ();
-    Node<Token> * ParseNum    ();
 
     void PrintError ();
 

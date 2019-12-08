@@ -1,88 +1,54 @@
-// #include "libraries.hpp"
+#include "libraries.hpp"
 
-// #include "Parser.hpp"
+#include "Parser.hpp"
 
-// void Parser::PrintError ()
-// {
-//     SETCOLOR (RED);
-//     printf ("Error: ");
-//     SETCOLOR (RESET);
+void Parser::PrintError ()
+{
+    SETCOLOR (RED);
+    printf ("Error: ");
+    SETCOLOR (RESET);
 
-//     switch (error)
-//     {
-//         case NUM_EXPECT:
-//         printf ("expected number\n");
-//         break;
+    switch (error)
+    {
+        case NUM_EXPECT:
+        printf ("expected number\n");
+        break;
 
-//         case PRIMARY_EXPECT:
-//         printf ("expected primary expression\n");
-//         break;
+        case PRIMARY_EXPECT:
+        printf ("expected primary expression\n");
+        break;
 
-//         case ID_EXPECT:
-//         printf ("expected name\n");
-//         break;
+        case ID_EXPECT:
+        printf ("expected name\n");
+        break;
 
-//         case UNCLOSED_BRACES:
-//         printf ("unclosed braces\n");
-//         break;
+        case UNCLOSED_BRACES:
+        printf ("unclosed braces\n");
+        break;
 
-//         case VAR_FUNC:
-//         printf ("function defined as variable\n");
-//         break;
+        case NO_BLOCK:
+        printf ("expected definition of function\n");
+        break;
 
-//         case NO_END:
-//         printf ("expected ';'\n");
-//         break;
+        case COND_EXPECT:
+        printf ("expected condition\n");
+        break;
 
-//         case NO_BLOCK:
-//         printf ("expected definition of function\n");
-//         break;
-
-//         case EMPTY_BLOCK:
-//         printf ("block is empty\n");
-//         break;
+        case ARG_EXPECT:
+        printf ("expected arguments\n");
+        break;
     
-//         default:
-//         printf ("everything is OK, but developer of this code is bad\n");
-//         break;
-//     }
+        default:
+        printf ("everything is OK, but developer of this code is bad\n");
+        break;
+    }
 
-//     size_t skip = 0;
+    SETCOLOR (RED);
+    printf ("Token[%lu] : %d %d %s", cur_token,
+                                     tokens[cur_token]->data.type,
+                                     tokens[cur_token]->data.data,
+                                     tokens[cur_token]->data.name);
+    SETCOLOR (RESET);
 
-//     printf ("\n Line %lu: \"%n", line, &skip);
-
-//     const char * begin = newline + 1;
-//     const char * end = strchr (begin, '\n');
-
-//     if (end == nullptr)
-//     {
-//         printf ("%s", begin);
-//     }
-//     else
-//     {
-//         fwrite (begin, sizeof (char), end - begin, stdout);
-//     }
-
-//     printf ("\"\n");
-
-//     for (int i = 0; i < skip - 1; i++)
-//     {
-//         printf (" ");
-//     }
-
-//     for (int i = 0; i < cur - begin; i++)
-//     {
-//         printf ("_");
-//     }
-
-//     SETCOLOR (RED);
-//     printf ("^");
-//     SETCOLOR (RESET);
-
-//     for (int i = 0; i < end - cur - 1; i++)
-//     {
-//         printf ("_");
-//     }
-
-//     printf ("\n\n");
-// }
+    printf ("\n\n");
+}

@@ -1,23 +1,18 @@
 
 #include "libraries.hpp"
 
-#include "Tokenizer.hpp"
+#include "Parser.hpp"
 #include "Operators.hpp"
 
 int main () 
 {
-    Tokenizer t = {};
+    Parser p = {};
 
-    FILE * in = fopen ("programs/fibonacci/main.plan", "r");
-
-    char * buf = nullptr;
-    Read (&buf, in);
-
-    fclose (in);
+    p.Parse ("programs/fibonacci/main.plan"); 
 
     //printf ("%s", buf);
 
-    t.tokenize (buf);
+    //t.tokenize (buf);
 
     //t.GetAsmCode ("programs/fibonacci/main.plan", "programs/fibonacci/main.asm");
     //t.BuildAndRun ("programs/get_chars/main.plan", "programs/get_chars/test.bin");

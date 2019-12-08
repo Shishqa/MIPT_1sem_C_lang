@@ -1,6 +1,6 @@
 % Программа находит n-ое число Фибоначчи
 
-def Fib (var num)
+def Fib (var num, var deep = 12)
 {
     if (num <= 1)
     {
@@ -15,7 +15,7 @@ def main ()
     var m = input ()
     var n = input ()
 
-    if (m == 1)
+    if (!(m != 1))
     {
         var i = 0
 
@@ -32,7 +32,5 @@ def main ()
 
     return (0)
 }
-
-
 
 

@@ -24,6 +24,11 @@ static int my_div (const int l, const int r)
     return (l / r);
 }
 
+static int my_mod (const int l, const int r)
+{
+    return (l % r);
+}
+
 static int my_and (const int l, const int r)
 {
     return (l && r);
@@ -75,7 +80,7 @@ static int my_com (const int l, const int r)
 }
 
 const size_t MAX_OP_NAME_LEN = 10;
-const size_t OP_CNT = 30;
+const size_t OP_CNT = 32;
 
 struct Operator 
 {
@@ -97,6 +102,7 @@ enum opcodes
     SUB,
     MUL,
     DIV,
+    MOD,
     AND,
     OR,
     LEQ,
@@ -115,6 +121,7 @@ enum opcodes
     CALL,
     RET,
     IF,
+    ELSE,
     WHILE,
     DEF,
     LINK,
@@ -130,6 +137,7 @@ static const Operator operators[OP_CNT] = {
     {"-",      1,  SUB,      my_sub,    MATH_TYPE},
     {"*",      1,  MUL,      my_mul,    MATH_TYPE},
     {"/",      1,  DIV,      my_div,    MATH_TYPE},
+    {"%",      1,  MOD,      my_mod,    MATH_TYPE},
     {"&",      1,  AND,      my_and,    MATH_TYPE},
     {"|",      1,  OR ,      my_or,     MATH_TYPE},
     {"<=",     2,  LEQ,      my_leq,    MATH_TYPE},
@@ -148,6 +156,7 @@ static const Operator operators[OP_CNT] = {
     {"#CALL",  5,  CALL,     nullptr,   OP_TYPE},
     {"return", 6,  RET,      nullptr,   OP_TYPE},
     {"if",     2,  IF,       nullptr,   OP_TYPE},
+    {"else",   4,  ELSE,     nullptr,   OP_TYPE},
     {"while",  5,  WHILE,    nullptr,   OP_TYPE},
     {"#D",     2,  DEF,      nullptr,   OP_TYPE},
     {"#C",     2,  LINK,     nullptr,   OP_TYPE},
