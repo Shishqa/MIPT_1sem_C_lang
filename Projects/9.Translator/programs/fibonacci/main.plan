@@ -1,5 +1,5 @@
 
-$$ Программа находит n-ое число Фибоначчи
+% Программа находит n-ое число Фибоначчи
 
 def Fib (var num)
 {
@@ -13,8 +13,6 @@ def Fib (var num)
 
 def main ()
 {
-    putc ('M')
-    putc (':')
     var m = input ()
     var n = input ()
 
@@ -24,7 +22,7 @@ def main ()
 
         while (i <= n)
         {
-            print (Fib (i)) putc(' ')
+            print (Fib (i))
             i = i + 1
         }
     }

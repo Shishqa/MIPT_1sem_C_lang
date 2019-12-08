@@ -1,15 +1,33 @@
 #include "libraries.hpp"
+#include "Operators.hpp"
 
 void PrintToken (FILE * out, const void * data)
 {
     Token * token = (Token *) data;
 
-    if (*(token->lexem) == '|' ||       // Экранирует спец.символы Dot 
-        *(token->lexem) == '<' ||
-        *(token->lexem) == '>' )
+    switch (token->type)
     {
-        fprintf (out, "\\");
-    }
+        case NUM_TYPE:
+            fprintf (out, "%d", token->data);
+        break;
 
-    fprintf (out, "%s", token->lexem);
+        case OP_TYPE:
+            fprintf (out, "OP: %s", operators[token->data].name);
+        break;
+
+        case MATH_TYPE:
+            fprintf (out, "M_OP: %s%s", ((*(operators[token->data].name) == '<' ||
+                                          *(operators[token->data].name) == '>' || 
+                                          *(operators[token->data].name) == '|') ? "\\" : ""), 
+                                        operators[token->data].name);
+        break;
+
+        case ID_TYPE:
+            fprintf (out, "ID: %s", token->name);
+        break;
+    
+        default:
+            fprintf (out, "UNKNOWN_TYPE");
+        break;
+    }
 }

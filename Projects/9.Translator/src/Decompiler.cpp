@@ -1,306 +1,306 @@
-#include "libraries.hpp"
-#include "Parser.hpp"
-#include "Decompiler.hpp"
+// #include "libraries.hpp"
+// #include "Parser.hpp"
+// #include "Decompiler.hpp"
 
-#define N node
-#define L node->left
-#define R node->right
+// #define N node
+// #define L node->left
+// #define R node->right
 
-#define STOP( err_code )                    \
-    {                                       \
-        error = err_code;                   \
-        return;                             \
-    }                                   
+// #define STOP( err_code )                    \
+//     {                                       \
+//         error = err_code;                   \
+//         return;                             \
+//     }                                   
 
-bool Decompiler::GetCode (BinaryTree<Token> * code, const char * output_path)
-{
-    FILE * f = fopen (output_path, "w");
+// bool Decompiler::GetCode (BinaryTree<Token> * code, const char * output_path)
+// {
+//     FILE * f = fopen (output_path, "w");
 
-    fprintf (f, "$$ ##      THIS FILE IS GENERATED AUTOMATICALLY      ##\n");
-    fprintf (f, "$$ ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##\n");
+//     fprintf (f, "$$ ##      THIS FILE IS GENERATED AUTOMATICALLY      ##\n");
+//     fprintf (f, "$$ ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##\n");
 
-    prog = code;
+//     prog = code;
 
-    Proceed (f);
+//     Proceed (f);
     
-    fclose (f);
+//     fclose (f);
 
-    return (true);
-}
+//     return (true);
+// }
 
-void Decompiler::Proceed (FILE * f)
-{
-    out = f;
+// void Decompiler::Proceed (FILE * f)
+// {
+//     out = f;
 
-    GetBlocks (prog->root);
-}
+//     GetBlocks (prog->root);
+// }
 
-void Decompiler::GetBlocks (Node<Token> * node)
-{
-    PRINT ("blocks\n");
+// void Decompiler::GetBlocks (Node<Token> * node)
+// {
+//     PRINT ("blocks\n");
 
-    if (!N)
-    {
-        return;
-    }
+//     if (!N)
+//     {
+//         return;
+//     }
 
-    GetBlocks (L);
+//     GetBlocks (L);
 
-    if (R->data.type == DEF_FUNC)
-    {
-        DefFunc (R);
-    }
-    else if (R->data.type == DEF_VAR)
-    {
-        DefVar (R);
-    }
-}
+//     if (R->data.type == DEF_FUNC)
+//     {
+//         DefFunc (R);
+//     }
+//     else if (R->data.type == DEF_VAR)
+//     {
+//         DefVar (R);
+//     }
+// }
 
-void Decompiler::DefFunc (Node<Token> * node)
-{
-    PRINT ("func\n");
+// void Decompiler::DefFunc (Node<Token> * node)
+// {
+//     PRINT ("func\n");
 
-    fprintf (out, "def %s (", R->data.lexem);
+//     fprintf (out, "def %s (", R->data.lexem);
 
-    Node<Token> * curr_arg = L;
+//     Node<Token> * curr_arg = L;
 
-    while (curr_arg)
-    {
-        fprintf (out, "var %s", curr_arg->right->left->data.lexem);
+//     while (curr_arg)
+//     {
+//         fprintf (out, "var %s", curr_arg->right->left->data.lexem);
 
-        curr_arg = curr_arg->left;
+//         curr_arg = curr_arg->left;
 
-        if (curr_arg)
-        {
-            fprintf (out, ", ");
-        }
-    }
+//         if (curr_arg)
+//         {
+//             fprintf (out, ", ");
+//         }
+//     }
 
-    fprintf (out, ")\n{\n");
+//     fprintf (out, ")\n{\n");
 
-    GetOperators (R->right);
+//     GetOperators (R->right);
 
-    fprintf (out, "}\n");
-}
+//     fprintf (out, "}\n");
+// }
 
-void Decompiler::GetOperators (Node<Token> * node)
-{
-    PRINT ("operator\n");
+// void Decompiler::GetOperators (Node<Token> * node)
+// {
+//     PRINT ("operator\n");
 
-    if (!N)
-    {
-        return;
-    }
+//     if (!N)
+//     {
+//         return;
+//     }
 
-    if (N->data.type == BLOCK)
-    {
-        GetOperators (R);
-        return;
-    }
+//     if (N->data.type == BLOCK)
+//     {
+//         GetOperators (R);
+//         return;
+//     }
 
-    GetOperators (L);
+//     GetOperators (L);
 
-    if (R->data.type == IF)
-    {
-        GetIf (R);
-    }
-    else if (R->data.type == WHILE)
-    {
-        GetWhile (R);
-    }
-    else if (R->data.type == DEF_VAR)
-    {
-        DefVar (R);
-    }
-    else if (R->data.type == ASSIGN)
-    {
-        GetAssign (R);
-    }
-    else if (R->data.type == CALL)
-    {
-        GetCall (R);
-    }
+//     if (R->data.type == IF)
+//     {
+//         GetIf (R);
+//     }
+//     else if (R->data.type == WHILE)
+//     {
+//         GetWhile (R);
+//     }
+//     else if (R->data.type == DEF_VAR)
+//     {
+//         DefVar (R);
+//     }
+//     else if (R->data.type == ASSIGN)
+//     {
+//         GetAssign (R);
+//     }
+//     else if (R->data.type == CALL)
+//     {
+//         GetCall (R);
+//     }
 
-    fprintf (out, "\n");
-}
+//     fprintf (out, "\n");
+// }
 
-void Decompiler::GetAssign (Node<Token> * node)
-{
-    PRINT ("assn\n");
+// void Decompiler::GetAssign (Node<Token> * node)
+// {
+//     PRINT ("assn\n");
 
-    fprintf (out, "%s = ", L->data.lexem);
+//     fprintf (out, "%s = ", L->data.lexem);
 
-    Calculate (R);
-}
+//     Calculate (R);
+// }
 
-void Decompiler::DefVar (Node<Token> * node)
-{
-    PRINT ("var\n");
+// void Decompiler::DefVar (Node<Token> * node)
+// {
+//     PRINT ("var\n");
 
-    fprintf (out, "var ");
+//     fprintf (out, "var ");
 
-    if (R)
-    {
-        GetAssign (N);
-    }
-    else
-    {
-        fprintf (out, "%s\n", L->data.lexem);
-    }
-}
+//     if (R)
+//     {
+//         GetAssign (N);
+//     }
+//     else
+//     {
+//         fprintf (out, "%s\n", L->data.lexem);
+//     }
+// }
 
-void Decompiler::GetCall (Node<Token> * node)
-{
-    PRINT ("call\n");
+// void Decompiler::GetCall (Node<Token> * node)
+// {
+//     PRINT ("call\n");
 
-    fprintf (out, "%s(", L->data.lexem);
+//     fprintf (out, "%s(", L->data.lexem);
 
-    Node<Token> * curr_arg = R;
+//     Node<Token> * curr_arg = R;
 
-    while (curr_arg)
-    {
-        Calculate (curr_arg->right);
+//     while (curr_arg)
+//     {
+//         Calculate (curr_arg->right);
 
-        if (curr_arg->left)
-        {
-            fprintf (out, ", ");
-        }
+//         if (curr_arg->left)
+//         {
+//             fprintf (out, ", ");
+//         }
 
-        curr_arg = curr_arg->left;
-    }
+//         curr_arg = curr_arg->left;
+//     }
 
-    fprintf (out, ")");
-}
+//     fprintf (out, ")");
+// }
 
-void Decompiler::GetIf (Node<Token> * node)
-{
-    PRINT ("if\n");
+// void Decompiler::GetIf (Node<Token> * node)
+// {
+//     PRINT ("if\n");
 
-    fprintf (out, "if (");
+//     fprintf (out, "if (");
 
-    Calculate (N->left);
+//     Calculate (N->left);
 
-    fprintf (out, ")\n{\n");
+//     fprintf (out, ")\n{\n");
 
-    GetOperators (R->right);
+//     GetOperators (R->right);
 
-    fprintf (out, "}");
+//     fprintf (out, "}");
     
-    if (R->left)
-    {
-        fprintf (out, "\nelse\n{\n");
+//     if (R->left)
+//     {
+//         fprintf (out, "\nelse\n{\n");
 
-        GetOperators (R->left);
+//         GetOperators (R->left);
 
-        fprintf (out, "}");
-    }
-}
+//         fprintf (out, "}");
+//     }
+// }
 
-void Decompiler::GetWhile (Node<Token> * node)
-{
-    PRINT ("while\n");
+// void Decompiler::GetWhile (Node<Token> * node)
+// {
+//     PRINT ("while\n");
 
-    fprintf (out, "while (");
+//     fprintf (out, "while (");
 
-    Calculate (L);
+//     Calculate (L);
 
-    fprintf (out, ")\n{\n");
+//     fprintf (out, ")\n{\n");
     
-    GetOperators (R);
+//     GetOperators (R);
 
-    fprintf (out, "}");
-}
+//     fprintf (out, "}");
+// }
 
-void Decompiler::Calculate (Node<Token> * node)
-{
-    PRINT ("calculate\n");
+// void Decompiler::Calculate (Node<Token> * node)
+// {
+//     PRINT ("calculate\n");
 
-    if (L && N->data.type != CALL)
-    {
-        Calculate (L);
-    }
+//     if (L && N->data.type != CALL)
+//     {
+//         Calculate (L);
+//     }
 
-    switch (node->data.type)
-    {
-        case ADD:
-            fprintf (out, "+");
-        break;
+//     switch (node->data.type)
+//     {
+//         case ADD:
+//             fprintf (out, "+");
+//         break;
 
-        case SUB:
-            fprintf (out, "-");
-        break;
+//         case SUB:
+//             fprintf (out, "-");
+//         break;
 
-        case MUL:
-            fprintf (out, "*");
-        break;
+//         case MUL:
+//             fprintf (out, "*");
+//         break;
 
-        case DIV:
-            fprintf (out, "/");
-        break;
+//         case DIV:
+//             fprintf (out, "/");
+//         break;
 
-        case MOD:
-            fprintf (out, "%");
-        break;
+//         case MOD:
+//             fprintf (out, "%");
+//         break;
         
-        case AND:
-            fprintf (out, "&");
-        break;
+//         case AND:
+//             fprintf (out, "&");
+//         break;
 
-        case OR:
-            fprintf (out, "|");
-        break;
+//         case OR:
+//             fprintf (out, "|");
+//         break;
 
-        case NUM:
-            fprintf (out, "%s", N->data.lexem);
-        break;
+//         case NUM:
+//             fprintf (out, "%s", N->data.lexem);
+//         break;
 
-        case LESS:
-            fprintf (out, "<");
-        break;
+//         case LESS:
+//             fprintf (out, "<");
+//         break;
 
-        case GREATER:
-            fprintf (out, ">");
-        break;
+//         case GREATER:
+//             fprintf (out, ">");
+//         break;
 
-        case LEQ:
-            fprintf (out, "<=");
-        break;
+//         case LEQ:
+//             fprintf (out, "<=");
+//         break;
 
-        case GEQ:
-            fprintf (out, ">=");
-        break;
+//         case GEQ:
+//             fprintf (out, ">=");
+//         break;
 
-        case EQ:
-            fprintf (out, "==");
-        break;
+//         case EQ:
+//             fprintf (out, "==");
+//         break;
 
-        case NEQ:
-            fprintf (out, "!=");
-        break;
+//         case NEQ:
+//             fprintf (out, "!=");
+//         break;
 
-        case ID:
-            fprintf (out, "%s", N->data.lexem);
-        break;
+//         case ID:
+//             fprintf (out, "%s", N->data.lexem);
+//         break;
 
-        case CHAR:
-            fprintf (out, "'%s'", N->data.lexem);
-        break;
+//         case CHAR:
+//             fprintf (out, "'%s'", N->data.lexem);
+//         break;
 
-        case STRING:
-            fprintf (out, "\"%s\"", N->data.lexem);
-        break;
+//         case STRING:
+//             fprintf (out, "\"%s\"", N->data.lexem);
+//         break;
 
-        case CALL:
-            GetCall (node);
-        break;
+//         case CALL:
+//             GetCall (node);
+//         break;
     
-        default:
-            fprintf (out, "NULL");
-        break;
-    }
+//         default:
+//             fprintf (out, "NULL");
+//         break;
+//     }
 
-    if (R && N->data.type != CALL)
-    {
-        Calculate (R);
-    }
-}
+//     if (R && N->data.type != CALL)
+//     {
+//         Calculate (R);
+//     }
+// }

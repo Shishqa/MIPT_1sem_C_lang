@@ -5,9 +5,11 @@
 
 class Tokenizer
 {
-    Node<Token> ** res;
+    Node<Token> ** tokens;
     const size_t MAX_TOKENS = 10000;
     size_t n_tokens;
+
+    const size_t MAX_NAME_LEN = 100;
 
     const char * cur;
 
