@@ -1,7 +1,5 @@
 ; ##      THIS FILE IS GENERATED AUTOMATICALLY      ##
 ; ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##
-; ORIGIN :: programs/fibonacci/main.plan
-
 	CALL	func_main
 	MOV		100	ex
 	END
@@ -9,14 +7,16 @@
 ;#####################################################################
 ;	function "Fib"
 func_Fib:
-;	Fib_var_num (arg_1)
+;	Fib_var_deep (arg_1)
 	POP [ex+1]
+;	Fib_var_num (arg_2)
+	POP [ex+2]
 ;	"Fib" body:
 
 	if_0:
 ;	if_0_condition
-		PUSH	[ex+1]
-		PUSH	1
+		PUSH	[ex+2] 	; LOCAL VAR
+		PUSH	1 	; NUM
 	JBE case_0_positive
 	JMP case_0_negative
 	case_0_positive:
@@ -31,32 +31,38 @@ func_Fib:
 		JMP	if_0_negative
 	if_0_positive:
 
-; pushing argument before call return
-		PUSH	[ex+1]
-	MOV	ex+0	ex
-	CALL	func_(null)
+; pushing argument before call (null)
+		PUSH	[ex+2] 	; LOCAL VAR
+	PUSH	ex
+	PUSH	50
+	SUB
+	POP	ex
+	RET
 
 		JMP	if_0_end
 	if_0_negative:
 
 
 	if_0_end:
-; pushing argument before call return
+; pushing argument before call (null)
 ; pushing argument before call Fib
-		PUSH	[ex+1]
-		PUSH	1
+		PUSH	[ex+2] 	; LOCAL VAR
+		PUSH	1 	; NUM
 		SUB
 	MOV	ex+50	ex
 	CALL	func_Fib
 ; pushing argument before call Fib
-		PUSH	[ex+1]
-		PUSH	2
+		PUSH	[ex+2] 	; LOCAL VAR
+		PUSH	2 	; NUM
 		SUB
 	MOV	ex+50	ex
 	CALL	func_Fib
 		ADD
-	MOV	ex+0	ex
-	CALL	func_(null)
+	PUSH	ex
+	PUSH	50
+	SUB
+	POP	ex
+	RET
 ;#####################################################################
 
 
@@ -65,16 +71,14 @@ func_Fib:
 func_main:
 ;	"main" body:
 
-	MOV	ex+0	ex
-	CALL	func_(null)
+	IN
 	POP	[ex+1]
-	MOV	ex+0	ex
-	CALL	func_(null)
+	IN
 	POP	[ex+2]
 	if_1:
 ;	if_1_condition
-		PUSH	[ex+1]
-		PUSH	1
+		PUSH	[ex+1] 	; LOCAL VAR
+		PUSH	1 	; NUM
 	JE case_1_positive
 	JMP case_1_negative
 	case_1_positive:
@@ -89,11 +93,11 @@ func_main:
 		JMP	if_1_negative
 	if_1_positive:
 
-		PUSH	0
+		PUSH	0 	; NUM
 	POP	[ex+3]
 cycle_0:
-		PUSH	[ex+3]
-		PUSH	[ex+2]
+		PUSH	[ex+3] 	; LOCAL VAR
+		PUSH	[ex+2] 	; LOCAL VAR
 	JBE case_2_positive
 	JMP case_2_negative
 	case_2_positive:
@@ -107,13 +111,12 @@ cycle_0:
 	JE cycle_0_stop
 ; pushing argument before call print
 ; pushing argument before call Fib
-		PUSH	[ex+3]
+		PUSH	[ex+3] 	; LOCAL VAR
 	MOV	ex+50	ex
 	CALL	func_Fib
-	MOV	ex+0	ex
-	CALL	func_(null)
-		PUSH	[ex+3]
-		PUSH	1
+	OUT
+		PUSH	[ex+3] 	; LOCAL VAR
+		PUSH	1 	; NUM
 		ADD
 	POP	[ex+3]
 	JMP cycle_0
@@ -124,17 +127,19 @@ cycle_0_stop:
 
 ; pushing argument before call print
 ; pushing argument before call Fib
-		PUSH	[ex+2]
+		PUSH	[ex+2] 	; LOCAL VAR
 	MOV	ex+50	ex
 	CALL	func_Fib
-	MOV	ex+0	ex
-	CALL	func_(null)
+	OUT
 
-	if_0_end:
-; pushing argument before call return
-		PUSH	0
-	MOV	ex+0	ex
-	CALL	func_(null)
+	if_1_end:
+; pushing argument before call (null)
+		PUSH	0 	; NUM
+	PUSH	ex
+	PUSH	50
+	SUB
+	POP	ex
+	RET
 ;#####################################################################
 
 

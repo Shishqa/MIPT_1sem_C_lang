@@ -1,7 +1,7 @@
 $$ ##      THIS FILE IS GENERATED AUTOMATICALLY      ##
 $$ ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##
 
-def Fib ( , var num , var deep = 12)
+def Fib ( , var num)
 {
 if (num <= 1)
 {
@@ -13,12 +13,13 @@ def main ()
 {
 var m = input ()
 var n = input ()
-if (!(m != 1))
+if (m == 1)
 {
 var i = 0
 while (i <= n)
 {
 print ( , Fib ( , i))
+putc ( , 32)
 i = i + 1
 }
 }
@@ -26,5 +27,6 @@ else
 {
 print ( , Fib ( , n))
 }
+putc ( , 10)
 return ()
 }
