@@ -1,26 +1,35 @@
-#include "head.hpp"
-#include "OK_Tokenizer.hpp"
+
+#include "libraries.hpp"
+
+#include "Parser.hpp"
+#include "Operators.hpp"
+
+#include "Decompiler.hpp"
 
 int main () 
 {
-    Tokenizer t = {};
+    Parser p = {};
 
-    FILE * in = fopen ("test/song_1", "r");
+    BinaryTree<Token> * my_tree = p.Parse ("programs/fibonacci/main.plan"); 
 
-    char * buff = nullptr;
-    size_t file_len = Read (&buff, in);
+    Decompiler d = {};
 
-    fclose (in);
+    d.GetCode (my_tree, "programs/fibonacci/DEC.plan");
 
-    String * code = nullptr;
+    //printf ("%s", buf);
 
-    size_t num_of_lines = ArrangePointers (buff, file_len, &code);
+    //t.tokenize (buf);
 
-    //printf ("main:: hello!\n");
+    //t.GetAsmCode ("programs/fibonacci/main.plan", "programs/fibonacci/main.asm");
+    //t.BuildAndRun ("programs/get_chars/main.plan", "programs/get_chars/test.bin");
 
-    Node<Token> ** arr = t.tokenize (code, num_of_lines);
-         
-    printf ("SongParse::Parse - Tokenized!!! !\n");
+    // Parser p = {};
 
-    return (0); 
+    // BinaryTree<Token> * prog = p.ParseFile ("programs/fibonacci/main.plan");
+
+    // Decompiler d = {};
+
+    // d.GetCode (prog, "programs/fibonacci/DECOMPILED.plan");
+
+    return (0);
 }

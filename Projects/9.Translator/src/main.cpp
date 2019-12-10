@@ -4,15 +4,17 @@
 #include "Parser.hpp"
 #include "Operators.hpp"
 
+#include "Decompiler.hpp"
+
 int main () 
 {
     Parser p = {};
 
     BinaryTree<Token> * my_tree = p.Parse ("programs/fibonacci/main.plan"); 
 
-    FILE * f = fopen ("log/tree", "w");
-    my_tree->print (f, 'i', TokenPrinter);
-    fclose (f);
+    Decompiler d = {};
+
+    d.GetCode (my_tree, "programs/fibonacci/DEC.plan");
 
     //printf ("%s", buf);
 

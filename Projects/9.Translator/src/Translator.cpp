@@ -2,6 +2,8 @@
 // #include "Parser.hpp"
 // #include "Translator.hpp"
 
+// #include "Operators.hpp"
+
 // #define N node
 // #define L node->left
 // #define R node->right
@@ -10,11 +12,20 @@
 //     {                                       \
 //         error = err_code;                   \
 //         return;                             \
-//     }                                   
+//     }      
 
-// bool Translator::BuildAndRun (const char * path, const char * output_path)
+// #define TYPE( node )      \
+//     (node)->data.type       
+
+// #define DATA( node )      \
+//     (node)->data.data       
+
+// #define IS_OP( node, t, opcode )                                \
+//     ((node)->data.type == t && (node)->data.data == opcode)
+
+// bool Translator::BuildAndRun (BinaryTree<Token> * tree, const char * output_path)
 // {
-//     Build (path, output_path);
+//     Build (tree, output_path);
 
 //     char call_cpu[200] = "";
 
@@ -23,11 +34,11 @@
 //     system (call_cpu);
 // }
 
-// bool Translator::Build (const char * path, const char * output_path)
+// bool Translator::Build (BinaryTree <Token> * tree, const char * output_path)
 // {
 //     const char * tmp_output = "programs/tmp.asm";
 
-//     GetAsmCode (path, tmp_output);
+//     GetAsmCode (tree, tmp_output);
 
 //     char call_asm[200] = "";
 
@@ -36,9 +47,9 @@
 //     system (call_asm);
 // }
 
-// bool Translator::GetAsmCode (const char * path, const char * output_path)
+// bool Translator::GetAsmCode (BinaryTree <Token> * tree, const char * output_path)
 // {
-//     prog = parser.ParseFile (path);
+//     prog = tree;
 
 //     if (!prog)
 //     {
@@ -53,7 +64,6 @@
 
 //     fprintf (out, "; ##      THIS FILE IS GENERATED AUTOMATICALLY      ##\n");
 //     fprintf (out, "; ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##\n");
-//     fprintf (out, "; ORIGIN :: %s\n\n", path);
 
 //     Proceed ();
     
@@ -93,20 +103,16 @@
 
 // void Translator::GetBlocks (Node<Token> * node)
 // {
-//     PRINT ("blocks\n");
-
-//     if (!N)
+//     if (IS_OP (L, OP_TYPE, DEF))
 //     {
-//         return;
+//         GetBlocks (L);
 //     }
 
-//     GetBlocks (L);
-
-//     if (R->data.type == DEF_FUNC)
+//     if (IS_OP (R, OP_TYPE, DEF_FUNC))
 //     {
 //         DefFunc (R);
 //     }
-//     else if (R->data.type == DEF_VAR)
+//     else if (IS_OP (R, OP_TYPE, DEF_VAR))
 //     {
 //         DefVar (R);
 //     }
@@ -118,7 +124,7 @@
 
 //     fprintf (out, ";#####################################################################\n", var_cnt);
 
-//     int check = FindFunc (R->data.lexem, R->data.lexem_len);
+//     int check = FindFunc (R->data.name, R->data.data);
 
 //     if (check != 0)
 //     {
@@ -127,8 +133,8 @@
 
 //     curr_func = functions + (func_cnt++);
 
-//     curr_func->name      = R->data.lexem;
-//     curr_func->name_len  = R->data.lexem_len;
+//     curr_func->name      = R->data.name;
+//     curr_func->name_len  = R->data.data;
 //     curr_func->VAR_MAX   = 50;
 //     curr_func->local_var = (Variable *) calloc (curr_func->VAR_MAX, sizeof (*curr_func->local_var));
 //     curr_func->var_cnt   = 1;
@@ -140,14 +146,14 @@
 
 //     while (curr_arg != nullptr)
 //     {
-//         if (curr_arg->right->data.type != DEF_VAR)
+//         if (!IS_OP (curr_arg, OP_TYPE, DEF_VAR))
 //         {
 //             printf ("variables should be defined");
 //             return;
 //         }
 
-//         curr_func->local_var[curr_func->var_cnt].id = curr_arg->right->left->data.lexem;
-//         curr_func->local_var[curr_func->var_cnt].len = curr_arg->right->left->data.lexem_len;
+//         curr_func->local_var[curr_func->var_cnt].id = curr_arg->right->left->data.name;
+//         curr_func->local_var[curr_func->var_cnt].len = curr_arg->right->left->data.data;
 
 //         fprintf (out, ";\t%s_var_%s (arg_%lu)\n", curr_func->name, curr_func->local_var[curr_func->var_cnt].id, curr_func->var_cnt);
 //         fprintf (out, "\tPOP [ex+%lu]\n", var_cnt);

@@ -1,23 +1,15 @@
 X:1
 T:Main
 L: 1/4
-L: 1/16
+L: 1/4
 K: C
-|D AG | D BG | A G | FAc | dF | dcF :|
+|D AG1/4 | D [BG] | [A G] | FAc | dF | dcF |
 |DFA| 
 
 W: n, input
 W: print, fibonacci, n
 
-% e
-% d
-% c  
-% B
-% A
-% G
-% F
-% E
-% D
+% CDEFGABcdefg
 
 % C
 

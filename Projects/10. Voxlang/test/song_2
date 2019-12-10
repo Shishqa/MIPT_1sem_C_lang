@@ -1,0 +1,37 @@
+X:1
+T:Main
+L: 1/4
+L: 1/8
+K: C
+   B                A c           F           F   E      B            aD |
+[^^B^^A^^G^^D]2    =A[cBG]2    [^^F^^G]2    [=FA]2E   [^^B^^F^^A]2   =aD | [K: clef=bass octave=1]   
+[^^B^^A^^G^^D]2    =A[cBG]2    [^^F^^G]2    [=FA]2E   [^^B^^F^^A]2   =aD | [K: clef=bass octave=-1] 
+[^^B^^A^^G^^D]2    =A[cBG]2    [^^F^^G]2    [=FA]2E   [^^B^^F^^A]2   =aD |
+
+%=C C ^^C C =C C ^^C C =C C ^^C C =C C ^^C C
+
+%DAG DBG AG FAc dF dcF DFA DAG [DAG]4B[BG]4 AG F[AF]4c [dc]4F d[cd]4F DF[AFD]4 [DAG] [DBG] [AG] [FAc] [dF] [dcF] [DFA] DAG DBG AG FAc dF dcF DFA 
+
+%DAG DBG AG FA
+%100 101 11 01
+
+%D2 [AGD]2 [BG]2 [G]2 [A]2 [FA]2
+
+%Dbe BAc FFE BaD DE eF
+
+%|[D AG1/4] AG1/4 |D BG | [A G] | FAc | dF | dcF |DFA |[D BG] AG1/4 | D BG | [A G] | FAc | dF | dcF |DFA |[DAG] AG1/4 | D [BG] | [A G] | FAc | dF | dcF |DFA |[DFAc] AG1/4 | D [BG] | [A G] | FAc | dF | dcF |DFA 
+
+%|D AG1/4 | D [BG] | [A G] | FAc | dF | dcF |DFA 
+
+
+
+W: n, input
+W: print, fibonacci, n
+
+% CDEFGABcdefg
+
+% C
+
+% input == Tell me
+% print == Say
+

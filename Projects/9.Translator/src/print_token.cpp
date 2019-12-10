@@ -51,5 +51,3 @@ void TokenPrinter (FILE * out, const void * data)
         break;
     }
 }
-
-void TokenReader (FILE)

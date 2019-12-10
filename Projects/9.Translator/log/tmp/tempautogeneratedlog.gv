@@ -1,175 +1,197 @@
 digraph dump
 {
-	node0x560536444690 [shape = "record", label = "{<f1>data: OP: #D|{<f2>left: 0x56053642e500|<f3>right: 0x56053642f340}|<f4>parent: (nil)|<f5>adress: 0x560536444690}"];
-	node0x56053642e500 [shape = "record", label = "{<f1>data: OP: def|{<f2>left: 0x56053642e740|<f3>right: 0x56053642e5a0}|<f4>parent: 0x560536444690|<f5>adress: 0x56053642e500}"];
-	node0x56053642e740 [shape = "record", label = "{<f1>data: M_OP: ,|{<f2>left: 0x56053642e670|<f3>right: 0x56053642e7e0}|<f4>parent: 0x56053642e500|<f5>adress: 0x56053642e740}"];
-	node0x56053642e670 [shape = "record", label = "{<f1>data: OP: var|{<f2>left: 0x56053642e710|<f3>right: (nil)}|<f4>parent: 0x56053642e740|<f5>adress: 0x56053642e670}"];
-	node0x56053642e710 [shape = "record", label = "{<f1>data: ID: num|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x56053642e670|<f5>adress: 0x56053642e710}"];
-	node0x56053642e670:f2 -> node0x56053642e710
-	node0x56053642e740:f2 -> node0x56053642e670
-	node0x56053642e7e0 [shape = "record", label = "{<f1>data: OP: var|{<f2>left: 0x56053642e880|<f3>right: 0x56053642e8e0}|<f4>parent: 0x56053642e740|<f5>adress: 0x56053642e7e0}"];
-	node0x56053642e880 [shape = "record", label = "{<f1>data: ID: deep|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x56053642e7e0|<f5>adress: 0x56053642e880}"];
-	node0x56053642e7e0:f2 -> node0x56053642e880
-	node0x56053642e8e0 [shape = "record", label = "{<f1>data: 12|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x56053642e7e0|<f5>adress: 0x56053642e8e0}"];
-	node0x56053642e7e0:f3 -> node0x56053642e8e0
-	node0x56053642e740:f3 -> node0x56053642e7e0
-	node0x56053642e500:f2 -> node0x56053642e740
-	node0x56053642e5a0 [shape = "record", label = "{<f1>data: ID: Fib|{<f2>left: (nil)|<f3>right: 0x560536444660}|<f4>parent: 0x56053642e500|<f5>adress: 0x56053642e5a0}"];
-	node0x560536444660 [shape = "record", label = "{<f1>data: OP: #B|{<f2>left: (nil)|<f3>right: 0x5605364445d0}|<f4>parent: 0x56053642e5a0|<f5>adress: 0x560536444660}"];
-	node0x5605364445d0 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: 0x560536444510|<f3>right: 0x56053642ede0}|<f4>parent: 0x560536444660|<f5>adress: 0x5605364445d0}"];
-	node0x560536444510 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: (nil)|<f3>right: 0x56053642e9e0}|<f4>parent: 0x5605364445d0|<f5>adress: 0x560536444510}"];
-	node0x56053642e9e0 [shape = "record", label = "{<f1>data: OP: if|{<f2>left: 0x56053642eae0|<f3>right: 0x560536444540}|<f4>parent: 0x560536444510|<f5>adress: 0x56053642e9e0}"];
-	node0x56053642eae0 [shape = "record", label = "{<f1>data: M_OP: \<=|{<f2>left: 0x56053642eab0|<f3>right: 0x56053642eb10}|<f4>parent: 0x56053642e9e0|<f5>adress: 0x56053642eae0}"];
-	node0x56053642eab0 [shape = "record", label = "{<f1>data: ID: num|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x56053642eae0|<f5>adress: 0x56053642eab0}"];
-	node0x56053642eae0:f2 -> node0x56053642eab0
-	node0x56053642eb10 [shape = "record", label = "{<f1>data: 1|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x56053642eae0|<f5>adress: 0x56053642eb10}"];
-	node0x56053642eae0:f3 -> node0x56053642eb10
-	node0x56053642e9e0:f2 -> node0x56053642eae0
-	node0x560536444540 [shape = "record", label = "{<f1>data: OP: #C|{<f2>left: (nil)|<f3>right: 0x5605364445a0}|<f4>parent: 0x56053642e9e0|<f5>adress: 0x560536444540}"];
-	node0x5605364445a0 [shape = "record", label = "{<f1>data: OP: #B|{<f2>left: (nil)|<f3>right: 0x560536444570}|<f4>parent: 0x560536444540|<f5>adress: 0x5605364445a0}"];
-	node0x560536444570 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: (nil)|<f3>right: 0x56053642ec10}|<f4>parent: 0x5605364445a0|<f5>adress: 0x560536444570}"];
-	node0x56053642ec10 [shape = "record", label = "{<f1>data: OP: return|{<f2>left: 0x56053642ece0|<f3>right: (nil)}|<f4>parent: 0x560536444570|<f5>adress: 0x56053642ec10}"];
-	node0x56053642ece0 [shape = "record", label = "{<f1>data: ID: num|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x56053642ec10|<f5>adress: 0x56053642ece0}"];
-	node0x56053642ec10:f2 -> node0x56053642ece0
-	node0x560536444570:f3 -> node0x56053642ec10
-	node0x5605364445a0:f3 -> node0x560536444570
-	node0x560536444540:f3 -> node0x5605364445a0
-	node0x56053642e9e0:f3 -> node0x560536444540
-	node0x560536444510:f3 -> node0x56053642e9e0
-	node0x5605364445d0:f2 -> node0x560536444510
-	node0x56053642ede0 [shape = "record", label = "{<f1>data: OP: return|{<f2>left: 0x56053642f040|<f3>right: (nil)}|<f4>parent: 0x5605364445d0|<f5>adress: 0x56053642ede0}"];
-	node0x56053642f040 [shape = "record", label = "{<f1>data: M_OP: +|{<f2>left: 0x560536444600|<f3>right: 0x560536444630}|<f4>parent: 0x56053642ede0|<f5>adress: 0x56053642f040}"];
-	node0x560536444600 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: 0x56053642efb0|<f3>right: 0x56053642eeb0}|<f4>parent: 0x56053642f040|<f5>adress: 0x560536444600}"];
-	node0x56053642efb0 [shape = "record", label = "{<f1>data: M_OP: -|{<f2>left: 0x56053642ef80|<f3>right: 0x56053642efe0}|<f4>parent: 0x560536444600|<f5>adress: 0x56053642efb0}"];
-	node0x56053642ef80 [shape = "record", label = "{<f1>data: ID: num|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x56053642efb0|<f5>adress: 0x56053642ef80}"];
-	node0x56053642efb0:f2 -> node0x56053642ef80
-	node0x56053642efe0 [shape = "record", label = "{<f1>data: 1|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x56053642efb0|<f5>adress: 0x56053642efe0}"];
-	node0x56053642efb0:f3 -> node0x56053642efe0
-	node0x560536444600:f2 -> node0x56053642efb0
-	node0x56053642eeb0 [shape = "record", label = "{<f1>data: ID: Fib|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536444600|<f5>adress: 0x56053642eeb0}"];
-	node0x560536444600:f3 -> node0x56053642eeb0
-	node0x56053642f040:f2 -> node0x560536444600
-	node0x560536444630 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: 0x56053642f1e0|<f3>right: 0x56053642f0e0}|<f4>parent: 0x56053642f040|<f5>adress: 0x560536444630}"];
-	node0x56053642f1e0 [shape = "record", label = "{<f1>data: M_OP: -|{<f2>left: 0x56053642f1b0|<f3>right: 0x56053642f210}|<f4>parent: 0x560536444630|<f5>adress: 0x56053642f1e0}"];
-	node0x56053642f1b0 [shape = "record", label = "{<f1>data: ID: num|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x56053642f1e0|<f5>adress: 0x56053642f1b0}"];
-	node0x56053642f1e0:f2 -> node0x56053642f1b0
-	node0x56053642f210 [shape = "record", label = "{<f1>data: 2|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x56053642f1e0|<f5>adress: 0x56053642f210}"];
-	node0x56053642f1e0:f3 -> node0x56053642f210
-	node0x560536444630:f2 -> node0x56053642f1e0
-	node0x56053642f0e0 [shape = "record", label = "{<f1>data: ID: Fib|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536444630|<f5>adress: 0x56053642f0e0}"];
-	node0x560536444630:f3 -> node0x56053642f0e0
-	node0x56053642f040:f3 -> node0x560536444630
-	node0x56053642ede0:f2 -> node0x56053642f040
-	node0x5605364445d0:f3 -> node0x56053642ede0
-	node0x560536444660:f3 -> node0x5605364445d0
-	node0x56053642e5a0:f3 -> node0x560536444660
-	node0x56053642e500:f3 -> node0x56053642e5a0
-	node0x560536444690:f2 -> node0x56053642e500
-	node0x56053642f340 [shape = "record", label = "{<f1>data: OP: def|{<f2>left: (nil)|<f3>right: 0x56053642f3e0}|<f4>parent: 0x560536444690|<f5>adress: 0x56053642f340}"];
-	node0x56053642f3e0 [shape = "record", label = "{<f1>data: ID: main|{<f2>left: (nil)|<f3>right: 0x560536444a50}|<f4>parent: 0x56053642f340|<f5>adress: 0x56053642f3e0}"];
-	node0x560536444a50 [shape = "record", label = "{<f1>data: OP: #B|{<f2>left: (nil)|<f3>right: 0x560536444a20}|<f4>parent: 0x56053642f3e0|<f5>adress: 0x560536444a50}"];
-	node0x560536444a20 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: 0x560536444780|<f3>right: 0x560536444400}|<f4>parent: 0x560536444a50|<f5>adress: 0x560536444a20}"];
-	node0x560536444780 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: 0x560536444720|<f3>right: 0x560536443490}|<f4>parent: 0x560536444a20|<f5>adress: 0x560536444780}"];
-	node0x560536444720 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: 0x5605364446c0|<f3>right: 0x560536443220}|<f4>parent: 0x560536444780|<f5>adress: 0x560536444720}"];
-	node0x5605364446c0 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: (nil)|<f3>right: 0x560536442fb0}|<f4>parent: 0x560536444720|<f5>adress: 0x5605364446c0}"];
-	node0x560536442fb0 [shape = "record", label = "{<f1>data: OP: var|{<f2>left: 0x560536443050|<f3>right: 0x5605364446f0}|<f4>parent: 0x5605364446c0|<f5>adress: 0x560536442fb0}"];
-	node0x560536443050 [shape = "record", label = "{<f1>data: ID: m|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536442fb0|<f5>adress: 0x560536443050}"];
-	node0x560536442fb0:f2 -> node0x560536443050
-	node0x5605364446f0 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: (nil)|<f3>right: 0x560536443120}|<f4>parent: 0x560536442fb0|<f5>adress: 0x5605364446f0}"];
-	node0x560536443120 [shape = "record", label = "{<f1>data: ID: input|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5605364446f0|<f5>adress: 0x560536443120}"];
-	node0x5605364446f0:f3 -> node0x560536443120
-	node0x560536442fb0:f3 -> node0x5605364446f0
-	node0x5605364446c0:f3 -> node0x560536442fb0
-	node0x560536444720:f2 -> node0x5605364446c0
-	node0x560536443220 [shape = "record", label = "{<f1>data: OP: var|{<f2>left: 0x5605364432c0|<f3>right: 0x560536444750}|<f4>parent: 0x560536444720|<f5>adress: 0x560536443220}"];
-	node0x5605364432c0 [shape = "record", label = "{<f1>data: ID: n|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536443220|<f5>adress: 0x5605364432c0}"];
-	node0x560536443220:f2 -> node0x5605364432c0
-	node0x560536444750 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: (nil)|<f3>right: 0x560536443390}|<f4>parent: 0x560536443220|<f5>adress: 0x560536444750}"];
-	node0x560536443390 [shape = "record", label = "{<f1>data: ID: input|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536444750|<f5>adress: 0x560536443390}"];
-	node0x560536444750:f3 -> node0x560536443390
-	node0x560536443220:f3 -> node0x560536444750
-	node0x560536444720:f3 -> node0x560536443220
-	node0x560536444780:f2 -> node0x560536444720
-	node0x560536443490 [shape = "record", label = "{<f1>data: OP: if|{<f2>left: 0x5605364434f0|<f3>right: 0x5605364447b0}|<f4>parent: 0x560536444780|<f5>adress: 0x560536443490}"];
-	node0x5605364434f0 [shape = "record", label = "{<f1>data: M_OP: !|{<f2>left: (nil)|<f3>right: 0x5605364435f0}|<f4>parent: 0x560536443490|<f5>adress: 0x5605364434f0}"];
-	node0x5605364435f0 [shape = "record", label = "{<f1>data: M_OP: !=|{<f2>left: 0x5605364435c0|<f3>right: 0x560536443620}|<f4>parent: 0x5605364434f0|<f5>adress: 0x5605364435f0}"];
-	node0x5605364435c0 [shape = "record", label = "{<f1>data: ID: m|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5605364435f0|<f5>adress: 0x5605364435c0}"];
-	node0x5605364435f0:f2 -> node0x5605364435c0
-	node0x560536443620 [shape = "record", label = "{<f1>data: 1|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5605364435f0|<f5>adress: 0x560536443620}"];
-	node0x5605364435f0:f3 -> node0x560536443620
-	node0x5605364434f0:f3 -> node0x5605364435f0
-	node0x560536443490:f2 -> node0x5605364434f0
-	node0x5605364447b0 [shape = "record", label = "{<f1>data: OP: #C|{<f2>left: 0x5605364449f0|<f3>right: 0x560536444930}|<f4>parent: 0x560536443490|<f5>adress: 0x5605364447b0}"];
-	node0x5605364449f0 [shape = "record", label = "{<f1>data: OP: #B|{<f2>left: (nil)|<f3>right: 0x560536444960}|<f4>parent: 0x5605364447b0|<f5>adress: 0x5605364449f0}"];
-	node0x560536444960 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: (nil)|<f3>right: 0x560536444990}|<f4>parent: 0x5605364449f0|<f5>adress: 0x560536444960}"];
-	node0x560536444990 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: 0x5605364449c0|<f3>right: 0x560536444130}|<f4>parent: 0x560536444960|<f5>adress: 0x560536444990}"];
-	node0x5605364449c0 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: 0x5605364442d0|<f3>right: 0x560536444200}|<f4>parent: 0x560536444990|<f5>adress: 0x5605364449c0}"];
-	node0x5605364442d0 [shape = "record", label = "{<f1>data: ID: n|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5605364449c0|<f5>adress: 0x5605364442d0}"];
-	node0x5605364449c0:f2 -> node0x5605364442d0
-	node0x560536444200 [shape = "record", label = "{<f1>data: ID: Fib|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5605364449c0|<f5>adress: 0x560536444200}"];
-	node0x5605364449c0:f3 -> node0x560536444200
-	node0x560536444990:f2 -> node0x5605364449c0
-	node0x560536444130 [shape = "record", label = "{<f1>data: ID: print|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536444990|<f5>adress: 0x560536444130}"];
-	node0x560536444990:f3 -> node0x560536444130
-	node0x560536444960:f3 -> node0x560536444990
-	node0x5605364449f0:f3 -> node0x560536444960
-	node0x5605364447b0:f2 -> node0x5605364449f0
-	node0x560536444930 [shape = "record", label = "{<f1>data: OP: #B|{<f2>left: (nil)|<f3>right: 0x560536444810}|<f4>parent: 0x5605364447b0|<f5>adress: 0x560536444930}"];
-	node0x560536444810 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: 0x5605364447e0|<f3>right: 0x5605364438f0}|<f4>parent: 0x560536444930|<f5>adress: 0x560536444810}"];
-	node0x5605364447e0 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: (nil)|<f3>right: 0x560536443750}|<f4>parent: 0x560536444810|<f5>adress: 0x5605364447e0}"];
-	node0x560536443750 [shape = "record", label = "{<f1>data: OP: var|{<f2>left: 0x5605364437f0|<f3>right: 0x560536443850}|<f4>parent: 0x5605364447e0|<f5>adress: 0x560536443750}"];
-	node0x5605364437f0 [shape = "record", label = "{<f1>data: ID: i|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536443750|<f5>adress: 0x5605364437f0}"];
-	node0x560536443750:f2 -> node0x5605364437f0
-	node0x560536443850 [shape = "record", label = "{<f1>data: 0|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536443750|<f5>adress: 0x560536443850}"];
-	node0x560536443750:f3 -> node0x560536443850
-	node0x5605364447e0:f3 -> node0x560536443750
-	node0x560536444810:f2 -> node0x5605364447e0
-	node0x5605364438f0 [shape = "record", label = "{<f1>data: OP: while|{<f2>left: 0x5605364439f0|<f3>right: 0x560536444900}|<f4>parent: 0x560536444810|<f5>adress: 0x5605364438f0}"];
-	node0x5605364439f0 [shape = "record", label = "{<f1>data: M_OP: \<=|{<f2>left: 0x5605364439c0|<f3>right: 0x560536443a90}|<f4>parent: 0x5605364438f0|<f5>adress: 0x5605364439f0}"];
-	node0x5605364439c0 [shape = "record", label = "{<f1>data: ID: i|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5605364439f0|<f5>adress: 0x5605364439c0}"];
-	node0x5605364439f0:f2 -> node0x5605364439c0
-	node0x560536443a90 [shape = "record", label = "{<f1>data: ID: n|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5605364439f0|<f5>adress: 0x560536443a90}"];
-	node0x5605364439f0:f3 -> node0x560536443a90
-	node0x5605364438f0:f2 -> node0x5605364439f0
-	node0x560536444900 [shape = "record", label = "{<f1>data: OP: #B|{<f2>left: (nil)|<f3>right: 0x5605364448d0}|<f4>parent: 0x5605364438f0|<f5>adress: 0x560536444900}"];
-	node0x5605364448d0 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: 0x560536444840|<f3>right: 0x560536443e60}|<f4>parent: 0x560536444900|<f5>adress: 0x5605364448d0}"];
-	node0x560536444840 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: (nil)|<f3>right: 0x560536444870}|<f4>parent: 0x5605364448d0|<f5>adress: 0x560536444840}"];
-	node0x560536444870 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: 0x5605364448a0|<f3>right: 0x560536443b90}|<f4>parent: 0x560536444840|<f5>adress: 0x560536444870}"];
-	node0x5605364448a0 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: 0x560536443d30|<f3>right: 0x560536443c60}|<f4>parent: 0x560536444870|<f5>adress: 0x5605364448a0}"];
-	node0x560536443d30 [shape = "record", label = "{<f1>data: ID: i|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5605364448a0|<f5>adress: 0x560536443d30}"];
-	node0x5605364448a0:f2 -> node0x560536443d30
-	node0x560536443c60 [shape = "record", label = "{<f1>data: ID: Fib|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5605364448a0|<f5>adress: 0x560536443c60}"];
-	node0x5605364448a0:f3 -> node0x560536443c60
-	node0x560536444870:f2 -> node0x5605364448a0
-	node0x560536443b90 [shape = "record", label = "{<f1>data: ID: print|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536444870|<f5>adress: 0x560536443b90}"];
-	node0x560536444870:f3 -> node0x560536443b90
-	node0x560536444840:f3 -> node0x560536444870
-	node0x5605364448d0:f2 -> node0x560536444840
-	node0x560536443e60 [shape = "record", label = "{<f1>data: M_OP: =|{<f2>left: 0x560536443e30|<f3>right: 0x560536443f30}|<f4>parent: 0x5605364448d0|<f5>adress: 0x560536443e60}"];
-	node0x560536443e30 [shape = "record", label = "{<f1>data: ID: i|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536443e60|<f5>adress: 0x560536443e30}"];
-	node0x560536443e60:f2 -> node0x560536443e30
-	node0x560536443f30 [shape = "record", label = "{<f1>data: M_OP: +|{<f2>left: 0x560536443f00|<f3>right: 0x560536443f60}|<f4>parent: 0x560536443e60|<f5>adress: 0x560536443f30}"];
-	node0x560536443f00 [shape = "record", label = "{<f1>data: ID: i|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536443f30|<f5>adress: 0x560536443f00}"];
-	node0x560536443f30:f2 -> node0x560536443f00
-	node0x560536443f60 [shape = "record", label = "{<f1>data: 1|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536443f30|<f5>adress: 0x560536443f60}"];
-	node0x560536443f30:f3 -> node0x560536443f60
-	node0x560536443e60:f3 -> node0x560536443f30
-	node0x5605364448d0:f3 -> node0x560536443e60
-	node0x560536444900:f3 -> node0x5605364448d0
-	node0x5605364438f0:f3 -> node0x560536444900
-	node0x560536444810:f3 -> node0x5605364438f0
-	node0x560536444930:f3 -> node0x560536444810
-	node0x5605364447b0:f3 -> node0x560536444930
-	node0x560536443490:f3 -> node0x5605364447b0
-	node0x560536444780:f3 -> node0x560536443490
-	node0x560536444a20:f2 -> node0x560536444780
-	node0x560536444400 [shape = "record", label = "{<f1>data: OP: return|{<f2>left: 0x560536444460|<f3>right: (nil)}|<f4>parent: 0x560536444a20|<f5>adress: 0x560536444400}"];
-	node0x560536444460 [shape = "record", label = "{<f1>data: 0|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x560536444400|<f5>adress: 0x560536444460}"];
-	node0x560536444400:f2 -> node0x560536444460
-	node0x560536444a20:f3 -> node0x560536444400
-	node0x560536444a50:f3 -> node0x560536444a20
-	node0x56053642f3e0:f3 -> node0x560536444a50
-	node0x56053642f340:f3 -> node0x56053642f3e0
-	node0x560536444690:f3 -> node0x56053642f340
+	node0x55661919e7b0 [shape = "record", label = "{<f1>data: OP: #D|{<f2>left: 0x55661919e780|<f3>right: 0x556619189340}|<f4>parent: (nil)|<f5>adress: 0x55661919e7b0}"];
+	node0x55661919e780 [shape = "record", label = "{<f1>data: OP: #D|{<f2>left: (nil)|<f3>right: 0x556619188500}|<f4>parent: 0x55661919e7b0|<f5>adress: 0x55661919e780}"];
+	node0x556619188500 [shape = "record", label = "{<f1>data: OP: def|{<f2>left: 0x556619188740|<f3>right: 0x5566191885a0}|<f4>parent: 0x55661919e780|<f5>adress: 0x556619188500}"];
+	node0x556619188740 [shape = "record", label = "{<f1>data: M_OP: ,|{<f2>left: 0x55661919e510|<f3>right: 0x5566191887e0}|<f4>parent: 0x556619188500|<f5>adress: 0x556619188740}"];
+	node0x55661919e510 [shape = "record", label = "{<f1>data: M_OP: ,|{<f2>left: (nil)|<f3>right: 0x556619188670}|<f4>parent: 0x556619188740|<f5>adress: 0x55661919e510}"];
+	node0x556619188670 [shape = "record", label = "{<f1>data: OP: var|{<f2>left: 0x556619188710|<f3>right: (nil)}|<f4>parent: 0x55661919e510|<f5>adress: 0x556619188670}"];
+	node0x556619188710 [shape = "record", label = "{<f1>data: ID: num|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x556619188670|<f5>adress: 0x556619188710}"];
+	node0x556619188670:f2 -> node0x556619188710
+	node0x55661919e510:f3 -> node0x556619188670
+	node0x556619188740:f2 -> node0x55661919e510
+	node0x5566191887e0 [shape = "record", label = "{<f1>data: OP: var|{<f2>left: 0x556619188880|<f3>right: 0x5566191888e0}|<f4>parent: 0x556619188740|<f5>adress: 0x5566191887e0}"];
+	node0x556619188880 [shape = "record", label = "{<f1>data: ID: deep|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5566191887e0|<f5>adress: 0x556619188880}"];
+	node0x5566191887e0:f2 -> node0x556619188880
+	node0x5566191888e0 [shape = "record", label = "{<f1>data: 12|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5566191887e0|<f5>adress: 0x5566191888e0}"];
+	node0x5566191887e0:f3 -> node0x5566191888e0
+	node0x556619188740:f3 -> node0x5566191887e0
+	node0x556619188500:f2 -> node0x556619188740
+	node0x5566191885a0 [shape = "record", label = "{<f1>data: ID: Fib|{<f2>left: (nil)|<f3>right: 0x55661919e750}|<f4>parent: 0x556619188500|<f5>adress: 0x5566191885a0}"];
+	node0x55661919e750 [shape = "record", label = "{<f1>data: OP: #B|{<f2>left: (nil)|<f3>right: 0x55661919e630}|<f4>parent: 0x5566191885a0|<f5>adress: 0x55661919e750}"];
+	node0x55661919e630 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: 0x55661919e540|<f3>right: 0x556619188de0}|<f4>parent: 0x55661919e750|<f5>adress: 0x55661919e630}"];
+	node0x55661919e540 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: (nil)|<f3>right: 0x5566191889e0}|<f4>parent: 0x55661919e630|<f5>adress: 0x55661919e540}"];
+	node0x5566191889e0 [shape = "record", label = "{<f1>data: OP: if|{<f2>left: 0x556619188ae0|<f3>right: 0x55661919e570}|<f4>parent: 0x55661919e540|<f5>adress: 0x5566191889e0}"];
+	node0x556619188ae0 [shape = "record", label = "{<f1>data: M_OP: \<=|{<f2>left: 0x556619188ab0|<f3>right: 0x556619188b10}|<f4>parent: 0x5566191889e0|<f5>adress: 0x556619188ae0}"];
+	node0x556619188ab0 [shape = "record", label = "{<f1>data: ID: num|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x556619188ae0|<f5>adress: 0x556619188ab0}"];
+	node0x556619188ae0:f2 -> node0x556619188ab0
+	node0x556619188b10 [shape = "record", label = "{<f1>data: 1|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x556619188ae0|<f5>adress: 0x556619188b10}"];
+	node0x556619188ae0:f3 -> node0x556619188b10
+	node0x5566191889e0:f2 -> node0x556619188ae0
+	node0x55661919e570 [shape = "record", label = "{<f1>data: OP: #C|{<f2>left: (nil)|<f3>right: 0x55661919e600}|<f4>parent: 0x5566191889e0|<f5>adress: 0x55661919e570}"];
+	node0x55661919e600 [shape = "record", label = "{<f1>data: OP: #B|{<f2>left: (nil)|<f3>right: 0x55661919e5a0}|<f4>parent: 0x55661919e570|<f5>adress: 0x55661919e600}"];
+	node0x55661919e5a0 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: (nil)|<f3>right: 0x556619188c10}|<f4>parent: 0x55661919e600|<f5>adress: 0x55661919e5a0}"];
+	node0x556619188c10 [shape = "record", label = "{<f1>data: OP: return|{<f2>left: (nil)|<f3>right: 0x55661919e5d0}|<f4>parent: 0x55661919e5a0|<f5>adress: 0x556619188c10}"];
+	node0x55661919e5d0 [shape = "record", label = "{<f1>data: M_OP: ,|{<f2>left: (nil)|<f3>right: 0x556619188ce0}|<f4>parent: 0x556619188c10|<f5>adress: 0x55661919e5d0}"];
+	node0x556619188ce0 [shape = "record", label = "{<f1>data: ID: num|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919e5d0|<f5>adress: 0x556619188ce0}"];
+	node0x55661919e5d0:f3 -> node0x556619188ce0
+	node0x556619188c10:f3 -> node0x55661919e5d0
+	node0x55661919e5a0:f3 -> node0x556619188c10
+	node0x55661919e600:f3 -> node0x55661919e5a0
+	node0x55661919e570:f3 -> node0x55661919e600
+	node0x5566191889e0:f3 -> node0x55661919e570
+	node0x55661919e540:f3 -> node0x5566191889e0
+	node0x55661919e630:f2 -> node0x55661919e540
+	node0x556619188de0 [shape = "record", label = "{<f1>data: OP: return|{<f2>left: (nil)|<f3>right: 0x55661919e720}|<f4>parent: 0x55661919e630|<f5>adress: 0x556619188de0}"];
+	node0x55661919e720 [shape = "record", label = "{<f1>data: M_OP: ,|{<f2>left: (nil)|<f3>right: 0x556619189040}|<f4>parent: 0x556619188de0|<f5>adress: 0x55661919e720}"];
+	node0x556619189040 [shape = "record", label = "{<f1>data: M_OP: +|{<f2>left: 0x55661919e660|<f3>right: 0x55661919e6c0}|<f4>parent: 0x55661919e720|<f5>adress: 0x556619189040}"];
+	node0x55661919e660 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: 0x55661919e690|<f3>right: 0x556619188eb0}|<f4>parent: 0x556619189040|<f5>adress: 0x55661919e660}"];
+	node0x55661919e690 [shape = "record", label = "{<f1>data: M_OP: ,|{<f2>left: (nil)|<f3>right: 0x556619188fb0}|<f4>parent: 0x55661919e660|<f5>adress: 0x55661919e690}"];
+	node0x556619188fb0 [shape = "record", label = "{<f1>data: M_OP: -|{<f2>left: 0x556619188f80|<f3>right: 0x556619188fe0}|<f4>parent: 0x55661919e690|<f5>adress: 0x556619188fb0}"];
+	node0x556619188f80 [shape = "record", label = "{<f1>data: ID: num|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x556619188fb0|<f5>adress: 0x556619188f80}"];
+	node0x556619188fb0:f2 -> node0x556619188f80
+	node0x556619188fe0 [shape = "record", label = "{<f1>data: 1|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x556619188fb0|<f5>adress: 0x556619188fe0}"];
+	node0x556619188fb0:f3 -> node0x556619188fe0
+	node0x55661919e690:f3 -> node0x556619188fb0
+	node0x55661919e660:f2 -> node0x55661919e690
+	node0x556619188eb0 [shape = "record", label = "{<f1>data: ID: Fib|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919e660|<f5>adress: 0x556619188eb0}"];
+	node0x55661919e660:f3 -> node0x556619188eb0
+	node0x556619189040:f2 -> node0x55661919e660
+	node0x55661919e6c0 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: 0x55661919e6f0|<f3>right: 0x5566191890e0}|<f4>parent: 0x556619189040|<f5>adress: 0x55661919e6c0}"];
+	node0x55661919e6f0 [shape = "record", label = "{<f1>data: M_OP: ,|{<f2>left: (nil)|<f3>right: 0x5566191891e0}|<f4>parent: 0x55661919e6c0|<f5>adress: 0x55661919e6f0}"];
+	node0x5566191891e0 [shape = "record", label = "{<f1>data: M_OP: -|{<f2>left: 0x5566191891b0|<f3>right: 0x556619189210}|<f4>parent: 0x55661919e6f0|<f5>adress: 0x5566191891e0}"];
+	node0x5566191891b0 [shape = "record", label = "{<f1>data: ID: num|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5566191891e0|<f5>adress: 0x5566191891b0}"];
+	node0x5566191891e0:f2 -> node0x5566191891b0
+	node0x556619189210 [shape = "record", label = "{<f1>data: 2|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x5566191891e0|<f5>adress: 0x556619189210}"];
+	node0x5566191891e0:f3 -> node0x556619189210
+	node0x55661919e6f0:f3 -> node0x5566191891e0
+	node0x55661919e6c0:f2 -> node0x55661919e6f0
+	node0x5566191890e0 [shape = "record", label = "{<f1>data: ID: Fib|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919e6c0|<f5>adress: 0x5566191890e0}"];
+	node0x55661919e6c0:f3 -> node0x5566191890e0
+	node0x556619189040:f3 -> node0x55661919e6c0
+	node0x55661919e720:f3 -> node0x556619189040
+	node0x556619188de0:f3 -> node0x55661919e720
+	node0x55661919e630:f3 -> node0x556619188de0
+	node0x55661919e750:f3 -> node0x55661919e630
+	node0x5566191885a0:f3 -> node0x55661919e750
+	node0x556619188500:f3 -> node0x5566191885a0
+	node0x55661919e780:f3 -> node0x556619188500
+	node0x55661919e7b0:f2 -> node0x55661919e780
+	node0x556619189340 [shape = "record", label = "{<f1>data: OP: def|{<f2>left: (nil)|<f3>right: 0x5566191893e0}|<f4>parent: 0x55661919e7b0|<f5>adress: 0x556619189340}"];
+	node0x5566191893e0 [shape = "record", label = "{<f1>data: ID: main|{<f2>left: (nil)|<f3>right: 0x55661919ec60}|<f4>parent: 0x556619189340|<f5>adress: 0x5566191893e0}"];
+	node0x55661919ec60 [shape = "record", label = "{<f1>data: OP: #B|{<f2>left: (nil)|<f3>right: 0x55661919ec00}|<f4>parent: 0x5566191893e0|<f5>adress: 0x55661919ec60}"];
+	node0x55661919ec00 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: 0x55661919e8a0|<f3>right: 0x55661919e400}|<f4>parent: 0x55661919ec60|<f5>adress: 0x55661919ec00}"];
+	node0x55661919e8a0 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: 0x55661919e840|<f3>right: 0x55661919d490}|<f4>parent: 0x55661919ec00|<f5>adress: 0x55661919e8a0}"];
+	node0x55661919e840 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: 0x55661919e7e0|<f3>right: 0x55661919d220}|<f4>parent: 0x55661919e8a0|<f5>adress: 0x55661919e840}"];
+	node0x55661919e7e0 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: (nil)|<f3>right: 0x55661919cfb0}|<f4>parent: 0x55661919e840|<f5>adress: 0x55661919e7e0}"];
+	node0x55661919cfb0 [shape = "record", label = "{<f1>data: OP: var|{<f2>left: 0x55661919d050|<f3>right: 0x55661919e810}|<f4>parent: 0x55661919e7e0|<f5>adress: 0x55661919cfb0}"];
+	node0x55661919d050 [shape = "record", label = "{<f1>data: ID: m|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919cfb0|<f5>adress: 0x55661919d050}"];
+	node0x55661919cfb0:f2 -> node0x55661919d050
+	node0x55661919e810 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: (nil)|<f3>right: 0x55661919d120}|<f4>parent: 0x55661919cfb0|<f5>adress: 0x55661919e810}"];
+	node0x55661919d120 [shape = "record", label = "{<f1>data: ID: input|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919e810|<f5>adress: 0x55661919d120}"];
+	node0x55661919e810:f3 -> node0x55661919d120
+	node0x55661919cfb0:f3 -> node0x55661919e810
+	node0x55661919e7e0:f3 -> node0x55661919cfb0
+	node0x55661919e840:f2 -> node0x55661919e7e0
+	node0x55661919d220 [shape = "record", label = "{<f1>data: OP: var|{<f2>left: 0x55661919d2c0|<f3>right: 0x55661919e870}|<f4>parent: 0x55661919e840|<f5>adress: 0x55661919d220}"];
+	node0x55661919d2c0 [shape = "record", label = "{<f1>data: ID: n|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919d220|<f5>adress: 0x55661919d2c0}"];
+	node0x55661919d220:f2 -> node0x55661919d2c0
+	node0x55661919e870 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: (nil)|<f3>right: 0x55661919d390}|<f4>parent: 0x55661919d220|<f5>adress: 0x55661919e870}"];
+	node0x55661919d390 [shape = "record", label = "{<f1>data: ID: input|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919e870|<f5>adress: 0x55661919d390}"];
+	node0x55661919e870:f3 -> node0x55661919d390
+	node0x55661919d220:f3 -> node0x55661919e870
+	node0x55661919e840:f3 -> node0x55661919d220
+	node0x55661919e8a0:f2 -> node0x55661919e840
+	node0x55661919d490 [shape = "record", label = "{<f1>data: OP: if|{<f2>left: 0x55661919d4f0|<f3>right: 0x55661919e8d0}|<f4>parent: 0x55661919e8a0|<f5>adress: 0x55661919d490}"];
+	node0x55661919d4f0 [shape = "record", label = "{<f1>data: M_OP: !|{<f2>left: (nil)|<f3>right: 0x55661919d5f0}|<f4>parent: 0x55661919d490|<f5>adress: 0x55661919d4f0}"];
+	node0x55661919d5f0 [shape = "record", label = "{<f1>data: M_OP: !=|{<f2>left: 0x55661919d5c0|<f3>right: 0x55661919d620}|<f4>parent: 0x55661919d4f0|<f5>adress: 0x55661919d5f0}"];
+	node0x55661919d5c0 [shape = "record", label = "{<f1>data: ID: m|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919d5f0|<f5>adress: 0x55661919d5c0}"];
+	node0x55661919d5f0:f2 -> node0x55661919d5c0
+	node0x55661919d620 [shape = "record", label = "{<f1>data: 1|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919d5f0|<f5>adress: 0x55661919d620}"];
+	node0x55661919d5f0:f3 -> node0x55661919d620
+	node0x55661919d4f0:f3 -> node0x55661919d5f0
+	node0x55661919d490:f2 -> node0x55661919d4f0
+	node0x55661919e8d0 [shape = "record", label = "{<f1>data: OP: #C|{<f2>left: 0x55661919ebd0|<f3>right: 0x55661919eab0}|<f4>parent: 0x55661919d490|<f5>adress: 0x55661919e8d0}"];
+	node0x55661919ebd0 [shape = "record", label = "{<f1>data: OP: #B|{<f2>left: (nil)|<f3>right: 0x55661919eae0}|<f4>parent: 0x55661919e8d0|<f5>adress: 0x55661919ebd0}"];
+	node0x55661919eae0 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: (nil)|<f3>right: 0x55661919eb10}|<f4>parent: 0x55661919ebd0|<f5>adress: 0x55661919eae0}"];
+	node0x55661919eb10 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: 0x55661919eba0|<f3>right: 0x55661919e130}|<f4>parent: 0x55661919eae0|<f5>adress: 0x55661919eb10}"];
+	node0x55661919eba0 [shape = "record", label = "{<f1>data: M_OP: ,|{<f2>left: (nil)|<f3>right: 0x55661919eb40}|<f4>parent: 0x55661919eb10|<f5>adress: 0x55661919eba0}"];
+	node0x55661919eb40 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: 0x55661919eb70|<f3>right: 0x55661919e200}|<f4>parent: 0x55661919eba0|<f5>adress: 0x55661919eb40}"];
+	node0x55661919eb70 [shape = "record", label = "{<f1>data: M_OP: ,|{<f2>left: (nil)|<f3>right: 0x55661919e2d0}|<f4>parent: 0x55661919eb40|<f5>adress: 0x55661919eb70}"];
+	node0x55661919e2d0 [shape = "record", label = "{<f1>data: ID: n|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919eb70|<f5>adress: 0x55661919e2d0}"];
+	node0x55661919eb70:f3 -> node0x55661919e2d0
+	node0x55661919eb40:f2 -> node0x55661919eb70
+	node0x55661919e200 [shape = "record", label = "{<f1>data: ID: Fib|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919eb40|<f5>adress: 0x55661919e200}"];
+	node0x55661919eb40:f3 -> node0x55661919e200
+	node0x55661919eba0:f3 -> node0x55661919eb40
+	node0x55661919eb10:f2 -> node0x55661919eba0
+	node0x55661919e130 [shape = "record", label = "{<f1>data: ID: print|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919eb10|<f5>adress: 0x55661919e130}"];
+	node0x55661919eb10:f3 -> node0x55661919e130
+	node0x55661919eae0:f3 -> node0x55661919eb10
+	node0x55661919ebd0:f3 -> node0x55661919eae0
+	node0x55661919e8d0:f2 -> node0x55661919ebd0
+	node0x55661919eab0 [shape = "record", label = "{<f1>data: OP: #B|{<f2>left: (nil)|<f3>right: 0x55661919e930}|<f4>parent: 0x55661919e8d0|<f5>adress: 0x55661919eab0}"];
+	node0x55661919e930 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: 0x55661919e900|<f3>right: 0x55661919d8f0}|<f4>parent: 0x55661919eab0|<f5>adress: 0x55661919e930}"];
+	node0x55661919e900 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: (nil)|<f3>right: 0x55661919d750}|<f4>parent: 0x55661919e930|<f5>adress: 0x55661919e900}"];
+	node0x55661919d750 [shape = "record", label = "{<f1>data: OP: var|{<f2>left: 0x55661919d7f0|<f3>right: 0x55661919d850}|<f4>parent: 0x55661919e900|<f5>adress: 0x55661919d750}"];
+	node0x55661919d7f0 [shape = "record", label = "{<f1>data: ID: i|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919d750|<f5>adress: 0x55661919d7f0}"];
+	node0x55661919d750:f2 -> node0x55661919d7f0
+	node0x55661919d850 [shape = "record", label = "{<f1>data: 0|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919d750|<f5>adress: 0x55661919d850}"];
+	node0x55661919d750:f3 -> node0x55661919d850
+	node0x55661919e900:f3 -> node0x55661919d750
+	node0x55661919e930:f2 -> node0x55661919e900
+	node0x55661919d8f0 [shape = "record", label = "{<f1>data: OP: while|{<f2>left: 0x55661919d9f0|<f3>right: 0x55661919ea80}|<f4>parent: 0x55661919e930|<f5>adress: 0x55661919d8f0}"];
+	node0x55661919d9f0 [shape = "record", label = "{<f1>data: M_OP: \<=|{<f2>left: 0x55661919d9c0|<f3>right: 0x55661919da90}|<f4>parent: 0x55661919d8f0|<f5>adress: 0x55661919d9f0}"];
+	node0x55661919d9c0 [shape = "record", label = "{<f1>data: ID: i|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919d9f0|<f5>adress: 0x55661919d9c0}"];
+	node0x55661919d9f0:f2 -> node0x55661919d9c0
+	node0x55661919da90 [shape = "record", label = "{<f1>data: ID: n|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919d9f0|<f5>adress: 0x55661919da90}"];
+	node0x55661919d9f0:f3 -> node0x55661919da90
+	node0x55661919d8f0:f2 -> node0x55661919d9f0
+	node0x55661919ea80 [shape = "record", label = "{<f1>data: OP: #B|{<f2>left: (nil)|<f3>right: 0x55661919ea50}|<f4>parent: 0x55661919d8f0|<f5>adress: 0x55661919ea80}"];
+	node0x55661919ea50 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: 0x55661919e960|<f3>right: 0x55661919de60}|<f4>parent: 0x55661919ea80|<f5>adress: 0x55661919ea50}"];
+	node0x55661919e960 [shape = "record", label = "{<f1>data: OP: #O|{<f2>left: (nil)|<f3>right: 0x55661919e990}|<f4>parent: 0x55661919ea50|<f5>adress: 0x55661919e960}"];
+	node0x55661919e990 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: 0x55661919ea20|<f3>right: 0x55661919db90}|<f4>parent: 0x55661919e960|<f5>adress: 0x55661919e990}"];
+	node0x55661919ea20 [shape = "record", label = "{<f1>data: M_OP: ,|{<f2>left: (nil)|<f3>right: 0x55661919e9c0}|<f4>parent: 0x55661919e990|<f5>adress: 0x55661919ea20}"];
+	node0x55661919e9c0 [shape = "record", label = "{<f1>data: OP: #CALL|{<f2>left: 0x55661919e9f0|<f3>right: 0x55661919dc60}|<f4>parent: 0x55661919ea20|<f5>adress: 0x55661919e9c0}"];
+	node0x55661919e9f0 [shape = "record", label = "{<f1>data: M_OP: ,|{<f2>left: (nil)|<f3>right: 0x55661919dd30}|<f4>parent: 0x55661919e9c0|<f5>adress: 0x55661919e9f0}"];
+	node0x55661919dd30 [shape = "record", label = "{<f1>data: ID: i|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919e9f0|<f5>adress: 0x55661919dd30}"];
+	node0x55661919e9f0:f3 -> node0x55661919dd30
+	node0x55661919e9c0:f2 -> node0x55661919e9f0
+	node0x55661919dc60 [shape = "record", label = "{<f1>data: ID: Fib|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919e9c0|<f5>adress: 0x55661919dc60}"];
+	node0x55661919e9c0:f3 -> node0x55661919dc60
+	node0x55661919ea20:f3 -> node0x55661919e9c0
+	node0x55661919e990:f2 -> node0x55661919ea20
+	node0x55661919db90 [shape = "record", label = "{<f1>data: ID: print|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919e990|<f5>adress: 0x55661919db90}"];
+	node0x55661919e990:f3 -> node0x55661919db90
+	node0x55661919e960:f3 -> node0x55661919e990
+	node0x55661919ea50:f2 -> node0x55661919e960
+	node0x55661919de60 [shape = "record", label = "{<f1>data: M_OP: =|{<f2>left: 0x55661919de30|<f3>right: 0x55661919df30}|<f4>parent: 0x55661919ea50|<f5>adress: 0x55661919de60}"];
+	node0x55661919de30 [shape = "record", label = "{<f1>data: ID: i|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919de60|<f5>adress: 0x55661919de30}"];
+	node0x55661919de60:f2 -> node0x55661919de30
+	node0x55661919df30 [shape = "record", label = "{<f1>data: M_OP: +|{<f2>left: 0x55661919df00|<f3>right: 0x55661919df60}|<f4>parent: 0x55661919de60|<f5>adress: 0x55661919df30}"];
+	node0x55661919df00 [shape = "record", label = "{<f1>data: ID: i|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919df30|<f5>adress: 0x55661919df00}"];
+	node0x55661919df30:f2 -> node0x55661919df00
+	node0x55661919df60 [shape = "record", label = "{<f1>data: 1|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919df30|<f5>adress: 0x55661919df60}"];
+	node0x55661919df30:f3 -> node0x55661919df60
+	node0x55661919de60:f3 -> node0x55661919df30
+	node0x55661919ea50:f3 -> node0x55661919de60
+	node0x55661919ea80:f3 -> node0x55661919ea50
+	node0x55661919d8f0:f3 -> node0x55661919ea80
+	node0x55661919e930:f3 -> node0x55661919d8f0
+	node0x55661919eab0:f3 -> node0x55661919e930
+	node0x55661919e8d0:f3 -> node0x55661919eab0
+	node0x55661919d490:f3 -> node0x55661919e8d0
+	node0x55661919e8a0:f3 -> node0x55661919d490
+	node0x55661919ec00:f2 -> node0x55661919e8a0
+	node0x55661919e400 [shape = "record", label = "{<f1>data: OP: return|{<f2>left: (nil)|<f3>right: 0x55661919ec30}|<f4>parent: 0x55661919ec00|<f5>adress: 0x55661919e400}"];
+	node0x55661919ec30 [shape = "record", label = "{<f1>data: M_OP: ,|{<f2>left: (nil)|<f3>right: 0x55661919e460}|<f4>parent: 0x55661919e400|<f5>adress: 0x55661919ec30}"];
+	node0x55661919e460 [shape = "record", label = "{<f1>data: 0|{<f2>left: (nil)|<f3>right: (nil)}|<f4>parent: 0x55661919ec30|<f5>adress: 0x55661919e460}"];
+	node0x55661919ec30:f3 -> node0x55661919e460
+	node0x55661919e400:f3 -> node0x55661919ec30
+	node0x55661919ec00:f3 -> node0x55661919e400
+	node0x55661919ec60:f3 -> node0x55661919ec00
+	node0x5566191893e0:f3 -> node0x55661919ec60
+	node0x556619189340:f3 -> node0x5566191893e0
+	node0x55661919e7b0:f3 -> node0x556619189340
 
 }

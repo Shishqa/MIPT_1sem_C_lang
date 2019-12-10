@@ -95,8 +95,8 @@ Node<Token> * Parser::ParseGrammar ()
 {
     PRINT ("grammar\n");
 
-    Node<Token> * res = ParseDefinition ();
-    CHECK (res, res);
+    Node<Token> * res = SetNode (OP_TYPE, DEF, nullptr, nullptr, ParseDefinition ());
+    CHECK (res->right, res);
 
     while (tokens[cur_token])
     {
@@ -173,8 +173,8 @@ Node<Token> * Parser::ParseVarList ()
 {
     PRINT ("varlist\n");
 
-    Node<Token> * res = ParseVar ();
-    CHECK (res, res);
+    Node<Token> * res = SetNode (MATH_TYPE, COMMA, nullptr, nullptr, ParseVar ());
+    CHECK (res->right, res);
 
     while (IS_OP (MATH_TYPE, COMMA))
     {
@@ -608,8 +608,16 @@ Node<Token> * Parser::ParseCall ()
 
     if (!IS_OP (MATH_TYPE, RIGHT_B))
     {
-        LINK_L (res, ParseSequence ());
-        CHECK (res->left, res);   
+        if (res->data.type == OP_TYPE && res->data.data == RET)
+        {
+            LINK_R (res, ParseSequence ());
+            CHECK (res->right, res);
+        }
+        else
+        {
+            LINK_L (res, ParseSequence ());
+            CHECK (res->left, res);   
+        }
     }
 
     if (!IS_OP (MATH_TYPE, RIGHT_B))
@@ -628,8 +636,8 @@ Node<Token> * Parser::ParseSequence ()
 {
     PRINT ("seq\n");
 
-    Node<Token> * res = ParseExpression ();
-    CHECK (res, res);
+    Node<Token> * res = SetNode (MATH_TYPE, COMMA, nullptr, nullptr, ParseExpression ());
+    CHECK (res->right, res);
 
     while (IS_OP (MATH_TYPE, COMMA))
     {
