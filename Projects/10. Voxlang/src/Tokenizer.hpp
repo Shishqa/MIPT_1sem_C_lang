@@ -1,40 +1,42 @@
-#ifndef TOKENIZER_HPP_
-#define TOKENIZER_HPP_
+// #ifndef TOKENIZER_HPP_
+// #define TOKENIZER_HPP_
 
-#include "libraries.hpp"
+// #include "libraries.hpp"
 
-enum Tokenizer_errors
-{
-    TOKENIZER_OK,
-    UNKNOWN_OPERATOR
-};
+// enum Tokenizer_errors
+// {
+//     TOKENIZER_OK,
+//     UNKNOWN_OPERATOR
+// };
 
-class Tokenizer
-{
-    size_t error;
+// class Tokenizer
+// {
+//     size_t error;
 
-    Node<Token> ** tokens;
-    const size_t MAX_TOKENS = 10000;
-    size_t n_tokens;
+//     Node<Token> ** tokens;
+//     const size_t MAX_TOKENS = 10000;
+//     size_t n_tokens;
 
-    const size_t MAX_NAME_LEN = 100;
+//     const size_t MAX_NAME_LEN = 100;
 
-    const char * cur;
-    size_t line;
+//     const char * cur;
+//     size_t line;
 
-    void Proceed ();
-    void SkipSpaces ();
-    void SkipLine ();
+//     void Proceed ();
+//     void SkipSpaces ();
+//     void SkipLine ();
 
-    void ParseNum ();
-    void ParseId ();
-    void ParseOp ();
+//     void ParseFunc ();
+//     void ParseName ();
+//     void ParseId   ();
+//     void ParseOp   ();
+//     void ParseNum  (char * set);
 
-    void PrintError ();
+//     void PrintError ();
 
-    public:
+//     public:
 
-    Node<Token> ** tokenize (const char * str);
-};
+//     Node<Token> ** tokenize (const char * str);
+// };
 
-#endif // !TOKENIZER_HPP_
+// #endif // !TOKENIZER_HPP_

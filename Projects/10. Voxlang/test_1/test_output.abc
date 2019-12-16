@@ -1,0 +1,81 @@
+% ##      THIS FILE IS GENERATED AUTOMATICALLY      ##
+% ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##
+
+X:1
+T:main
+M:4/4
+L:1/4
+Q:1/4=212
+K:C
+% op {
+B,CEC & cece |
+% op var
+DFAF & fdaf |
+% id s
+W: s
+% op =
+DA,G,A, & dGdA |
+% id input
+W: input
+% op (
+CEGE & cece |
+% op )
+B,CEC & BccB |
+% op while
+EGBG & ggeb |
+% op (
+F,A,CA, & FAFA |
+% id s
+W: s
+% op !=
+CEGE & geec |
+% num 0
+DFAD & daaa |
+% op )
+EGBG & egge |
+% op {
+DA,G,A, & AGAG |
+% id putc
+W: putc
+% op (
+CEGE & cece |
+% op ,
+DFAF & dfaf |
+% id s
+W: s
+% op )
+EGBG & egge |
+% id putc
+W: putc
+% op (
+CEGE & cece |
+% op ,
+CEGE & cege |
+% num 10
+B,CEB, & czcB |
+% op )
+DFAF & dffd |
+% id s
+W: s
+% op =
+DA,G,A, & dGdA |
+% id input
+W: input
+% op (
+CEGE & cece |
+% op )
+B,CEC & BccB |
+% op }
+EGBG & gbbg |
+% op return
+F,A,CA, & cFAc |
+% op (
+CEGE & cece |
+% op ,
+DFAF & dfaf |
+% num 0
+EGBE & ebbb |
+% op )
+DA,G,A, & dAAd |
+% op }
+CEGE & egge |

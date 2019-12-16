@@ -5,9 +5,9 @@ def Fib ( , var num)
 {
 if (num <= 1)
 {
-return ()
+return ( , num)
 }
-return ()
+return ( , Fib ( , num - 1) + Fib ( , num - 2))
 }
 def main ()
 {
@@ -19,6 +19,10 @@ var i = 0
 while (i <= n)
 {
 print ( , Fib ( , i))
+if (i != n)
+{
+putc ( , 44)
+}
 putc ( , 32)
 i = i + 1
 }
@@ -28,5 +32,5 @@ else
 print ( , Fib ( , n))
 }
 putc ( , 10)
-return ()
+return ( , 0)
 }

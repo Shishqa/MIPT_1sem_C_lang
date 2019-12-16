@@ -63,6 +63,14 @@ BinaryTree<Token> * Parser::ParseStr (const char * str)
     Tokenizer t = {};
     tokens = t.tokenize (str);
 
+    if (tokens == nullptr)
+    {
+        SETCOLOR (RED);
+        printf ("Compilation failed\n");
+        SETCOLOR (RESET);
+        return (nullptr);
+    }
+
     cur_token = 0;
 
     error = PARSER_OK;
@@ -82,8 +90,6 @@ BinaryTree<Token> * Parser::ParseStr (const char * str)
     }
 
     program_parsed->dotDump (PrintToken, 0);
-
-    printf ("Tree created\n");
 
     return (program_parsed);
 }
@@ -176,13 +182,11 @@ Node<Token> * Parser::ParseVarList ()
     Node<Token> * res = SetNode (MATH_TYPE, COMMA, nullptr, nullptr, ParseVar ());
     CHECK (res->right, res);
 
-    while (IS_OP (MATH_TYPE, COMMA))
+    if (IS_OP (MATH_TYPE, COMMA))
     {
-        LINK_L (tokens[cur_token], res);
-        res = tokens[cur_token++];
-
-        LINK_R (res, ParseVar ());
-        CHECK (res->right, res);
+        cur_token++;
+        LINK_L (res, ParseVarList ());
+        CHECK  (res->left, res);
     }
 
     return (res);
@@ -608,16 +612,8 @@ Node<Token> * Parser::ParseCall ()
 
     if (!IS_OP (MATH_TYPE, RIGHT_B))
     {
-        if (res->data.type == OP_TYPE && res->data.data == RET)
-        {
-            LINK_R (res, ParseSequence ());
-            CHECK (res->right, res);
-        }
-        else
-        {
-            LINK_L (res, ParseSequence ());
-            CHECK (res->left, res);   
-        }
+        LINK_L (res, ParseSequence ());
+        CHECK (res->left, res);   
     }
 
     if (!IS_OP (MATH_TYPE, RIGHT_B))
@@ -639,13 +635,11 @@ Node<Token> * Parser::ParseSequence ()
     Node<Token> * res = SetNode (MATH_TYPE, COMMA, nullptr, nullptr, ParseExpression ());
     CHECK (res->right, res);
 
-    while (IS_OP (MATH_TYPE, COMMA))
+    if (IS_OP (MATH_TYPE, COMMA))
     {
-        LINK_L (tokens[cur_token], res);
-        res = tokens[cur_token++];
-
-        LINK_R (res, ParseExpression ());
-        CHECK (res->right, res);
+        cur_token++;
+        LINK_L (res, ParseSequence ());
+        CHECK  (res->left, res);
     }
 
     PRINT ("seq <-\n");

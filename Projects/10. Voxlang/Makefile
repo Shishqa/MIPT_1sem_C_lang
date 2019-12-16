@@ -7,7 +7,7 @@ INCLUDE	:= ../../Include
 LIB		:= ../../Include/Lib
 
 LIBRARIES	:= -lMSLib
-EXECUTABLE	:= vox
+EXECUTABLE	:= chord
 
 
 all: $(BIN)/$(EXECUTABLE)

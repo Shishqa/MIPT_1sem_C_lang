@@ -154,15 +154,15 @@ static const Operator operators[OP_CNT] = {
     {"=",      1,  ASSIGN,   nullptr,   MATH_TYPE,   0},
     {"def",    3,  DEF_FUNC, nullptr,   OP_TYPE,     0},
     {"var",    3,  DEF_VAR,  nullptr,   OP_TYPE,     0},
-    {"#CALL",  5,  CALL,     nullptr,   OP_TYPE,     0},
+    {"CALL",  5,  CALL,     nullptr,   OP_TYPE,     0},
     {"return", 6,  RET,      nullptr,   OP_TYPE,     0},
     {"if",     2,  IF,       nullptr,   OP_TYPE,     0},
     {"else",   4,  ELSE,     nullptr,   OP_TYPE,     0},
     {"while",  5,  WHILE,    nullptr,   OP_TYPE,     0},
-    {"#D",     2,  DEF,      nullptr,   OP_TYPE,     0},
-    {"#C",     2,  LINK,     nullptr,   OP_TYPE,     0},
-    {"#O",     2,  OPERATOR, nullptr,   OP_TYPE,     0},
-    {"#B",     2,  BLOCK,    nullptr,   OP_TYPE,     0}
+    {"D",     2,  DEF,      nullptr,   OP_TYPE,     0},
+    {"C",     2,  LINK,     nullptr,   OP_TYPE,     0},
+    {"O",     2,  OPERATOR, nullptr,   OP_TYPE,     0},
+    {"B",     2,  BLOCK,    nullptr,   OP_TYPE,     0}
 };
 
 #endif // !OPERATORS_HPP_

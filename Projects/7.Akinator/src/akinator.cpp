@@ -4,7 +4,7 @@
 #include <time.h>
 #include <linux/limits.h>
 
-#include "../../6.Binary_Tree/src/tree.h"
+#include "tree.h"
 
 #include "my_string.h"
 #include "readers.h"

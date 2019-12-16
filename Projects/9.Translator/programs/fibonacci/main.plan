@@ -22,6 +22,12 @@ def main ()
         while (i <= n)
         {
             print (Fib (i))
+
+            if (i != n)
+            {
+                putc (44)
+            }
+
             putc (32)
             i = i + 1
         }

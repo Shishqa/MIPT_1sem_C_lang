@@ -60,8 +60,16 @@ BinaryTree<Token> * Parser::Parse (const char * path)
 
 BinaryTree<Token> * Parser::ParseStr (const char * str)
 {
-    Tokenizer t = {};
-    tokens = t.tokenize (str);
+    //Tokenizer t = {};
+    //tokens = t.tokenize (str);
+
+    if (tokens == nullptr)
+    {
+        SETCOLOR (RED);
+        printf ("Compilation failed\n");
+        SETCOLOR (RESET);
+        return (nullptr);
+    }
 
     cur_token = 0;
 
@@ -83,8 +91,6 @@ BinaryTree<Token> * Parser::ParseStr (const char * str)
 
     program_parsed->dotDump (PrintToken, 0);
 
-    printf ("Tree created\n");
-
     return (program_parsed);
 }
 
@@ -95,8 +101,8 @@ Node<Token> * Parser::ParseGrammar ()
 {
     PRINT ("grammar\n");
 
-    Node<Token> * res = ParseDefinition ();
-    CHECK (res, res);
+    Node<Token> * res = SetNode (OP_TYPE, DEF, nullptr, nullptr, ParseDefinition ());
+    CHECK (res->right, res);
 
     while (tokens[cur_token])
     {
@@ -173,16 +179,14 @@ Node<Token> * Parser::ParseVarList ()
 {
     PRINT ("varlist\n");
 
-    Node<Token> * res = ParseVar ();
-    CHECK (res, res);
+    Node<Token> * res = SetNode (MATH_TYPE, COMMA, nullptr, nullptr, ParseVar ());
+    CHECK (res->right, res);
 
-    while (IS_OP (MATH_TYPE, COMMA))
+    if (IS_OP (MATH_TYPE, COMMA))
     {
-        LINK_L (tokens[cur_token], res);
-        res = tokens[cur_token++];
-
-        LINK_R (res, ParseVar ());
-        CHECK (res->right, res);
+        cur_token++;
+        LINK_L (res, ParseVarList ());
+        CHECK  (res->left, res);
     }
 
     return (res);
@@ -628,16 +632,14 @@ Node<Token> * Parser::ParseSequence ()
 {
     PRINT ("seq\n");
 
-    Node<Token> * res = ParseExpression ();
-    CHECK (res, res);
+    Node<Token> * res = SetNode (MATH_TYPE, COMMA, nullptr, nullptr, ParseExpression ());
+    CHECK (res->right, res);
 
-    while (IS_OP (MATH_TYPE, COMMA))
+    if (IS_OP (MATH_TYPE, COMMA))
     {
-        LINK_L (tokens[cur_token], res);
-        res = tokens[cur_token++];
-
-        LINK_R (res, ParseExpression ());
-        CHECK (res->right, res);
+        cur_token++;
+        LINK_L (res, ParseSequence ());
+        CHECK  (res->left, res);
     }
 
     PRINT ("seq <-\n");

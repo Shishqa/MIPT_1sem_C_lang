@@ -14,6 +14,12 @@ int main ()
 
     BinaryTree<Token> * my_tree = p.Parse ("programs/fibonacci/main.plan"); 
 
+    assert (my_tree);
+
+    FILE * log = fopen ("saved_tree", "w");
+    my_tree->print (log, 'p', TokenPrinter);
+    fclose (log);  
+
     Decompiler d = {};
 
     d.GetCode (my_tree, "programs/fibonacci/DEC.plan");
@@ -22,5 +28,5 @@ int main ()
 
     t.BuildAndRun (my_tree, "programs/fibonacci/main.bin");
 
-    return (0);
+    return (0); 
 }
