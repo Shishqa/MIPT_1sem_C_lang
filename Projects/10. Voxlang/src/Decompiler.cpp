@@ -197,7 +197,6 @@ void Decompiler::GetOperator (Node<Token> * node)
 
         case DEF:
             Calculate (node->left);
-            fprintf (out, "\n");
             Calculate (node->right);
         break;
 
@@ -239,7 +238,7 @@ void Decompiler::GetOperator (Node<Token> * node)
 void Decompiler::PrintCall (Node<Token> * node)
 {
     printf ("gonna print call %s\n", node->right->data.name);
-    fprintf (out, "%% call %s\n", node->right->data.name);
+    fprintf (out, "%% call %s\nV:1\n", node->right->data.name);
 
     NEXT ();
 
@@ -247,13 +246,13 @@ void Decompiler::PrintCall (Node<Token> * node)
     {
         fprintf (out, "%s", hrmny.chords[hrmny.curr_chord].bass[i]);
     }
-    fprintf (out, "%s & ", hrmny.chords[hrmny.curr_chord].bass[2]);
+    fprintf (out, "%s |\n", hrmny.chords[hrmny.curr_chord].bass[2]);
 }
 
 void Decompiler::PrintNum (Node<Token> * node)
 {
     printf ("gonna print num %d\n", node->data.data);
-    fprintf (out, "%% num %d\n", node->data.data);
+    fprintf (out, "%% num %d\nV:1\n", node->data.data);
 
     NEXT ();
 
@@ -261,7 +260,7 @@ void Decompiler::PrintNum (Node<Token> * node)
     {
         fprintf (out, "%s", hrmny.chords[hrmny.curr_chord].bass[i]);
     }
-    fprintf (out, "%s & ", hrmny.chords[hrmny.curr_chord].bass[0]);
+    fprintf (out, "%s &\nV:2\n", hrmny.chords[hrmny.curr_chord].bass[0]);
 
     int num = node->data.data + 127;
     assert (num >= 0 && num <= 256);
@@ -287,7 +286,7 @@ void Decompiler::PrintNum (Node<Token> * node)
 void Decompiler::PrintId (Node<Token> * node)
 {
     printf ("gonna print id %s\n", node->data.name);
-    fprintf (out, "%% id %s\n", node->data.name);
+    fprintf (out, "%% id %s\nV:1\n", node->data.name);
 
     NEXT ();
 
@@ -295,7 +294,7 @@ void Decompiler::PrintId (Node<Token> * node)
     {
         fprintf (out, "%s", hrmny.chords[hrmny.curr_chord].bass[i]);
     }
-    fprintf (out, "z & ");
+    fprintf (out, "z &\nV:2\n");
 
     for (size_t i = 0; i < 3; i++)
     {
@@ -310,7 +309,7 @@ void Decompiler::PrintId (Node<Token> * node)
 void Decompiler::PrintOp (size_t opcode)
 {
     printf ("gonna print op %s\n", operators[opcode].name);
-    fprintf (out, "%% op %s\n", operators[opcode].name);
+    fprintf (out, "%% op %s\nV:1\n", operators[opcode].name);
 
     NEXT ();
 
@@ -318,7 +317,7 @@ void Decompiler::PrintOp (size_t opcode)
     {
         fprintf (out, "%s", hrmny.chords[hrmny.curr_chord].bass[i]);
     }
-    fprintf (out, "%s & ", hrmny.chords[hrmny.curr_chord].bass[1]);
+    fprintf (out, "%s &\nV:2\n", hrmny.chords[hrmny.curr_chord].bass[1]);
 
     size_t ptr = 0;
 

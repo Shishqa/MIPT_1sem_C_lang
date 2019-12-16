@@ -12,11 +12,7 @@ void PrintToken (FILE * out, const void * data)
         break;
 
         case OP_TYPE:
-            fprintf (out, "OP: %s", operators[token->data].name);
-        break;
-
-        case MATH_TYPE:
-            fprintf (out, "M_OP: %s%s", ((*(operators[token->data].name) == '<' ||
+            fprintf (out, "OP: %s%s", ((*(operators[token->data].name) == '<' ||
                                           *(operators[token->data].name) == '>' || 
                                           *(operators[token->data].name) == '|') ? "\\" : ""), 
                                           operators[token->data].name);
