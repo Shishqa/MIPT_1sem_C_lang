@@ -1,13 +1,13 @@
 % ##      THIS FILE IS GENERATED AUTOMATICALLY      ##
 % ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##
 
-def Fib (var num, var zeliboba)
+def Fib (var num)
 {
 	if (num <= 1)
 	{
 		return (num)
 	}
-	return (Fib (num - 1, 0) + Fib (num - 2, 3))
+	return (Fib (num - 1) + Fib (num - 2))
 }
 
 def main ()
@@ -17,9 +17,9 @@ def main ()
 	if (m == 1)
 	{
 		var i = 0
-		while (!(i > n))
+		while (i <= n)
 		{
-			print (Fib (i, 12))
+			print (Fib (i))
 			if (i != n)
 			{
 				putc (44)
@@ -30,7 +30,7 @@ def main ()
 	}
 	else
 	{
-		print (Fib (n, 333))
+		print (Fib (n))
 	}
 	putc (10)
 	return (0)

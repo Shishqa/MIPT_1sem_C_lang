@@ -9,8 +9,6 @@
 func_Fib:
 ;	Fib_var_num (arg_1)
 	POP [ex+1]
-;	Fib_var_zeliboba (arg_2)
-	POP [ex+2]
 ;	"Fib" body:
 
 	if_0:
@@ -42,13 +40,11 @@ func_Fib:
 
 
 	if_0_end:
-		PUSH	0 	; NUM
 		PUSH	[ex+1] 	; LOCAL VAR
 		PUSH	1 	; NUM
 		SUB
 	MOV	ex+50	ex
 	CALL	func_Fib
-		PUSH	3 	; NUM
 		PUSH	[ex+1] 	; LOCAL VAR
 		PUSH	2 	; NUM
 		SUB
@@ -94,7 +90,7 @@ func_main:
 cycle_0:
 		PUSH	[ex+3] 	; LOCAL VAR
 		PUSH	[ex+2] 	; LOCAL VAR
-	JA case_2_positive
+	JBE case_2_positive
 	JMP case_2_negative
 	case_2_positive:
 		PUSH	1
@@ -102,20 +98,8 @@ cycle_0:
 	case_2_negative:
 		PUSH	0
 	case_2_continue:
-;NOT
-	case_3_check:
-		PUSH	0
-		JE	case_3_set1
-		JMP	case_3_set0
-	case_3_set1:
-		PUSH	1
-		JMP	case_3_continue
-	case_3_set0:
-		PUSH	0
-	case_3_continue:
 	PUSH	0
 	JE cycle_0_stop
-		PUSH	12 	; NUM
 		PUSH	[ex+3] 	; LOCAL VAR
 	MOV	ex+50	ex
 	CALL	func_Fib
@@ -124,14 +108,14 @@ cycle_0:
 ;	if_2_condition
 		PUSH	[ex+3] 	; LOCAL VAR
 		PUSH	[ex+2] 	; LOCAL VAR
-	JNE case_4_positive
-	JMP case_4_negative
-	case_4_positive:
+	JNE case_3_positive
+	JMP case_3_negative
+	case_3_positive:
 		PUSH	1
-		JMP	case_4_continue
-	case_4_negative:
+		JMP	case_3_continue
+	case_3_negative:
 		PUSH	0
-	case_4_continue:
+	case_3_continue:
 		PUSH	0
 		JNE	if_2_positive
 		JMP	if_2_negative
@@ -157,7 +141,6 @@ cycle_0_stop:
 		JMP	if_1_end
 	if_1_negative:
 
-		PUSH	333 	; NUM
 		PUSH	[ex+2] 	; LOCAL VAR
 	MOV	ex+50	ex
 	CALL	func_Fib
