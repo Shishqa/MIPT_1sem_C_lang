@@ -17,9 +17,10 @@ bool Decompiler::GetCode (BinaryTree<Token> * code, const char * output_path)
 {
     FILE * f = fopen (output_path, "w");
 
-    fprintf (f, "$$ ##      THIS FILE IS GENERATED AUTOMATICALLY      ##\n");
-    fprintf (f, "$$ ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##\n");
+    fprintf (f, "%% ##      THIS FILE IS GENERATED AUTOMATICALLY      ##\n");
+    fprintf (f, "%% ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##\n");
 
+    deep = 0;
     prog = code;
 
     Proceed (f);
@@ -82,6 +83,7 @@ void Decompiler::GetOperator (Node<Token> * node)
             Calculate (node->left);
             fprintf (out, ")\n");
             Calculate (node->right->right);
+            fprintf (out, "\n");
         break;
 
         case DEF_VAR:
@@ -131,23 +133,39 @@ void Decompiler::GetOperator (Node<Token> * node)
             Calculate (node->right);
             if (node->left)
             {
-                fprintf (out, "\nelse\n");
+                fprintf (out, "\n");
+                SetTabs ();
+                fprintf (out, "else\n");
                 Calculate (node->left);
             }
         break;
 
         case OPERATOR:
             Calculate (node->left);
+            SetTabs ();
             Calculate (node->right);
             fprintf (out, "\n");
         break;
 
         case BLOCK:
+            SetTabs ();
             fprintf (out, "{\n");
+            deep++;
             Calculate (node->right);
+            deep--;
+            SetTabs ();
             fprintf (out, "}");
         break;
-    
+
+        case COMMA:
+            Calculate (node->right);
+            if (node->left)
+            {
+                fprintf (out, ", ");
+                Calculate (node->left);
+            }
+        break;
+
         default:
             Calculate (node->left);
             fprintf (out, " %s ", operators[node->data.data].name);
@@ -160,5 +178,13 @@ void Decompiler::GetOperator (Node<Token> * node)
         operators[node->parent->data.data].priority)
     {
         fprintf (out, ")");
+    }
+}
+
+void Decompiler::SetTabs ()
+{
+    for (size_t i = 0; i < deep; i++)
+    {
+        fprintf (out, "\t");
     }
 }

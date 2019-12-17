@@ -21,11 +21,14 @@ class Decompiler
     BinaryTree<Token> * prog;
 
     FILE * out;
+    size_t deep;
 
     void Proceed (FILE * f);
 
     void Calculate     (Node<Token> * node);
     void GetOperator   (Node<Token> * node);
+
+    void SetTabs ();
 
 public:
     bool GetCode (BinaryTree<Token> * code, const char * output_path);

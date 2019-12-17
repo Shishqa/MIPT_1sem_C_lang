@@ -502,39 +502,54 @@ void Translator::GetWhile (Node<Token> * node)
         fprintf (out, "\t%s case_%lu_positive\n", asm_jmp, case_cnt);                                         \
         fprintf (out, "\tJMP case_%lu_negative\n", case_cnt);                                                 \
         fprintf (out, "\tcase_%lu_positive:\n\t\tPUSH\t1\n\t\tJMP\tcase_%lu_continue\n", case_cnt, case_cnt); \
-        fprintf (out, "\tcase_%lu_negative:\n\t\tPUSH\t0\n\t\tJMP\tcase_%lu_continue\n", case_cnt, case_cnt); \
+        fprintf (out, "\tcase_%lu_negative:\n\t\tPUSH\t0\n", case_cnt);                                       \
         fprintf (out, "\tcase_%lu_continue:\n", case_cnt);                                                    \
         case_cnt++;                                                                                           \
     }
 
 #define GET_AND()                                                                                             \
     {                                                                                                         \
-        fprintf (out, "\tcase_%lu_check1:\n");                                                                \
+        fprintf (out, ";AND\n\tcase_%lu_check1:\n", case_cnt);                                                \
         fprintf (out, "\t\tPUSH\t0\n");                                                                       \
-        fprintf (out, "\t\tJE\tcase_%lu_negative\n");                                                         \
-        fprintf (out, "\t\tJMP\tcase_%lu_check2\n");                                                          \
-        fprintf (out, "\tcase_%lu_check2:\n");                                                                \
+        fprintf (out, "\t\tJE\tcase_%lu_negative\n", case_cnt);                                               \
+        fprintf (out, "\t\tJMP\tcase_%lu_check2\n", case_cnt);                                                \
+        fprintf (out, "\tcase_%lu_check2:\n", case_cnt);                                                      \
         fprintf (out, "\t\tPUSH\t0\n");                                                                       \
-        fprintf (out, "\t\tJE\tcase_%lu_negative\n");                                                         \
-        fprintf (out, "\t\tJMP\tcase_%lu_positive\n");                                                        \
+        fprintf (out, "\t\tJE\tcase_%lu_negative\n", case_cnt);                                               \
+        fprintf (out, "\t\tJMP\tcase_%lu_positive\n", case_cnt);                                              \
         fprintf (out, "\tcase_%lu_positive:\n\t\tPUSH\t1\n\t\tJMP\tcase_%lu_continue\n", case_cnt, case_cnt); \
-        fprintf (out, "\tcase_%lu_negative:\n\t\tPUSH\t0\n\t\tJMP\tcase_%lu_continue\n", case_cnt, case_cnt); \
+        fprintf (out, "\tcase_%lu_negative:\n\t\tPUSH\t0\n", case_cnt);                                       \
         fprintf (out, "\tcase_%lu_continue:\n", case_cnt);                                                    \
         case_cnt++;                                                                                           \
     }
 
 #define GET_OR()                                                                                              \
     {                                                                                                         \
-        fprintf (out, "\tcase_%lu_check1:\n");                                                                \
+        fprintf (out, ";OR\n\tcase_%lu_check1:\n", case_cnt);                                                 \
         fprintf (out, "\t\tPUSH\t0\n");                                                                       \
-        fprintf (out, "\t\tJE\tcase_%lu_check2\n");                                                           \
-        fprintf (out, "\t\tJMP\tcase_%lu_positive\n");                                                        \
-        fprintf (out, "\tcase_%lu_check2:\n");                                                                \
+        fprintf (out, "\t\tJE\tcase_%lu_check2\n", case_cnt);                                                 \
+        fprintf (out, "\t\tJMP\tcase_%lu_positive\n", case_cnt);                                              \
+        fprintf (out, "\tcase_%lu_check2:\n", case_cnt);                                                      \
         fprintf (out, "\t\tPUSH\t0\n");                                                                       \
-        fprintf (out, "\t\tJE\tcase_%lu_negative\n");                                                         \
-        fprintf (out, "\t\tJMP\tcase_%lu_positive\n");                                                        \
+        fprintf (out, "\t\tJE\tcase_%lu_negative\n", case_cnt);                                               \
+        fprintf (out, "\t\tJMP\tcase_%lu_positive\n", case_cnt);                                              \
         fprintf (out, "\tcase_%lu_positive:\n\t\tPUSH\t1\n\t\tJMP\tcase_%lu_continue\n", case_cnt, case_cnt); \
-        fprintf (out, "\tcase_%lu_negative:\n\t\tPUSH\t0\n\t\tJMP\tcase_%lu_continue\n", case_cnt, case_cnt); \
+        fprintf (out, "\tcase_%lu_negative:\n\t\tPUSH\t0\n", case_cnt);                                       \
+        fprintf (out, "\tcase_%lu_continue:\n", case_cnt);                                                    \
+        case_cnt++;                                                                                           \
+    }
+
+#define GET_NOT()                                                                                             \
+    {                                                                                                         \
+        fprintf (out, ";NOT\n\tcase_%lu_check:\n", case_cnt);                                                 \
+        fprintf (out, "\t\tPUSH\t0\n");                                                                       \
+        fprintf (out, "\t\tJE\tcase_%lu_set1\n", case_cnt);                                                   \
+        fprintf (out, "\t\tJMP\tcase_%lu_set0\n", case_cnt);                                                  \
+        fprintf (out, "\tcase_%lu_set1:\n", case_cnt);                                                        \
+        fprintf (out, "\t\tPUSH\t1\n");                                                                       \
+        fprintf (out, "\t\tJMP\tcase_%lu_continue\n", case_cnt);                                              \
+        fprintf (out, "\tcase_%lu_set0:\n", case_cnt);                                                        \
+        fprintf (out, "\t\tPUSH\t0\n");                                                                       \
         fprintf (out, "\tcase_%lu_continue:\n", case_cnt);                                                    \
         case_cnt++;                                                                                           \
     }
@@ -596,6 +611,10 @@ void Translator::Calculate (Node<Token> * node)
                     fprintf (out, "\t\tMOD\n");
                 break;
                 
+                case NOT:
+                    GET_NOT ();
+                break;
+
                 case AND:
                     GET_AND ();
                 break;
