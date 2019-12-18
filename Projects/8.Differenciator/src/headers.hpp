@@ -7,7 +7,7 @@
 #include <ctype.h>
 #include <linux/limits.h>
 
-#include "../../6.Binary_Tree/src/tree.h"
+#include "tree.h"
 
 #include "DSL.hpp"
 

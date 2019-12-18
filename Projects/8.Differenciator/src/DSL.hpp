@@ -24,63 +24,6 @@
 #define VAR( elem )                                 \
         (elem)->data.var
 
-
-//НЕТ ОБРАТНОЙ ПРИВЯЗКИ К OP_ID          
-
-// #define LADD( elem_l, elem_r )                                   \
-//     {                                                           \
-//         elem_l                                                  \
-//         Node<Token> * left = res;                               \
-//         fprintf (latex, "+");                                   \
-//         elem_r                                                  \
-//         Node<Token> * right = res;                              \
-//         res = CreateNode (-1, ADD, '#', OP_TYPE, right, left);  \
-//     }
-        
-
-// #define LSUB( elem_l, elem_r )                                   \
-//     {                                                           \
-//         elem_l                                                  \
-//         Node<Token> * left = res;                               \
-//         fprintf (latex, "-");                                   \
-//         elem_r                                                  \
-//         Node<Token> * right = res;                              \
-//         res = CreateNode (-1, SUB, '#', OP_TYPE, right, left);  \
-//     }
-
-// #define LMUL( elem_l, elem_r )                                   \
-//     {                                                           \
-//         elem_l                                                  \
-//         Node<Token> * left = res;                               \
-//         fprintf (latex, "\\cdot");                              \
-//         elem_r                                                  \
-//         Node<Token> * right = res;                              \
-//         res = CreateNode (-1, MUL, '#', OP_TYPE, right, left);  \
-//     }
-
-// #define LDIV( elem_l, elem_r )                                   \
-//     {                                                           \
-//         fprintf (latex, "\\frac{");                             \
-//         elem_l                                                  \
-//         Node<Token> * left = res;                               \
-//         fprintf (latex, "}{");                                  \
-//         elem_r                                                  \
-//         fprintf (latex, "}");                                   \
-//         Node<Token> * right = res;                              \
-//         res = CreateNode (-1, DIV, '#', OP_TYPE, right, left);  \
-//     }
-
-// #define LPOW( elem_l, elem_r )                       \
-//     {                                                           \
-//         elem_l                                                  \
-//         Node<Token> * left = res;                               \
-//         fprintf (latex, "^{");                                  \
-//         elem_r                                                  \
-//         fprintf (latex, "}");                                   \
-//         Node<Token> * right = res;                              \
-//         res = CreateNode (-1, SUB, '#', OP_TYPE, right, left);  \
-//     }
-
 #define ADD( elem_l, elem_r )                       \
         CreateNode (-1, ADD, '#', OP_TYPE, elem_r, elem_l)
 

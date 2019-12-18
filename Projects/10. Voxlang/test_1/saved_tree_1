@@ -1,0 +1,1 @@
+{O:D#${O:def#${I:main#${O:B#${O:O#{O:O#{O:O#${O:var#{I:s#}{O:CALL#${I:input#}}}}{O:while#{O:!=#{I:s#}{N:0}}{O:B#${O:O#{O:O#{O:O#${O:CALL#{O:,#${I:s#}}{I:putc#}}}{O:CALL#{O:,#${N:10}}{I:putc#}}}{O:=#{I:s#}{O:CALL#${I:input#}}}}}}}{O:return#{O:,#${N:0}}}}}}}}

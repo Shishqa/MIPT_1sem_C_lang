@@ -1,19 +1,32 @@
+
 #include "libraries.hpp"
 
 #include "Parser.hpp"
+#include "Operators.hpp"
+
+#include "Decompiler.hpp"
+
+#include "Translator.hpp"
 
 int main () 
 {
     Parser p = {};
 
-    BinaryTree<Token> * prog = p.ParseFile ("test");
+    BinaryTree<Token> * my_tree = p.Parse ("programs/fibonacci/main.plan"); 
 
-    if (!prog)
-    {
-        return (0);
-    }
+    assert (my_tree);
 
-    prog->dotDump (PrintToken, 1);
+    FILE * log = fopen ("saved_tree", "w");
+    my_tree->print (log, 'p', TokenPrinter);
+    fclose (log);  
 
-    return (0);
+    Decompiler d = {};
+
+    d.GetCode (my_tree, "programs/fibonacci/DEC.plan");
+
+    Translator t = {};
+
+    t.BuildAndRun (my_tree, "programs/fibonacci/main.bin");
+
+    return (0); 
 }

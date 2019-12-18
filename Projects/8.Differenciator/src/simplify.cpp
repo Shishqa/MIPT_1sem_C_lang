@@ -39,6 +39,14 @@ Node<Token> * Simplifier::Simplify (BinaryTree<Token> * exp, Node<Token> * node)
         return (n(operations[op_id].op (l_val, r_val)));
     }
 
+    if ((R && TYPE(R) == NUM_TYPE) && !L)
+    {
+        op_id = node->data.op_id;
+        r_val = DATA(R);
+        exp->deleteSubtree (N);
+        return (n(operations[op_id].op (0, r_val)));
+    }
+
     //ZERO
     if ((OPCODE(N) == ADD || OPCODE(N) == SUB) && RIGHT (0))
     {

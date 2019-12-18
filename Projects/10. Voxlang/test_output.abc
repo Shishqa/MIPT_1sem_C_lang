@@ -1,0 +1,1173 @@
+% ##      THIS FILE IS GENERATED AUTOMATICALLY      ##
+% ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##
+X:1
+T:Principalis
+M:4/4
+L:1/4
+Q:1/4=212
+K:C
+% op {
+V:1
+B,CEC &
+V:2
+cece |
+% id alpha
+V:1
+[DFA]4 &
+V:2
+dfaz |
+W: alpha
+% op !=
+V:1
+DA,G,A, &
+V:2
+GAzd |
+% id nulla
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: nulla
+% op !=
+V:1
+B,CEC &
+V:2
+eczB |
+% op {
+V:1
+EGBG &
+V:2
+gbgb |
+% id beta
+V:1
+[F,A,C]4 &
+V:2
+FAcz |
+W: beta
+% op !=
+V:1
+CEGE &
+V:2
+gezc |
+% id nulla
+V:1
+[DFA]4 &
+V:2
+dfaz |
+W: nulla
+% op !=
+V:1
+EGBG &
+V:2
+bgze |
+% op {
+V:1
+DA,G,A, &
+V:2
+AGAG |
+% id gamma
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: gamma
+% op !=
+V:1
+DFAF &
+V:2
+afzd |
+% id nulla
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: nulla
+% op !=
+V:1
+CEGE &
+V:2
+gezc |
+% op {
+V:1
+CEGE &
+V:2
+egeg |
+% id discrim
+V:1
+[B,CE]4 &
+V:2
+Bcez |
+W: discrim
+% op sqrt
+V:1
+DFAF &
+V:2
+ffff |
+% id nulla
+V:1
+[DA,G,]4 &
+V:2
+dAGz |
+W: nulla
+% op !=
+V:1
+CEGE &
+V:2
+gezc |
+% op {
+V:1
+B,CEC &
+V:2
+cece |
+% op Print
+V:1
+EGBG &
+V:2
+bzeb |
+% id nulla
+V:1
+[F,A,C]4 &
+V:2
+FAcz |
+W: nulla
+% op -
+V:1
+CEGE &
+V:2
+cggc |
+% id beta
+V:1
+[DFA]4 &
+V:2
+dfaz |
+W: beta
+% op +
+V:1
+EGBG &
+V:2
+ezeb |
+% op ==
+V:1
+DA,G,A, &
+V:2
+GAdA |
+% id discrim
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: discrim
+% op /
+V:1
+DFAF &
+V:2
+daaf |
+% num 2
+V:1
+EGBE &
+V:2
+gzze |
+% op *
+V:1
+CEGE &
+V:2
+cgzg |
+% id alpha
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: alpha
+% op Print
+V:1
+B,CEC &
+V:2
+ezBe |
+% num 1
+V:1
+DFAD &
+V:2
+fzzz |
+% op }
+V:1
+DA,G,A, &
+V:2
+AzGA |
+% op Else
+V:1
+CEGE &
+V:2
+eege |
+% op {
+V:1
+B,CEC &
+V:2
+cece |
+% id discrim
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: discrim
+% op <
+V:1
+F,A,CA, &
+V:2
+zFFA |
+% id nulla
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: nulla
+% op !=
+V:1
+DFAF &
+V:2
+afzd |
+% op {
+V:1
+EGBG &
+V:2
+gbgb |
+% op Print
+V:1
+DA,G,A, &
+V:2
+GzdG |
+% id nulla
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: nulla
+% op }
+V:1
+DFAF &
+V:2
+fzaf |
+% op Else
+V:1
+EGBG &
+V:2
+ggbg |
+% op {
+V:1
+CEGE &
+V:2
+egeg |
+% op Print
+V:1
+CEGE &
+V:2
+gzcg |
+% id nulla
+V:1
+[B,CE]4 &
+V:2
+Bcez |
+W: nulla
+% op -
+V:1
+DFAF &
+V:2
+daad |
+% id beta
+V:1
+[DA,G,]4 &
+V:2
+dAGz |
+W: beta
+% op -
+V:1
+CEGE &
+V:2
+cggc |
+% op ==
+V:1
+B,CEC &
+V:2
+ecBc |
+% id discrim
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: discrim
+% op /
+V:1
+F,A,CA, &
+V:2
+FccA |
+% num 2
+V:1
+CEGC &
+V:2
+ezzc |
+% op *
+V:1
+DFAF &
+V:2
+daza |
+% id alpha
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: alpha
+% op Print
+V:1
+DA,G,A, &
+V:2
+GzdG |
+% id nulla
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: nulla
+% op -
+V:1
+DFAF &
+V:2
+daad |
+% id beta
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: beta
+% op +
+V:1
+CEGE &
+V:2
+czcg |
+% op ==
+V:1
+CEGE &
+V:2
+gece |
+% id discrim
+V:1
+[B,CE]4 &
+V:2
+Bcez |
+W: discrim
+% op /
+V:1
+DFAF &
+V:2
+daaf |
+% num 2
+V:1
+DA,G,D &
+V:2
+Azzd |
+% op *
+V:1
+CEGE &
+V:2
+cgzg |
+% id alpha
+V:1
+[B,CE]4 &
+V:2
+Bcez |
+W: alpha
+% op Print
+V:1
+EGBG &
+V:2
+bzeb |
+% num 2
+V:1
+F,A,CF, &
+V:2
+AzzF |
+% op }
+V:1
+CEGE &
+V:2
+ezge |
+% op }
+V:1
+DFAF &
+V:2
+fzaf |
+% id discrim
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: discrim
+% op =
+V:1
+DA,G,A, &
+V:2
+dzdA |
+% id beta
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: beta
+% op *
+V:1
+DFAF &
+V:2
+daza |
+% id beta
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: beta
+% op -
+V:1
+CEGE &
+V:2
+cggc |
+% num 4
+V:1
+CEGC &
+V:2
+ezzg |
+% op *
+V:1
+B,CEC &
+V:2
+Beze |
+% id alpha
+V:1
+[DFA]4 &
+V:2
+dfaz |
+W: alpha
+% op *
+V:1
+DA,G,A, &
+V:2
+dGzG |
+% id gamma
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: gamma
+% op }
+V:1
+B,CEC &
+V:2
+czec |
+% op Else
+V:1
+EGBG &
+V:2
+ggbg |
+% op {
+V:1
+F,A,CA, &
+V:2
+AcAc |
+% op Print
+V:1
+CEGE &
+V:2
+gzcg |
+% id nulla
+V:1
+[DFA]4 &
+V:2
+dfaz |
+W: nulla
+% op -
+V:1
+EGBG &
+V:2
+ebbe |
+% id beta
+V:1
+[DA,G,]4 &
+V:2
+dAGz |
+W: beta
+% op /
+V:1
+CEGE &
+V:2
+cgge |
+% id alpha
+V:1
+[DFA]4 &
+V:2
+dfaz |
+W: alpha
+% op Print
+V:1
+EGBG &
+V:2
+bzeb |
+% id nulla
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: nulla
+% op Print
+V:1
+CEGE &
+V:2
+gzcg |
+% num 2
+V:1
+B,CEB, &
+V:2
+czzB |
+% op }
+V:1
+DFAF &
+V:2
+fzaf |
+% op }
+V:1
+DA,G,A, &
+V:2
+AzGA |
+% op Else
+V:1
+CEGE &
+V:2
+eege |
+% op {
+V:1
+B,CEC &
+V:2
+cece |
+% id gamma
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: gamma
+% op /
+V:1
+F,A,CA, &
+V:2
+FccA |
+% id alpha
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: alpha
+% op <
+V:1
+DFAF &
+V:2
+zddf |
+% id nulla
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: nulla
+% op !=
+V:1
+DA,G,A, &
+V:2
+GAzd |
+% op {
+V:1
+CEGE &
+V:2
+egeg |
+% op Print
+V:1
+DFAF &
+V:2
+azda |
+% id nulla
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: nulla
+% op -
+V:1
+CEGE &
+V:2
+cggc |
+% op ==
+V:1
+CEGE &
+V:2
+gece |
+% id nulla
+V:1
+[B,CE]4 &
+V:2
+Bcez |
+W: nulla
+% op -
+V:1
+DFAF &
+V:2
+daad |
+% id gamma
+V:1
+[DA,G,]4 &
+V:2
+dAGz |
+W: gamma
+% op /
+V:1
+CEGE &
+V:2
+cgge |
+% id alpha
+V:1
+[B,CE]4 &
+V:2
+Bcez |
+W: alpha
+% op Print
+V:1
+EGBG &
+V:2
+bzeb |
+% op ==
+V:1
+F,A,CA, &
+V:2
+cAFA |
+% id nulla
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: nulla
+% op -
+V:1
+DFAF &
+V:2
+daad |
+% id gamma
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: gamma
+% op /
+V:1
+DA,G,A, &
+V:2
+dGGA |
+% id alpha
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: alpha
+% op Print
+V:1
+DFAF &
+V:2
+azda |
+% num 2
+V:1
+EGBE &
+V:2
+gzze |
+% op }
+V:1
+CEGE &
+V:2
+ezge |
+% op Else
+V:1
+CEGE &
+V:2
+eege |
+% op {
+V:1
+B,CEC &
+V:2
+cece |
+% id gamma
+V:1
+[DFA]4 &
+V:2
+dfaz |
+W: gamma
+% op sqrt
+V:1
+DA,G,A, &
+V:2
+AAAA |
+% id nulla
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: nulla
+% op !=
+V:1
+B,CEC &
+V:2
+eczB |
+% op {
+V:1
+EGBG &
+V:2
+gbgb |
+% op Print
+V:1
+F,A,CA, &
+V:2
+czFc |
+% num 0
+V:1
+CEGC &
+V:2
+cggg |
+% op Print
+V:1
+DFAF &
+V:2
+azda |
+% num 1
+V:1
+EGBE &
+V:2
+gzzz |
+% op }
+V:1
+DA,G,A, &
+V:2
+AzGA |
+% op Else
+V:1
+CEGE &
+V:2
+eege |
+% op {
+V:1
+DFAF &
+V:2
+fafa |
+% op Print
+V:1
+EGBG &
+V:2
+bzeb |
+% num 0
+V:1
+CEGC &
+V:2
+cggg |
+% op }
+V:1
+CEGE &
+V:2
+ezge |
+% op }
+V:1
+B,CEC &
+V:2
+czec |
+% op }
+V:1
+DFAF &
+V:2
+fzaf |
+% op }
+V:1
+DA,G,A, &
+V:2
+AzGA |
+% op Else
+V:1
+CEGE &
+V:2
+eege |
+% op {
+V:1
+B,CEC &
+V:2
+cece |
+% id beta
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: beta
+% op !=
+V:1
+F,A,CA, &
+V:2
+cAzF |
+% id nulla
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: nulla
+% op !=
+V:1
+DFAF &
+V:2
+afzd |
+% op {
+V:1
+EGBG &
+V:2
+gbgb |
+% id gamma
+V:1
+[DA,G,]4 &
+V:2
+dAGz |
+W: gamma
+% op !=
+V:1
+CEGE &
+V:2
+gezc |
+% id nulla
+V:1
+[DFA]4 &
+V:2
+dfaz |
+W: nulla
+% op !=
+V:1
+EGBG &
+V:2
+bgze |
+% op {
+V:1
+CEGE &
+V:2
+egeg |
+% op Print
+V:1
+CEGE &
+V:2
+gzcg |
+% id nulla
+V:1
+[B,CE]4 &
+V:2
+Bcez |
+W: nulla
+% op -
+V:1
+DFAF &
+V:2
+daad |
+% id gamma
+V:1
+[DA,G,]4 &
+V:2
+dAGz |
+W: gamma
+% op /
+V:1
+CEGE &
+V:2
+cgge |
+% id beta
+V:1
+[B,CE]4 &
+V:2
+Bcez |
+W: beta
+% op Print
+V:1
+EGBG &
+V:2
+bzeb |
+% num 1
+V:1
+F,A,CF, &
+V:2
+Azzz |
+% op }
+V:1
+CEGE &
+V:2
+ezge |
+% op Else
+V:1
+DFAF &
+V:2
+ffaf |
+% op {
+V:1
+EGBG &
+V:2
+gbgb |
+% op Print
+V:1
+DA,G,A, &
+V:2
+GzdG |
+% num 0
+V:1
+CEGC &
+V:2
+cggg |
+% op Print
+V:1
+DFAF &
+V:2
+azda |
+% num 1
+V:1
+EGBE &
+V:2
+gzzz |
+% op }
+V:1
+CEGE &
+V:2
+ezge |
+% op }
+V:1
+CEGE &
+V:2
+ezge |
+% op Else
+V:1
+B,CEC &
+V:2
+ccec |
+% op {
+V:1
+DFAF &
+V:2
+fafa |
+% id gamma
+V:1
+[DA,G,]4 &
+V:2
+dAGz |
+W: gamma
+% op !=
+V:1
+CEGE &
+V:2
+gezc |
+% id nulla
+V:1
+[B,CE]4 &
+V:2
+Bcez |
+W: nulla
+% op !=
+V:1
+EGBG &
+V:2
+bgze |
+% op {
+V:1
+F,A,CA, &
+V:2
+AcAc |
+% op Print
+V:1
+CEGE &
+V:2
+gzcg |
+% num 0
+V:1
+DFAD &
+V:2
+daaa |
+% op }
+V:1
+EGBG &
+V:2
+gzbg |
+% op Else
+V:1
+DA,G,A, &
+V:2
+AAGA |
+% op {
+V:1
+CEGE &
+V:2
+egeg |
+% op Print
+V:1
+DFAF &
+V:2
+azda |
+% num -1
+V:1
+EGBE &
+V:2
+ebbg |
+% op }
+V:1
+CEGE &
+V:2
+ezge |
+% op }
+V:1
+CEGE &
+V:2
+ezge |
+% op }
+V:1
+B,CEC &
+V:2
+czec |
+% op Read
+V:1
+DFAF &
+V:2
+azfa |
+% id gamma
+V:1
+[DA,G,]4 &
+V:2
+dAGz |
+W: gamma
+% op Read
+V:1
+CEGE &
+V:2
+gzeg |
+% id beta
+V:1
+[B,CE]4 &
+V:2
+Bcez |
+W: beta
+% op Read
+V:1
+EGBG &
+V:2
+bzgb |
+% id alpha
+V:1
+[F,A,C]4 &
+V:2
+FAcz |
+W: alpha
+% op Var
+V:1
+CEGE &
+V:2
+ecge |
+% id discrim
+V:1
+[DFA]4 &
+V:2
+dfaz |
+W: discrim
+% op =
+V:1
+EGBG &
+V:2
+ezeg |
+% id nulla
+V:1
+[DA,G,]4 &
+V:2
+dAGz |
+W: nulla
+% op Var
+V:1
+CEGE &
+V:2
+ecge |
+% id gamma
+V:1
+[DFA]4 &
+V:2
+dfaz |
+W: gamma
+% op =
+V:1
+EGBG &
+V:2
+ezeg |
+% id nulla
+V:1
+[CEG]4 &
+V:2
+cegz |
+W: nulla
+% op Var
+V:1
+CEGE &
+V:2
+ecge |
+% id beta
+V:1
+[B,CE]4 &
+V:2
+Bcez |
+W: beta
+% op =
+V:1
+DFAF &
+V:2
+dzdf |
+% id nulla
+V:1
+[DA,G,]4 &
+V:2
+dAGz |
+W: nulla
+% op Var
+V:1
+CEGE &
+V:2
+ecge |
+% id alpha
+V:1
+[B,CE]4 &
+V:2
+Bcez |
+W: alpha
+% op =
+V:1
+EGBG &
+V:2
+ezeg |
+% id nulla
+V:1
+[F,A,C]4 &
+V:2
+FAcz |
+W: nulla
+% op }
+V:1
+CEGE &
+V:2
+ezge |
+% op Var
+V:1
+DFAF &
+V:2
+fdaf |
+% id nulla
+V:1
+[EGB]4 &
+V:2
+egbz |
+W: nulla
+% op =
+V:1
+DA,G,A, &
+V:2
+dzdA |
+% num 0
+V:1
+CEGC &
+V:2
+cggg |

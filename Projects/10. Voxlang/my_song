@@ -1,0 +1,25 @@
+X:1
+T: MAIN 
+T:Keptwise ABC arrangement - Elendilmir
+M:4/4
+L:1/4
+Q:1/4=120
+K: F octave=-1
+[Ace]4 |
+[DFA]4 |
+[DFB,]4 |
+[CEG]4 |
+
+
+
+%g8   g3(f2f)eg  ^g8   ^A8    c8   c3(^A2^A)^Bc     B16       &\
+%C6G,2C6     C2   E6B,2 E6E2  A,6E2A,6       A,2    E6B,2E6E2 |
+
+%[E,E]GBGEGBG | [^G,^G]c^dc^Gc^dc | [^C,^C]F^GF^CF^GF | [E,E]GBGEGBG |
+
+
+%[E,EGB]2E2G2B2 | [^G,^Gc^d]2^d2^G2c2 | [^C,^CF^G]2^C2F2^G2 | [E,EGB]2G2B2E2 |
+%[E,EGB]2B2G2E2 | [B,Bdf]2B2d2f2 | [A,Acf]2c2A2f2 | [^G,^G^B^d]2^G2^B2^d2 |
+
+
+%C|D E F G|A B c d|e f g a|b

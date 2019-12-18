@@ -1,0 +1,266 @@
+% ##      THIS FILE IS GENERATED AUTOMATICALLY      ##
+% ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##
+
+X:1
+T:Fib
+M:4/4
+L:1/4
+Q:1/4=212
+K:C
+% op ,
+A,CEC & Acec |
+% op var
+DB,G,B, & BdGB |
+% id num
+W: num
+% op {
+DB,G,B, & BGBG |
+% op if
+EFBF & ffbe |
+% op (
+EFBF & efef |
+% id num
+W: num
+% op <=
+A,CEC & cAAA |
+% num 1
+A,CEA, & czzz |
+% op )
+DB,G,B, & dBBd |
+% op {
+DB,G,B, & BGBG |
+% op return
+EFBF & befb |
+% op (
+EFBF & efef |
+% op ,
+A,CEC & Acec |
+% id num
+W: num
+% op )
+A,CEC & AccA |
+% op }
+DB,G,B, & BGGB |
+% op return
+DB,G,B, & GdBG |
+% op (
+EFBF & efef |
+% op ,
+EFBF & efbf |
+% id Fib
+W: Fib
+% op (
+A,CEC & AcAc |
+% op ,
+A,CEC & Acec |
+% id num
+W: num
+% op -
+DB,G,B, & dGGd |
+% num 1
+DB,G,D & Bzzz |
+% op )
+EFBF & effe |
+% op +
+EFBF & ebeb |
+% id Fib
+W: Fib
+% op (
+A,CEC & AcAc |
+% op ,
+A,CEC & Acec |
+% id num
+W: num
+% op -
+DB,G,B, & dGGd |
+% num 2
+DB,G,D & Bzzd |
+% op )
+EFBF & effe |
+% op )
+EFBF & effe |
+% op }
+A,CEC & ceec |
+
+X:2
+T:main
+M:4/4
+L:1/4
+Q:1/4=212
+K:C
+% op {
+A,CEC & cece |
+% op var
+DB,G,B, & BdGB |
+% id m
+W: m
+% op =
+DB,G,B, & dGdB |
+% id input
+W: input
+% op (
+EFBF & efef |
+% op )
+EFBF & effe |
+% op var
+A,CEC & cAec |
+% id n
+W: n
+% op =
+A,CEC & AeAc |
+% id input
+W: input
+% op (
+DB,G,B, & dBdB |
+% op )
+DB,G,B, & dBBd |
+% op if
+EFBF & ffbe |
+% op (
+EFBF & efef |
+% id m
+W: m
+% op ==
+A,CEC & ecAc |
+% num 1
+A,CEA, & czzz |
+% op )
+DB,G,B, & dBBd |
+% op {
+DB,G,B, & BGBG |
+% op var
+EFBF & febf |
+% id i
+W: i
+% op =
+EFBF & ebef |
+% num 0
+A,CEA, & Aeee |
+% op while
+A,CEC & ccAe |
+% op (
+DB,G,B, & dBdB |
+% id i
+W: i
+% op <=
+DB,G,B, & Bddd |
+% id n
+W: n
+% op )
+EFBF & effe |
+% op {
+EFBF & fbfb |
+% id print
+W: print
+% op (
+A,CEC & AcAc |
+% op ,
+A,CEC & Acec |
+% id Fib
+W: Fib
+% op (
+DB,G,B, & dBdB |
+% op ,
+DB,G,B, & dBGB |
+% id i
+W: i
+% op )
+EFBF & effe |
+% op )
+EFBF & effe |
+% op if
+A,CEC & cceA |
+% op (
+A,CEC & AcAc |
+% id i
+W: i
+% op !=
+DB,G,B, & GBBd |
+% id n
+W: n
+% op )
+DB,G,B, & dBBd |
+% op {
+EFBF & fbfb |
+% id putc
+W: putc
+% op (
+EFBF & efef |
+% op ,
+A,CEC & Acec |
+% num 44
+A,CEA, & ccce |
+% op )
+DB,G,B, & dBBd |
+% op }
+DB,G,B, & BGGB |
+% id putc
+W: putc
+% op (
+EFBF & efef |
+% op ,
+EFBF & efbf |
+% num 32
+A,CEA, & cAee |
+% op )
+A,CEC & AccA |
+% id i
+W: i
+% op =
+DB,G,B, & dGdB |
+% id i
+W: i
+% op +
+DB,G,B, & dGdG |
+% num 1
+EFBE & fzzz |
+% op }
+EFBF & fbbf |
+% op }
+A,CEC & ceec |
+% op else
+A,CEC & ccec |
+% op {
+DB,G,B, & BGBG |
+% id print
+W: print
+% op (
+DB,G,B, & dBdB |
+% op ,
+EFBF & efbf |
+% id Fib
+W: Fib
+% op (
+EFBF & efef |
+% op ,
+A,CEC & Acec |
+% id n
+W: n
+% op )
+A,CEC & AccA |
+% op )
+DB,G,B, & dBBd |
+% op }
+DB,G,B, & BGGB |
+% id putc
+W: putc
+% op (
+EFBF & efef |
+% op ,
+EFBF & efbf |
+% num 10
+A,CEA, & czcA |
+% op )
+A,CEC & AccA |
+% op return
+DB,G,B, & GdBG |
+% op (
+DB,G,B, & dBdB |
+% op ,
+EFBF & efbf |
+% num 0
+EFBE & ebbb |
+% op )
+A,CEC & AccA |
+% op }
+A,CEC & ceec |

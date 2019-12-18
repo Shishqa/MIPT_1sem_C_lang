@@ -1,0 +1,17 @@
+X:1
+T:Main
+L: 1/4
+L: 1/4
+K: C
+|D AG1/4 | D [BG] | [A G] | FAc | dF | dcF |
+|DFA| 
+
+W: n, input
+W: print, fibonacci, n
+
+% CDEFGABcdefg
+
+% C
+
+% input == Tell me
+% print == Say

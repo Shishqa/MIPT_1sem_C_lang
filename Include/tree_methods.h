@@ -103,7 +103,7 @@ char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur, void (* 
 
     if (*cur != '}')
     {
-        printf ("unclosed braces: %d\n", *cur);
+        printf ("unclosed braces: %c\n", *cur);
         return (nullptr);
     }
 
