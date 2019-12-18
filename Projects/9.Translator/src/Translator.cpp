@@ -306,7 +306,6 @@ void Translator::GetAssign (Node<Token> * node)
     }
     else
     {
-        fprintf (out, "ZHOPA\n");
         error = UNDEF_VAR;
         problem_node = L;
         return;
