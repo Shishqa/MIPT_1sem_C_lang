@@ -1,28 +1,49 @@
 % Программа находит n-ое число Фибоначчи
 
-def Fib (var num)
+def Fib (var n)
 {
-    if (num <= 1)
+    if (n < 2)
     {
-        return (num)
+        return (n)
     }
 
-    return (Fib (num - 1) + Fib (num - 2))
+    var a
+    var kek
+    kek = n - 1
+    a = Fib (kek)
+    var b 
+    var lol
+    lol = n - 2
+    b = Fib (lol)
+
+    var c
+    c = a + b
+    return (c)
 }
 
 def main ()
 {
-    var m = 1
-    var n = 20
+    var m 
+    m = 1
+    var n 
+    n = 18
 
-    var i = 0
-	
-    while (i < n + 1)
+    var kek
+    kek = n + 1
+
+    var i 
+    i = 0
+    var res 
+    res = 0
+
+    while (i < kek)
     {
-        print (Fib (i))	    
+        res = Fib (i)
+        print (res)	    
 
-	i = i + 1
+	    i = i + 1
     }
 	
     return (0)
 }
+

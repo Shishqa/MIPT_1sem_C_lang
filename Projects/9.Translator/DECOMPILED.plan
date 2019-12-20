@@ -1,25 +1,42 @@
 % ##      THIS FILE IS GENERATED AUTOMATICALLY      ##
 % ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##
 
-def betrayal (iter)
+def Fib (var n)
 {
-	var  = sum
-	sum = iter
-	iter = iter - 1
-	if (iter < 0)
+	if (n < 2)
 	{
-		sum = sum * betrayal (iter)
+		return (n)
 	}
-	return (sum)
+	var a
+	var kek
+	kek = n - 1
+	a = Fib (kek)
+	var b
+	var lol
+	lol = n - 2
+	b = Fib (lol)
+	var c
+	c = a + b
+	return (c)
 }
 
-def reign ()
+def main ()
 {
-	var  = minister
-	var  = collector
-	minister = 0
-	collector = 8
-	minister = betrayal (collector)
-	print (minister)
+	var m
+	m = 1
+	var n
+	n = 18
+	var kek
+	kek = n + 1
+	var i
+	i = 0
+	var res
+	res = 0
+	while (i < kek)
+	{
+		res = Fib (i)
+		print (res)
+		i = i + 1
+	}
 	return (0)
 }

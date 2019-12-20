@@ -118,7 +118,7 @@ void SongDecompiler::GetNum (Node<Token> * node)
         data /= 3;
     }
 
-    fprintf (out, "%s\n", NOTE (2));
+    fprintf (out, "%s", NOTE (2));
 }
 
 void SongDecompiler::GetId (Node<Token> * node)
@@ -185,7 +185,7 @@ void SongDecompiler::GetOp (Node<Token> * node)
         break;
 
         CHECK_FUNC (RET)
-        CHECK_FUNC (PRINT)
+        CHECK_FUNC (PRNT)
         CHECK_FUNC (INPUT)
         CHECK_FUNC (PUTC)
 
@@ -262,8 +262,6 @@ void SongDecompiler::PrintOp (size_t opcode)
     {
         fprintf (out, "%s", ((i == 0) ? "z" : NOTE(operators[opcode].seq[i] - 1)));
     }
-
-    fprintf (out, "\n");
 }
 
 

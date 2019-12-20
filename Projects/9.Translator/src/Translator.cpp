@@ -236,7 +236,7 @@ void Translator::DefFunc (Node<Token> * node)
     fprintf (out, ";\t\"%s\" body:\n\n", curr_func->name);
     GetOperators (R->right);
 
-    fprintf (out, ";#####################################################################\n\n\n", var_cnt);
+    fprintf (out, ";#####################################################################\n\n", var_cnt);
 
     curr_func = nullptr;
 }
@@ -274,7 +274,7 @@ void Translator::GetOperators (Node<Token> * node)
     {
         GetAssign (R);
     }
-    else if (IS_OP(R, OP_TYPE, CALL) || IS_OP(R, OP_TYPE, RET))
+    else if (IS_OP(R, OP_TYPE, CALL) || IS_OP(R, OP_TYPE, RET) || IS_OP (R, OP_TYPE, PRNT))
     {
         GetCall (R);
     }
@@ -396,7 +396,7 @@ void Translator::GetCall (Node<Token> * node)
         }
     }
 
-    if (IS_OP (N, OP_TYPE, PRINT))
+    if (IS_OP (N, OP_TYPE, PRNT))
     {
         for (size_t i = 0; i < arg_cnt; i++)
         {
@@ -424,12 +424,12 @@ void Translator::GetCall (Node<Token> * node)
 
     if (call_func != 0)
     {
-        if (functions[call_func].var_cnt != arg_cnt)
-        {
-            error = INCORRECT_NUM_OF_ARGS;
-            problem_node = R;
-            return;
-        }
+        // if (functions[call_func].var_cnt != arg_cnt)
+        // {
+        //     error = INCORRECT_NUM_OF_ARGS;
+        //     problem_node = R;
+        //     return;
+        // }
 
         fprintf (out, "\tMOV\tex+%lu\tex\n", functions[call_func].VAR_MAX);
         fprintf (out, "\tCALL\tfunc_%s\n", functions[call_func].name);
