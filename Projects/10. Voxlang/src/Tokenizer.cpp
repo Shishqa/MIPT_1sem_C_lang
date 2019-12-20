@@ -58,7 +58,7 @@
 
 //     while (*cur)
 //     {
-//         if (*cur == '%')
+//         if (*cur == '%' || *cur == 'M' || *cur == 'X' || *cur == 'K' || *cur == 'L' || *cur == 'Q')
 //         {
 //             while (*cur != '\n' && *cur != '\0')
 //             {
@@ -68,15 +68,21 @@
 //             continue;
 //         }
         
-//         tonic = c.
+//         tonic = c.getNote (&cur);
 
-//         switch ()
+//         switch (*cur)
 //         {
-//         case /* constant-expression */:
-//             /* code */
+//             case '4':
+//                 cur++;
+//                 ParseId ();
 //             break;
+
+//             case '2':
+//                 cur++;
+//                 ParseNum ();
         
-//         default:
+//             default:
+//                 ParseOp ();
 //             break;
 //         }
 
@@ -86,14 +92,7 @@
 
 // void Tokenizer::ParseNum ()
 // {
-//     int num = 0;
-//     size_t num_len = 0;
-
-//     sscanf (cur, "%d%n", &num, &num_len);
-
-//     tokens[n_tokens++] = SetNode (NUM_TYPE, num);
-
-//     cur += num_len;
+//     int 
 // }
 
 // void Tokenizer::ParseId ()

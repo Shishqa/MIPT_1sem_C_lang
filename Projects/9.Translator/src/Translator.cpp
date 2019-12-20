@@ -396,7 +396,7 @@ void Translator::GetCall (Node<Token> * node)
         }
     }
 
-    if (R->data.data == 5 &&!strncmp (R->data.name, "print", R->data.data))
+    if (IS_OP (N, OP_TYPE, PRINT))
     {
         for (size_t i = 0; i < arg_cnt; i++)
         {

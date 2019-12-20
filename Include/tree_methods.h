@@ -33,7 +33,8 @@ bool BinaryTree<elem_t>::init (const elem_t data)
 }
 
 template <typename elem_t>
-bool BinaryTree<elem_t>::init (const char * path, void (* reader) (char **, const void *))
+bool BinaryTree<elem_t>::init (const char * path, void (* reader) (char **, const void *), 
+                               const char left_b, const char right_b, const char sep)
 {
     FILE* f = fopen (path, "r");
 
@@ -49,18 +50,19 @@ bool BinaryTree<elem_t>::init (const char * path, void (* reader) (char **, cons
 
     assert (cur != nullptr);
 
-    if (*cur != '{')
+    if (*cur != left_b)
     {
         return (false);
     }
 
     setNode (&this->root);
 
-    initSubtree (this->root, cur, reader);
+    initSubtree (this->root, cur, reader, left_b, right_b, sep);
 }
 
 template <typename elem_t>
-char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur, void (* reader) (char **, const void *))
+char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur, void (* reader) (char **, const void *), 
+                                        const char left_b, const char right_b, const char sep)
 {
     assert (cur != nullptr);
     assert (node != nullptr);
@@ -69,28 +71,28 @@ char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur, void (* 
 
     reader (&cur, &(node->data));
 
-    if (*cur == '{')
+    if (*cur == left_b)
     {
         node->setLeft ();
 
         assert (node->left->parent == node);
 
-        cur = initSubtree (node->left, cur, reader);
+        cur = initSubtree (node->left, cur, reader, left_b, right_b, sep);
 
-        if (*cur == '{')
+        if (*cur == left_b)
         {
             node->setRight ();
 
             assert (node->right->parent == node);
 
-            cur = initSubtree (node->right, cur, reader);
+            cur = initSubtree (node->right, cur, reader, left_b, right_b, sep);
         }
     }
-    else if (*cur == '$')
+    else if (*cur == sep)
     {
         if (*(cur + 1) != '{')
         {
-            printf ("expected { after $\n");
+            printf ("expected { after %c\n", sep);
             return (nullptr);
         }
 
@@ -98,7 +100,7 @@ char * BinaryTree<elem_t>::initSubtree (Node<elem_t> * node, char* cur, void (* 
 
         assert (node->right->parent == node);
 
-        cur = initSubtree (node->right, ++cur, reader);
+        cur = initSubtree (node->right, ++cur, reader, left_b, right_b, sep);
     }
 
     if (*cur != '}')

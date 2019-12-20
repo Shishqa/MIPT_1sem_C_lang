@@ -45,6 +45,8 @@ void Node<elem_t>::print (FILE * log, const char mode, void (* printer) (FILE *,
 {
     switch (mode)
     {
+        //TODO:: BACKUP!!!
+
         case 'p':
         {
             fprintf (log, "%c", left_brac);
@@ -63,6 +65,10 @@ void Node<elem_t>::print (FILE * log, const char mode, void (* printer) (FILE *,
             if (this->right)
             {
                 this->right->print (log, mode, printer, left_brac, right_brac, sep);
+            }
+            else if (this->right)
+            {
+                fprintf (log, "%c", sep);
             }
 
             fprintf (log, "%c", right_brac);

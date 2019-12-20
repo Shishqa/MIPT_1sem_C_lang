@@ -93,7 +93,7 @@ void SongDecompiler::Calculate (Node<Token> * node)
 #define NEXT()                                                                                  \
     {                                                                                           \
         h.next();                                                                               \
-        fprintf (out, "[%s%s]", NOTE(0), basic_notes[h.chords[h.curr_chord].notes[0] - 14]);    \
+        fprintf (out, "%s", NOTE(0));    \
     }                                   
 
 void SongDecompiler::GetNum (Node<Token> * node)
@@ -125,13 +125,22 @@ void SongDecompiler::GetId (Node<Token> * node)
 {
     NEXT ();
 
-    fprintf (out, "\nW:%s\n", node->data.name);
+    fprintf (out, "4\nW:%s\n", node->data.name);
 
     if (node->right)
     {
         Calculate (node->right);
     }
 }
+
+#define CHECK_FUNC( opcode )        \
+    case opcode:                    \
+        PrintOp (opcode);           \
+        PrintOp (LEFT_B);           \
+        Calculate (node->left);     \
+        PrintOp (RIGHT_B);          \
+    break;
+
 
 void SongDecompiler::GetOp (Node<Token> * node)
 {
@@ -175,12 +184,10 @@ void SongDecompiler::GetOp (Node<Token> * node)
             PrintOp (RIGHT_B);
         break;
 
-        case RET:
-            PrintOp (RET);
-            PrintOp (LEFT_B);
-            Calculate (node->left);
-            PrintOp (RIGHT_B);
-        break;
+        CHECK_FUNC (RET)
+        CHECK_FUNC (PRINT)
+        CHECK_FUNC (INPUT)
+        CHECK_FUNC (PUTC)
 
         case IF:
             PrintOp (IF);

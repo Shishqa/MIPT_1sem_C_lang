@@ -593,7 +593,7 @@ Node<Token> * Parser::ParseCall ()
 
     Node<Token> * res = nullptr;
 
-    if (IS_OP (OP_TYPE, RET))
+    if (IS_OP (OP_TYPE, RET) || IS_OP (OP_TYPE, PRINT))
     {
         PRINT ("==RET\n");
         res = tokens[cur_token++];

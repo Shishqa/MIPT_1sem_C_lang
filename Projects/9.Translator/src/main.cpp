@@ -22,7 +22,9 @@ int main (int argc, char ** argv)
     if (argc > 2 && !strncmp (argv[2], "-do", 3))
     {
         BinaryTree<Token> my_tree = {};
-        my_tree.init (path, TokenReader);
+        my_tree.init (path, TokenReader, '{', '}', '@');
+
+        my_tree.dotDump (DotTokenPrinter, 444);
 
         Decompiler d = {};
 
@@ -32,7 +34,9 @@ int main (int argc, char ** argv)
     else if (argc > 2 && !strncmp (argv[2], "-d", 2))
     {
         BinaryTree<Token> my_tree = {};
-        my_tree.init (path, TokenReader);
+        my_tree.init (path, TokenReader, '{', '}', '@');
+
+        my_tree.dotDump (DotTokenPrinter, 444);
 
         Decompiler d = {};
 
@@ -53,7 +57,7 @@ int main (int argc, char ** argv)
         printf ("parsed\n");
 
         FILE * log = fopen ("saved_tree.txt", "w");
-        my_tree->print (log, 'p', TokenPrinter);
+        my_tree->print (log, 'p', TokenPrinter, '{', '}', '@');
         fclose (log);  
 
         printf ("printed\n");

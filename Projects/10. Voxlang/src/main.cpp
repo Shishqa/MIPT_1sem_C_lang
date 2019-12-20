@@ -9,7 +9,7 @@ int main ()
 {
     BinaryTree<Token> t = {};
 
-    t.init ("saved_tree1", TokenReader);
+    t.init ("saved_tree", TokenReader);
 
     t.dotDump (DotTokenPrinter, 123);
 

@@ -80,7 +80,7 @@ static int my_com (const int l, const int r)
 }
 
 const size_t MAX_OP_NAME_LEN = 10;
-const size_t OP_CNT = 32;
+const size_t OP_CNT = 35;
 
 struct Operator 
 {
@@ -124,6 +124,9 @@ enum opcodes
     DEF_VAR,
     CALL,
     RET,
+    PRINT,
+    INPUT,
+    PUTC,
     IF,
     ELSE,
     WHILE,
@@ -159,6 +162,9 @@ static const Operator operators[OP_CNT] = {
     {"var",    3,  DEF_VAR,  nullptr,   OP_TYPE,     0, 2, {0, 2}},
     {"CALL",   4,  CALL,     nullptr,   OP_TYPE,     0},
     {"return", 6,  RET,      nullptr,   OP_TYPE,     0, 2, {1, 0}},
+    {"print",  5,  PRINT,    nullptr,   OP_TYPE,     0, 3, {1, 3, 0}},
+    {"input",  5,  INPUT,    nullptr,   OP_TYPE,     0, 3, {1, 3, 2}},
+    {"putc",   4,  PUTC,     nullptr,   OP_TYPE,     0, 3, {1, 3, 1}},
     {"if",     2,  IF,       nullptr,   OP_TYPE,     0, 3, {0, 0, 2}},
     {"else",   4,  ELSE,     nullptr,   OP_TYPE,     0, 3, {0, 0, 3}},
     {"while",  5,  WHILE,    nullptr,   OP_TYPE,     0, 3, {0, 0, 1}},

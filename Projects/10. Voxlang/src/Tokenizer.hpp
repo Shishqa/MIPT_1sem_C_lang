@@ -19,7 +19,7 @@
 
 //     const size_t MAX_NAME_LEN = 100;
 
-//     const char * cur;
+//     char * cur;
 //     size_t line;
 
 //     int tonic;

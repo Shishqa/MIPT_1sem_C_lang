@@ -109,6 +109,12 @@ void Decompiler::GetOperator (Node<Token> * node)
             fprintf (out, ")");
         break;
 
+        case PRINT:
+            fprintf (out, "print (");
+            Calculate (node->left);
+            fprintf (out, ")");
+        break;
+
         case IF:
             fprintf (out, "if (");
             Calculate (node->left);
