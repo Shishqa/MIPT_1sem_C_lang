@@ -1,26 +1,53 @@
-#include "head.hpp"
-#include "OK_Tokenizer.hpp"
+
+#include "libraries.hpp"
+
+//#include "Parser.hpp"
+#include "Operators.hpp"
+
+#include "Decompiler.hpp"
+
+//#include "Translator.hpp"
+//#include "Tokenizer.hpp"
+
 
 int main () 
 {
-    Tokenizer t = {};
+    BinaryTree<Token> * prog = (BinaryTree<Token> *) calloc (1, sizeof (*prog));
 
-    FILE * in = fopen ("test/song_1", "r");
+    prog->init ("saved_tree_2", TokenReader);
+    prog->dotDump (PrintToken, 111);
 
-    char * buff = nullptr;
-    size_t file_len = Read (&buff, in);
+    printf ("hello\n");
 
-    fclose (in);
+    Decompiler d = {};
 
-    String * code = nullptr;
+    d.GetCode (prog, "test_output.abc", "harmonies/AmGEmF");
 
-    size_t num_of_lines = ArrangePointers (buff, file_len, &code);
+    // prog->dotDump (PrintToken, 111);
+    // printf ("printed!\n");
 
-    //printf ("main:: hello!\n");
+    // Tokenizer t = {};
 
-    Node<Token> ** arr = t.tokenize (code, num_of_lines);
-         
-    printf ("SongParse::Parse - Tokenized!!! !\n");
+    // FILE * in = fopen ("test_song", "r");
+    // char * buf = nullptr;
+    // Read (&buf, in);
+    // fclose (in);
+
+    // t.tokenize (buf);
+
+    // Parser p = {};
+
+    // BinaryTree<Token> * my_tree = p.Parse ("programs/fibonacci/main.plan"); 
+
+    // assert (my_tree);
+
+    // Decompiler d = {};
+
+    // d.GetCode (my_tree, "programs/fibonacci/DEC.plan");
+
+    // Translator t = {};
+
+    // t.BuildAndRun (my_tree, "programs/fibonacci/main.bin");
 
     return (0); 
 }

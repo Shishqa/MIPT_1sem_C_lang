@@ -104,33 +104,6 @@ cycle_0:
 	MOV	ex+50	ex
 	CALL	func_Fib
 	OUT
-	if_2:
-;	if_2_condition
-		PUSH	[ex+3] 	; LOCAL VAR
-		PUSH	[ex+2] 	; LOCAL VAR
-	JNE case_3_positive
-	JMP case_3_negative
-	case_3_positive:
-		PUSH	1
-		JMP	case_3_continue
-	case_3_negative:
-		PUSH	0
-	case_3_continue:
-		PUSH	0
-		JNE	if_2_positive
-		JMP	if_2_negative
-	if_2_positive:
-
-		PUSH	44 	; NUM
-	OUTC
-
-		JMP	if_2_end
-	if_2_negative:
-
-
-	if_2_end:
-		PUSH	32 	; NUM
-	OUTC
 		PUSH	[ex+3] 	; LOCAL VAR
 		PUSH	1 	; NUM
 		ADD
@@ -147,8 +120,6 @@ cycle_0_stop:
 	OUT
 
 	if_1_end:
-		PUSH	10 	; NUM
-	OUTC
 		PUSH	0 	; NUM
 	PUSH	ex
 	PUSH	50

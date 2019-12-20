@@ -22,14 +22,15 @@
 //     const char * cur;
 //     size_t line;
 
-//     int tonic;
-
 //     void Proceed ();
 //     void SkipSpaces ();
+//     void SkipLine ();
 
-//     void ParseNum ();
-//     void ParseId ();
-//     void ParseOp ();
+//     void ParseFunc ();
+//     void ParseName ();
+//     void ParseId   ();
+//     void ParseOp   ();
+//     void ParseNum  (char * set);
 
 //     void PrintError ();
 

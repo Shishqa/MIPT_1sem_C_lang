@@ -2,6 +2,7 @@
 // #include "Tokenizer.hpp"
 // #include "SetNode.hpp"
 // #include "Operators.hpp"
+// #include "Harmony.hpp"
 
 // Node<Token> ** Tokenizer::tokenize (const char * str)
 // {
@@ -49,201 +50,97 @@
 //     printf ("\n");
 // }
 
-// #define CHECK_TAG( tag, code )      \
-//     {                               \
-//         case tag:                   \
-//             cur++;                  \
-//             if (*cur == ':')        \
-//             {                       \
-//                 cur++;              \
-//                 code                \
-//             }                       \
-//             SkipLine ();            \
-//         break;                      \
-//     }   
-
 // void Tokenizer::Proceed ()
 // {
+//     Chord c = {};
+
 //     SkipSpaces ();
 
 //     while (*cur)
 //     {
-//         printf ("line: %lu\n", line);
-//         switch (*cur)
+//         if (*cur == '%')
 //         {
-//             CHECK_TAG ('X', {
-//                 printf ("X\n");
-//                 tokens[n_tokens++] = SetNode (OP_TYPE, DEF_FUNC);
-//             })
+//             while (*cur != '\n' && *cur != '\0')
+//             {
+//                 cur++;
+//             }
+//             SkipSpaces ();
+//             continue;
+//         }
+        
+//         tonic = c.
 
-//             CHECK_TAG ('T', {
-//                 printf ("T\n");
-//                 ParseId ();
-//             })
-
-//             CHECK_TAG ('W', {
-//                 printf ("W\n");
-//                 ParseId ();
-//             })
-
-//             case '[':
-//                 while (*cur == '[')
-//                 {
-//                     printf ("OP ");
-//                     ParseOp ();
-//                     SkipSpaces ();
-//                 }
+//         switch ()
+//         {
+//         case /* constant-expression */:
+//             /* code */
 //             break;
         
-//             default:
-//                 printf ("%s\n", cur);
-//                 printf ("SKIP\n");
+//         default:
 //             break;
 //         }
 
-//         SkipLine ();
-
-//         if (error != TOKENIZER_OK)
-//         {
-//             return;
-//         }
+//         SkipSpaces ();
 //     }
+// }
+
+// void Tokenizer::ParseNum ()
+// {
+//     int num = 0;
+//     size_t num_len = 0;
+
+//     sscanf (cur, "%d%n", &num, &num_len);
+
+//     tokens[n_tokens++] = SetNode (NUM_TYPE, num);
+
+//     cur += num_len;
 // }
 
 // void Tokenizer::ParseId ()
 // {
-//     char * new_name = (char *) calloc (MAX_NAME_LEN, sizeof (char));
-//     size_t len = 0;
+//     char * name = (char *) calloc (MAX_NAME_LEN, sizeof (*name));
+//     int name_len = 0;
 
-//     sscanf (cur, "%[^\n]%n", new_name, &len);
+//     bool is_operator = false;
 
-//     if (len != 0)
+//     sscanf (cur, "%[a-zA-Z0-9_]%n", name, &name_len);
+
+//     for (size_t i = 0; i < OP_CNT; i++)
 //     {
-//         tokens[n_tokens++] = SetNode (ID_TYPE, len, new_name);
+//         if (name_len == operators[i].name_len &&
+//             !strncmp (name, operators[i].name, name_len))
+//         {
+//             tokens[n_tokens++] = SetNode (operators[i].type, operators[i].opcode);
+
+//             is_operator = true;
+//             break;
+//         }
 //     }
+
+//     if (!is_operator)
+//     {
+//         tokens[n_tokens++] = SetNode (ID_TYPE, name_len, name);
+//     }
+
+//     cur += name_len;
 // }
 
 // void Tokenizer::ParseOp ()
 // {
-//     printf ("Parse op %c\n", *cur);
-
-//     char set[3] = {};
-//     size_t count = 0;
-
-//     while (*cur && *cur != ']' && *cur != '&' && *cur != '|')
+//     for (size_t i = 0; i < OP_CNT; i++)
 //     {
-//         printf ("%c", *cur);
-//         fflush (stdout);
-//         if (isalpha (*cur))
+//         if (!strncmp (cur, operators[i].name, operators[i].name_len))
 //         {
-//             set[count++] = *cur;
-//             if (count == 3)
-//             {
-//                 break;
-//             }
+//             tokens[n_tokens++] = SetNode (operators[i].type, operators[i].opcode);
+
+//             assert (operators[i].name_len > 0); 
+
+//             cur += operators[i].name_len;
+//             return;
 //         }
-//         cur++;
-//     }
-//     while (*cur && *cur != ']' && *cur != '&' && *cur != '|')
-//     {
-//         cur++;
 //     }
 
-//     printf ("%c\n", *cur);
-//     fflush (stdout);
-
-//     if (count < 3)
-//     {
-//         printf ("Not enough notes in a chord\n");
-//         return;
-//     }
-//     else if (*cur == '&' || *cur == '|' || !*cur)
-//     {
-//         printf ("Unclosed chord!\n");
-//         return;
-//     }
-
-//     cur++;
-
-//     int op = 0;
-
-//     while (*cur != '&' && *cur != '|')
-//     {
-//         printf ("%c", *cur);
-//         fflush (stdout);
-
-//         if (*cur == set[0])
-//         {
-//             op = 3 * op + 0;
-//         }
-//         else if (*cur == set[1])
-//         {
-//             op = 3 * op + 1;
-//         }
-//         else if (*cur == set[2])
-//         {
-//             op = 3 * op + 2;
-//         }
-
-//         cur++;
-//     }
-
-//     printf ("%s\n", operators[op].name);
-//     fflush (stdout);
-
-//     if (op == NUM_REQ)
-//     {
-//         while (*cur && *cur != '&')
-//         {
-//             cur++;
-//         }
-//         cur++;
-//         ParseNum (set);
-//     }
-//     else
-//     {
-//         while (*cur && *cur != '|')
-//         {
-//             cur++;
-//         }
-//         if (*cur)
-//         {
-//             cur++;
-//         }
-//     }
-// }
-
-// void Tokenizer::ParseNum (char * set)
-// {
-//     int res = 0;
-
-//     while (*cur != '|')
-//     {
-//         SkipSpaces ();
-//         for (size_t i = 0; i < 3; i++)
-//         {
-//             if (*cur == set[i] || *cur == tolower(set[i]))
-//             {
-//                 res = res * 3 + (i + 1);
-//                 break;
-//             }
-//             else if (*cur == 'z')
-//             {
-//                 res = res * 3;
-//                 break;
-//             }
-//         }
-//         cur++;
-//         if (*cur == '/')
-//         {
-//             cur++;
-//         }
-//         else
-//         {
-//             res = 
-//         }
-
-//     }
+//     error = UNKNOWN_OPERATOR;
 // }
 
 // void Tokenizer::SkipSpaces ()
@@ -256,20 +153,5 @@
 //         }
 
 //         cur++;
-//     }
-// }
-
-// void Tokenizer::SkipLine ()
-// {
-
-//     while (*cur && *cur != '\n')
-//     {
-//         cur++;
-//     }
-
-//     if (*cur == '\n')
-//     {
-//         cur++;
-//         line++;
 //     }
 // }

@@ -89,7 +89,7 @@ BinaryTree<Token> * Parser::ParseStr (const char * str)
         return (nullptr);
     }
 
-    program_parsed->dotDump (PrintToken, 0);
+    program_parsed->dotDump (DotTokenPrinter, 1);
 
     return (program_parsed);
 }

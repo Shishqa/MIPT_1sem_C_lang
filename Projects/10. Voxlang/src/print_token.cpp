@@ -1,7 +1,7 @@
 #include "libraries.hpp"
 #include "Operators.hpp"
 
-void PrintToken (FILE * out, const void * data)
+void DotTokenPrinter (FILE * out, const void * data)
 {
     Token * token = (Token *) data;
 
@@ -12,7 +12,11 @@ void PrintToken (FILE * out, const void * data)
         break;
 
         case OP_TYPE:
-            fprintf (out, "OP: %s%s", ((*(operators[token->data].name) == '<' ||
+            fprintf (out, "OP: %s", operators[token->data].name);
+        break;
+
+        case MATH_TYPE:
+            fprintf (out, "M_OP: %s%s", ((*(operators[token->data].name) == '<' ||
                                           *(operators[token->data].name) == '>' || 
                                           *(operators[token->data].name) == '|') ? "\\" : ""), 
                                           operators[token->data].name);
@@ -71,12 +75,12 @@ void TokenReader (char ** cur, const void * data)
     
         default:
             *cur += 2;
-            token->type = OP_TYPE;
             sscanf (*cur, "%m[^#]%n", &(token->name), &skip);
             for (size_t i = 0; i < OP_CNT; i++)
             {
                 if (!strncmp(token->name, operators[i].name, skip))
                 {
+                    token->type = operators[i].type;
                     token->data = operators[i].opcode;
                 }
             }

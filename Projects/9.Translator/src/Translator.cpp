@@ -64,7 +64,7 @@ bool Translator::GetAsmCode (BinaryTree <Token> * tree, const char * output_path
         return (false);
     }
 
-    prog->dotDump (PrintToken, 2);
+    prog->dotDump (DotTokenPrinter, 2);
 
     FILE * f = fopen (output_path, "w");
 
