@@ -253,6 +253,7 @@ Node<Token> * Parser::ParseBlock ()
 
     PRINT ("block <- }\n");
 
+    //return (res);
     return (SetNode (OP_TYPE, BLOCK, nullptr, nullptr, res));
 }
 

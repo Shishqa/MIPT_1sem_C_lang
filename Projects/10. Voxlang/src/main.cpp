@@ -20,4 +20,4 @@ int main ()
     d.GetCode (&t, "test_decomp", "harmonies/AmGEmF");
 
     return (0); 
-}  
+}
