@@ -32,7 +32,7 @@ int main (int argc, char ** argv)
 
     printf ("printed\n");
 
-    if (argc >= 2 && !strncmp (argv[2], "-f", 2))
+    if (argc > 2 && !strncmp (argv[2], "-f", 2))
     {
         return (0);
     }
