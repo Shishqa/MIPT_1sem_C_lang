@@ -1,0 +1,183 @@
+% ##      THIS FILE IS GENERATED AUTOMATICALLY      ##
+% ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##
+X:1
+T:Fib
+M:4/4
+L:1/4
+Q:1/4=212
+K:C
+% op ,
+V:1
+A,CEC & 
+V:2
+Azec |
+% op var
+DB,G,B, & BdGB |
+% id num
+DB,G,z & dBGz |
+W: num
+% op {
+EFB,F & fBfB |
+% op if
+EFB,F & ffBe |
+% op (
+CA,F,A, & cAzA |
+% id num
+CA,F,z & cAFz |
+W: num
+% op <=
+A,CEC & cAAA |
+% num 1
+A,CEA, & czzz |
+% op )
+DB,G,B, & dBzd |
+% op {
+DB,G,B, & BGBG |
+% op return
+EFB,F & BzzB |
+% op (
+EFB,F & efzf |
+% op ,
+CA,F,A, & czFA |
+% id num
+CA,F,z & cAFz |
+W: num
+% op )
+A,CEC & AczA |
+% op }
+A,CEC & czec |
+% op return
+DB,G,B, & GzzG |
+% op (
+DB,G,B, & dBzB |
+% op ,
+EFB,F & ezBf |
+% call Fib
+EFB,B, & % op +
+CA,F,A, & czcF |
+% call Fib
+CA,F,F, & % op )
+A,CEC & AczA |
+% op }
+A,CEC & czec |
+X:2
+T:main
+M:4/4
+L:1/4
+Q:1/4=212
+K:C
+% op {
+DB,G,B, & BGBG |
+% op var
+DB,G,B, & BdGB |
+% id m
+EFB,z & efBz |
+W: m
+% op =
+EFB,F & ezef |
+% call input
+CA,F,F, & | % op var
+CA,F,A, & AcFA |
+% id n
+A,CEz & Acez |
+W: n
+% op =
+A,CEC & AzAc |
+% call input
+DB,G,G, & |% op if
+DB,G,B, & BBGd |
+% op (
+EFB,F & efzf |
+% id m
+EFB,z & efBz |
+W: m
+% op ==
+CA,F,A, & FAcA |
+% num 1
+CA,F,C & Azzz |
+% op )
+A,CEC & AczA |
+% op {
+A,CEC & cece |
+% op var
+DB,G,B, & BdGB |
+% id i
+DB,G,z & dBGz |
+W: i
+% op =
+EFB,F & ezef |
+% num 0
+EFB,E & eBBB |
+% op while
+CA,F,A, & AAcF |
+% op (
+CA,F,A, & cAzA |
+% id i
+A,CEz & Acez |
+W: i
+% op <=
+A,CEC & cAAA |
+% id n
+DB,G,z & dBGz |
+W: n
+% op )
+DB,G,B, & dBzd |
+% op {
+EFB,F & fBfB |
+% call print
+EFB,B, & % op if
+CA,F,A, & AAFc |
+% op (
+CA,F,A, & cAzA |
+% id i
+A,CEz & Acez |
+W: i
+% op !=
+A,CEC & eczA |
+% id n
+DB,G,z & dBGz |
+W: n
+% op )
+DB,G,B, & dBzd |
+% op {
+EFB,F & fBfB |
+% call putc
+EFB,B, & |% op }
+CA,F,A, & AzFA |
+% call putc
+CA,F,F, & |% id i
+A,CEz & Acez |
+W: i
+% op =
+A,CEC & AzAc |
+% id i
+DB,G,z & dBGz |
+W: i
+% op +
+DB,G,B, & dzdG |
+% num 1
+EFB,E & fzzz |
+% op }
+EFB,F & fzBf |
+% op }
+CA,F,A, & AzFA |
+% op else
+CA,F,A, & AAFA |
+% op {
+A,CEC & cece |
+% call print
+A,CEE & |% op }
+DB,G,B, & BzGB |
+% call putc
+DB,G,G, & |% op return
+EFB,F & BzzB |
+% op (
+EFB,F & efzf |
+% op ,
+CA,F,A, & czFA |
+% num 0
+CA,F,C & cFFF |
+% op )
+A,CEC & AczA |
+% op }
+A,CEC & czec |
