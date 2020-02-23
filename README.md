@@ -1,9 +1,5 @@
-# C language
+# Introduction in C language and Data Structures
 
-Introduction to C language
---------------------------
+* Lecturer: Ilya Dedinskiy
 
-Lecturer: Ilya Dedinskiy
---------
-
-Length of course: 1 semester
+* Length of course: 1 semester
