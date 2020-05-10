@@ -45,8 +45,10 @@ public:
 
     bool init ();
     bool init (const elem_t data);
-    bool init (const char * path, void (* reader) (char **, const void *));
-    static char * initSubtree (Node<elem_t> * node, char * cur, void (* reader) (char **, const void *));
+    bool init (const char * path, void (* reader) (char **, const void *), 
+               const char left_b = '{', const char right_b = '}', const char sep = '$');
+    static char * initSubtree (Node<elem_t> * node, char * cur, void (* reader) (char **, const void *),
+                               const char left_b = '{', const char right_b = '}', const char sep = '$');
     bool clear ();
 
     bool deleteList (Node<elem_t> * node);

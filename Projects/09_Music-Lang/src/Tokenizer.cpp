@@ -1,0 +1,156 @@
+// #include "libraries.hpp"
+// #include "Tokenizer.hpp"
+// #include "SetNode.hpp"
+// #include "Operators.hpp"
+// #include "Harmony.hpp"
+
+// Node<Token> ** Tokenizer::tokenize (const char * str)
+// {
+//     error = TOKENIZER_OK;
+
+//     cur = str;
+//     line = 1;
+
+//     tokens = (Node<Token> **) calloc (MAX_TOKENS, sizeof (*tokens));
+//     n_tokens = 0;
+
+//     Proceed ();
+
+//     if (error != TOKENIZER_OK)
+//     {
+//         PrintError ();
+//         free (tokens);
+//         return (nullptr);
+//     }
+
+//     return (tokens);
+// }
+
+// void Tokenizer::PrintError ()
+// {
+//     SETCOLOR (RED);
+//     printf ("Error: ");
+//     SETCOLOR (RESET);
+
+//     switch (error)
+//     {
+//         case UNKNOWN_OPERATOR:
+//             printf ("unknown operator");
+//         break;
+    
+//         default:
+//             printf ("strange error");
+//         break;
+//     }
+
+//     printf ("\nLine %lu: ", line);
+//     SETCOLOR (RED);
+//     printf ("%c (%d)", *cur, *cur);
+//     SETCOLOR (RESET);
+//     printf ("\n");
+// }
+
+// void Tokenizer::Proceed ()
+// {
+//     Chord c = {};
+
+//     SkipSpaces ();
+
+//     while (*cur)
+//     {
+//         if (*cur == '%' || *cur == 'M' || *cur == 'X' || *cur == 'K' || *cur == 'L' || *cur == 'Q')
+//         {
+//             while (*cur != '\n' && *cur != '\0')
+//             {
+//                 cur++;
+//             }
+//             SkipSpaces ();
+//             continue;
+//         }
+        
+//         tonic = c.getNote (&cur);
+
+//         switch (*cur)
+//         {
+//             case '4':
+//                 cur++;
+//                 ParseId ();
+//             break;
+
+//             case '2':
+//                 cur++;
+//                 ParseNum ();
+        
+//             default:
+//                 ParseOp ();
+//             break;
+//         }
+
+//         SkipSpaces ();
+//     }
+// }
+
+// void Tokenizer::ParseNum ()
+// {
+//     int 
+// }
+
+// void Tokenizer::ParseId ()
+// {
+//     char * name = (char *) calloc (MAX_NAME_LEN, sizeof (*name));
+//     int name_len = 0;
+
+//     bool is_operator = false;
+
+//     sscanf (cur, "%[a-zA-Z0-9_]%n", name, &name_len);
+
+//     for (size_t i = 0; i < OP_CNT; i++)
+//     {
+//         if (name_len == operators[i].name_len &&
+//             !strncmp (name, operators[i].name, name_len))
+//         {
+//             tokens[n_tokens++] = SetNode (operators[i].type, operators[i].opcode);
+
+//             is_operator = true;
+//             break;
+//         }
+//     }
+
+//     if (!is_operator)
+//     {
+//         tokens[n_tokens++] = SetNode (ID_TYPE, name_len, name);
+//     }
+
+//     cur += name_len;
+// }
+
+// void Tokenizer::ParseOp ()
+// {
+//     for (size_t i = 0; i < OP_CNT; i++)
+//     {
+//         if (!strncmp (cur, operators[i].name, operators[i].name_len))
+//         {
+//             tokens[n_tokens++] = SetNode (operators[i].type, operators[i].opcode);
+
+//             assert (operators[i].name_len > 0); 
+
+//             cur += operators[i].name_len;
+//             return;
+//         }
+//     }
+
+//     error = UNKNOWN_OPERATOR;
+// }
+
+// void Tokenizer::SkipSpaces ()
+// {
+//     while (*cur == ' ' || *cur == '\n' || *cur == '\t' || *cur == '\r')
+//     {
+//         if (*cur == '\n')
+//         {
+//             line++;
+//         }
+
+//         cur++;
+//     }
+// }

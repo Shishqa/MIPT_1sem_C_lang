@@ -1,0 +1,28 @@
+X:1
+T:Fib
+M:4/4
+L:1/4
+Q:1/4=215
+K:C
+%z-id 1-num 2-op 3-call
+%if(num<=
+CEGE & ccee | CEGG & ceec | B,CEz & Bzzz   | B,CEG & cBcc |
+%1){return
+DFAD & daaa | DFAA & dfff | DA,G,A, & dGGd | DA,G,A, & GGAG |
+%(num)}
+CEGG & ceec | CEGz & czzz | B,CEE & Bccc   | B,CEC & Beee |
+%else{return(
+EGBG & eebb | EGBG & ebbe | F,A,CA, & ccAc | F,A,CC & FAAF | 
+%Fib(num-
+CEGE & 
+%1)+Fib
+%(num-2
+%)}
+
+ 
+[CEG] [B,CE] [DFA] [DA,G,] |
+[CEG] [B,CE] [EGB] [F,A,C] |
+[CEG] [DFA]  [EGB] [DA,G,] |
+[CEG] [DFA]  [EGB] [CEG]   |
+
+%[CEG] [B,CE] [DFA] [DA,G,]
