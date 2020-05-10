@@ -7,15 +7,15 @@
 ;#####################################################################
 ;	function "Fib"
 func_Fib:
-;	Fib_var_n (arg_1)
+;	Fib_var_num (arg_1)
 	POP [ex+1]
 ;	"Fib" body:
 
 	if_0:
 ;	if_0_condition
 		PUSH	[ex+1] 	; LOCAL VAR
-		PUSH	2 	; NUM
-	JB case_0_positive
+		PUSH	1 	; NUM
+	JBE case_0_positive
 	JMP case_0_negative
 	case_0_positive:
 		PUSH	1
@@ -43,24 +43,14 @@ func_Fib:
 		PUSH	[ex+1] 	; LOCAL VAR
 		PUSH	1 	; NUM
 		SUB
-	POP	[ex+3]
-		PUSH	[ex+3] 	; LOCAL VAR
 	MOV	ex+50	ex
 	CALL	func_Fib
-	POP	[ex+2]
 		PUSH	[ex+1] 	; LOCAL VAR
 		PUSH	2 	; NUM
 		SUB
-	POP	[ex+5]
-		PUSH	[ex+5] 	; LOCAL VAR
 	MOV	ex+50	ex
 	CALL	func_Fib
-	POP	[ex+4]
-		PUSH	[ex+2] 	; LOCAL VAR
-		PUSH	[ex+4] 	; LOCAL VAR
 		ADD
-	POP	[ex+6]
-		PUSH	[ex+6] 	; LOCAL VAR
 	PUSH	ex
 	PUSH	50
 	SUB
@@ -73,22 +63,15 @@ func_Fib:
 func_main:
 ;	"main" body:
 
-		PUSH	1 	; NUM
+	IN
 	POP	[ex+1]
-		PUSH	18 	; NUM
+	IN
 	POP	[ex+2]
-		PUSH	[ex+2] 	; LOCAL VAR
+	if_1:
+;	if_1_condition
+		PUSH	[ex+1] 	; LOCAL VAR
 		PUSH	1 	; NUM
-		ADD
-	POP	[ex+3]
-		PUSH	0 	; NUM
-	POP	[ex+4]
-		PUSH	0 	; NUM
-	POP	[ex+5]
-cycle_0:
-		PUSH	[ex+4] 	; LOCAL VAR
-		PUSH	[ex+3] 	; LOCAL VAR
-	JB case_1_positive
+	JE case_1_positive
 	JMP case_1_negative
 	case_1_positive:
 		PUSH	1
@@ -96,20 +79,46 @@ cycle_0:
 	case_1_negative:
 		PUSH	0
 	case_1_continue:
+		PUSH	0
+		JNE	if_1_positive
+		JMP	if_1_negative
+	if_1_positive:
+
+		PUSH	0 	; NUM
+	POP	[ex+3]
+cycle_0:
+		PUSH	[ex+3] 	; LOCAL VAR
+		PUSH	[ex+2] 	; LOCAL VAR
+	JBE case_2_positive
+	JMP case_2_negative
+	case_2_positive:
+		PUSH	1
+		JMP	case_2_continue
+	case_2_negative:
+		PUSH	0
+	case_2_continue:
 	PUSH	0
 	JE cycle_0_stop
-		PUSH	[ex+4] 	; LOCAL VAR
+		PUSH	[ex+3] 	; LOCAL VAR
 	MOV	ex+50	ex
 	CALL	func_Fib
-	POP	[ex+5]
-		PUSH	[ex+5] 	; LOCAL VAR
 	OUT
-		PUSH	[ex+4] 	; LOCAL VAR
+		PUSH	[ex+3] 	; LOCAL VAR
 		PUSH	1 	; NUM
 		ADD
-	POP	[ex+4]
+	POP	[ex+3]
 	JMP cycle_0
 cycle_0_stop:
+
+		JMP	if_1_end
+	if_1_negative:
+
+		PUSH	[ex+2] 	; LOCAL VAR
+	MOV	ex+50	ex
+	CALL	func_Fib
+	OUT
+
+	if_1_end:
 		PUSH	0 	; NUM
 	PUSH	ex
 	PUSH	50
