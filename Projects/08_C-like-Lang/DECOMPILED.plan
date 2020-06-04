@@ -1,31 +1,42 @@
 % ##      THIS FILE IS GENERATED AUTOMATICALLY      ##
 % ## CHANGE THE ORIGIN IN ORDER TO CHANGE THIS FILE ##
 
-def Fib (var num)
+def Fib (var n)
 {
-	if (num <= 1)
+	if (n < 2)
 	{
-		return (num)
+		return (n)
 	}
-	return (Fib (num - 1) + Fib (num - 2))
+	var a
+	var kek
+	kek = n - 1
+	a = Fib (kek)
+	var b
+	var lol
+	lol = n - 2
+	b = Fib (lol)
+	var c
+	c = a + b
+	return (c)
 }
 
 def main ()
 {
-	var m = input ()
-	var n = input ()
-	if (m == 1)
+	var m
+	m = 1
+	var n
+	n = 18
+	var kek
+	kek = n + 1
+	var i
+	i = 0
+	var res
+	res = 0
+	while (i < kek)
 	{
-		var i = 0
-		while (i <= n)
-		{
-			print (Fib (i))
-			i = i + 1
-		}
-	}
-	else
-	{
-		print (Fib (n))
+		res = Fib (i)
+		print (res)
+		i = i + 1
 	}
 	return (0)
 }
