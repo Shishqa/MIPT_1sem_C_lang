@@ -1,13 +1,14 @@
 CXX		  := g++
 CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
 
-BIN		:= bin
-SRC		:= src
-INCLUDE	:= include
-LIB		:= ../../Include/Lib
+OUT := ../
+INCLUDE := ../
 
-LIBRARIES	:=
-EXECUTABLE	:= main
+all: $(OUT)/libstack.a
 
+stack.o: stack.cpp stack.h
+	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -c stack.cpp
 
-all: $(BIN)/$(EXECUTABLE)
+$(OUT)/libstack.a: stack.o
+	ar rcs $@ stack.o
+
